@@ -81,28 +81,9 @@ SVG_LONGEST_SIDE = 1920
 LOW_RES_SHORT_SIDE = 720
 PHASH_DUP_THRESHOLD = 5
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
-CATEGORIES = [
-    "agenda",
-    "process",
-    "flow",
-    "timeline",
-    "gantt",
-    "kpi",
-    "table",
-    "comparison",
-    "card",
-    "decision",
-    "quote",
-    "team",
-    "use-case",
-    "section-divider",
-    "project-status",
-    "executive-summary",
-    "project-charter",
-    "background",
-    "infographic-element",
-    "uncategorized",
-]
+# Categories dynamically loaded from canonical taxonomy
+# (templates/media/reference/library/categories.yaml — single source of truth)
+from tools.envato_assets.config import LIBRARY_CATEGORIES as CATEGORIES
 
 KEYWORD_RULES: list[tuple[re.Pattern[str], str, float]] = [
     (re.compile(r"\bagenda\b|toc|table of contents", re.I), "agenda", 1.0),

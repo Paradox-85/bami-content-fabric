@@ -189,17 +189,17 @@ class TestHasProcessableVector:
 class TestSeedLibraryCategory:
     def test_timelines_maps_to_timeline(self) -> None:
         cat, conf = seed_library_category({"category": "Timelines"})
-        assert cat == "timeline"
+        assert cat == "historical-timeline"
         assert conf == 0.7
 
     def test_comparison_maps_to_comparison(self) -> None:
         cat, conf = seed_library_category({"category": "Comparison"})
-        assert cat == "comparison"
+        assert cat == "comparison-table"
         assert conf == 0.8
 
     def test_data_metrics_maps_to_kpi(self) -> None:
         cat, conf = seed_library_category({"category": "Data metrics"})
-        assert cat == "kpi"
+        assert cat == "kpi-dashboard-grid"
         assert conf == 0.6
 
     def test_unknown_seed_falls_back(self) -> None:
@@ -209,7 +209,7 @@ class TestSeedLibraryCategory:
 
     def test_multi_category_uses_first(self) -> None:
         cat, conf = seed_library_category({"category": "Timelines; Comparison"})
-        assert cat == "timeline"
+        assert cat == "historical-timeline"
 
 
 # ---------------------------------------------------------------------------
@@ -218,16 +218,16 @@ class TestSeedLibraryCategory:
 
 class TestKeywordRefine:
     def test_gantt_matches(self) -> None:
-        assert keyword_refine_library_category("gantt-chart-infographic_p1-a1") == "gantt"
+        assert keyword_refine_library_category("gantt-chart-infographic_p1-a1") == "gantt-matrix"
 
     def test_timeline_matches(self) -> None:
-        assert keyword_refine_library_category("timeline-infographic_p1-cc1") == "timeline"
+        assert keyword_refine_library_category("timeline-infographic_p1-cc1") == "historical-timeline"
 
     def test_kpi_matches(self) -> None:
-        assert keyword_refine_library_category("kpi-dashboard-p1-full") == "kpi"
+        assert keyword_refine_library_category("kpi-dashboard-p1-full") == "kpi-dashboard-grid"
 
     def test_funnel_matches_process(self) -> None:
-        assert keyword_refine_library_category("funnel-infographic_p1-a1") == "process"
+        assert keyword_refine_library_category("funnel-infographic_p1-a1") == "funnel-diagram"
 
     def test_no_match_returns_none(self) -> None:
         assert keyword_refine_library_category("random-misc-file_p1-a1") is None

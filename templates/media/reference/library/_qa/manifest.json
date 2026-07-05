@@ -1,69 +1,74 @@
 {
-  "generated": "2026-07-04T21:39:29.460166",
+  "generated": "2026-07-05T05:51:38.919398",
   "qa_ready": true,
   "qa_signoff": false,
   "library_truth_source": "manual-reclassification-2026-07-04.md",
   "categories": {
-    "agenda": 3,
+    "agenda-toc-list": 3,
     "background": 0,
-    "card": 2,
+    "case-study-card": 2,
     "checklist-status": 1,
-    "comparison": 4,
+    "circular-process-loop": 4,
     "comparison-table": 1,
-    "data-table": 1,
-    "decision": 2,
-    "executive-summary": 1,
+    "competitive-matrix": 1,
+    "data-table": 3,
+    "decision-tree-flowchart": 2,
+    "executive-summary-panel": 1,
     "flow": 0,
-    "gantt": 4,
+    "funnel-diagram": 2,
+    "gantt-matrix": 4,
+    "historical-timeline": 2,
+    "icon-text-feature-list": 1,
     "impact-table": 1,
     "infographic": 10,
     "infographic-3d-cube": 1,
-    "kpi": 9,
-    "mind-map-radial": 9,
+    "kpi-dashboard-grid": 9,
+    "mind-map-radial": 10,
+    "numbered-process-steps": 5,
     "numbered-ranking-list": 1,
-    "phased-rollout-timeline": 2,
-    "process": 11,
-    "project-charter": 1,
+    "phased-rollout-timeline": 3,
+    "project-overview-card": 1,
     "project-status": 0,
+    "pros-cons-list": 1,
     "quadrant-matrix": 3,
-    "quote": 1,
+    "quote-testimonial-card": 1,
     "roadmap-with-milestones": 1,
+    "scorecard": 1,
     "section-divider": 2,
-    "table": 2,
-    "team": 2,
-    "timeline": 5,
-    "uncategorized": 0,
-    "use-case": 2
+    "swimlane-diagram": 1,
+    "team-contact-card-grid": 2,
+    "tier-pricing-cards": 2,
+    "uncategorized": 0
   },
   "entries": {
-    "agenda-001.png": {
-      "category": "agenda",
-      "file": "agenda-001.png",
+    "agenda-toc-list-001.png": {
+      "category": "agenda-toc-list",
+      "file": "agenda-toc-list-001.png",
       "size": 612084,
       "source": "manual"
     },
-    "agenda-002.png": {
-      "category": "agenda",
-      "file": "agenda-002.png",
+    "agenda-toc-list-002.png": {
+      "category": "agenda-toc-list",
+      "file": "agenda-toc-list-002.png",
       "size": 303986,
       "source": "manual"
     },
-    "agenda-003.png": {
-      "category": "agenda",
-      "file": "agenda-003.png",
+    "agenda-toc-list-003.png": {
+      "category": "agenda-toc-list",
+      "file": "agenda-toc-list-003.png",
       "size": 154561,
       "source": "manual"
     },
-    "card-003.png": {
-      "category": "card",
-      "file": "card-003.png",
-      "size": 268267,
+    "case-study-card-001.png": {
+      "category": "case-study-card",
+      "file": "case-study-card-001.png",
+      "size": 225505,
       "source": "manual"
     },
-    "card-006.png": {
-      "category": "card",
-      "file": "card-006.png",
-      "size": 153186,
+    "case-study-card-002.png": {
+      "category": "case-study-card",
+      "file": "case-study-card-002.png",
+      "size": 196724,
       "source": "manual"
     },
     "checklist-status-001.png": {
@@ -72,28 +77,28 @@
       "size": 225370,
       "source": "manual"
     },
-    "comparison-001.png": {
-      "category": "comparison",
-      "file": "comparison-001.png",
-      "size": 87342,
+    "circular-process-loop-001.png": {
+      "category": "circular-process-loop",
+      "file": "circular-process-loop-001.png",
+      "size": 280743,
       "source": "manual"
     },
-    "comparison-002.png": {
-      "category": "comparison",
-      "file": "comparison-002.png",
-      "size": 249077,
+    "circular-process-loop-002.png": {
+      "category": "circular-process-loop",
+      "file": "circular-process-loop-002.png",
+      "size": 71664,
       "source": "manual"
     },
-    "comparison-003.png": {
-      "category": "comparison",
-      "file": "comparison-003.png",
-      "size": 100564,
+    "circular-process-loop-003.png": {
+      "category": "circular-process-loop",
+      "file": "circular-process-loop-003.png",
+      "size": 80682,
       "source": "manual"
     },
-    "comparison-004.png": {
-      "category": "comparison",
-      "file": "comparison-004.png",
-      "size": 31159,
+    "circular-process-loop-004.png": {
+      "category": "circular-process-loop",
+      "file": "circular-process-loop-004.png",
+      "size": 73657,
       "source": "manual"
     },
     "comparison-table-001.png": {
@@ -102,52 +107,100 @@
       "size": 496392,
       "source": "manual"
     },
+    "competitive-matrix-001.png": {
+      "category": "competitive-matrix",
+      "file": "competitive-matrix-001.png",
+      "size": 268267,
+      "source": "manual"
+    },
     "data-table-001.png": {
       "category": "data-table",
       "file": "data-table-001.png",
       "size": 216778,
       "source": "manual"
     },
-    "decision-005.png": {
-      "category": "decision",
-      "file": "decision-005.png",
+    "data-table-002.png": {
+      "category": "data-table",
+      "file": "data-table-002.png",
+      "size": 619798,
+      "source": "manual"
+    },
+    "data-table-003.png": {
+      "category": "data-table",
+      "file": "data-table-003.png",
+      "size": 201513,
+      "source": "manual"
+    },
+    "decision-tree-flowchart-001.png": {
+      "category": "decision-tree-flowchart",
+      "file": "decision-tree-flowchart-001.png",
       "size": 278505,
       "source": "manual"
     },
-    "decision-006.png": {
-      "category": "decision",
-      "file": "decision-006.png",
+    "decision-tree-flowchart-002.png": {
+      "category": "decision-tree-flowchart",
+      "file": "decision-tree-flowchart-002.png",
       "size": 102981,
       "source": "manual"
     },
-    "executive-summary-001.png": {
-      "category": "executive-summary",
-      "file": "executive-summary-001.png",
+    "executive-summary-panel-001.png": {
+      "category": "executive-summary-panel",
+      "file": "executive-summary-panel-001.png",
       "size": 388183,
       "source": "manual"
     },
-    "gantt-001.png": {
-      "category": "gantt",
-      "file": "gantt-001.png",
+    "funnel-diagram-001.png": {
+      "category": "funnel-diagram",
+      "file": "funnel-diagram-001.png",
+      "size": 190161,
+      "source": "manual"
+    },
+    "funnel-diagram-002.png": {
+      "category": "funnel-diagram",
+      "file": "funnel-diagram-002.png",
+      "size": 167581,
+      "source": "manual"
+    },
+    "gantt-matrix-001.png": {
+      "category": "gantt-matrix",
+      "file": "gantt-matrix-001.png",
       "size": 63798,
       "source": "manual"
     },
-    "gantt-004.png": {
-      "category": "gantt",
-      "file": "gantt-004.png",
+    "gantt-matrix-002.png": {
+      "category": "gantt-matrix",
+      "file": "gantt-matrix-002.png",
       "size": 105087,
       "source": "manual"
     },
-    "gantt-006.png": {
-      "category": "gantt",
-      "file": "gantt-006.png",
+    "gantt-matrix-003.png": {
+      "category": "gantt-matrix",
+      "file": "gantt-matrix-003.png",
       "size": 95868,
       "source": "manual"
     },
-    "gantt-008.png": {
-      "category": "gantt",
-      "file": "gantt-008.png",
+    "gantt-matrix-004.png": {
+      "category": "gantt-matrix",
+      "file": "gantt-matrix-004.png",
       "size": 62749,
+      "source": "manual"
+    },
+    "historical-timeline-001.png": {
+      "category": "historical-timeline",
+      "file": "historical-timeline-001.png",
+      "size": 279068,
+      "source": "manual"
+    },
+    "historical-timeline-002.png": {
+      "category": "historical-timeline",
+      "file": "historical-timeline-002.png",
+      "size": 192460,
+      "source": "manual"
+    },
+    "icon-text-feature-list-001.png": {
+      "category": "icon-text-feature-list",
+      "file": "icon-text-feature-list-001.png",
+      "size": 153186,
       "source": "manual"
     },
     "impact-table-001.png": {
@@ -222,57 +275,57 @@
       "size": 155457,
       "source": "manual"
     },
-    "kpi-001.png": {
-      "category": "kpi",
-      "file": "kpi-001.png",
+    "kpi-dashboard-grid-001.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-001.png",
       "size": 247909,
       "source": "manual"
     },
-    "kpi-002.png": {
-      "category": "kpi",
-      "file": "kpi-002.png",
+    "kpi-dashboard-grid-002.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-002.png",
       "size": 365135,
       "source": "manual"
     },
-    "kpi-003.png": {
-      "category": "kpi",
-      "file": "kpi-003.png",
+    "kpi-dashboard-grid-003.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-003.png",
       "size": 351744,
       "source": "manual"
     },
-    "kpi-004.png": {
-      "category": "kpi",
-      "file": "kpi-004.png",
+    "kpi-dashboard-grid-004.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-004.png",
       "size": 425807,
       "source": "manual"
     },
-    "kpi-005.png": {
-      "category": "kpi",
-      "file": "kpi-005.png",
+    "kpi-dashboard-grid-005.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-005.png",
       "size": 311022,
       "source": "manual"
     },
-    "kpi-006.png": {
-      "category": "kpi",
-      "file": "kpi-006.png",
+    "kpi-dashboard-grid-006.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-006.png",
       "size": 276148,
       "source": "manual"
     },
-    "kpi-007.png": {
-      "category": "kpi",
-      "file": "kpi-007.png",
+    "kpi-dashboard-grid-007.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-007.png",
       "size": 198239,
       "source": "manual"
     },
-    "kpi-008.png": {
-      "category": "kpi",
-      "file": "kpi-008.png",
+    "kpi-dashboard-grid-008.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-008.png",
       "size": 91925,
       "source": "manual"
     },
-    "kpi-009.png": {
-      "category": "kpi",
-      "file": "kpi-009.png",
+    "kpi-dashboard-grid-009.png": {
+      "category": "kpi-dashboard-grid",
+      "file": "kpi-dashboard-grid-009.png",
       "size": 245553,
       "source": "manual"
     },
@@ -330,6 +383,42 @@
       "size": 290015,
       "source": "manual"
     },
+    "mind-map-radial-010.png": {
+      "category": "mind-map-radial",
+      "file": "mind-map-radial-010.png",
+      "size": 67673,
+      "source": "manual"
+    },
+    "numbered-process-steps-001.png": {
+      "category": "numbered-process-steps",
+      "file": "numbered-process-steps-001.png",
+      "size": 208242,
+      "source": "manual"
+    },
+    "numbered-process-steps-002.png": {
+      "category": "numbered-process-steps",
+      "file": "numbered-process-steps-002.png",
+      "size": 222525,
+      "source": "manual"
+    },
+    "numbered-process-steps-003.png": {
+      "category": "numbered-process-steps",
+      "file": "numbered-process-steps-003.png",
+      "size": 48372,
+      "source": "manual"
+    },
+    "numbered-process-steps-004.png": {
+      "category": "numbered-process-steps",
+      "file": "numbered-process-steps-004.png",
+      "size": 21722,
+      "source": "manual"
+    },
+    "numbered-process-steps-005.png": {
+      "category": "numbered-process-steps",
+      "file": "numbered-process-steps-005.png",
+      "size": 36060,
+      "source": "manual"
+    },
     "numbered-ranking-list-001.png": {
       "category": "numbered-ranking-list",
       "file": "numbered-ranking-list-001.png",
@@ -348,76 +437,22 @@
       "size": 395034,
       "source": "manual"
     },
-    "process-001.png": {
-      "category": "process",
-      "file": "process-001.png",
-      "size": 280743,
+    "phased-rollout-timeline-003.png": {
+      "category": "phased-rollout-timeline",
+      "file": "phased-rollout-timeline-003.png",
+      "size": 747810,
       "source": "manual"
     },
-    "process-002.png": {
-      "category": "process",
-      "file": "process-002.png",
-      "size": 208242,
-      "source": "manual"
-    },
-    "process-003.png": {
-      "category": "process",
-      "file": "process-003.png",
-      "size": 222525,
-      "source": "manual"
-    },
-    "process-004.png": {
-      "category": "process",
-      "file": "process-004.png",
-      "size": 190161,
-      "source": "manual"
-    },
-    "process-005.png": {
-      "category": "process",
-      "file": "process-005.png",
-      "size": 67673,
-      "source": "manual"
-    },
-    "process-006.png": {
-      "category": "process",
-      "file": "process-006.png",
-      "size": 71664,
-      "source": "manual"
-    },
-    "process-007.png": {
-      "category": "process",
-      "file": "process-007.png",
-      "size": 80682,
-      "source": "manual"
-    },
-    "process-008.png": {
-      "category": "process",
-      "file": "process-008.png",
-      "size": 73657,
-      "source": "manual"
-    },
-    "process-009.png": {
-      "category": "process",
-      "file": "process-009.png",
-      "size": 48372,
-      "source": "manual"
-    },
-    "process-010.png": {
-      "category": "process",
-      "file": "process-010.png",
-      "size": 21722,
-      "source": "manual"
-    },
-    "process-011.png": {
-      "category": "process",
-      "file": "process-011.png",
-      "size": 167581,
-      "source": "manual"
-    },
-    "project-charter-001.png": {
-      "category": "project-charter",
-      "file": "project-charter-001.png",
+    "project-overview-card-001.png": {
+      "category": "project-overview-card",
+      "file": "project-overview-card-001.png",
       "size": 383294,
+      "source": "manual"
+    },
+    "pros-cons-list-001.png": {
+      "category": "pros-cons-list",
+      "file": "pros-cons-list-001.png",
+      "size": 249077,
       "source": "manual"
     },
     "quadrant-matrix-001.png": {
@@ -438,9 +473,9 @@
       "size": 283811,
       "source": "manual"
     },
-    "quote-001.png": {
-      "category": "quote",
-      "file": "quote-001.png",
+    "quote-testimonial-card-001.png": {
+      "category": "quote-testimonial-card",
+      "file": "quote-testimonial-card-001.png",
       "size": 1075864,
       "source": "manual"
     },
@@ -448,6 +483,12 @@
       "category": "roadmap-with-milestones",
       "file": "roadmap-with-milestones-001.png",
       "size": 234812,
+      "source": "manual"
+    },
+    "scorecard-001.png": {
+      "category": "scorecard",
+      "file": "scorecard-001.png",
+      "size": 87342,
       "source": "manual"
     },
     "section-divider-001.png": {
@@ -462,70 +503,34 @@
       "size": 139514,
       "source": "manual"
     },
-    "table-002.png": {
-      "category": "table",
-      "file": "table-002.png",
-      "size": 619798,
-      "source": "manual"
-    },
-    "table-003.png": {
-      "category": "table",
-      "file": "table-003.png",
-      "size": 201513,
-      "source": "manual"
-    },
-    "team-001.png": {
-      "category": "team",
-      "file": "team-001.png",
-      "size": 299209,
-      "source": "manual"
-    },
-    "team-002.png": {
-      "category": "team",
-      "file": "team-002.png",
-      "size": 338034,
-      "source": "manual"
-    },
-    "timeline-001.png": {
-      "category": "timeline",
-      "file": "timeline-001.png",
-      "size": 279068,
-      "source": "manual"
-    },
-    "timeline-002.png": {
-      "category": "timeline",
-      "file": "timeline-002.png",
-      "size": 747810,
-      "source": "manual"
-    },
-    "timeline-004.png": {
-      "category": "timeline",
-      "file": "timeline-004.png",
-      "size": 192460,
-      "source": "manual"
-    },
-    "timeline-005.png": {
-      "category": "timeline",
-      "file": "timeline-005.png",
+    "swimlane-diagram-001.png": {
+      "category": "swimlane-diagram",
+      "file": "swimlane-diagram-001.png",
       "size": 34317,
       "source": "manual"
     },
-    "timeline-006.png": {
-      "category": "timeline",
-      "file": "timeline-006.png",
-      "size": 36060,
+    "team-contact-card-grid-001.png": {
+      "category": "team-contact-card-grid",
+      "file": "team-contact-card-grid-001.png",
+      "size": 299209,
       "source": "manual"
     },
-    "use-case-001.png": {
-      "category": "use-case",
-      "file": "use-case-001.png",
-      "size": 225505,
+    "team-contact-card-grid-002.png": {
+      "category": "team-contact-card-grid",
+      "file": "team-contact-card-grid-002.png",
+      "size": 338034,
       "source": "manual"
     },
-    "use-case-002.png": {
-      "category": "use-case",
-      "file": "use-case-002.png",
-      "size": 196724,
+    "tier-pricing-cards-001.png": {
+      "category": "tier-pricing-cards",
+      "file": "tier-pricing-cards-001.png",
+      "size": 100564,
+      "source": "manual"
+    },
+    "tier-pricing-cards-002.png": {
+      "category": "tier-pricing-cards",
+      "file": "tier-pricing-cards-002.png",
+      "size": 31159,
       "source": "manual"
     }
   }

@@ -60,43 +60,30 @@ DISCOVERY_SEED_CATEGORIES: list[str] = [
 ]
 
 # Existing media-library categories (authoritative output taxonomy)
+# Dynamically loaded from categories.yaml (single source of truth, ADR-0002)
+import yaml
+_CATEGORIES_PATH = LIBRARY_DIR / "categories.yaml"
+_taxonomy = yaml.safe_load(_CATEGORIES_PATH.read_text(encoding="utf-8"))
 LIBRARY_CATEGORIES: list[str] = [
-    "agenda",
-    "process",
-    "flow",
-    "timeline",
-    "gantt",
-    "kpi",
-    "table",
-    "comparison",
-    "card",
-    "decision",
-    "quote",
-    "team",
-    "use-case",
-    "section-divider",
-    "project-status",
-    "executive-summary",
-    "project-charter",
-    "background",
-    "infographic-element",
-    "uncategorized",
+    cat["id"]
+    for group in _taxonomy["groups"]
+    for cat in group["categories"]
 ]
 
 # Seed-to-library initial mapping (deterministic, may be refined later)
 #   key   = discovery seed category (as found in _download_manifest.csv)
 #   value = (primary_library_category, confidence)
 SEED_TO_LIBRARY_MAP: dict[str, tuple[str, float]] = {
-    "Infographics general bundles": ("infographic-element", 0.5),
-    "Hierarchy progression": ("process", 0.5),
-    "Timelines": ("timeline", 0.7),
-    "Comparison": ("comparison", 0.8),
-    "Data metrics": ("kpi", 0.6),
-    "Process flow": ("flow", 0.6),
-    "Text narrative": ("use-case", 0.5),
-    "Contacts closing": ("team", 0.6),
-    "Lists checklists": ("agenda", 0.5),
-    "Structure org": ("flow", 0.5),
+    "Infographics general bundles": ("infographic", 0.5),
+    "Hierarchy progression": ("numbered-process-steps", 0.5),
+    "Timelines": ("historical-timeline", 0.7),
+    "Comparison": ("comparison-table", 0.8),
+    "Data metrics": ("kpi-dashboard-grid", 0.6),
+    "Process flow": ("mind-map-radial", 0.6),
+    "Text narrative": ("case-study-card", 0.5),
+    "Contacts closing": ("team-contact-card-grid", 0.6),
+    "Lists checklists": ("agenda-toc-list", 0.5),
+    "Structure org": ("architecture-diagram", 0.5),
     "Bonus packs": ("uncategorized", 0.3),
 }
 

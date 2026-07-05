@@ -74,6 +74,31 @@ def test_kpi_strip_layout_builds_and_validates(tmp_path, tmp_out, tokens_path, t
     assert rep.ok, f"Validation violations: {rep.violations}"
 
 
-def test_comparison_panel_defect_skipped():
-    """comparison_panel layout is broken (E1) — emits unknown 'comparison' kind."""
-    pytest.skip("comparison_panel defect deferred to C2 (see E1 in docs/runbooks/library-runtime-error-log.md)")
+def test_comparison_panel_layout_builds_and_validates(tmp_path, tmp_out, tokens_path, template_path):
+    """comparison_panel layout now emits card blocks (E1 fixed via Option B).
+    Build and validate a comparison deck."""
+    deck = {
+        "title": "Comparison test",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Compare"},
+                "layout": "comparison_panel",
+                "content": {
+                    "panels": [
+                        {"title": "Option A", "heading": "Features", "body": "Standard plan features for small teams."},
+                        {"title": "Option B", "heading": "Enterprise", "body": "Advanced features with SLA support."},
+                    ],
+                    "cols": 2,
+                },
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    result = build_deck(deck_path, tmp_out, template_path, tokens_path)
+    assert result["slides_rendered"] == 3
+    assert tmp_out.exists()
+    rep = validate(tmp_out, tokens_path)
+    assert rep.ok, f"Validation violations: {rep.violations}"

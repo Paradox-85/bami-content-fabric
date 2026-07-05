@@ -115,6 +115,36 @@ groups:
         title: Infographic
         description: Single chart/visualization (bar, column, donut, pie, line, waterfall, etc.). Sub-types documented in README.
         runtime_kind: null
+
+  # Chart sub-categories (formerly consolidated under infographic)
+      - id: chart-bar-column
+        title: Bar / column chart
+        description: Vertical (column) or horizontal (bar) chart with discrete categories on one axis. Includes grouped, stacked, and combo bar+line variants.
+        runtime_kind: null
+      - id: chart-donut-pie
+        title: Donut / pie chart
+        description: Circular chart showing part-to-whole. Donut has hollow center, often with central KPI.
+        runtime_kind: null
+      - id: chart-line-area
+        title: Line / area chart
+        description: Continuous lines over time or sequence. Includes multi-series. Area variant fills below the line.
+        runtime_kind: null
+      - id: chart-waterfall
+        title: Waterfall / bridge chart
+        description: Floating bars showing cumulative incremental changes (positive/negative). Colors encode start, gain, loss, total.
+        runtime_kind: null
+      - id: chart-scatter-bubble
+        title: Scatter / bubble plot
+        description: Two-axis point cloud. Bubble adds size as 3rd dimension.
+        runtime_kind: null
+      - id: chart-statistical
+        title: Box plot / statistical chart
+        description: "Distribution charts: box & whiskers, violin, histogram. Shows median, quartiles, outliers per category."
+        runtime_kind: null
+      - id: chart-sunburst-treemap
+        title: Sunburst / treemap
+        description: Hierarchical space-filling visualizations. Sunburst = radial rings. Treemap = nested rectangles by value.
+        runtime_kind: null
       - id: scorecard
         title: Scorecard
         description: Multiple metrics stacked vertically.
@@ -142,6 +172,10 @@ groups:
       - id: infographic-3d-cube
         title: Infographic — 3D cube
         description: 3D cube diagram with three directional faces.
+        runtime_kind: null
+      - id: project-overview-card
+        title: Project overview / charter card
+        description: "Structured project metadata: objective, scope, stakeholders, key dates, budget."
         runtime_kind: null
 
   - id: lists-and-checklists
@@ -178,6 +212,10 @@ groups:
       - id: case-study-card
         title: Case study card
         description: Image + text side-by-side.
+        runtime_kind: null
+      - id: executive-summary-panel
+        title: Executive summary panel
+        description: "Single-slide high-level overview: headline + 3-4 summary bullets + optional KPI metric."
         runtime_kind: null
 
   - id: contacts-and-closing

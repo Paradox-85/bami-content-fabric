@@ -1,6 +1,7 @@
 # BAMi Content Fabric — Session Handoff
 
 **Session:** 2026-07-04 — Library reclassification, test baseline, canonical taxonomy
+**Updated:** 2026-07-05 — C2 workstream completed (E1/E2 fixes, infographic refactoring)
 **Previous session slug:** `20260704-114243-envato-e2e` (over-scoped 22-task plan, failed execution)
 **This session slug:** `20260704-123149-manual-library-replan` (re-scoped manual-first approach)
 
@@ -99,13 +100,11 @@ all caused by tests for unimplemented features (not runtime bugs).
 
 ### Test suite
 
-```
-106 passed, 1 skipped, 5 xfailed in ~7s
+110 passed, 5 xfailed in ~14s
 ```
 
-- 106 passing tests cover: all 10 block kinds ~3 layouts ~gantt ~chrome modes ~mermaid ~migrations
-  ~schema sync ~validator ~CLI E2E ~negative paths ~customer isolation
-- 1 visible skip: `test_comparison_panel_defect_skipped` (E1)
+- 110 passing tests cover: all 10 block kinds ~3 layouts ~gantt ~chrome modes ~mermaid ~migrations
+  ~schema sync ~validator ~CLI E2E ~negative paths ~customer isolation ~taxonomy sync
 - 5 xfails: deferred features documented in error-log (E6–E9)
 
 ### Library
@@ -113,11 +112,11 @@ all caused by tests for unimplemented features (not runtime bugs).
 | Metric | Value |
 |--------|-------|
 | Total PNGs | 82 (deleted 11 garbage) |
-| Populated categories | 26 (out of 34 canonical) |
+| Populated categories | 31 (out of 44 canonical) |
 | Empty old dirs (kept) | background/, flow/, project-status/ (README.md only) |
-| Canonical categories defined | 34 across 9 groups |
+| Canonical categories defined | 44 across 9 groups (incl. 7 chart sub-types) |
 | Runtime-supported | 5 (gantt-matrix, kpi-dashboard-grid, data-table, numbered-process-steps, tier-pricing-cards) |
-| Reference-only | 29 — no runtime widget path |
+| Reference-only | 39 — no runtime widget path |
 
 ### Codebase integrity
 
@@ -130,12 +129,12 @@ all caused by tests for unimplemented features (not runtime bugs).
 
 | ID | Sev | Component | Defect | Status |
 |----|-----|-----------|--------|--------|
-| E1 | S1 | layouts.py | comparison_panel emits unknown `comparison` kind | DEFERRED (C2-1) |
-| E2 | S2 | layouts/blocks | kpi delta/period forwarded but ignored | DEFERRED (C2-2) |
-| E4 | S2 | Library | 29/34 categories have no runtime widget | OPEN |
+| E1 | S1 | layouts.py | comparison_panel emitted unknown `comparison` kind | FIXED |
+| E2 | S2 | layouts/blocks | kpi delta/period forwarded but ignored | FIXED |
+| E4 | S2 | Library | 39/44 categories have no runtime widget | OPEN |
 | E6 | S2 | Schema | `image` block kind unimplemented | DEFERRED (C2) |
-| E7 | S2 | schema.py | load_deck v1→v2 migration not implemented | DEFERRED (C2) |
-| E8 | S3 | schema.py | unknown template → ValidationError not ValueError | DEFERRED (C2) |
+| E7 | S2 | schema.py | load_deck v1->v2 migration not implemented | DEFERRED (C2) |
+| E8 | S3 | schema.py | unknown template raises ValidationError not ValueError | DEFERRED (C2) |
 | E9 | S3 | schema.py | layout+blocks mutual exclusivity unchecked | DEFERRED (C2) |
 | E5 | S3 | toolkit | mermaid_render.py syntax (FIXED) | FIXED |
 | E3 | S2 | tests | test_blocks_new.py dead (QUARANTINED) | RESOLVED |
@@ -183,37 +182,59 @@ qa = lib / '_qa'
 
 ---
 
-## What comes next (C2 workstream — separate plan needed)
+## What was completed (C2 workstream — DONE 2026-07-05)
 
-The following is explicitly deferred to a separate ARCH/runtime-fix plan:
+The following C2 tasks were completed in this session:
 
-1. **C2-1: `comparison_panel` fix** — Option A: add `add_comparison` builder + register kind.
-   Option B: emit `card` blocks from layout.
-2. **C2-2: KPI `delta`/`period` contract** — Render trend arrows or drop fields from layout.
-3. **C2-3: Envato classifier refactor** — `tools/envato_assets/config.py` should read from
-   `categories.yaml`.
-4. **C2-4: Review unreviewed files** — 29 files in old dirs (process/, comparison/, agenda/,
-   etc.) need visual review and reclassification into canonical categories.
+1. **C2-1: `comparison_panel` fix** — Option B implemented: layout emits `card` blocks
+   instead of `comparison` kind. E1 FIXED.
+2. **C2-2: KPI `delta`/`period` contract** — `add_kpi` now renders delta as coloured trend
+   run and period as caption. E2 FIXED.
+3. **C2-3: Envato classifier refactor** — `config.py` reads `LIBRARY_CATEGORIES` from
+   `categories.yaml`; `classify.py` uses canonical slugs; `media_library.py` imports
+   from config. ADR-0002 enforced.
+4. **C2-4: Review unreviewed files** — all 29 files in old dirs (process/, comparison/,
+   card/, decision/, timeline/) visually classified and migrated to canonical dirs.
+
+### Additional work completed
+
+- **Infographic refactoring:** `infographic/` split into 7 chart sub-categories
+  (chart-bar-column, chart-donut-pie, chart-line-area, chart-waterfall,
+  chart-scatter-bubble, chart-statistical, chart-sunburst-treemap). 9 PNGs moved,
+  1 remains in `infographic/`.
+- **Widget selection guide:** `docs/guidelines/widget-selection.md` created with D1
+  decision process, D2 mapping table, primitive fallbacks, and worked examples.
+- **Slide generation guide:** `docs/guidelines/slide-generation.md` created with
+  structure rules, colour tokens, font sizes, field contracts, and self-check.
+- **Technical description updated:** `docs/architecture/technical-description.md`
+  with widget palette library section.
+- **`test_taxonomy_sync.py`: added (3 tests) — enforces ADR-0002 compliance.
+- **44 canonical categories** (was 34) — 7 chart sub-types + executive-summary-panel
+  + project-overview-card added.
+
+## Remaining deferred work
+
+1. **`image` block kind (E6)** — Mermaid inline PNG not implemented.
+2. **`load_deck` migration (E7/E8/E9)** — v1->v2 migration, exception wrapping,
+   mutual-exclusivity validation.
+3. **`chart-scatter-bubble`** — directory created but empty (no matching assets).
 
 ## Important notes for future agents
 
 1. **Never hallucinate categories** — always check `templates/media/reference/library/categories.yaml`
    first. If a widget type doesn't match any canonical category, add it there FIRST, then create
    the directory. Document in ADR-0002.
-
 2. **The canonical taxonomy is the single source of truth.** The Envato classifier
-   (`tools/envato_assets/config.py`), library directories, metadata, and docs must all derive from
-   `categories.yaml`. Currently only the library dirs follow it; the classifier still has its own
-   enum. This gap (C2-3) is documented in ADR-0002.
-
-3. **106 tests pass, 5 are xfailed (deferred features).** Do not mark them as skip or pass — they
+   (`tools/envato_assets/config.py`) now reads `LIBRARY_CATEGORIES` from `categories.yaml`.
+   The seed-to-library map, keyword rules, and media library all derive from the same source.
+   ADR-0002 is fully enforced via `test_taxonomy_sync.py`.
+3. **110 tests pass, 5 are xfailed (deferred features).** Do not mark them as skip or pass — they
    are living spec-markers for unimplemented features. When a feature is implemented, remove the
    `@xfail` decorator.
 
-4. **The repo is dirty (52+ files).** Everything is in the `bami-content-fabric/` subdirectory of
-   the parent `bami-tech` monorepo. No `.git` exists in `bami-content-fabric/` — all git commands
-   operate on the parent. Library PNGs are untracked; test/code changes are mixed with library
-   curation.
+4. **The repo has its own `.git`** (initialised 2026-07-04) and remote at
+   `https://github.com/Paradox-85/bami-content-fabric`. The standalone repo replaces the
+   previous bami-tech monorepo dependency for this codebase.
 
 5. **The 5 runtime-supported categories are:** gantt-matrix, kpi-dashboard-grid, data-table,
    numbered-process-steps, tier-pricing-cards. All other canonical categories are reference-only

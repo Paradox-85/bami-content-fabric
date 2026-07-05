@@ -117,7 +117,11 @@ def _layout_comparison_panel(
 ) -> list[dict]:
     """Build a side-by-side comparison panel.
 
-    Content shape:
+NOTE: This layout emits individual ``card`` blocks (not a single ``comparison``
+    block) because the ``comparison`` kind is not in BUILDERS.  Each panel
+    becomes one card in a horizontal row.
+
+Content shape:
     {
         "panels": [
             {"title": "Phase 1", "heading": "Process P&ID", "body": "..."},
@@ -145,16 +149,21 @@ def _layout_comparison_panel(
 
     panels = content.get("panels", [])
     cols = content.get("cols", len(panels))
+    if cols == 0:
+        return blocks
 
-    blocks.append({
-        "kind": "comparison",
-        "x": 0.6,
-        "y": y_start,
-        "w": 18.8,
-        "cols": cols,
-        "panels": panels,
-        "h": variant.get("panel_h", 3.5) if variant else 3.5,
-    })
+    gap = 0.4
+    col_w = (18.8 - gap * (cols - 1)) / cols
+    for i, panel in enumerate(panels[:cols]):
+        blocks.append({
+            "kind": "card",
+            "x": 0.6 + i * (col_w + gap),
+            "y": y_start,
+            "w": col_w,
+            "h": variant.get("panel_h", 3.5) if variant else 3.5,
+            "title": panel.get("heading", panel.get("title", "")),
+            "body": panel.get("body", ""),
+        })
 
     return blocks
 

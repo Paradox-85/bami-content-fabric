@@ -216,6 +216,29 @@ def add_kpi(slide, tokens: Tokens, b: dict):
     lbox.text_frame.word_wrap = True
     lbox.text_frame.paragraphs[0].runs[0].text = str(b["label"])
 
+    # Delta/period rendering (E2 fix)
+    delta = b.get("delta")
+    period = b.get("period")
+    if delta:
+        dy = y + (1.3 if period else 1.0)
+        dbox = slide.shapes.add_textbox(inches(x), inches(dy), inches(w), inches(0.3))
+        delta_str = str(delta)
+        if delta_str.startswith("+"):
+            delta_color = "positive"
+        elif delta_str.startswith("-"):
+            delta_color = "negative"
+        else:
+            delta_color = "neutral"
+        style_text_frame(dbox.text_frame, tokens, pt=9, color=delta_color,
+                         bold=True, align="LEFT")
+        dbox.text_frame.paragraphs[0].runs[0].text = delta_str
+    if period:
+        py = y + 1.0
+        pbox = slide.shapes.add_textbox(inches(x), inches(py), inches(w), inches(0.3))
+        style_text_frame(pbox.text_frame, tokens, pt=8, color="neutral",
+                         bold=False, align="LEFT")
+        pbox.text_frame.paragraphs[0].runs[0].text = str(period)
+
 def add_gantt(slide, tokens: Tokens, b: dict):
     """Render a brand-safe Gantt / roadmap matrix.
 

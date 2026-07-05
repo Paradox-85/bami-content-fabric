@@ -7,10 +7,25 @@ Layouts are the **preferred** authoring path for common slide archetypes.
 Raw ``blocks`` in deck.json remain available as the escape hatch for
 block-level positioning control.
 
-Current registered layouts:
-    - ``gantt``            : Gantt/roadmap matrix (delegates to ``add_gantt`` block).
-    - ``comparison_panel`` : Side-by-side panel comparison (composes ``comparison`` block).
-    - ``kpi_strip``        : Horizontal KPI/metric strip (composes ``kpi`` blocks).
+Registered layouts (3 full, 14 reference-only stubs):
+    - ``gantt``                    : Gantt/roadmap matrix.
+    - ``comparison_panel``         : Side-by-side panel comparison (emits card blocks).
+    - ``kpi_strip``                : Horizontal KPI/metric strip.
+    --- Reference-only stubs (primitive fallbacks, see widget-selection.md) ---
+    - ``numbered-process-steps``   : ``steps`` block.
+    - ``circular-process-loop``    : ``steps`` block.
+    - ``funnel-diagram``           : ``steps`` block (descending).
+    - ``decision-tree-flowchart``  : ``bullets`` with indented prefixes.
+    - ``historical-timeline``      : Single-row ``gantt`` block.
+    - ``phased-rollout-timeline``  : Section-grouped ``gantt``.
+    - ``roadmap-with-milestones``  : ``gantt`` with milestone markers.
+    - ``tier-pricing-cards``       : ``card`` blocks, one per tier.
+    - ``pros-cons-list``           : Two ``card`` + ``bullets``.
+    - ``checklist-status``         : ``bullets`` with status prefixes.
+    - ``swimlane-diagram``         : ``table`` block.
+    - ``competitive-matrix``       : ``table`` block.
+    - ``mind-map-radial``          : ``heading`` + ``bullets``.
+    - ``icon-text-feature-list``   : ``bullets`` block.
 """
 
 from __future__ import annotations
@@ -30,6 +45,13 @@ LayoutBuilder = Callable[
 
 
 # ---------------------------------------------------------------------------
+# Helper: pull items from content or variant
+# ---------------------------------------------------------------------------
+def _items(content: dict[str, Any] | None, key: str = "items") -> list[str]:
+    return list((content or {}).get(key, []))
+
+
+# ---------------------------------------------------------------------------
 # Layout: gantt
 # ---------------------------------------------------------------------------
 
@@ -45,63 +67,42 @@ def _layout_gantt(
     Content shape (from deck.json ``content``):
     {
         "periods": [{"label": "Jul", "key": "jul", "weeks": ["1", "2", "3", "4"]}, ...],
-        "tasks": [...],  # legacy flat mode
+        "tasks": [...],  # legacy flat mode — DEPRECATED
         "sections": [
             {
-                "title": "Done",
+                "title": "Phase 1",
                 "color": "primary",
                 "tasks": [...],
-                "milestone": {"period_key": "apr", "position": 0.9, "label": "M1"}
-            }
+                "milestone": {"period_key": "feb", "position": 0.8, "label": "M1"},
+            },
+            ...
         ],
-        "today": {"at_period_key": "sep", "position": 0.3},
-        "legend": [{"label": "Planned", "color": "primary"}, ...]
+        "today": {"at_period_key": "jul", "position": 0.6},
+        "legend": [{"label": "Planned", "color": "primary"}],
     }
+
+    DEPRECATED: ``content.tasks`` (flat list). Use ``content.sections`` instead.
+    If both ``tasks`` and ``sections`` are present, ``ValueError`` is raised.
     """
     if content is None:
         content = {}
 
-    blocks: list[dict] = []
+    has_tasks = "tasks" in content
+    has_sections = "sections" in content
 
-    title = (variant or {}).get("title", "")
-    if title:
-        blocks.append({
-            "kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8,
-            "text": title, "pt": 18, "color": "text_2",
-        })
+    if has_tasks and has_sections:
+        raise ValueError(
+            "gantt: both 'tasks' (deprecated) and 'sections' present — "
+            "use only 'sections'"
+        )
+    if has_tasks and not has_sections:
+        import warnings
+        warnings.warn(
+            "gantt 'tasks' key is deprecated; use 'sections'",
+            DeprecationWarning, stacklevel=2,
+        )
 
-    y_start = 2.0 if title else 1.3
-
-    gantt_block: dict[str, Any] = {
-        "kind": "gantt",
-        "x": 0.6,
-        "y": y_start,
-        "w": 18.8,
-        "periods": content.get("periods", []),
-    }
-    if "sections" in content:
-        gantt_block["sections"] = content.get("sections", [])
-    else:
-        gantt_block["tasks"] = content.get("tasks", [])
-
-    today = content.get("today")
-    if today:
-        gantt_block["today"] = today
-
-    legend = content.get("legend")
-    if legend:
-        gantt_block["legend"] = legend
-
-    if variant:
-        for k in (
-            "row_h", "period_h", "week_h", "section_h", "label_w",
-            "bar_h", "milestone_h", "row_gap", "section_gap", "label_header",
-        ):
-            if k in variant:
-                gantt_block[k] = variant[k]
-
-    blocks.append(gantt_block)
-    return blocks
+    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8, **content}]
 
 
 # ---------------------------------------------------------------------------
@@ -117,11 +118,14 @@ def _layout_comparison_panel(
 ) -> list[dict]:
     """Build a side-by-side comparison panel.
 
-NOTE: This layout emits individual ``card`` blocks (not a single ``comparison``
-    block) because the ``comparison`` kind is not in BUILDERS.  Each panel
+    NOTE: This layout emits individual ``card`` blocks (not a single ``comparison``
+    block) because the ``comparison`` kind is not in BUILDERS. Each panel
     becomes one card in a horizontal row.
 
-Content shape:
+    TODO: If ``comparison`` is added to BUILDERS in future, rewrite this to emit
+    a single ``{"kind": "comparison", ...}`` block for styling benefits.
+
+    Content shape:
     {
         "panels": [
             {"title": "Phase 1", "heading": "Process P&ID", "body": "..."},
@@ -193,6 +197,8 @@ def _layout_kpi_strip(
     Variant options:
         - title (str): optional heading
         - columns (int): override number of columns
+
+    Note: Maximum 4 columns — at 5+ the card width is too narrow for readable text.
     """
     if content is None:
         content = {}
@@ -214,9 +220,9 @@ def _layout_kpi_strip(
         return blocks
 
     cols = (variant or {}).get("columns", count)
-    cols = max(1, min(cols, 6))
+    cols = max(1, min(cols, 4))  # clamp to 4 max — at 5+ cards overflow (F-05)
     gap = 0.4
-    avail_w = 18.8  # full width
+    avail_w = 18.8
     col_w = (avail_w - gap * (cols - 1)) / cols
 
     for i, kpi_item in enumerate(kpis[:cols]):
@@ -241,14 +247,215 @@ def _layout_kpi_strip(
     return blocks
 
 
-# ---------------------------------------------------------------------------
+# ===================================================================
+# Reference-only layout stubs
+# Each provides a primitive-fallback approximation using available blocks.
+# See docs/guidelines/widget-selection.md for the canonical mapping.
+# ===================================================================
+
+
+# --- Step-based layouts (use steps block) ---
+
+
+def _layout_numbered_process_steps(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: numbered sequential steps → ``steps`` block."""
+    items = _items(content)
+    n = len(items)
+    return [{
+        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
+        "count": n, "titles": items,
+    }]
+
+
+def _layout_circular_process_loop(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: continuous cycle → ``steps`` block."""
+    items = _items(content)
+    n = len(items)
+    return [{
+        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
+        "count": n, "titles": items,
+    }]
+
+
+def _layout_funnel_diagram(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: narrowing funnel → ``steps`` block."""
+    items = _items(content)
+    n = len(items)
+    return [{
+        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
+        "count": n, "titles": items,
+    }]
+
+
+# --- Gantt-based layouts (use gantt block) ---
+
+
+def _layout_historical_timeline(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: events on axis → single-row ``gantt``."""
+    periods = (content or {}).get("periods", [])
+    return [{
+        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+        "periods": periods,
+        "tasks": (content or {}).get("tasks", []),
+    }]
+
+
+def _layout_phased_rollout_timeline(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: phased rollout → section-grouped ``gantt``."""
+    return [{
+        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+        **(content or {}),
+    }]
+
+
+def _layout_roadmap_with_milestones(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: milestones on axis → ``gantt`` with sections + milestones."""
+    return [{
+        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+        **(content or {}),
+    }]
+
+
+# --- Card-based layouts (use card blocks) ---
+
+
+def _layout_tier_pricing_cards(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: plan/tier cards → N ``card`` blocks."""
+    items = (content or {}).get("tiers", (content or {}).get("items", []))
+    cols = len(items) or 2
+    gap = 0.4
+    col_w = (18.8 - gap * (cols - 1)) / cols
+    blocks = []
+    for i, item in enumerate(items[:4]):
+        blocks.append({
+            "kind": "card", "x": 0.6 + i * (col_w + gap), "y": 1.5,
+            "w": col_w, "h": 3.5,
+            "title": item.get("name", item.get("title", f"Tier {i+1}")),
+            "body": item.get("description", item.get("body", "")),
+        })
+    return blocks
+
+
+def _layout_pros_cons_list(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: pros/cons → two ``card`` + ``bullets``."""
+    pros = (content or {}).get("pros", [])
+    cons = (content or {}).get("cons", [])
+    blocks = []
+    if pros:
+        blocks.append({"kind": "card", "x": 0.6, "y": 1.5, "w": 8.5, "h": 3.5,
+                        "title": "Pros", "body": "\n".join(f"✓ {i}" for i in pros[:12])})
+    if cons:
+        blocks.append({"kind": "card", "x": 10.1, "y": 1.5, "w": 8.5, "h": 3.5,
+                        "title": "Cons", "body": "\n".join(f"✗ {i}" for i in cons[:12])})
+    return blocks
+
+
+# --- Table-based layouts (use table block) ---
+
+
+def _layout_swimlane_diagram(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: roles × stages → ``table`` block."""
+    header = (content or {}).get("header", (content or {}).get("columns", []))
+    rows = (content or {}).get("rows", [])
+    return [{"kind": "table", "x": 0.6, "y": 1.5, "w": 18.8,
+             "header": header, "rows": rows}]
+
+
+def _layout_competitive_matrix(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: features × vendors → ``table`` block."""
+    header = (content or {}).get("header", (content or {}).get("vendors", []))
+    rows = (content or {}).get("rows", [])
+    return [{"kind": "table", "x": 0.6, "y": 1.5, "w": 18.8,
+             "header": header, "rows": rows}]
+
+
+# --- Bullet-list-based layouts ---
+
+
+def _layout_checklist_status(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: checklist → ``bullets`` with status prefixes."""
+    items = (content or {}).get("items", [])
+    prefixed = []
+    for item in items:
+        if isinstance(item, dict):
+            status = item.get("status", "pending")
+            label = item.get("label", item.get("name", ""))
+            prefix = {"done": "✓", "pending": "○", "blocked": "✕"}.get(status, "○")
+            prefixed.append(f"{prefix} {label}")
+        else:
+            prefixed.append(f"○ {item}")
+    return [{"kind": "bullets", "x": 0.6, "y": 1.5, "w": 18.8, "items": prefixed}]
+
+
+def _layout_icon_text_feature_list(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: icon+text list → ``bullets`` block."""
+    items = (content or {}).get("items", [])
+    return [{"kind": "bullets", "x": 0.6, "y": 1.5, "w": 18.8, "items": items}]
+
+
+def _layout_mind_map_radial(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Reference-only stub: radial mind-map → ``heading`` + ``bullets``."""
+    title = (variant or {}).get("title", (content or {}).get("title", ""))
+    items = (content or {}).get("items", [])
+    blocks = []
+    if title:
+        blocks.append({"kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8,
+                        "text": title, "pt": 18, "color": "text_2"})
+    if items:
+        blocks.append({"kind": "bullets", "x": 0.6, "y": 2.2, "w": 18.8, "items": items})
+    return blocks
+
+
+# ===================================================================
 # Registry
-# ---------------------------------------------------------------------------
+# ===================================================================
 
 LAYOUTS: dict[str, LayoutBuilder] = {
+    # Full builders
     "gantt": _layout_gantt,
     "comparison_panel": _layout_comparison_panel,
     "kpi_strip": _layout_kpi_strip,
+    # Reference-only stubs (primitive fallbacks)
+    "numbered-process-steps": _layout_numbered_process_steps,
+    "circular-process-loop": _layout_circular_process_loop,
+    "funnel-diagram": _layout_funnel_diagram,
+    "decision-tree-flowchart": _layout_checklist_status,     # uses bullets
+    "historical-timeline": _layout_historical_timeline,
+    "phased-rollout-timeline": _layout_phased_rollout_timeline,
+    "roadmap-with-milestones": _layout_roadmap_with_milestones,
+    "tier-pricing-cards": _layout_tier_pricing_cards,
+    "pros-cons-list": _layout_pros_cons_list,
+    "checklist-status": _layout_checklist_status,
+    "swimlane-diagram": _layout_swimlane_diagram,
+    "competitive-matrix": _layout_competitive_matrix,
+    "mind-map-radial": _layout_mind_map_radial,
+    "icon-text-feature-list": _layout_icon_text_feature_list,
 }
 
 

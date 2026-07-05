@@ -12,8 +12,9 @@ venv/
 # Generated decks (per-engagement outputs are not committed by default)
 *.pptx
 !templates/template.pptx
-# Node dependencies (installed via npm, large)
+# Node dependencies (installed via npm, regenerable)
 node_modules/
+package-lock.json
 
 # External downloaded Envato asset packs (multi-GB, regenerable) — not committed
 templates/media/from_envato/

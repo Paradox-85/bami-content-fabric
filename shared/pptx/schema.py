@@ -51,7 +51,7 @@ SCHEMA: dict[str, Any] = {
                             "type": "object",
                             "required": ["kind", "x", "y", "w"],
                             "properties": {
-                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt"]},
+                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid"]},
                                 "x": {"type": "number", "minimum": 0},
                                 "y": {"type": "number", "minimum": 0},
                                 "w": {"type": "number", "minimum": 0.1},

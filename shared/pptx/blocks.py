@@ -424,6 +424,32 @@ def add_table(slide, tokens: Tokens, b: dict):
     return tbl_shape
 
 
+
+def add_mermaid_image(slide, tokens: Tokens, b: dict):
+    """Render a Mermaid diagram definition via mmdc and embed the resulting PNG."""
+    x, y, w = b["x"], b["y"], b["w"]
+    h = b.get("h", 5.0)
+    _check_zone("mermaid", x, y, w, h)
+    definition = b.get("text", "")
+    if not definition:
+        raise ValueError("mermaid: block 'text' (diagram definition) is required")
+    scale = b.get("scale", 3)
+    from shared.pptx.mermaid_render import render_mermaid_png
+    png_path = render_mermaid_png(definition, scale=scale)
+    from pptx.util import Inches
+    from pptx import Presentation
+    try:
+        from pptx.oxml.ns import qn
+        pic = slide.shapes.add_picture(
+            str(png_path),
+            int(x * 914400), int(y * 914400),
+            width=int(w * 914400),
+            height=int(h * 914400),
+        )
+    except Exception as exc:
+        raise ValueError(f"mermaid: failed to embed PNG: {exc}") from exc
+
+
 # --------------------------------------------------------------------------- dispatch
 
 BUILDERS = {
@@ -437,6 +463,7 @@ BUILDERS = {
     "steps": add_steps,
     "kpi": add_kpi,
     "gantt": add_gantt,
+    "mermaid": add_mermaid_image,
 }
 
 

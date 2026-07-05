@@ -2,13 +2,24 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "BAMi deck",
   "type": "object",
-  "required": ["title", "slides"],
+  "required": [
+    "title",
+    "slides"
+  ],
   "properties": {
-    "title": {"type": "string"},
+    "title": {
+      "type": "string"
+    },
     "options": {
       "type": "object",
       "properties": {
-        "chrome": {"type": "string", "enum": ["full", "partial"]}
+        "chrome": {
+          "type": "string",
+          "enum": [
+            "full",
+            "partial"
+          ]
+        }
       },
       "additionalProperties": false
     },
@@ -17,41 +28,132 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["template"],
+        "required": [
+          "template"
+        ],
         "properties": {
-          "template": {"enum": ["cover", "content", "closing"]},
-          "fields": {"type": "object"},
-          "layout": {"type": "string"},
-          "variant": {"type": "object"},
-          "content": {"type": "object"},
+          "template": {
+            "enum": [
+              "cover",
+              "content",
+              "closing"
+            ]
+          },
+          "fields": {
+            "type": "object"
+          },
+          "layout": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "object"
+          },
+          "content": {
+            "type": "object"
+          },
           "blocks": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["kind", "x", "y", "w"],
+              "required": [
+                "kind",
+                "x",
+                "y",
+                "w"
+              ],
               "properties": {
-                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt"]},
-                "x": {"type": "number", "minimum": 0},
-                "y": {"type": "number", "minimum": 0},
-                "w": {"type": "number", "minimum": 0.1},
-                "h": {"type": "number", "minimum": 0},
-                "text": {"type": "string"},
-                "items": {"type": "array", "items": {"type": "string"}},
-                "header": {"type": "array", "items": {"type": "string"}},
-                "rows": {"type": "array", "items": {"type": "array"}},
-                "numbers": {"type": "array", "items": {}},
-                "titles": {"type": "array"},
-                "bodies": {"type": "array"},
-                "count": {"type": "integer", "minimum": 1},
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "body",
+                    "bullets",
+                    "caption",
+                    "card",
+                    "darkcard",
+                    "gantt",
+                    "heading",
+                    "kpi",
+                    "mermaid",
+                    "steps",
+                    "table"
+                  ]
+                },
+                "x": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "y": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "w": {
+                  "type": "number",
+                  "minimum": 0.1
+                },
+                "h": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "text": {
+                  "type": "string"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "header": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "rows": {
+                  "type": "array",
+                  "items": {
+                    "type": "array"
+                  }
+                },
+                "numbers": {
+                  "type": "array",
+                  "items": {}
+                },
+                "titles": {
+                  "type": "array"
+                },
+                "bodies": {
+                  "type": "array"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 1
+                },
                 "number": {},
-                "label": {"type": "string"},
-                "pt": {"type": "number"},
-                "color": {"type": "string"},
-                "align": {"type": "string"},
-                "title": {"type": "string"},
-                "body": {"type": "string"},
-                "fill": {"type": "string"},
-                "accent": {"type": "string"}
+                "label": {
+                  "type": "string"
+                },
+                "pt": {
+                  "type": "number"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "align": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "fill": {
+                  "type": "string"
+                },
+                "accent": {
+                  "type": "string"
+                }
               },
               "additionalProperties": true
             }

@@ -1,0 +1,86 @@
+{
+  "title": "Reference-Only Widget Categories",
+  "options": { "chrome": "partial" },
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "eyebrow": "BAMI CONTENT FABRIC",
+        "kicker": "Gap Analysis",
+        "hero": "Reference-Only Categories",
+        "subtitle": "These canonical widget categories exist in the visual library but have no generative runtime widget. Each slide documents what is missing and which architecture decision (D1/D2) blocks its widget path. See categories.yaml and docs/decisions/0002-canonical-widget-taxonomy.md.",
+        "steps": ["Overview", "Timeline", "Comparison", "Charts", "Structure", "Lists", "Narrative", "Contacts"]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Overview — 29 reference-only categories" },
+      "blocks": [
+        {"kind": "body", "x": 0.6, "y": 1.5, "w": 9.0, "text": "Of 34 canonical categories, only 5 have a runtime widget (gantt-matrix, kpi-dashboard-grid, data-table, numbered-process-steps, tier-pricing-cards). The remaining 29 are reference-only: they exist as visual PNG references but cannot be generated programmatically. See the ranked error log (E4) and open architecture decisions D1 (widget priority order) and D2 (palette bridge)."},
+        {"kind": "body", "x": 0.6, "y": 3.5, "w": 9.0, "text": "Adopting the canonical taxonomy: docs/decisions/0002-canonical-widget-taxonomy.md"}
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Timeline categories (no runtime)" },
+      "blocks": [
+        {"kind": "bullets", "x": 0.6, "y": 2.0, "w": 9.0, "items": [
+          "phased-rollout-timeline — multi-phase timeline",
+          "historical-timeline — events on an axis",
+          "roadmap-with-milestones — horizontal with markers",
+          "comparison-table — side-by-side feature matrix (needs comparison_panel fix E1)"
+        ]}
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Infographic / chart categories (no runtime)" },
+      "blocks": [
+        {"kind": "bullets", "x": 0.6, "y": 2.0, "w": 9.0, "items": [
+          "infographic — single chart (bar, column, donut, pie, line, waterfall, etc.)",
+          "infographic-3d-cube — 3D cube diagram",
+          "impact-table — factor-to-influence matrix",
+          "scorecard — stacked metrics"
+        ]}
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Structure / list / narrative categories (no runtime)" },
+      "blocks": [
+        {"kind": "bullets", "x": 0.6, "y": 2.0, "w": 9.0, "items": [
+          "quadrant-matrix — 2x2 grid (SWOT, impact/effort)",
+          "mind-map-radial — central hub with spokes",
+          "checklist-status — status icons per item",
+          "icon-text-feature-list — vertical feature rows",
+          "numbered-ranking-list — top-N with percentages",
+          "quote-testimonial-card — pull quote with attribution",
+          "callout-highlight-box — emphasised single note",
+          "multi-column-narrative — body text in columns",
+          "case-study-card — image + text side-by-side",
+          "org-chart — hierarchical boxes",
+          "architecture-diagram — layered boxes with connectors",
+          "funnel-diagram — top-down funnel",
+          "maturity-model-ladder — 5 horizontal levels",
+          "swimlane-diagram — roles × stages",
+          "decision-tree-flowchart — branching connectors",
+          "circular-process-loop — continuous cycle"
+        ]}
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Contacts / closing categories (no runtime)" },
+      "blocks": [
+        {"kind": "bullets", "x": 0.6, "y": 2.0, "w": 9.0, "items": [
+          "team-contact-card-grid — photo + name + role cards",
+          "agenda-toc-list — numbered agenda (nearest: heading+bullets)",
+          "section-divider — minimal chrome title",
+          "before-after-split — two-panel state transition",
+          "competitive-matrix — features × vendors",
+          "pros-cons-list — two-column advantage/disadvantage"
+        ]}
+      ]
+    }
+  ]
+}

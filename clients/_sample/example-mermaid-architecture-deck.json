@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "title": "Example — Mermaid architecture diagram",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "eyebrow": "July 2026   |   Reference",
+        "kicker": "BAMI PRESENTATION FRAMEWORK",
+        "hero": "Mermaid-rendered architecture diagrams.",
+        "subtitle": "Diagrams authored as code, rendered to image blocks.",
+        "steps": ["Author", "Render", "Contain-fit", "Validate", "Deliver"]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Reference architecture" },
+      "blocks": [
+        { "kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8, "text": "A rendered Mermaid flowchart inside the body zone.", "pt": 18 },
+        {
+          "kind": "image",
+          "x": 1.5, "y": 2.4, "w": 16.8, "h": 7.2,
+          "fit": "contain",
+          "src": {
+            "mermaid": "flowchart LR\n  Client[Client App] --> GW[API Gateway]\n  GW --> SvcA[Service A]\n  GW --> SvcB[Service B]\n  SvcA --> DB[(Database)]\n  SvcB --> DB\n  SvcB --> Q[Queue]"
+          },
+          "caption": "Rendered from a Mermaid definition (brand styling not applied — see SKILL.md)."
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "eyebrow": "NEXT STEPS",
+        "hero": "Ship with confidence.",
+        "subtitle": "Every diagram is a validated, contained image block.",
+        "step_numbers": ["01", "02", "03"],
+        "step_titles": ["Render", "Validate", "Deliver"],
+        "step_bodies": ["Mermaid -> PNG.", "Run the validator.", "Hand off the .pptx."],
+        "contact": "info@bamiengineering.com"
+      }
+    }
+  ]
+}

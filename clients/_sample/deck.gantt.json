@@ -1,0 +1,67 @@
+{
+  "title": "BAMI Content Fabric — Gantt Sample",
+  "options": {
+    "chrome": "full"
+  },
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "eyebrow": "July 2026   |   Example",
+        "kicker": "BAMI CONTENT FABRIC",
+        "hero": "Generic Gantt sample deck.",
+        "subtitle": "A project-independent fixture for layout:gantt validation.",
+        "steps": ["Scope", "Timeline", "Delivery", "Review", "Close"]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Roadmap & milestones" },
+      "layout": "gantt",
+      "variant": {
+        "label_header": "Workstream"
+      },
+      "content": {
+        "periods": [
+          { "label": "Jul", "key": "jul", "weeks": ["1", "2", "3", "4"] },
+          { "label": "Aug", "key": "aug", "weeks": ["1", "2", "3", "4"] },
+          { "label": "Sep", "key": "sep", "weeks": ["1", "2", "3", "4"] }
+        ],
+        "sections": [
+          {
+            "title": "Foundation",
+            "color": "primary",
+            "tasks": [
+              { "label": "Requirements", "bars": [{ "period_key": "jul", "start": 0.05, "duration": 0.9, "label": "R1" }] },
+              { "label": "Design", "bars": [{ "period_key": "aug", "start": 0.0, "duration": 0.8, "label": "D1" }] }
+            ],
+            "milestone": { "period_key": "aug", "position": 0.9, "label": "M1" }
+          },
+          {
+            "title": "Delivery",
+            "color": "primary_mid",
+            "tasks": [
+              { "label": "Build", "bars": [{ "period_key": "aug", "start": 0.15, "duration": 1.25, "label": "B1" }] },
+              { "label": "Validate", "bars": [{ "period_key": "sep", "start": 0.1, "duration": 0.7, "label": "V1" }] }
+            ],
+            "milestone": { "period_key": "sep", "position": 0.75, "label": "M2" }
+          }
+        ],
+        "today": { "at_period_key": "aug", "position": 0.5 },
+        "legend": [
+          { "label": "Planned", "color": "primary" },
+          { "label": "Active", "color": "primary_mid" },
+          { "label": "Checkpoint", "color": "primary_dark" }
+        ]
+      }
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "eyebrow": "Next step",
+        "hero": "Review the plan and proceed.",
+        "subtitle": "The sample exists only to validate the generic gantt renderer."
+      }
+    }
+  ]
+}

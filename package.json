@@ -1,0 +1,23 @@
+{
+  "name": "bami-content-fabric",
+  "version": "1.0.0",
+  "description": "Generate standard BAMi corporate `.pptx` presentations that stay visually consistent with the corporate template while preserving flexible slide composition.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.61.1"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "threshold": 5,
+  "pairs": [
+    {
+      "a": "card-007.png",
+      "b": "card-008.png",
+      "category_a": "card",
+      "category_b": "card",
+      "distance": 2
+    }
+  ]
+}

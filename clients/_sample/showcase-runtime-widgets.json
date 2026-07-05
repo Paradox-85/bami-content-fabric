@@ -1,0 +1,99 @@
+{
+  "title": "BAMi Runtime Widget Showcase",
+  "options": { "chrome": "partial" },
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "eyebrow": "BAMI CONTENT FABRIC",
+        "kicker": "Technical Demo",
+        "hero": "Runtime Widget Showcase",
+        "subtitle": "Each slide exercises one of the 10 live block kinds or 2 working layouts. Reference-only categories not shown here — see showcase-reference-only.json.",
+        "steps": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt"]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: heading" },
+      "blocks": [{"kind": "heading", "x": 0.6, "y": 1.5, "w": 9.0, "text": "This is a heading block"}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: body" },
+      "blocks": [{"kind": "body", "x": 0.6, "y": 2.0, "w": 9.0, "text": "Body paragraph with full-width text content demonstrating paragraph flow."}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: bullets" },
+      "blocks": [{"kind": "bullets", "x": 0.6, "y": 2.0, "w": 5.0, "items": ["Discovery", "Design", "Develop", "Deploy", "Delight"]}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: caption" },
+      "blocks": [{"kind": "caption", "x": 0.6, "y": 2.0, "w": 5.0, "text": "Figure 1 — Market penetration by quarter, FY2026"}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: table" },
+      "blocks": [{"kind": "table", "x": 0.6, "y": 2.0, "w": 8.0, "h": 3.0, "header": ["Metric", "Q1", "Q2", "Q3"], "rows": [["Revenue", "$1M", "$1.5M", "$2M"], ["Users", "500", "1200", "3000"], ["Satisfaction", "85%", "88%", "92%"]]}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: card" },
+      "blocks": [{"kind": "card", "x": 0.6, "y": 2.0, "w": 3.5, "h": 3.5, "title": "Enterprise", "body": "Dedicated infra, SLA, priority support. Best for large organisations with compliance needs."}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: darkcard" },
+      "blocks": [{"kind": "darkcard", "x": 0.6, "y": 2.0, "w": 5.0, "h": 1.5, "text": "Highlight: end-to-end encrypted by default"}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: steps" },
+      "blocks": [{"kind": "steps", "x": 0.6, "y": 2.0, "w": 9.0, "count": 4, "numbers": ["01", "02", "03", "04"], "titles": ["Analyse", "Build", "Test", "Launch"], "bodies": ["Requirements & scope", "Implementation", "QA & validation", "Production release"]}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: kpi" },
+      "blocks": [{"kind": "kpi", "x": 0.6, "y": 2.0, "w": 3.0, "number": "99.9%", "label": "Uptime SLA"}]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Layout: kpi_strip" },
+      "layout": "kpi_strip",
+      "content": {
+        "kpis": [
+          {"number": "12k", "label": "Active users", "color": "primary"},
+          {"number": "3.2s", "label": "Avg. response", "color": "accent1"},
+          {"number": "98%", "label": "Satisfaction", "color": "primary"}
+        ]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Layout: gantt" },
+      "layout": "gantt",
+      "content": {
+        "periods": [
+          {"label": "Jul", "key": "jul", "weeks": ["W1", "W2", "W3", "W4"]},
+          {"label": "Aug", "key": "aug", "weeks": ["W1", "W2", "W3", "W4"]}
+        ],
+        "tasks": [
+          {"label": "Planning", "bars": [{"period_key": "jul", "start": 0.0, "duration": 1.0, "label": "Scoping"}]},
+          {"label": "Build", "bars": [{"period_key": "jul", "start": 1.0, "duration": 2.0, "label": "Dev"}]}
+        ],
+        "today": {"at_period_key": "jul", "position": 0.5}
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Block: gantt (block form)" },
+      "blocks": [{
+        "kind": "gantt", "x": 0.6, "y": 2.0, "w": 9.0,
+        "title": "Sprint plan",
+        "periods": [{"label": "S1", "key": "s1", "weeks": ["1", "2"]}],
+        "tasks": [{"label": "Design", "bars": [{"period_key": "s1", "start": 0, "duration": 1, "label": "UI"}]}]
+      }]
+    }
+  ]
+}

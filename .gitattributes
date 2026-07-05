@@ -1,0 +1,4 @@
+# Treat the locked brand template as binary (no line-ending / diff mangling).
+*.pptx binary
+*.pptm binary
+*.potx binary

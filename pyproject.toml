@@ -1,0 +1,43 @@
+[project]
+name = "bami-content-fabric"
+version = "0.1.0"
+description = "BAMI content fabric runtime. Current production domain: branded PowerPoint presentations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary — BAMI S.R.L" }
+dependencies = [
+    "python-pptx==1.0.2",
+    "pyyaml>=6.0",
+    "jsonschema>=4.20",
+    "click>=8.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+pptx_gen = "tools.pptx_gen.cli:main"
+pptx_validate = "tools.pptx_validate.cli:main"
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+# Explicit discovery — avoid flat-layout ambiguity (clients/schemas/templates/node_modules
+# are data/asset dirs, not importable packages). Ship only the importable code roots.
+include = ["shared*", "tools*"]
+exclude = ["clients*", "schemas*", "templates*", "node_modules*", "tests*", "docs*", "scripts*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

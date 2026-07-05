@@ -1,0 +1,142 @@
+# BAMI Content Fabric — Design Tokens (presentation domain machine source of truth)
+# Single source of truth for the generator + validator. Derived from the locked
+# template.pptx. Re-derive (scripts/dump_tokens.py) whenever the template changes.
+#
+# All values verified against templates/template.pptx on 2026-06-17.
+
+version: 1
+strategy: template-clone   # phase 1; switch to "layout-fill" in phase 2 (schema unchanged)
+
+canvas:
+  width_emu: 18288000      # 20.0 in
+  height_emu: 10287000     # 11.25 in
+  width_in: 20.0
+  height_in: 11.25
+  ratio: "16:9"
+
+fonts:
+  primary: "Montserrat"
+  # Fallback only; the brand font is embedded in templates/template.pptx.
+  # Listed so the validator can flag any NON-Montserrat run as a violation.
+  fallback_stack: ["Calibri", "Aptos", "Arial", "sans-serif"]
+
+# Role -> hex. The ONLY run/fill colors permitted anywhere in a generated deck.
+colors:
+  primary:      "#1FB8B8"   # teal/cyan — accents, eyebrows, step numbers, links
+  primary_dark: "#0E7A7A"   # deep emphasis
+  primary_mid:  "#5BD2C7"   # light emphasis on dark
+  primary_pale: "#B7E9E6"   # kickers / footer-left on dark
+  positive:     "#2BAE66"   # success / approved
+  negative:     "#C44C4C"   # danger / rejected
+  warning:      "#E0A800"   # caution
+  neutral:      "#8A8A86"   # captions, owners, footer-right, legends
+  text_1:       "#0A0A0A"   # headings / title bar fill / near-black
+  text_2:       "#1A1A1A"   # primary body on light
+  text_3:       "#2B2B2B"   # secondary body on light
+  bg_offwhite:  "#F7F6F2"   # body text on dark / off-white surface
+  white:        "#FFFFFF"   # hero titles / badges
+
+# Point sizes observed in the template (the only permitted sizes).
+type_scale_pt: [9, 10, 10.5, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 36, 38, 40, 52, 54]
+
+grid:
+  base_margin_in: 0.6       # primary grid unit
+  fine_step_in: 0.3         # allowed fine-adjustment step (half of base)
+  body_zone:
+    y_top_in: 1.2           # below the content title bar (0.95) + gap
+    y_bottom_in: 10.5       # above the footer divider (10.78)
+  footer_divider_y_in: 10.78
+  footer_y_in: 10.85
+
+# ---------------------------------------------------------------------------
+# THE THREE TEMPLATES
+#   ref_index = index into templates/template.pptx slides (the clone source).
+#   slots     = field -> shape name(s) whose text is replaced per-slide.
+#               Slot replacement preserves the run's Montserrat/size/color/bold;
+#               only the .text string is swapped (minimum-overwrite).
+# ---------------------------------------------------------------------------
+
+templates:
+
+  # --- TEMPLATE A: COVER (hero opener; one per deck, first slide) -----------
+  cover:
+    ref_index: 0
+    logo:
+      left_in: 17.639
+      top_in: 0.177
+      width_in: 2.065
+      height_in: 1.02
+    footer:
+      left:  { text: "DELIVERING VALUE", pt: 11, bold: true,  color: primary_pale, align: LEFT,  left_in: 0.9,  top_in: 10.65 }
+      right: { text: "Proprietary & Confidential", pt: 11, bold: false, color: neutral, align: RIGHT, left_in: 10.0, top_in: 10.65 }
+    slots:
+      eyebrow:  "Text 3"    # 13pt #B7E9E6 LEFT
+      kicker:   "Text 4"    # 16pt bold #1FB8B8 LEFT
+      hero:     "Text 5"    # 54pt bold #FFFFFF LEFT
+      subtitle: "Text 6"    # 19pt #F7F6F2
+      steps:               # 5 step pills, 13pt bold #FFFFFF CENTER
+        - "Text 8"
+        - "Text 11"
+        - "Text 14"
+        - "Text 17"
+        - "Text 20"
+
+  # --- TEMPLATE B: CONTENT (the workhorse; title + free body zone) ----------
+  content:
+    ref_index: 1            # chrome identical on slides 1–6
+    logo:
+      left_in: 17.89
+      top_in: 0.345
+      width_in: 1.51
+      height_in: 0.69
+    title_bar:              # the black rectangle (LOCKED — never recreate)
+      shape_name: "Shape 0"
+      fill: text_1          # #0A0A0A
+      left_in: 0.0
+      top_in: 0.0
+      width_in: 8.6
+      height_in: 0.95
+    title_text:             # slot — the only chrome text that changes per slide
+      shape_name: "Text 1"
+      font: Montserrat
+      pt: 24
+      bold: true
+      color: white
+      align: LEFT
+      left_in: 0.6          # ← the 0.6" indent inside the black bar
+      top_in: 0.0
+      width_in: 7.8
+      height_in: 0.95
+    footer_divider:
+      shape_name: "Shape 3"
+      left_in: 0.6
+      top_in: 10.78
+      width_in: 18.8
+    footer:
+      left:  { text: "DELIVERING VALUE", pt: 9, bold: true,  color: neutral, align: LEFT,  left_in: 0.6,  top_in: 10.85 }
+      right: { text: "Proprietary & Confidential", pt: 9, bold: false, color: neutral, align: RIGHT, left_in: 10.4, top_in: 10.85 }
+    page_number:
+      enabled: false        # RESOLVED (N) 2026-06-17: OFF — not in the original template
+    slots:
+      title: "Text 1"
+    # No body slots — the body zone is composed freely via deck.json blocks.
+
+  # --- TEMPLATE C: CLOSING (next steps; one per deck, last slide) -----------
+  closing:
+    ref_index: 7
+    logo:
+      left_in: 17.639
+      top_in: 0.177
+      width_in: 2.065
+      height_in: 1.02
+    footer:
+      left:  { text: "DELIVERING VALUE", pt: 11, bold: true,  color: primary_pale, align: LEFT,  left_in: 0.9,  top_in: 10.7 }
+      right: { text: "Proprietary & Confidential", pt: 11, bold: false, color: neutral, align: RIGHT, left_in: 10.0, top_in: 10.7 }
+    slots:
+      eyebrow:      "Text 3"    # 16pt bold #1FB8B8
+      hero:         "Text 4"    # 52pt bold #FFFFFF
+      subtitle:     "Text 5"    # 21pt #F7F6F2
+      step_numbers: ["Text 7",  "Text 11", "Text 15"]   # 36pt bold #1FB8B8
+      step_titles:  ["Text 8",  "Text 12", "Text 16"]   # 18pt bold #FFFFFF
+      step_bodies:  ["Text 9",  "Text 13", "Text 17"]   # 13pt #F7F6F2
+      contact:      "Text 19"   # 18pt bold #0A0A0A

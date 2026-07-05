@@ -1,0 +1,197 @@
+# ============================================================================
+# Canonical widget taxonomy — SINGLE SOURCE OF TRUTH
+# ----------------------------------------------------------------------------
+# Every consumer (library directory names, the Envato classifier in
+# tools/envato_assets/, library metadata, docs) MUST derive its category list
+# from THIS file. Do NOT invent categories anywhere else.
+#
+# Architectural decision: docs/decisions/0002-canonical-widget-taxonomy.md
+# When a new widget type is genuinely needed, add it HERE first, then it
+# becomes available everywhere. This stops per-run category hallucination.
+#
+# Library directories are named after the category `id` (kebab-case).
+# `runtime_kind` / `runtime_layout` link a category to the block kind(s) the
+# generator can actually render today. null = reference-only (no runtime
+# widget yet); see docs/runbooks/library-runtime-error-log.md.
+# ============================================================================
+format_version: 1
+
+groups:
+
+  - id: hierarchy-and-progression
+    title: Hierarchy & progression
+    categories:
+      - id: tier-pricing-cards
+        title: Tier/pricing cards
+        description: Side-by-side plan/tier cards with feature lists and price.
+        runtime_kind: card
+      - id: maturity-model-ladder
+        title: Maturity model ladder
+        description: 5 horizontal maturity levels, ascending left-to-right.
+        runtime_kind: null
+      - id: funnel-diagram
+        title: Funnel diagram
+        description: Top-down narrowing funnel of stages.
+        runtime_kind: null
+
+  - id: timelines
+    title: Timelines
+    categories:
+      - id: gantt-matrix
+        title: Gantt matrix
+        description: Task rows x period columns with colored bars.
+        runtime_kind: gantt
+        runtime_layout: gantt
+      - id: roadmap-with-milestones
+        title: Roadmap with milestones
+        description: Horizontal timeline with dated milestone markers.
+        runtime_kind: null
+      - id: phased-rollout-timeline
+        title: Phased rollout timeline
+        description: Vertical or horizontal phases with sub-tasks.
+        runtime_kind: null
+      - id: historical-timeline
+        title: Historical timeline
+        description: Events placed on an axis with dates.
+        runtime_kind: null
+
+  - id: comparison
+    title: Comparison
+    categories:
+      - id: comparison-table
+        title: Side-by-side comparison table
+        description: 2-4 columns with checkmarks/crosses per feature.
+        runtime_kind: null   # comparison_panel layout is defective (E1)
+      - id: before-after-split
+        title: Before/After split panel
+        description: Two-panel split showing state transition.
+        runtime_kind: null
+      - id: competitive-matrix
+        title: Competitive matrix
+        description: Rows=features, columns=vendors, cells=checkmarks.
+        runtime_kind: null
+      - id: pros-cons-list
+        title: Pros/cons two-column list
+        description: Two-column advantages vs disadvantages.
+        runtime_kind: null
+      - id: impact-table
+        title: Impact table
+        description: Factor-to-impact two-column analysis matrix.
+        runtime_kind: null
+
+  - id: process-and-flow
+    title: Process & flow
+    categories:
+      - id: numbered-process-steps
+        title: Numbered process steps
+        description: Horizontal 3-6 numbered steps with icons.
+        runtime_kind: steps
+      - id: swimlane-diagram
+        title: Swimlane diagram
+        description: Roles (lanes) x stages grid.
+        runtime_kind: null
+      - id: decision-tree-flowchart
+        title: Decision tree / flowchart
+        description: Branching nodes with connectors.
+        runtime_kind: null
+      - id: circular-process-loop
+        title: Circular process loop
+        description: Continuous cycle diagram.
+        runtime_kind: null
+
+  - id: data-and-metrics
+    title: Data & metrics
+    categories:
+      - id: kpi-dashboard-grid
+        title: KPI dashboard grid
+        description: 4-6 cards with numbers and trend arrows.
+        runtime_kind: kpi
+        runtime_layout: kpi_strip
+      - id: data-table
+        title: Data table
+        description: Dense table with zebra striping, numeric alignment.
+        runtime_kind: table
+      - id: infographic
+        title: Infographic
+        description: Single chart/visualization (bar, column, donut, pie, line, waterfall, etc.). Sub-types documented in README.
+        runtime_kind: null
+      - id: scorecard
+        title: Scorecard
+        description: Multiple metrics stacked vertically.
+        runtime_kind: null
+
+  - id: structure-and-organization
+    title: Structure & organization
+    categories:
+      - id: org-chart
+        title: Org chart
+        description: Hierarchical reporting boxes.
+        runtime_kind: null
+      - id: architecture-diagram
+        title: Architecture diagram
+        description: Layered boxes with connectors.
+        runtime_kind: null
+      - id: quadrant-matrix
+        title: Quadrant matrix
+        description: 2x2 grid (e.g. impact/effort, SWOT).
+        runtime_kind: null
+      - id: mind-map-radial
+        title: Mind-map / radial diagram
+        description: Central node with radiating topics (incl. octopus style).
+        runtime_kind: null
+      - id: infographic-3d-cube
+        title: Infographic — 3D cube
+        description: 3D cube diagram with three directional faces.
+        runtime_kind: null
+
+  - id: lists-and-checklists
+    title: Lists & checklists
+    categories:
+      - id: checklist-status
+        title: Checklist with status icons
+        description: done/pending/blocked status per item.
+        runtime_kind: null
+      - id: icon-text-feature-list
+        title: Icon + text feature list
+        description: Vertical 3-6 icon+text items.
+        runtime_kind: null
+      - id: numbered-ranking-list
+        title: Numbered ranking list
+        description: Top-N ranked items, often with percentages.
+        runtime_kind: null
+
+  - id: text-and-narrative
+    title: Text & narrative
+    categories:
+      - id: quote-testimonial-card
+        title: Quote/testimonial card
+        description: Pull quote with attribution.
+        runtime_kind: null
+      - id: callout-highlight-box
+        title: Callout/highlight box
+        description: Emphasized single-point callout.
+        runtime_kind: null
+      - id: multi-column-narrative
+        title: Two/three-column narrative text block
+        description: Body text laid out in columns.
+        runtime_kind: null
+      - id: case-study-card
+        title: Case study card
+        description: Image + text side-by-side.
+        runtime_kind: null
+
+  - id: contacts-and-closing
+    title: Contacts & closing
+    categories:
+      - id: team-contact-card-grid
+        title: Team/contact card grid
+        description: Photo + name + role cards.
+        runtime_kind: null
+      - id: agenda-toc-list
+        title: Agenda/table of contents list
+        description: Numbered agenda or TOC.
+        runtime_kind: null   # nearest runtime: heading + bullets
+      - id: section-divider
+        title: Section divider
+        description: Big title slide, minimal chrome.
+        runtime_kind: null

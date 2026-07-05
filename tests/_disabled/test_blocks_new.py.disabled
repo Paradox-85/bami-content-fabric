@@ -1,0 +1,294 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from PIL import Image
+from pptx import Presentation
+from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
+from pptx.enum.text import PP_ALIGN
+
+import pytest
+
+from shared.pptx.build import build_deck
+from tools.pptx_validate.cli import _read_archetype_hint, validate
+
+
+def test_new_blocks_build_and_validate(root: Path, tokens_path: Path, template_path: Path, tmp_path: Path):
+    image_path = tmp_path / "sample.png"
+    Image.new("RGB", (200, 120), color=(31, 184, 184)).save(image_path)
+
+    deck = {
+        "schema_version": 2,
+        "title": "New blocks",
+        "slides": [
+            {
+                "template": "cover",
+                "fields": {
+                    "eyebrow": "July 2026",
+                    "kicker": "BAMI",
+                    "hero": "New block coverage.",
+                    "subtitle": "Validation fixture.",
+                    "steps": ["Idea", "Plan", "Build", "Check", "Ship"],
+                },
+            },
+            {
+                "template": "content",
+                "fields": {"title": "Block coverage"},
+                "blocks": [
+                    {"kind": "quote", "x": 0.6, "y": 1.4, "w": 9.0, "h": 1.3, "text": "Layouts should be semantic, not coordinate-authored.", "attribution": "Framework review"},
+                    {"kind": "separator", "x": 0.6, "y": 3.0, "w": 18.8, "h": 0.03, "color": "primary"},
+                    {"kind": "tags", "x": 0.6, "y": 3.3, "w": 18.8, "items": ["semantic", "brand-safe", "validated"], "fill": "primary_dark"},
+                    {"kind": "image", "x": 11.0, "y": 1.4, "w": 8.4, "h": 3.2, "src": str(image_path), "fit": "contain", "caption": "Generated fixture image"},
+                ],
+            },
+            {
+                "template": "closing",
+                "fields": {
+                    "eyebrow": "NEXT STEPS",
+                    "hero": "Ship with confidence.",
+                    "subtitle": "Every new primitive should stay inside the design system.",
+                    "step_numbers": ["01", "02", "03"],
+                    "step_titles": ["Build", "Validate", "Review"],
+                    "step_bodies": ["Render the deck.", "Run the validator.", "Inspect the result."],
+                    "contact": "info@bamiengineering.com",
+                },
+            },
+        ],
+    }
+
+    deck_path = tmp_path / "new-blocks.json"
+    deck_path.write_text(json.dumps(deck), encoding="utf-8")
+    out_path = tmp_path / "new-blocks.pptx"
+
+    result = build_deck(deck_path, out_path, template_path, tokens_path)
+    assert result["slides_rendered"] == 3
+    rep = validate(out_path, tokens_path)
+    assert rep.ok, "validator violations:\n  - " + "\n  - ".join(rep.violations)
+
+
+def test_built_deck_contains_notes_hints(sample_deck: Path, tokens_path: Path, template_path: Path, tmp_path: Path):
+    out_path = tmp_path / "hints.pptx"
+    build_deck(sample_deck, out_path, template_path, tokens_path)
+    prs = Presentation(str(out_path))
+    hint = _read_archetype_hint(prs.slides[1])
+    assert hint is not None
+    assert hint.startswith("BAMI::template=content")
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 coverage: per-kind build + behavior locks for the audit fixes
+# ---------------------------------------------------------------------------
+
+_KINDS = ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps",
+           "kpi", "image", "quote", "separator", "tags", "badge", "legend", "timeline",
+           "flow", "columns", "feature_grid", "comparison", "gantt"]
+
+
+def _rep_block(kind: str, image_path) -> dict:
+    base = {"x": 0.6, "y": 1.4, "w": 18.8}
+    reps = {
+        "heading": {"text": "Heading"},
+        "body": {"text": "Body text."},
+        "bullets": {"items": ["one", "two", "three"]},
+        "caption": {"text": "A caption."},
+        "table": {"header": ["Metric", "Value"], "rows": [["Revenue", "1280"], ["Costs", "960"]]},
+        "card": {"title": "Title", "body": "body"},
+        "darkcard": {"text": "Emphasis"},
+        "steps": {"count": 3, "numbers": ["01", "02", "03"],
+                  "titles": ["a", "b", "c"], "bodies": ["x", "y", "z"]},
+        "kpi": {"number": "42", "label": "Units"},
+        "image": {"src": str(image_path), "h": 2.0, "fit": "contain"},
+        "quote": {"text": "A quote."},
+        "separator": {},
+        "tags": {"items": ["alpha", "beta"]},
+        "badge": {"number": "01", "w": 0.8, "h": 0.8},
+        "legend": {"items": [{"label": "Alpha"}, {"label": "Beta"}]},
+        "timeline": {"milestones": [{"label": "M1", "date": "Q1"},
+                                   {"label": "M2", "date": "Q2"}]},
+        "flow": {"nodes": [{"id": "n1", "label": "A", "x": 0.6, "y": 2.0},
+                            {"id": "n2", "label": "B", "x": 5.0, "y": 2.0}],
+                "edges": [{"from": "n1", "to": "n2"}]},
+        "columns": {"areas": [{"heading": "H", "body": "b"}]},
+        "feature_grid": {"items": [{"title": "T", "body": "b"}], "cols": 2},
+        "comparison": {"panels": [{"title": "A", "heading": "h", "body": "b"},
+                                  {"title": "B", "heading": "h", "body": "b"}]},
+        "gantt": {
+            "periods": [
+                {"label": "Jul", "key": "jul", "weeks": ["1", "2", "3", "4"]},
+                {"label": "Aug", "key": "aug", "weeks": ["1", "2", "3", "4"]},
+                {"label": "Sep", "key": "sep", "weeks": ["1", "2", "3", "4"]},
+            ],
+            "sections": [
+                {
+                    "title": "Done",
+                    "color": "primary",
+                    "tasks": [
+                        {"label": "Setup", "bars": [{"period_key": "jul", "start": 0.0, "duration": 0.8, "label": "SETUP"}]},
+                        {"label": "Configure", "bars": [{"period_key": "aug", "start": 0.2, "duration": 0.7, "label": "CONFIG"}]},
+                    ],
+                    "milestone": {"period_key": "aug", "position": 0.85, "label": "M1"}
+                },
+                {
+                    "title": "On Progress",
+                    "color": "positive",
+                    "tasks": [
+                        {"label": "Validate", "bars": [{"period_key": "sep", "start": 0.3, "duration": 0.5, "label": "VALIDATE"}]},
+                    ],
+                    "milestone": {"period_key": "sep", "position": 0.75, "label": "M2"}
+                }
+            ],
+            "today": {"at_period_key": "aug", "position": 0.5},
+            "legend": [{"label": "Done", "color": "primary"}, {"label": "Milestone", "color": "negative"}]
+        }
+    }
+    return {**base, "kind": kind, **reps[kind]}
+
+
+def _deck_with_blocks(blocks: list) -> dict:
+    return {
+        "schema_version": 2,
+        "title": "coverage",
+        "slides": [
+            {"template": "cover", "fields": {"eyebrow": "x", "kicker": "BAMI",
+                "hero": "H.", "subtitle": "s", "steps": ["a", "b", "c", "d", "e"]}},
+            {"template": "content", "fields": {"title": "T"}, "blocks": blocks},
+            {"template": "closing", "fields": {"eyebrow": "N", "hero": "H.", "subtitle": "s",
+                "step_numbers": ["01", "02", "03"], "step_titles": ["a", "b", "c"],
+                "step_bodies": ["x", "y", "z"], "contact": "i@bamiengineering.com"}},
+        ],
+    }
+
+
+def _build(blocks, tokens_path, template_path, tmp_path):
+    image_path = tmp_path / "img.png"
+    Image.new("RGB", (200, 120), (31, 184, 184)).save(image_path)
+    deck = _deck_with_blocks(blocks)
+    dp = tmp_path / "d.json"
+    dp.write_text(json.dumps(deck), encoding="utf-8")
+    op = tmp_path / "d.pptx"
+    build_deck(dp, op, template_path, tokens_path)
+    return op
+
+
+@pytest.mark.parametrize("kind", _KINDS)
+def test_each_block_kind_builds_and_validates(kind, tokens_path, template_path, tmp_path):
+    image_path = tmp_path / "img.png"
+    Image.new("RGB", (200, 120), (31, 184, 184)).save(image_path)
+    op = _build([_rep_block(kind, image_path)], tokens_path, template_path, tmp_path)
+    rep = validate(op, tokens_path)
+    assert rep.ok, f"{kind}: " + " | ".join(rep.violations)
+
+
+
+def test_layout_dispatch_builds_and_validates(tokens_path, template_path, tmp_path):
+    deck = {
+        "schema_version": 2,
+        "title": "layouts",
+        "slides": [
+            {"template": "cover", "fields": {"eyebrow": "x", "kicker": "BAMI",
+                "hero": "H.", "subtitle": "s", "steps": ["a", "b", "c", "d", "e"]}},
+            {
+                "template": "content",
+                "fields": {"title": "Metrics"},
+                "layout": "kpi_strip",
+                "variant": {"title": "Quarterly metrics"},
+                "content": {
+                    "kpis": [
+                        {"number": "42", "label": "Units", "color": "primary", "delta": "+12%", "period": "YoY"},
+                        {"number": "9", "label": "Ideas", "color": "primary_dark"},
+                        {"number": "4", "label": "Tiers", "color": "primary_mid"}
+                    ]
+                }
+            },
+            {"template": "closing", "fields": {"eyebrow": "N", "hero": "H.", "subtitle": "s",
+                "step_numbers": ["01", "02", "03"], "step_titles": ["a", "b", "c"],
+                "step_bodies": ["x", "y", "z"], "contact": "i@bamiengineering.com"}},
+        ],
+    }
+    deck_path = tmp_path / "layout.json"
+    deck_path.write_text(json.dumps(deck), encoding="utf-8")
+    out_path = tmp_path / "layout.pptx"
+    build_deck(deck_path, out_path, template_path, tokens_path)
+    rep = validate(out_path, tokens_path)
+    assert rep.ok, rep.violations
+    prs = Presentation(str(out_path))
+    hint = _read_archetype_hint(prs.slides[1])
+    assert hint is not None and "layout=kpi_strip" in hint
+def test_sectioned_gantt_renders_week_scale_and_diamond_milestones(tokens_path, template_path, tmp_path):
+    op = _build([_rep_block("gantt", tmp_path / "img.png")], tokens_path, template_path, tmp_path)
+    prs = Presentation(str(op))
+    slide = prs.slides[1]
+
+    week_labels = set()
+    diamonds = 0
+    for shp in slide.shapes:
+        if getattr(shp, "has_text_frame", False):
+            txt = " ".join(p.text for p in shp.text_frame.paragraphs).strip()
+            if txt in {"1", "2", "3", "4"}:
+                week_labels.add(txt)
+        try:
+            auto_shape_type = getattr(shp, "auto_shape_type", None)
+        except ValueError:
+            auto_shape_type = None
+        if auto_shape_type == MSO_AUTO_SHAPE_TYPE.DIAMOND:
+            diamonds += 1
+
+    assert week_labels == {"1", "2", "3", "4"}
+    assert diamonds >= 2
+
+
+def test_layout_dispatch_builds_and_validates(tokens_path, template_path, tmp_path):
+    op = _build([{"kind": "table", "x": 0.6, "y": 1.4, "w": 12.0,
+                  "header": ["Metric", "Value"], "rows": [["Revenue", "1280"], ["Costs", "960"]]}],
+                tokens_path, template_path, tmp_path)
+    prs = Presentation(str(op))
+    tbl = next(s.table for s in prs.slides[1].shapes if getattr(s, "has_table", False))
+    # numeric column ("Value") right-aligns; text column ("Metric") left-aligns
+    assert tbl.cell(1, 1).text_frame.paragraphs[0].alignment == PP_ALIGN.RIGHT
+    assert tbl.cell(1, 0).text_frame.paragraphs[0].alignment == PP_ALIGN.LEFT
+
+
+def test_table_cell_non_montserrat_is_flagged(tokens_path, template_path, tmp_path):
+    op = _build([{"kind": "table", "x": 0.6, "y": 1.4, "w": 12.0,
+                  "header": ["A", "B"], "rows": [["1", "2"]]}],
+                tokens_path, template_path, tmp_path)
+    prs = Presentation(str(op))
+    tbl = next(s.table for s in prs.slides[1].shapes if getattr(s, "has_table", False))
+    tbl.cell(0, 0).text_frame.paragraphs[0].runs[0].font.name = "Arial"
+    prs.save(str(op))
+    rep = validate(op, tokens_path)
+    assert any("table cell" in v and "not Montserrat" in v for v in rep.violations), rep.violations
+
+
+def test_kpi_delta_renders_trend(tokens_path, template_path, tmp_path):
+    op = _build([{"kind": "kpi", "x": 0.6, "y": 1.4, "w": 5.0,
+                  "number": "42", "label": "Units", "delta": "+12%", "period": "YoY"}],
+                tokens_path, template_path, tmp_path)
+    prs = Presentation(str(op))
+    found = False
+    for shp in prs.slides[1].shapes:
+        if not shp.has_text_frame:
+            continue
+        for p in shp.text_frame.paragraphs:
+            for r in p.runs:
+                if "12%" in r.text:
+                    col = None
+                    try:
+                        if r.font.color and r.font.color.rgb is not None:
+                            col = r.font.color.rgb
+                    except Exception:
+                        pass
+                    if col == RGBColor(0x2B, 0xAE, 0x66):  # positive
+                        found = True
+    assert found, "kpi delta run not rendered in the positive colour"
+
+
+def test_overlapping_blocks_are_flagged(tokens_path, template_path, tmp_path):
+    op = _build([
+        {"kind": "card", "x": 0.6, "y": 2.0, "w": 6.0, "h": 2.4, "title": "A", "body": "a"},
+        {"kind": "card", "x": 3.0, "y": 2.0, "w": 6.0, "h": 2.4, "title": "B", "body": "b"},
+    ], tokens_path, template_path, tmp_path)
+    rep = validate(op, tokens_path)
+    assert any("overlap" in v for v in rep.violations), rep.violations

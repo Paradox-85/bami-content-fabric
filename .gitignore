@@ -1,0 +1,40 @@
+# Workflow scratch / generated outputs (keep skills/, ignore temp + artifacts)
+.pi/temp/
+.pi/mermaid-cache/
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Generated decks (per-engagement outputs are not committed by default)
+*.pptx
+!templates/template.pptx
+# Node dependencies (installed via npm, large)
+node_modules/
+
+# External downloaded Envato asset packs (multi-GB, regenerable) — not committed
+templates/media/from_envato/
+
+# Intermediate asset-processing working dirs
+templates/media/_staging/
+templates/media/_raw_archive/
+templates/media/_envato_ingest/
+# Archives and binary files (not committed to version control)
+*.zip
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.exe
+*.msi
+*.dll
+*.so
+*.dylib
+*.pdf
+# Per-engagement client decks stay local; only the generic _sample is committed
+clients/*
+!clients/_sample/
+!clients/README.md

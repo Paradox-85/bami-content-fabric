@@ -37,14 +37,17 @@ def _mmd_gantt(content: dict | None, title: str = "") -> str:
              "    dateFormat  YYYY-MM-DD"]
     sections = c.get("sections", [])
     tasks = c.get("tasks", [])
+    # Normalize dates: append "-01" to "YYYY-MM" format dates
+    import re as _re
+    _date_fix = lambda d: d + "-01" if _re.match(r"^\d{4}-\d{2}$", str(d)) else str(d)
     if sections:
         for sec in sections:
             sec_title = sec.get("title", "Phase")
             lines.append(f"    section {sec_title}")
             for t in sec.get("tasks", []):
                 label = t.get("label", "Task")
-                start = t.get("start_str", t.get("start", "2025-01-01"))
-                end = t.get("end_str", t.get("end", "2025-06-01"))
+                start = _date_fix(t.get("start_str", t.get("start", "2025-01-01")))
+                end = _date_fix(t.get("end_str", t.get("end", "2025-06-01")))
                 if isinstance(start, (int, float)):
                     start = f"2025-{(int(start) % 12) + 1:02d}-01"
                 if isinstance(end, (int, float)):
@@ -57,8 +60,8 @@ def _mmd_gantt(content: dict | None, title: str = "") -> str:
     elif tasks:
         for t in tasks:
             label = t.get("label", "Task")
-            start = t.get("start_str", "2025-01-01")
-            end = t.get("end_str", "2025-06-01")
+            start = _date_fix(t.get("start_str", "2025-01-01"))
+            end = _date_fix(t.get("end_str", "2025-06-01"))
             lines.append(f"    {label} : {start}, {end}")
     return "\n".join(lines)
 

@@ -496,6 +496,33 @@ def _layout_chart_donut_pie(
              "text": definition}]
 
 
+
+
+def _gantt_block(content: dict, variant: dict | None = None) -> dict:
+    """Build a native gantt block dict with safe width calculation.
+    
+    Computes w so that x + w <= 19.2 (slide width) given the
+    number of periods and default label width.
+    """
+    periods = content.get("periods", [])
+    n_periods = len(periods) or 4
+    label_w = 2.8 if variant is None else variant.get("label_w", 2.8)
+    # Safe width: leave 0.6" right margin, start at x=0.6
+    safe_w = min(18.8, 0.6 + n_periods * 2.8 + label_w)
+    safe_w = max(12.0, min(safe_w, 18.6))
+    return {
+        "kind": "gantt", "x": 0.6, "y": 1.4, "w": safe_w,
+        "label_w": label_w,
+        "periods": periods,
+        "sections": content.get("sections", []),
+        "tasks": content.get("tasks", []),
+        "today": content.get("today", {}),
+        "legend": content.get("legend", []),
+        "variant": variant or {},
+    }
+
+
+
 # ===================================================================
 # Registry
 # ===================================================================

@@ -304,21 +304,12 @@ def _layout_funnel_diagram(
 def _layout_historical_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: events on axis → native gantt block (single-row)."""
-    c = content or {}
-    periods = c.get("periods", [])
-    if not periods:
-        events = c.get("events", [])
-        periods = [{"key": f"p{i}", "label": e.get("title", e.get("date", f"E{i}"))}
-                    for i, e in enumerate(events)]
-    tasks = c.get("tasks", [])
-    if not tasks:
-        events = c.get("events", [])
-        tasks = [{"label": e.get("title", e.get("date", "")),
-                   "bars": [{"period_key": f"p{i}", "start": 0, "duration": 0.8}]}
-                  for i, e in enumerate(events)]
-    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-             "periods": periods, "tasks": tasks, "variant": variant or {}}]
+    """Rich layout: events on axis → Mermaid timeline diagram."""
+    from shared.pptx._mermaid_helpers import _mmd_timeline
+    title = (variant or {}).get("title", "Historical Timeline")
+    definition = _mmd_timeline(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 def _layout_phased_rollout_timeline(

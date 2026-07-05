@@ -1,6 +1,14 @@
-# Workflow scratch / generated outputs (keep skills/, ignore temp + artifacts)
+# Agent session artifacts (keep skills/, mermaid-cache/, ignore temp + historical sessions)
 .pi/temp/
 .pi/mermaid-cache/
+.pi/context/
+.pi/plan/
+.pi/plan.md
+.pi/implementation/
+.pi/research/
+.pi/review/
+.pi/temp_session_slug.txt
+.pi/templates/
 # Python
 __pycache__/
 *.py[cod]

@@ -1,6 +1,8 @@
 # CLAUDE.md — bami-content-fabric
 
-Session-start workflow for Claude (and any agent) in this module.
+> **Extends AGENTS.md.** Read AGENTS.md first for the full contract (language, scope, rules, commit conventions).
+  This file only adds session-start workflow and skill discovery steps specific to Claude/Anthropic agents.
+
 
 ## On session start
 

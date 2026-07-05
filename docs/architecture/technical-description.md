@@ -35,7 +35,6 @@ Generation and validation commands must be executed from the repository root con
 For that reason, the canonical skill is global for discovery but still points back to this repository for execution.
 
 - Canonical global skill: `bami-presentation-design`
-- Local compatibility shim: `.pi/skills/presentation-design/SKILL.md`
 
 ## Repository identity transition
 
@@ -47,7 +46,6 @@ What changes now:
 
 - repository naming and documentation move toward `bami-content-fabric`
 - the canonical presentation skill becomes `bami-presentation-design`
-- old references are preserved through a local shim so links and prompts do not break during the transition
 
 What does **not** change yet:
 

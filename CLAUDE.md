@@ -18,7 +18,6 @@
 ## Skills
 
 - Canonical presentation skill: `bami-presentation-design` (global Pi skill).
-- Local compatibility alias: `.pi/skills/presentation-design/SKILL.md`.
 
 ## Generating a deck
 

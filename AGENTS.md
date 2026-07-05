@@ -32,8 +32,7 @@ See `docs/decisions/0001-three-templates-slide-clone.md`.
 - `schemas/` — the deck content-model JSON Schema.
 - `clients/<engagement>/` — per-engagement `deck.json` + output `.pptx`.
 - `docs/` — decisions (ADR), guidelines (style book), runbooks, architecture.
-- `.pi/skills/presentation-design/` — local compatibility shim forwarding to the
-  canonical global skill `bami-presentation-design`.
+- `bami-presentation-design` — canonical global skill for BAMi presentations
 
 ## Rules
 

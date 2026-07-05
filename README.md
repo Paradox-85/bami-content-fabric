@@ -48,9 +48,6 @@ docs/           decisions, guidelines, runbooks, architecture
 - **Canonical global skill:** `bami-presentation-design`
   - Installed at `~/.pi/agent/skills/bami-presentation-design/SKILL.md`
   - Use this name for new prompts and workflows
-- **Local compatibility shim:** `.pi/skills/presentation-design/SKILL.md`
-  - Keeps older references working during the transition
-  - Delegates to `bami-presentation-design`
 
 ## Authoring model
 

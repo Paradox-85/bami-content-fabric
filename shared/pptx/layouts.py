@@ -402,18 +402,10 @@ def _layout_competitive_matrix(
 def _layout_checklist_status(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: checklist → ``bullets`` with status prefixes."""
-    items = (content or {}).get("items", [])
-    prefixed = []
-    for item in items:
-        if isinstance(item, dict):
-            status = item.get("status", "pending")
-            label = item.get("label", item.get("name", ""))
-            prefix = {"done": "✓", "pending": "○", "blocked": "✕"}.get(status, "○")
-            prefixed.append(f"{prefix} {label}")
-        else:
-            prefixed.append(f"○ {item}")
-    return [{"kind": "bullets", "x": 0.6, "y": 1.5, "w": 18.8, "items": prefixed}]
+    """Rich layout: checklist status → Mermaid kanban board."""
+    definition = _mmd_kanban(content)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 def _layout_icon_text_feature_list(

@@ -130,7 +130,12 @@ arrangement (these are the defaults `shared/pptx/blocks.py` applies):
 - **Step marker:** `01` Montserrat 24 / 36 bold `#1FB8B8` (the branded motif).
 - **Badge / pill:** height ≈ 0.28 in, font 10–11 bold, fill = semantic colour,
   text `#FFFFFF` / `#0A0A0A`.
-
+- **Gantt chart:** native (python-pptx, not Mermaid). Section header row with
+  coloured left accent bar (0.08 in). Task rows with duration bars. Milestones
+  use the **slug `\u25c6` date** format: slug text (section colour, `pt=8` bold,
+  right-aligned, `0.7"` wide) left of the diamond marker, date text (neutral
+  colour, `pt=8` regular, `0.65"` wide) right of the diamond. Configure via
+  `"kind": "gantt"` in deck.json blocks. See `docs/decisions/0003-milestone-slug-date-format.md`.
 ## 7. Logo & footer
 
 - **BAMI logo, top-right**, on every slide (inherited from the template):

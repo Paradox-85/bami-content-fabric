@@ -296,7 +296,7 @@ def add_gantt(slide, tokens: Tokens, b: dict):
         return box
 
     def _render_task(label, bars, color_name, row_y):
-        _add_text(x + 0.05, row_y + max(0.0, (row_h - 0.28) / 2), max(0.2, label_w - 0.1), 0.28, label,
+        _add_text(x + 0.05, row_y + max(0.0, (row_h - 0.4) / 2), max(0.2, label_w - 0.1), 0.4, label,
                   pt=12, color="text_2", bold=False, align="LEFT")
         by = row_y + max(0.0, (row_h - bar_h) / 2)
         for bar in bars or []:
@@ -341,14 +341,23 @@ def add_gantt(slide, tokens: Tokens, b: dict):
             milestone = sec.get("milestone") or {}
             pkey = str(milestone.get("period_key", ""))
             if pkey in period_index:
-                mx = time_x + (period_index[pkey] * col_w) + (float(milestone.get("position", 0.5)) * col_w) - (milestone_h / 2)
-                my = current_y + max(0.02, (section_h - milestone_h) / 2)
-                shp = slide.shapes.add_shape(MSO_SHAPE.DIAMOND, inches(mx), inches(my), inches(milestone_h), inches(milestone_h))
+                diamond_w = float(b.get("milestone_h", 0.18))
+                mx = time_x + (period_index[pkey] * col_w) + (float(milestone.get("position", 0.5)) * col_w) - (diamond_w / 2)
+                my = current_y + max(0.02, (section_h - diamond_w) / 2)
+                shp = slide.shapes.add_shape(MSO_SHAPE.DIAMOND, inches(mx), inches(my), inches(diamond_w), inches(diamond_w))
                 style_shape_solid_fill(shp, tokens, sec_color)
                 no_line(shp)
-                if milestone.get("label"):
-                    _add_text(mx + milestone_h + 0.03, current_y + 0.04, 0.5, max(0.18, section_h - 0.08),
-                              milestone["label"], pt=9, color="neutral", bold=True, align="LEFT")
+                # Milestone label (slug left of diamond) + date (right of diamond)
+                lbl = milestone.get("label", "")
+                dt = milestone.get("date", "")
+                if lbl:
+                    slug_w = 0.7
+                    _add_text(mx - slug_w - 0.03, current_y + 0.02, slug_w, max(0.2, section_h - 0.04),
+                              lbl, pt=8, color=sec_color, bold=True, align="RIGHT")
+                if dt:
+                    date_w = 0.65
+                    _add_text(mx + diamond_w + 0.03, current_y + 0.02, date_w, max(0.2, section_h - 0.04),
+                              dt, pt=8, color="neutral", bold=False, align="LEFT")
             current_y += section_h
             sec_tasks = sec.get("tasks", [])
             for ti, task in enumerate(sec_tasks):

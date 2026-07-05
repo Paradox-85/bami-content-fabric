@@ -262,10 +262,15 @@ def _layout_numbered_process_steps(
 ) -> list[dict]:
     """Reference-only stub: numbered sequential steps → ``steps`` block."""
     items = _items(content)
+    items = _items(content)
+    items = _items(content)
+    """Reference-only stub: numbered sequential steps → ``steps`` block."""
+    items = _items(content)
     n = len(items)
+    numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
         "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
-        "count": n, "titles": items,
+        "count": n, "numbers": numbers, "titles": items,
     }]
 
 
@@ -275,9 +280,10 @@ def _layout_circular_process_loop(
     """Reference-only stub: continuous cycle → ``steps`` block."""
     items = _items(content)
     n = len(items)
+    numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
         "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
-        "count": n, "titles": items,
+        "count": n, "numbers": numbers, "titles": items,
     }]
 
 
@@ -287,9 +293,10 @@ def _layout_funnel_diagram(
     """Reference-only stub: narrowing funnel → ``steps`` block."""
     items = _items(content)
     n = len(items)
+    numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
         "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
-        "count": n, "titles": items,
+        "count": n, "numbers": numbers, "titles": items,
     }]
 
 

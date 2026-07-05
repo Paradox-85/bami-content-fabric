@@ -33,7 +33,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from shared.pptx.tokens import Tokens
-from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap
+from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_architecture
 
 
 # ---------------------------------------------------------------------------
@@ -291,14 +291,11 @@ def _layout_circular_process_loop(
 def _layout_funnel_diagram(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: narrowing funnel → ``steps`` block."""
-    items = _items(content)
-    n = len(items)
-    numbers = [f"{i:02d}" for i in range(1, n + 1)]
-    return [{
-        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
-        "count": n, "numbers": numbers, "titles": items,
-    }]
+    """Rich layout: funnel → Mermaid sankey diagram."""
+    title = (variant or {}).get("title", "Funnel")
+    definition = _mmd_sankey(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 # --- Gantt-based layouts (use gantt block) ---
@@ -449,6 +446,38 @@ def _layout_decision_tree_flowchart(
              "text": definition}]
 
 
+
+
+def _layout_architecture_diagram(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Rich layout: architecture diagram → Mermaid architecture diagram."""
+    title = (variant or {}).get("title", "Architecture")
+    definition = _mmd_architecture(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
+
+
+def _layout_quadrant_matrix(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Rich layout: quadrant matrix → Mermaid quadrantChart."""
+    title = (variant or {}).get("title", "Matrix")
+    definition = _mmd_quadrant(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
+
+
+def _layout_chart_donut_pie(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Rich layout: donut/pie chart → Mermaid pie chart."""
+    title = (variant or {}).get("title", "Distribution")
+    definition = _mmd_pie(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
+
+
 # ===================================================================
 # Registry
 # ===================================================================
@@ -473,6 +502,9 @@ LAYOUTS: dict[str, LayoutBuilder] = {
     "competitive-matrix": _layout_competitive_matrix,
     "mind-map-radial": _layout_mind_map_radial,
     "icon-text-feature-list": _layout_icon_text_feature_list,
+    "architecture-diagram": _layout_architecture_diagram,
+    "quadrant-matrix": _layout_quadrant_matrix,
+    "chart-donut-pie": _layout_chart_donut_pie,
 }
 
 

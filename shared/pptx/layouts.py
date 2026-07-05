@@ -316,48 +316,14 @@ def _layout_phased_rollout_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
     """Rich layout: phased rollout → native gantt block with sections."""
-    c = content or {}
-    periods = c.get("periods", [])
-    sections = c.get("sections", [])
-    if not periods and sections:
-        # Infer periods from section task bar period_keys
-        all_keys = set()
-        for sec in sections:
-            for t in sec.get("tasks", []):
-                for bar in t.get("bars", []):
-                    all_keys.add(bar.get("period_key", ""))
-        periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
-    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-             "periods": periods,
-             "sections": sections,
-             "tasks": c.get("tasks", []),
-             "today": c.get("today", {}),
-             "legend": c.get("legend", []),
-             "variant": variant or {}}]
+    return [_gantt_block(content or {}, variant)]
 
 
 def _layout_roadmap_with_milestones(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
     """Rich layout: roadmap with milestones → native gantt block."""
-    c = content or {}
-    periods = c.get("periods", [])
-    sections = c.get("sections", [])
-    if not periods and sections:
-        # Infer periods from section task bar period_keys
-        all_keys = set()
-        for sec in sections:
-            for t in sec.get("tasks", []):
-                for bar in t.get("bars", []):
-                    all_keys.add(bar.get("period_key", ""))
-        periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
-    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-             "periods": periods,
-             "sections": sections,
-             "tasks": c.get("tasks", []),
-             "today": c.get("today", {}),
-             "legend": c.get("legend", []),
-             "variant": variant or {}}]
+    return [_gantt_block(content or {}, variant)]
 
 
 # --- Card-based layouts (use card blocks) ---
@@ -500,11 +466,23 @@ def _layout_chart_donut_pie(
 
 def _gantt_block(content: dict, variant: dict | None = None) -> dict:
     """Build a native gantt block dict with safe width calculation.
-    
+
     Computes w so that x + w <= 19.2 (slide width) given the
     number of periods and default label width.
+    If periods are not provided but sections contain task bars
+    with period_keys, periods are inferred automatically.
     """
-    periods = content.get("periods", [])
+    c = content or {}
+    periods = c.get("periods", [])
+    sections = c.get("sections", [])
+    # Infer periods from section task bar period_keys if not explicitly provided
+    if not periods and sections:
+        all_keys = set()
+        for sec in sections:
+            for t in sec.get("tasks", []):
+                for bar in t.get("bars", []):
+                    all_keys.add(bar.get("period_key", ""))
+        periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
     n_periods = len(periods) or 4
     label_w = 2.8 if variant is None else variant.get("label_w", 2.8)
     # Safe width: leave 0.6" right margin, start at x=0.6
@@ -514,10 +492,10 @@ def _gantt_block(content: dict, variant: dict | None = None) -> dict:
         "kind": "gantt", "x": 0.6, "y": 1.4, "w": safe_w,
         "label_w": label_w,
         "periods": periods,
-        "sections": content.get("sections", []),
-        "tasks": content.get("tasks", []),
-        "today": content.get("today", {}),
-        "legend": content.get("legend", []),
+        "sections": sections,
+        "tasks": c.get("tasks", []),
+        "today": c.get("today", {}),
+        "legend": c.get("legend", []),
         "variant": variant or {},
     }
 

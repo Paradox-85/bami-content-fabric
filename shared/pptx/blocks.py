@@ -426,7 +426,11 @@ def add_table(slide, tokens: Tokens, b: dict):
 
 
 def add_mermaid_image(slide, tokens: Tokens, b: dict):
-    """Render a Mermaid diagram definition via mmdc and embed the resulting PNG."""
+    """Render a Mermaid diagram definition via mmdc and embed the resulting PNG.
+
+    Preserves the native aspect ratio of the rendered diagram by fitting it
+    into the requested ``w`` × ``h`` box (centered if aspect ratio differs).
+    """
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 5.0)
     _check_zone("mermaid", x, y, w, h)
@@ -436,16 +440,25 @@ def add_mermaid_image(slide, tokens: Tokens, b: dict):
     scale = b.get("scale", 3)
     from shared.pptx.mermaid_render import render_mermaid_png
     png_path = render_mermaid_png(definition, scale=scale)
-    from pptx.util import Inches
-    from pptx import Presentation
+    from PIL import Image
+    with Image.open(png_path) as img:
+        orig_w, orig_h = img.size
+    target_w_emu = int(w * 914400)
+    target_h_emu = int(h * 914400)
+    scale_w = target_w_emu / orig_w
+    scale_h = target_h_emu / orig_h
+    fit_scale = min(scale_w, scale_h)
+    final_w = int(orig_w * fit_scale)
+    final_h = int(orig_h * fit_scale)
+    x_offset = int(x * 914400) + (target_w_emu - final_w) // 2
+    y_offset = int(y * 914400) + (target_h_emu - final_h) // 2
     try:
-        from pptx.oxml.ns import qn
-        pic = slide.shapes.add_picture(
-            str(png_path),
-            int(x * 914400), int(y * 914400),
-            width=int(w * 914400),
-            height=int(h * 914400),
+        slide.shapes.add_picture(
+            str(png_path), x_offset, y_offset,
+            width=final_w, height=final_h,
         )
+    except Exception as exc:
+        raise ValueError(f"mermaid: failed to embed PNG: {exc}") from exc
     except Exception as exc:
         raise ValueError(f"mermaid: failed to embed PNG: {exc}") from exc
 

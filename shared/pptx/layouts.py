@@ -33,7 +33,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from shared.pptx.tokens import Tokens
-from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_architecture
+from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_flowchart_architecture
 
 
 # ---------------------------------------------------------------------------
@@ -304,34 +304,69 @@ def _layout_funnel_diagram(
 def _layout_historical_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: events on axis → Mermaid timeline diagram."""
-    title = (variant or {}).get("title", "Historical Timeline")
-    from shared.pptx._mermaid_helpers import _mmd_timeline
-    definition = _mmd_timeline(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
-             "text": definition}]
+    """Rich layout: events on axis → native gantt block (single-row)."""
+    c = content or {}
+    periods = c.get("periods", [])
+    if not periods:
+        events = c.get("events", [])
+        periods = [{"key": f"p{i}", "label": e.get("title", e.get("date", f"E{i}"))}
+                    for i, e in enumerate(events)]
+    tasks = c.get("tasks", [])
+    if not tasks:
+        events = c.get("events", [])
+        tasks = [{"label": e.get("title", e.get("date", "")),
+                   "bars": [{"period_key": f"p{i}", "start": 0, "duration": 0.8}]}
+                  for i, e in enumerate(events)]
+    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+             "periods": periods, "tasks": tasks, "variant": variant or {}}]
 
 
 def _layout_phased_rollout_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: phased rollout → Mermaid gantt with sections."""
-    title = (variant or {}).get("title", "Phased Rollout")
-    from shared.pptx._mermaid_helpers import _mmd_gantt
-    definition = _mmd_gantt(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
-             "text": definition}]
+    """Rich layout: phased rollout → native gantt block with sections."""
+    c = content or {}
+    periods = c.get("periods", [])
+    sections = c.get("sections", [])
+    if not periods and sections:
+        # Infer periods from section task bar period_keys
+        all_keys = set()
+        for sec in sections:
+            for t in sec.get("tasks", []):
+                for bar in t.get("bars", []):
+                    all_keys.add(bar.get("period_key", ""))
+        periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
+    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+             "periods": periods,
+             "sections": sections,
+             "tasks": c.get("tasks", []),
+             "today": c.get("today", {}),
+             "legend": c.get("legend", []),
+             "variant": variant or {}}]
 
 
 def _layout_roadmap_with_milestones(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: milestones on axis → Mermaid gantt with milestones."""
-    title = (variant or {}).get("title", "Roadmap")
-    from shared.pptx._mermaid_helpers import _mmd_gantt
-    definition = _mmd_gantt(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
-             "text": definition}]
+    """Rich layout: roadmap with milestones → native gantt block."""
+    c = content or {}
+    periods = c.get("periods", [])
+    sections = c.get("sections", [])
+    if not periods and sections:
+        # Infer periods from section task bar period_keys
+        all_keys = set()
+        for sec in sections:
+            for t in sec.get("tasks", []):
+                for bar in t.get("bars", []):
+                    all_keys.add(bar.get("period_key", ""))
+        periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
+    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
+             "periods": periods,
+             "sections": sections,
+             "tasks": c.get("tasks", []),
+             "today": c.get("today", {}),
+             "legend": c.get("legend", []),
+             "variant": variant or {}}]
 
 
 # --- Card-based layouts (use card blocks) ---
@@ -445,7 +480,7 @@ def _layout_architecture_diagram(
 ) -> list[dict]:
     """Rich layout: architecture diagram → Mermaid architecture diagram."""
     title = (variant or {}).get("title", "Architecture")
-    definition = _mmd_architecture(content, title=title)
+    definition = _mmd_flowchart_architecture(content, title=title)
     return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
              "text": definition}]
 

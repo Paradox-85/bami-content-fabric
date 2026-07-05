@@ -242,3 +242,46 @@ def _mmd_gitgraph(content: dict | None, title: str = "") -> str:
         elif isinstance(cm, str):
             lines.append(f"    commit id: \"{cm}\"")
     return "\n".join(lines)
+
+
+def _mmd_flowchart_architecture(content: dict | None, title: str = "") -> str:
+    """Build a Mermaid flowchart TB with subgraphs for architecture diagrams."""
+    c = content or {}
+    groups = c.get("groups", [])
+    services = c.get("services", c.get("items", []))
+    connections = c.get("connections", c.get("links", []))
+    lines = ["flowchart TB"]
+    if title:
+        lines.insert(0, f"%%{{init: {{'theme':'base','themeVariables': {{'fontFamily':'Arial'}}}}}}%%")
+        lines.append(f"    title[{title}]")
+    # Render groups as subgraphs with their services inside
+    group_services = {}
+    for g in groups:
+        gname = g.get("name", g.get("label", "Group"))
+        glabel = g.get("title", gname)
+        lines.append(f"    subgraph {gname}[{glabel}]")
+        group_services[gname] = []
+        for svc in services:
+            if svc.get("group", svc.get("parent", "")) == gname:
+                sname = svc.get("name", svc.get("id", ""))
+                slabel = svc.get("label", svc.get("title", sname))
+                lines.append(f"        {sname}[{slabel}]")
+                group_services[gname].append(sname)
+        lines.append("    end")
+    # Services without a group
+    for svc in services:
+        gname = svc.get("group", svc.get("parent", ""))
+        if gname not in [g.get("name", g.get("label", "")) for g in groups]:
+            sname = svc.get("name", svc.get("id", ""))
+            slabel = svc.get("label", svc.get("title", sname))
+            lines.append(f"    {sname}[{slabel}]")
+    # Connections
+    for conn in connections:
+        src = conn.get("from", conn.get("source", ""))
+        tgt = conn.get("to", conn.get("target", ""))
+        label = conn.get("label", conn.get("description", ""))
+        if label:
+            lines.append(f"    {src} -->|{label}| {tgt}")
+        else:
+            lines.append(f"    {src} --> {tgt}")
+    return "\n".join(lines)

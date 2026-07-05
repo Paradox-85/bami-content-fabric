@@ -65,17 +65,17 @@
                 "kind": {
                   "type": "string",
                   "enum": [
+                    "heading",
                     "body",
                     "bullets",
                     "caption",
+                    "table",
                     "card",
                     "darkcard",
-                    "gantt",
-                    "heading",
-                    "kpi",
-                    "mermaid",
                     "steps",
-                    "table"
+                    "kpi",
+                    "gantt",
+                    "mermaid"
                   ]
                 },
                 "x": {

@@ -33,6 +33,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from shared.pptx.tokens import Tokens
+from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap
 
 
 # ---------------------------------------------------------------------------
@@ -306,33 +307,34 @@ def _layout_funnel_diagram(
 def _layout_historical_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: events on axis → single-row ``gantt``."""
-    periods = (content or {}).get("periods", [])
-    return [{
-        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-        "periods": periods,
-        "tasks": (content or {}).get("tasks", []),
-    }]
+    """Rich layout: events on axis → Mermaid timeline diagram."""
+    title = (variant or {}).get("title", "Historical Timeline")
+    from shared.pptx._mermaid_helpers import _mmd_timeline
+    definition = _mmd_timeline(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 def _layout_phased_rollout_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: phased rollout → section-grouped ``gantt``."""
-    return [{
-        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-        **(content or {}),
-    }]
+    """Rich layout: phased rollout → Mermaid gantt with sections."""
+    title = (variant or {}).get("title", "Phased Rollout")
+    from shared.pptx._mermaid_helpers import _mmd_gantt
+    definition = _mmd_gantt(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 def _layout_roadmap_with_milestones(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: milestones on axis → ``gantt`` with sections + milestones."""
-    return [{
-        "kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8,
-        **(content or {}),
-    }]
+    """Rich layout: milestones on axis → Mermaid gantt with milestones."""
+    title = (variant or {}).get("title", "Roadmap")
+    from shared.pptx._mermaid_helpers import _mmd_gantt
+    definition = _mmd_gantt(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 # --- Card-based layouts (use card blocks) ---
@@ -379,11 +381,12 @@ def _layout_pros_cons_list(
 def _layout_swimlane_diagram(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: roles × stages → ``table`` block."""
-    header = (content or {}).get("header", (content or {}).get("columns", []))
-    rows = (content or {}).get("rows", [])
-    return [{"kind": "table", "x": 0.6, "y": 1.5, "w": 18.8,
-             "header": header, "rows": rows}]
+    """Rich layout: swimlane → Mermaid flowchart with subgraphs."""
+    title = (variant or {}).get("title", "Process")
+    from shared.pptx._mermaid_helpers import _mmd_flowchart_lr_swimlane
+    definition = _mmd_flowchart_lr_swimlane(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 def _layout_competitive_matrix(
@@ -427,16 +430,23 @@ def _layout_icon_text_feature_list(
 def _layout_mind_map_radial(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Reference-only stub: radial mind-map → ``heading`` + ``bullets``."""
-    title = (variant or {}).get("title", (content or {}).get("title", ""))
-    items = (content or {}).get("items", [])
-    blocks = []
-    if title:
-        blocks.append({"kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8,
-                        "text": title, "pt": 18, "color": "text_2"})
-    if items:
-        blocks.append({"kind": "bullets", "x": 0.6, "y": 2.2, "w": 18.8, "items": items})
-    return blocks
+    """Rich layout: radial mind-map → Mermaid mindmap diagram."""
+    title = (variant or {}).get("title", (content or {}).get("title", "Map"))
+    from shared.pptx._mermaid_helpers import _mmd_mindmap
+    definition = _mmd_mindmap(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
+
+
+
+def _layout_decision_tree_flowchart(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Rich layout: decision tree → Mermaid flowchart TD."""
+    title = (variant or {}).get("title", "Decision Tree")
+    definition = _mmd_flowchart_td(content, title=title)
+    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+             "text": definition}]
 
 
 # ===================================================================
@@ -452,7 +462,7 @@ LAYOUTS: dict[str, LayoutBuilder] = {
     "numbered-process-steps": _layout_numbered_process_steps,
     "circular-process-loop": _layout_circular_process_loop,
     "funnel-diagram": _layout_funnel_diagram,
-    "decision-tree-flowchart": _layout_checklist_status,     # uses bullets
+    "decision-tree-flowchart": _layout_decision_tree_flowchart,
     "historical-timeline": _layout_historical_timeline,
     "phased-rollout-timeline": _layout_phased_rollout_timeline,
     "roadmap-with-milestones": _layout_roadmap_with_milestones,

@@ -1,0 +1,33 @@
+{
+  "id": "mind-map-radial",
+  "vue_component": "MindMapRadial",
+  "category_id": "mind-map-radial",
+  "title": "Radial mind map",
+  "description": "Radial mind map with center root node and branching child nodes at multiple levels.",
+  "current_runtime_kind": "diagram",
+  "implemented": false,
+  "props": [
+    {
+      "name": "root",
+      "type": "Object",
+      "required": true,
+      "default": null,
+      "description": "Root node: {label, children: [{label, children?}]}. Nested up to 3 levels."
+    },
+    {
+      "name": "accent",
+      "type": "String",
+      "required": false,
+      "default": "primary",
+      "enum": [
+        "primary",
+        "primary_dark",
+        "primary_mid",
+        "positive",
+        "warning",
+        "neutral"
+      ],
+      "description": "Color token for root node and branch lines."
+    }
+  ]
+}

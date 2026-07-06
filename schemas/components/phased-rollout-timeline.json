@@ -1,0 +1,40 @@
+{
+  "id": "phased-rollout-timeline",
+  "vue_component": "PhasedRolloutTimeline",
+  "category_id": "phased-rollout-timeline",
+  "title": "Phased rollout timeline",
+  "description": "Horizontal phase/section rows over period columns with colored duration bars and milestone diamonds. Maps 1:1 to the gantt content contract from _gantt_block / add_gantt layouts.py.",
+  "current_runtime_kind": "gantt",
+  "implemented": true,
+  "props": [
+    {
+      "name": "periods",
+      "type": "Array",
+      "required": true,
+      "default": null,
+      "description": "Time columns: [{key, label}]. key matches bars.period_key for positioning."
+    },
+    {
+      "name": "phases",
+      "type": "Array",
+      "required": true,
+      "default": null,
+      "description": "Section rows: [{name, color?, tasks[{label, bars[{period_key, start, duration, color?, label?}]}], milestone?{period_key, position, label, date?}}]. Mirrors gantt 'sections' contract from layouts.py."
+    },
+    {
+      "name": "today",
+      "type": "Object",
+      "required": false,
+      "default": null,
+      "description": "Optional 'today' vertical marker: {at_period_key, position (0-1)}."
+    },
+    {
+      "name": "accent",
+      "type": "String",
+      "required": false,
+      "default": "primary",
+      "enum": ["primary", "primary_dark", "positive", "warning"],
+      "description": "Fallback color token for bars/milestones without explicit color."
+    }
+  ]
+}

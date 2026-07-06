@@ -1,0 +1,26 @@
+{
+  "id": "swimlane-diagram",
+  "vue_component": "SwimlaneDiagram",
+  "category_id": "swimlane-diagram",
+  "title": "Swimlane / process diagram",
+  "description": "Horizontal swimlanes showing process stages per role/department. Each lane has labelled steps in sequence.",
+  "current_runtime_kind": "diagram",
+  "implemented": false,
+  "props": [
+    {
+      "name": "lanes",
+      "type": "Array",
+      "required": true,
+      "default": null,
+      "description": "Swimlanes: [{name, color?, steps: [{label, duration?, detail?}]}]."
+    },
+    {
+      "name": "accent",
+      "type": "String",
+      "required": false,
+      "default": "primary",
+      "enum": ["primary", "primary_dark", "primary_mid", "positive", "neutral"],
+      "description": "Default color token for lane accents."
+    }
+  ]
+}

@@ -13,6 +13,13 @@ The production workflow is:
 3. validate the output with `python -m tools.pptx_validate`
 4. deliver only when validation exits `0`
 
+As of 2026-07-06, a **dual-renderer architecture** is operational:
+
+1. **Branch A (Slidev)** — intermediate JSON → Slidev Markdown → Web SPA / PDF / PPTX
+2. **Branch B (python-pptx)** — `deck.json` → branded `.pptx` (existing, stable)
+
+Both branches share the same **brand design tokens** (`design_tokens.yaml`) and **widget taxonomy** (`categories.yaml`).
+The intermediate JSON schema (`intermediate-slide-schema.json`) serves as the bridge between content intent and both renderers.
 The implementation is built around three ideas:
 
 - **locked template inheritance** — chrome comes from `templates/template.pptx`
@@ -32,10 +39,36 @@ Generation and validation commands must be executed from the repository root con
 - `templates/template.pptx`
 - `templates/design_tokens.yaml`
 
+### Branch A: Slidev pipeline
+
+The Slidev pipeline (`tools/slidev_generate/`, `tools/slidev_review/`, `tools/slidev_pipeline/`) generates web-native presentations from intermediate JSON:
+
+```bash
+# Full E2E pipeline (generate → build → export → validate)
+python -m tools.slidev_pipeline --schema schemas/examples/intermediate-full.json
+
+# Or step by step:
+# 1. Generate slides.md from intermediate JSON
+python -m tools.slidev_generate --schema schemas/examples/intermediate-full.json --out tools/slidev/slides.md
+
+# 2. Validate intermediate JSON + generated .md
+python -m tools.slidev_review --schema schemas/examples/intermediate-full.json --markdown tools/slidev/slides.md
+
+# 3. Build SPA + export PDF
+cd tools/slidev && ./node_modules/.bin/slidev export --output slides-export.pdf --per-slide --wait 3000
+```
+
+**Key files:**
+- `tools/slidev/` — isolated Slidev workspace (`package.json`, Vue components, layouts, styles)
+- `tools/slidev/layouts/bami-cover.vue`, `bami-content.vue`, `bami-closing.vue` — 3 brand chrome layouts
+- `tools/slidev/components/*.vue` — 8 Vue components for widget rendering
+- `tools/slidev/public/styles/bami-tokens.css` — brand CSS tokens
+- `schemas/intermediate-slide-schema.json` — intermediate content model
+- `schemas/components/registry.json` — component registry with 8 prop contracts
+
 For that reason, the canonical skill is global for discovery but still points back to this repository for execution.
 
 - Canonical global skill: `bami-presentation-design`
-
 ## Repository identity transition
 
 The repository is being renamed from **presentation-framework** toward **bami-content-fabric**.
@@ -113,6 +146,20 @@ Of the 44 categories, **5 have native generative runtime widgets** (python-pptx)
 | `data-table` | `table` | -- |
 | `numbered-process-steps` | `steps` | -- |
 | `tier-pricing-cards` | `card` | -- |
+
+Additionally, **8 categories have Slidev Vue components** (Branch A) registered in `schemas/components/registry.json` with full prop contracts:
+
+| Category | Vue Component |
+|----------|---------------|
+| `tier-pricing-cards` | `TierPricingCards` |
+| `phased-rollout-timeline` | `PhasedRolloutTimeline` |
+| `kpi-dashboard-grid` | `KpiStrip` |
+| `funnel-diagram` | `FunnelDiagram` |
+| `decision-tree-flowchart` | `DecisionTreeFlowchart` |
+| `swimlane-diagram` | `SwimlaneDiagram` |
+| `mind-map-radial` | `MindMapRadial` |
+| `checklist-status` | `ChecklistStatus` |
+
 An additional **9 categories have rich Mermaid-based layouts** (rendered via mmdc
 to PNG and embedded as pictures). These go beyond the primitive fallbacks:
 
@@ -169,3 +216,5 @@ See the full error log at `docs/runbooks/library-runtime-error-log.md`.
 - `docs/runbooks/generate-deck.md`
 - `docs/runbooks/library-runtime-error-log.md`
 - `docs/runbooks/library-reconciliation-handoff.md`
+- `docs/decisions/0004-slidev-dual-renderer-architecture.md` — Branch A decisions
+- `docs/guidelines/slide-generation.md` — includes Branch A generator guide

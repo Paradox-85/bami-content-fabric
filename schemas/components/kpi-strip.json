@@ -1,0 +1,26 @@
+{
+  "id": "kpi-dashboard-grid",
+  "vue_component": "KpiStrip",
+  "category_id": "kpi-dashboard-grid",
+  "title": "KPI strip",
+  "description": "Horizontal strip of 1-4 metric cards: big number + label + optional delta/period. Mirrors the kpi_strip layout contract from layouts.py.",
+  "current_runtime_kind": "kpi",
+  "current_runtime_layout": "kpi_strip",
+  "implemented": true,
+  "props": [
+    {
+      "name": "kpis",
+      "type": "Array",
+      "required": true,
+      "default": null,
+      "description": "Metric cards: [{number, label, color?, delta?, period?}]. Max 4 (clamped — at 5+ cards text overflows, see F-05 guard from layouts.py)."
+    },
+    {
+      "name": "columns",
+      "type": "Number",
+      "required": false,
+      "default": null,
+      "description": "Column count override. null = len(kpis). Clamped to [1,4]."
+    }
+  ]
+}

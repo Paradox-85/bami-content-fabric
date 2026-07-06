@@ -1,0 +1,142 @@
+/* ==========================================================================
+   BAMi Brand Design Tokens — Slidev Theme
+   ==========================================================================
+   Extracted from templates/template.pptx on 2026-07-06.
+   Source of truth: .pi/review/template-pptx-tokens.md
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     COLOR PALETTE (13 colors, extracted from PPTX shape XML)
+     ------------------------------------------------------------------ */
+
+  /* Brand core */
+  --bami-primary:         #1FB8B8;  /* Primary teal — accents, borders, CTA */
+  --bami-primary-dark:    #0E7A7A;  /* Dark teal — price text, tier 2 */
+  --bami-primary-mid:     #5BD2C7;  /* Mid teal — tier 0, lighter accents */
+  --bami-primary-pale:    #B7E9E6;  /* Pale teal — eyebrow, footer on dark */
+
+  /* Semantic */
+  --bami-positive:        #2BAE66;  /* Green — approval, positive KPIs */
+  --bami-negative:        #C44C4C;  /* Red — rejection, negative KPIs, milestones */
+  --bami-warning:         #E0A800;  /* Gold/amber — tier 3 */
+
+  /* Neutrals */
+  --bami-neutral:         #8A8A86;  /* Muted gray — captions, MANUAL badge */
+  --bami-text-1:          #0A0A0A;  /* Darkest — bg, title bar, overlay */
+  --bami-text-2:          #1A1A1A;  /* Secondary — headings, card titles */
+  --bami-text-3:          #2B2B2B;  /* Body text — paragraphs, descriptions */
+  --bami-bg-offwhite:     #F7F6F2;  /* Light bg — content slides */
+  --bami-white:           #FFFFFF;  /* White — cards, text on dark */
+
+  /* Alias tokens for semantic clarity */
+  --color-bg-dark:        var(--bami-text-1);
+  --color-bg-light:      var(--bami-bg-offwhite);
+  --color-surface:       var(--bami-white);
+  --color-text-primary:  var(--bami-text-2);
+  --color-text-body:     var(--bami-text-3);
+  --color-text-muted:    var(--bami-neutral);
+  --color-text-on-dark:  var(--bami-white);
+  --color-accent:        var(--bami-primary);
+  --color-accent-strong: var(--bami-primary-dark);
+
+  /* ------------------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------------------ */
+
+  --bami-font-family:     "Montserrat", "Calibri", "Arial", sans-serif;
+  --bami-font-mono:       "Fira Code", "Consolas", monospace;
+
+  /* Display sizes */
+  --bami-fs-hero-cover:   54pt;
+  --bami-fs-hero-closing: 52pt;
+  --bami-fs-kicker:       16pt;
+  --bami-fs-eyebrow:      13pt;
+  --bami-fs-subtitle:     19pt;
+
+  /* Content sizes */
+  --bami-fs-heading:      24pt;
+  --bami-fs-title-bar:    24pt;
+  --bami-fs-section-label: 13pt;
+  --bami-fs-subheading:   24pt;
+  --bami-fs-body-lead:    16pt;
+  --bami-fs-body:         13pt;
+
+  /* Component sizes */
+  --bami-fs-kpi-number:   40pt;
+  --bami-fs-kpi-label:    12pt;
+  --bami-fs-card-title:   17pt;
+  --bami-fs-card-body:    13pt;
+  --bami-fs-steps-number: 36pt;
+  --bami-fs-step-title:   18pt;
+
+  /* Gantt sizes */
+  --bami-fs-gantt-label:  11pt;
+  --bami-fs-gantt-bar:    9pt;
+
+  /* Metadata */
+  --bami-fs-caption:      11pt;
+  --bami-fs-footer:       11pt;
+  --bami-fs-badge:        10pt;
+
+  /* Font weights */
+  --bami-fw-bold:         700;
+  --bami-fw-regular:      400;
+  --bami-fw-light:        300;
+
+  /* ------------------------------------------------------------------
+     SPACING & LAYOUT (Slidev canvas: 980×551px = 20×11.25" at 49px/in)
+     ------------------------------------------------------------------ */
+
+  /* Body margins (0.6") */
+  --bami-margin-x:        29px;
+  --bami-margin-y:        29px;
+
+  /* Title bar */
+  --bami-titlebar-width:  421px;   /* 8.60" */
+  --bami-titlebar-height: 47px;    /* 0.95" */
+
+  /* Card grid */
+  --bami-card-gap:        20px;    /* ~0.40" */
+  --bami-card-width:      294px;   /* 6.00" */
+  --bami-card-height:     118px;   /* 2.40" */
+
+  /* Step cards (closing) */
+  --bami-stepcard-width:  274px;   /* 5.60" */
+  --bami-stepcard-height: 132px;   /* 2.70" */
+
+  /* Banners */
+  --bami-banner-height:   51px;    /* 1.05" */
+  --bami-pill-width:      145px;   /* 2.95" */
+  --bami-pill-height:     34px;    /* 0.70" */
+
+  /* Footer */
+  --bami-footer-y:        532px;   /* 10.85" (content) */
+  --bami-footer-y-dark:   522px;   /* 10.65" (cover/closing) */
+
+  /* ------------------------------------------------------------------
+     CARD TREATMENTS
+     ------------------------------------------------------------------ */
+
+  --bami-card-radius:      0px;    /* PPTX uses sharp corners */
+  --bami-card-stripe-h:    4px;    /* 0.08" colored top stripe */
+  --bami-card-border:      none;
+  --bami-card-shadow:      none;
+  --bami-banner-accent-w:  5px;    /* 0.10" left accent bar */
+
+  /* ------------------------------------------------------------------
+     OVERLAY
+     ------------------------------------------------------------------ */
+
+  --bami-overlay-color:    #0A0A0A;
+  --bami-overlay-opacity:  0.6;
+
+  /* ------------------------------------------------------------------
+     EXPORT SETTINGS
+     ------------------------------------------------------------------ */
+
+  --bami-bg-image-cover:   url('/bg-cover.jpeg');
+  --bami-bg-image-content: url('/bg-content.jpeg');
+  --bami-logo-cover:       url('/bami-logo-cover.png');
+  --bami-logo-content:     url('/bami-logo-content.png');
+}

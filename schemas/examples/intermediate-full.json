@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "title": "Full Pipeline Demo",
+    "client": "BAMi",
+    "date": "2026-07-06"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "props": {
+        "eyebrow": "May 2026  |  Sales proposal — Saipem",
+        "kicker": "BAMI AGENT FACTORY",
+        "hero": "Guided agent building in your Copilot tenant.",
+        "subtitle": "An agile service that takes an agent idea from intake to deployment across complexity tiers, with one Quick Proposal for every request.",
+        "steps": ["Idea", "Evaluation", "Tier 0–3", "Quick Proposal", "Build"]
+      }
+    },
+    {
+      "type": "content",
+      "title": "Pricing",
+      "section": "OUR OFFERING",
+      "subheading": "Simple, transparent pricing based on complexity tier.",
+      "components": [
+        {
+          "component": "TierPricingCards",
+          "props": {
+            "tiers": [
+              { "name": "Basic", "price": "1k", "features": ["Discovery", "Report"] },
+              { "name": "Pro", "price": "3k", "features": ["Discovery", "Engineering", "Support"] },
+              { "name": "Enterprise", "price": "Custom", "features": ["Unlimited", "Dedicated team"] }
+            ],
+            "highlight": "Pro",
+            "currency": "€"
+          }
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Implementation Roadmap",
+      "section": "PROJECTION",
+      "subheading": "Phased rollout across three quarters.",
+      "components": [
+        {
+          "component": "PhasedRolloutTimeline",
+          "props": {
+            "periods": [
+              { "key": "q1", "label": "Q1 2026" },
+              { "key": "q2", "label": "Q2 2026" },
+              { "key": "q3", "label": "Q3 2026" }
+            ],
+            "phases": [
+              {
+                "name": "Discovery",
+                "color": "primary",
+                "tasks": [
+                  { "label": "Requirements", "bars": [{ "period_key": "q1", "start": 0.0, "duration": 0.8 }] }
+                ],
+                "milestone": { "period_key": "q1", "position": 0.8, "label": "Kickoff", "date": "Mar" }
+              },
+              {
+                "name": "Build",
+                "color": "primary_dark",
+                "tasks": [
+                  { "label": "Development", "bars": [{ "period_key": "q2", "start": 0.0, "duration": 0.9 }] }
+                ]
+              }
+            ],
+            "today": { "at_period_key": "q2", "position": 0.3 }
+          }
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Impact",
+      "section": "RESULTS",
+      "subheading": "Headline metrics from the engagement.",
+      "bodytext": "Delivered value across the engagement.",
+      "components": [
+        {
+          "component": "KpiStrip",
+          "props": {
+            "kpis": [
+              { "number": "32%", "label": "Cost reduction", "color": "positive" },
+              { "number": "4x", "label": "Throughput", "color": "primary" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "closing",
+      "props": {
+        "eyebrow": "NEXT STEPS",
+        "hero": "Let's start now.",
+        "subtitle": "Three steps to begin. No commercial commitment after this workshop.",
+        "step_numbers": ["01", "02", "03"],
+        "step_titles": ["Discovery & governance", "Intake setup", "First two PoCs"],
+        "step_bodies": [
+          "2-hour workshop with leads from the three departments to map priorities.",
+          "Bami configures the intake form and the evaluation model in your tenant.",
+          "Pick two ideas (different tiers), run them end-to-end. Decide from evidence."
+        ],
+        "contact": "Let's talk  •  info@bamiengineering.com  •  bamiengineering.com"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "title": "Q3 Performance Review",
+    "subtitle": "Key metrics across active engagements"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "props": {
+        "hero": "Q3 Metrics",
+        "subtitle": "Performance dashboard"
+      }
+    },
+    {
+      "type": "content",
+      "title": "Key Performance Indicators",
+      "components": [
+        {
+          "component": "KpiStrip",
+          "props": {
+            "kpis": [
+              { "number": "42", "label": "Projects delivered", "color": "primary", "delta": "+12%", "period": "YoY" },
+              { "number": "99", "label": "Client satisfaction", "color": "positive", "delta": "+3%" },
+              { "number": "€1.8M", "label": "Revenue (EUR)", "color": "primary_dark", "delta": "+18%", "period": "QTD" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "closing",
+      "props": {
+        "hero": "Questions?"
+      }
+    }
+  ]
+}

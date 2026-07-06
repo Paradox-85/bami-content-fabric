@@ -69,7 +69,10 @@ Sizes outside this list are not guaranteed to render correctly.
  "periods":[{"key":"q1","label":"Q1"},{"key":"q2","label":"Q2"}],
  "sections":[{"title":"Phase 1","color":"primary","tasks":[
    {"label":"Task A","bars":[{"period_key":"q1","start":0.0,"duration":0.8}]}
- ]}]}
+ ],
+  "milestone":{"period_key":"q1","position":0.5,"label":"Sign-off","date":"15 Jan"}}
+ ]}
+ }]}]}
 
 // kpi — supports number, label, color, delta, period (E2 FIXED)
 {"kind":"kpi","x":0.6,"y":2.0,"w":4.25,
@@ -110,22 +113,28 @@ Sizes outside this list are not guaranteed to render correctly.
 
 ## Self-check (pre-submit)
 
+## Self-check (pre-submit)
+
 Before delivering any deck.json or generated PPTX, run through this checklist.
 
-### Library migration check
+### Deck generation check
 
 ```
-□ categories.yaml прочитан с диска перед любыми операциями
-□ Ни один из мёртвых slugs не использован
-   dead = agenda, flow, gantt, kpi, process, table, comparison,
-          card, decision, quote, team, timeline, use-case,
-          executive-summary, project-charter, infographic-element
-□ 1:1 переименования: файлы renumbered sequential в canonical директориях
-□ config.py читает из categories.yaml
-□ test_taxonomy_sync.py проходит (3 теста)
-□ coverage.md регенерирован после миграций
+[ ]  block kind in BUILDERS: heading | body | bullets | caption |
+    table | card | darkcard | steps | kpi | gantt | mermaid
+[ ]  layout name in LAYOUTS: gantt | kpi_strip | comparison_panel |
+    funnel-diagram | historical-timeline | swimlane-diagram |
+    checklist-status | mind-map-radial | decision-tree-flowchart |
+    architecture-diagram | quadrant-matrix | chart-donut-pie |
+    phased-rollout-timeline | roadmap-with-milestones
+[ ]  Slide does not have both layout and blocks (mutually exclusive)
+[ ]  All y in [1.2, 10.5] on content slides
+[ ]  All colours are token names, not hex
+[ ]  Font sizes from approved scale
+[ ]  Deck passed validator: python -m tools.pptx_validate <deck.pptx>
+[ ]  If mermaid block used: definition renders without mmdc error
+    (test: mmdc -i <temp>.mmd -o <temp>.png -b white)
 ```
-
 ### Deck generation check
 
 ```

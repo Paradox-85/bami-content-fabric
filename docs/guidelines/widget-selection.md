@@ -70,8 +70,31 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | `numbered-process-steps` | `steps` | — |
 | `tier-pricing-cards` | `card` | — |
 
-All other categories are reference-only and must use primitive fallback.
+## Runtime-capable categories (native blocks)
 
+| Category ID | Runtime kind | Layout | Render method |
+|---|---|---|---|
+| `gantt-matrix` | `gantt` | `gantt` | native python-pptx (add_gantt) |
+| `roadmap-with-milestones` | `gantt` | `roadmap-with-milestones` | native python-pptx (add_gantt) |
+| `phased-rollout-timeline` | `gantt` | `phased-rollout-timeline` | native python-pptx (add_gantt) |
+| `kpi-dashboard-grid` | `kpi` | `kpi_strip` | native python-pptx |
+| `data-table` | `table` | -- | native python-pptx |
+| `numbered-process-steps` | `steps` | -- | native python-pptx |
+| `tier-pricing-cards` | `card` | -- | native python-pptx |
+
+## Rich Mermaid layouts (rendered via mmdc to PNG)
+
+| Category ID | Mermaid type | Layout |
+|---|---|---|
+| `funnel-diagram` | sankey | `funnel-diagram` |
+| `historical-timeline` | timeline | `historical-timeline` |
+| `swimlane-diagram` | flowchart LR + subgraphs | `swimlane-diagram` |
+| `checklist-status` | kanban | `checklist-status` |
+| `mind-map-radial` | mindmap | `mind-map-radial` |
+| `decision-tree-flowchart` | flowchart TD | `decision-tree-flowchart` |
+| `architecture-diagram` | flowchart TB + subgraphs | `architecture-diagram` |
+| `quadrant-matrix` | quadrantChart | `quadrant-matrix` |
+| `chart-donut-pie` | pie | `chart-donut-pie` |
 ## Primitive fallbacks for reference-only categories
 
 | Category ID | Primitive fallback |
@@ -84,7 +107,6 @@ All other categories are reference-only and must use primitive fallback.
 | `roadmap-with-milestones` | `gantt` with `sections` + milestone markers |
 | `phased-rollout-timeline` | `gantt` with section-grouped tasks |
 | `historical-timeline` | `gantt` (single-row, period = year/quarter) |
-| `maturity-model-ladder` | `steps` with 5 horizontal levels |
 | `funnel-diagram` | `steps` descending with narrowing sizes |
 | `swimlane-diagram` | `table` (header = stages, rows = roles) |
 | `decision-tree-flowchart` | `bullets` with indented branching or `table` |
@@ -92,23 +114,22 @@ All other categories are reference-only and must use primitive fallback.
 | `scorecard` | `table` (metric / value / target / status) |
 | `org-chart` | `table` or `card` with indentation hierarchy |
 | `architecture-diagram` | `card` blocks layered + `body` connectors |
-| `quadrant-matrix` | `table` 2×2 or four `card` blocks in a grid |
+| `quadrant-matrix` | `table` 2x2 or four `card` blocks in a grid |
 | `mind-map-radial` | `heading` + `bullets` (flat radial not rendered) |
 | `infographic-3d-cube` | `darkcard` with three labelled `body` blocks |
 | `infographic` | `kpi` (numbers); `table` (tables); `body` (narrative) |
-| `checklist-status` | `bullets` with ✓/◯/✕ prefixes |
-| `icon-text-feature-list` | `bullets` with `•` or numbered prefix |
+| `checklist-status` | `bullets` with checkmark/circle/cross prefixes |
+| `icon-text-feature-list` | `bullets` with bullet or numbered prefix |
 | `numbered-ranking-list` | `steps` with rank numbers; `body` per item |
 | `quote-testimonial-card` | `darkcard` + `body` text + `caption` attribution |
 | `callout-highlight-box` | `darkcard` (single emphasis) |
 | `multi-column-narrative` | Two or three `body` blocks side by side |
 | `case-study-card` | `card` (title = client) + `body` + `kpi` result |
-| `executive-summary-panel` | `heading` + `bullets` (3–4 takeaways) + optional `kpi` |
-| `team-contact-card-grid` | N `card` blocks in a row, title = name, body = role |
+| `executive-summary-panel` | `heading` + `bullets` + optional `kpi` |
+| `team-contact-card-grid` | N `card` blocks in a row |
 | `agenda-toc-list` | `steps` with topic numbers; `body` per topic |
 | `section-divider` | template `closing` |
 | `project-overview-card` | `table` (field/value rows) or `card` grid |
-
 ## Examples
 
 ### Example 1: Widget selected from intent (no hint)

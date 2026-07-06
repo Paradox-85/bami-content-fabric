@@ -102,21 +102,35 @@ The taxonomy defines **44 categories** across **9 semantic groups**:
 
 ### Runtime vs reference-only
 
-Of the 44 categories, **5 have generative runtime widgets**:
+Of the 44 categories, **5 have native generative runtime widgets** (python-pptx):
 
 | Category | Runtime kind | Layout |
 |----------|-------------|--------|
 | `gantt-matrix` | `gantt` | `gantt` |
+| `roadmap-with-milestones` | `gantt` | `roadmap-with-milestones` |
+| `phased-rollout-timeline` | `gantt` | `phased-rollout-timeline` |
 | `kpi-dashboard-grid` | `kpi` | `kpi_strip` |
 | `data-table` | `table` | -- |
 | `numbered-process-steps` | `steps` | -- |
 | `tier-pricing-cards` | `card` | -- |
+An additional **9 categories have rich Mermaid-based layouts** (rendered via mmdc
+to PNG and embedded as pictures). These go beyond the primitive fallbacks:
 
-The remaining **39 categories are reference-only**: they exist as visual PNG
-references but cannot be generated programmatically. Each reference-only
-category has a documented **primitive fallback** (see
-`docs/guidelines/widget-selection.md`) that approximates the visual effect
-using available primitive blocks.
+| Category | Mermaid type | Layout |
+|----------|-------------|--------|
+| `funnel-diagram` | sankey | `funnel-diagram` |
+| `historical-timeline` | timeline | `historical-timeline` |
+| `swimlane-diagram` | flowchart LR | `swimlane-diagram` |
+| `checklist-status` | kanban | `checklist-status` |
+| `mind-map-radial` | mindmap | `mind-map-radial` |
+| `decision-tree-flowchart` | flowchart TD | `decision-tree-flowchart` |
+| `architecture-diagram` | flowchart TB | `architecture-diagram` |
+| `quadrant-matrix` | quadrantChart | `quadrant-matrix` |
+| `chart-donut-pie` | pie | `chart-donut-pie` |
+
+The remaining **30 categories are reference-only**: they exist as visual PNG
+references but cannot be generated programmatically. Each has a documented
+**primitive fallback** (see `docs/guidelines/widget-selection.md`).
 
 ### Widget selection process
 
@@ -140,10 +154,8 @@ The seed-to-library map (`config.py`) also derives its category list from
 
 ### Known gaps
 
-- **E6:** `image` block kind (Mermaid PNG inline) -- not implemented
 - **E7/E8/E9:** `load_deck` migration, exception wrapping, mutual-exclusivity
   validation -- deferred (xfail tests exist as spec-markers)
-
 See the full error log at `docs/runbooks/library-runtime-error-log.md`.
 
 ## Related documents

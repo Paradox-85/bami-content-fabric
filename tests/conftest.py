@@ -16,12 +16,12 @@ def root() -> Path:
 
 @pytest.fixture(scope="session")
 def template_path(root) -> Path:
-    return root / "templates" / "template.pptx"
+    return root / "templates" / "bami" / "template.pptx"
 
 
 @pytest.fixture(scope="session")
 def tokens_path(root) -> Path:
-    return root / "templates" / "design_tokens.yaml"
+    return root / "templates" / "bami" / "design_tokens.yaml"
 
 
 @pytest.fixture(scope="session")

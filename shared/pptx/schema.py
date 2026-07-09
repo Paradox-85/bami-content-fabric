@@ -52,8 +52,14 @@ SCHEMA: dict[str, Any] = {
                         "items": {
                             "type": "object",
                             "required": ["kind", "x", "y", "w"],
+                            "allOf": [
+                                {
+                                    "if": {"properties": {"kind": {"const": "chart-bar-column"}}},
+                                    "then": {"required": ["categories", "series"]},
+                                },
+                            ],
                             "properties": {
-                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid"]},
+                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid", "chart-bar-column"]},
                                 "x": {"type": "number", "minimum": 0},
                                 "y": {"type": "number", "minimum": 0},
                                 "w": {"type": "number", "minimum": 0.1},
@@ -75,6 +81,23 @@ SCHEMA: dict[str, Any] = {
                                 "body": {"type": "string"},
                                 "fill": {"type": "string"},
                                 "accent": {"type": "string"},
+                                "categories": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+                                "series": {
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "items": {
+                                        "type": "object",
+                                        "required": ["values"],
+                                        "properties": {
+                                            "name": {"type": "string"},
+                                            "values": {"type": "array", "minItems": 1, "items": {"type": "number"}},
+                                            "color": {"type": "string"}
+                                        },
+                                        "additionalProperties": False
+                                    }
+                                },
+                                "bar_color": {"type": "string"},
+                                "number_format": {"type": "string"},
                             },
                             "additionalProperties": True,
                         },
@@ -137,3 +160,23 @@ def _validate_semantics(deck: dict[str, Any]) -> None:
                 f"slide {i}: body composition keys (blocks/layout/variant/content) "
                 f"are only allowed on 'content' slides (template {t!r} is slot-based)"
             )
+        for j, block in enumerate(s.get("blocks", [])):
+            if block.get("kind") != "chart-bar-column":
+                continue
+            categories = block.get("categories") or []
+            series = block.get("series") or []
+            if not categories:
+                raise ValueError(f"slide {i} block {j}: chart-bar-column requires categories")
+            if not series:
+                raise ValueError(f"slide {i} block {j}: chart-bar-column requires series")
+            for k, series_spec in enumerate(series):
+                values = (series_spec or {}).get("values") if isinstance(series_spec, dict) else None
+                if not isinstance(values, list) or not values:
+                    raise ValueError(
+                        f"slide {i} block {j} series {k}: chart-bar-column requires values[]"
+                    )
+                if len(values) != len(categories):
+                    raise ValueError(
+                        f"slide {i} block {j} series {k}: chart-bar-column values length "
+                        f"must match categories length"
+                    )

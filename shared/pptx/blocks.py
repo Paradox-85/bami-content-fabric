@@ -5,11 +5,14 @@ strictly through ``style.py`` so Montserrat / brand hex / type scale are
 guaranteed. Block *placement* is free; block *styling* is system-bound.
 
 Supported kinds (see schemas/content-schema.json):
-    heading, body, bullets, caption, table, card, darkcard, steps, kpi
+    heading, body, bullets, caption, table, card, darkcard, steps, kpi,
+    gantt, mermaid, chart-bar-column
 """
 
 from __future__ import annotations
 
+from pptx.chart.data import CategoryChartData
+from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
@@ -470,6 +473,113 @@ def add_mermaid_image(slide, tokens: Tokens, b: dict):
         raise ValueError(f"mermaid: failed to embed PNG: {exc}") from exc
 
 
+# --------------------------------------------------------------------------- chart
+
+
+def add_chart_bar_column(slide, tokens: Tokens, b: dict):
+    """Render a native PPTX clustered-column chart with BAMi brand styling.
+
+    Minimal payload contract:
+        categories : list[str]                     — category labels
+        series     : list[{name?, values, color?}] — one or more numeric series
+        title      : str (optional)                — chart title
+        bar_color  : str (optional)                — default fill for single-series charts
+    """
+    x, y, w = float(b["x"]), float(b["y"]), float(b["w"])
+    h = float(b.get("h", 4.5))
+    _check_zone("chart-bar-column", tokens, x, y, w, h)
+
+    categories = [str(cat) for cat in (b.get("categories") or [])]
+    raw_series = b.get("series") or []
+    if not categories:
+        raise ValueError("chart-bar-column: 'categories' is required with at least one entry")
+    if not raw_series:
+        raise ValueError("chart-bar-column: 'series' is required with at least one entry")
+
+    chart_data = CategoryChartData()
+    chart_data.categories = categories
+
+    normalized_series = []
+    for idx, series_spec in enumerate(raw_series, start=1):
+        if not isinstance(series_spec, dict):
+            raise ValueError("chart-bar-column: each series entry must be an object")
+        values = series_spec.get("values")
+        if not isinstance(values, list) or not values:
+            raise ValueError("chart-bar-column: each series must define a non-empty 'values' array")
+        if len(values) != len(categories):
+            raise ValueError(
+                "chart-bar-column: each series.values length must match categories length"
+            )
+        try:
+            normalized_values = tuple(float(value) for value in values)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("chart-bar-column: series values must be numeric") from exc
+
+        normalized = {
+            "name": str(series_spec.get("name") or f"Series {idx}"),
+            "values": normalized_values,
+            "color": series_spec.get("color"),
+        }
+        normalized_series.append(normalized)
+        chart_data.add_series(normalized["name"], normalized_values)
+
+    graphic_frame = slide.shapes.add_chart(
+        XL_CHART_TYPE.COLUMN_CLUSTERED,
+        inches(x),
+        inches(y),
+        inches(w),
+        inches(h),
+        chart_data,
+    )
+    chart = graphic_frame.chart
+    chart.has_legend = len(normalized_series) > 1
+    if chart.has_legend:
+        chart.legend.position = XL_LEGEND_POSITION.TOP
+        chart.legend.include_in_layout = False
+
+    title = str(b.get("title") or "")
+    chart.has_title = bool(title)
+    if title:
+        tf = chart.chart_title.text_frame
+        tf.clear()
+        style_text_frame(tf, tokens, pt=13, color="text_2", bold=True, align="LEFT")
+        tf.paragraphs[0].runs[0].text = title
+
+    plot = chart.plots[0]
+    plot.has_data_labels = True
+    data_labels = plot.data_labels
+    data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
+    data_labels.number_format = str(b.get("number_format", "0"))
+    data_labels.font.size = Pt(9)
+
+    category_axis = chart.category_axis
+    category_axis.tick_labels.font.size = Pt(10)
+    value_axis = chart.value_axis
+    value_axis.has_major_gridlines = True
+    value_axis.tick_labels.number_format = str(b.get("number_format", "0"))
+    value_axis.tick_labels.font.size = Pt(10)
+
+    palette = ["primary", "primary_dark", "primary_mid", "positive", "warning"]
+    default_single_color = str(b.get("bar_color") or "primary")
+    for idx, series_obj in enumerate(chart.series):
+        spec = normalized_series[idx]
+        color_token = spec["color"] or (
+            default_single_color if len(normalized_series) == 1 else palette[idx % len(palette)]
+        )
+        fill = series_obj.format.fill
+        fill.solid()
+        fill.fore_color.rgb = hex_to_rgb(tokens.resolve_color(color_token))
+
+    return graphic_frame
+def _add_simple_text(slide, tokens: Tokens, x, y, w, h, text, *, pt=12, color="text_3", bold=False, align="LEFT"):
+    """Internal helper: add a textbox with a single styled line of text."""
+    box = slide.shapes.add_textbox(inches(x), inches(y), inches(w), inches(h))
+    box.text_frame.word_wrap = True
+    style_text_frame(box.text_frame, tokens, pt=pt, color=color, bold=bool(bold), align=align)
+    box.text_frame.paragraphs[0].runs[0].text = str(text)
+    return box
+
+
 # --------------------------------------------------------------------------- dispatch
 
 BUILDERS = {
@@ -484,6 +594,7 @@ BUILDERS = {
     "kpi": add_kpi,
     "gantt": add_gantt,
     "mermaid": add_mermaid_image,
+    "chart-bar-column": add_chart_bar_column,
 }
 
 

@@ -95,3 +95,54 @@ def test_block_in_title_bar_raises(tmp_path, tmp_out, tokens_path, template_path
     deck_path = _write_deck(tmp_path, deck)
     with pytest.raises(ValueError):
         build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+
+def test_chart_bar_column_missing_series_rejected_by_schema():
+    deck = {
+        "title": "Chart missing series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-bar-column",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Q1", "Q2"],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'series' is a required property"):
+        validate_deck(deck)
+
+
+def test_chart_bar_column_values_length_matches_categories(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Chart bad series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-bar-column",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Q1", "Q2", "Q3"],
+                    "series": [{"name": "Revenue", "values": [120, 185]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(ValueError, match="values length must match categories length"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)

@@ -42,6 +42,7 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | System architecture, layered components | `architecture-diagram` | `swimlane-diagram` |
 | Central node + radiating topics | `mind-map-radial` | `numbered-process-steps` |
 | 3D cube with three faces | `infographic-3d-cube` | `architecture-diagram` |
+| Charts: bar / column comparison across categories | `infographic` | `kpi-dashboard-grid` |
 | Charts: bar, donut, pie, line, waterfall | `infographic` | `kpi-dashboard-grid` |
 | Multiple metrics stacked | `scorecard` | `kpi-dashboard-grid` |
 | Checklist with done/pending/blocked | `checklist-status` | `numbered-process-steps` |
@@ -81,6 +82,32 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | `data-table` | `table` | -- | native python-pptx |
 | `numbered-process-steps` | `steps` | -- | native python-pptx |
 | `tier-pricing-cards` | `card` | -- | native python-pptx |
+| `infographic` (bar/column only) | `chart-bar-column` | -- | native python-pptx (add_chart_bar_column) |
+
+### Chart bar / column block usage
+
+Use the ``chart-bar-column`` block for simple category-comparison charts that
+must ship as native client-facing PPTX content in Branch B. This is the first
+native chart block and is intentionally narrow in scope: clustered vertical
+columns only, with one or more numeric series across shared categories.
+
+**Schema fields:**
+
+- ``categories`` (required) — ordered category labels on the x-axis
+- ``series`` (required) — one or more objects with:
+  - ``values`` (required) — numeric values, one per category
+  - ``name`` (optional) — legend label
+  - ``color`` (optional) — brand token / hex override for that series
+- ``title`` (optional) — chart title
+- ``bar_color`` (optional) — default series color for single-series charts
+- ``number_format`` (optional, default ``0``) — PPTX numeric display format for
+  axis and data labels
+- ``x``, ``y``, ``w``, ``h`` — standard geometry (``h`` defaults to 4.5)
+
+**When to use:** quarterly comparisons, before/after category bars, target vs
+actual by phase, or any simple bar/column story. For donut/pie and other chart
+families, keep using the existing Mermaid/reference paths until native support
+is added intentionally.
 
 ## Rich Mermaid layouts (rendered via mmdc to PNG)
 

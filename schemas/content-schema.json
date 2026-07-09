@@ -75,7 +75,8 @@
                     "steps",
                     "kpi",
                     "gantt",
-                    "mermaid"
+                    "mermaid",
+                    "chart-bar-column"
                   ]
                 },
                 "x": {
@@ -153,9 +154,65 @@
                 },
                 "accent": {
                   "type": "string"
+                },
+                "categories": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "series": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "values"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "values": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "bar_color": {
+                  "type": "string"
+                },
+                "number_format": {
+                  "type": "string"
                 }
               },
-              "additionalProperties": true
+              "additionalProperties": true,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-bar-column"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                }
+              ]
             }
           }
         },

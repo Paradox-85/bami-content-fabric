@@ -76,7 +76,8 @@
                     "kpi",
                     "gantt",
                     "mermaid",
-                    "chart-bar-column"
+                    "chart-bar-column",
+                    "chart-line-area"
                   ]
                 },
                 "x": {
@@ -193,6 +194,16 @@
                 },
                 "number_format": {
                   "type": "string"
+                },
+                "fill_opacity": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "marker_size": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 72
                 }
               },
               "additionalProperties": true,
@@ -202,6 +213,21 @@
                     "properties": {
                       "kind": {
                         "const": "chart-bar-column"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-line-area"
                       }
                     }
                   },

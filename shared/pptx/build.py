@@ -33,6 +33,28 @@ def _clear_body_zone(slide, tokens) -> int:
     return removed
 
 
+def _center_sole_block(blocks, tokens):
+    """Scale a sole chart block to fill the body zone on a content slide.
+
+    When a content slide carries a single chart block and nothing else, expand
+    it to fill the body zone (full content width, full zone height) so the slide
+    reads as a full-bleed, centered chart instead of a small off-center object.
+    Multi-block slides are left untouched.
+    """
+    if len(blocks) != 1:
+        return blocks
+    block = blocks[0]
+    if block.get("kind") not in ("chart-bar-column", "chart-line-area"):
+        return blocks
+    bz_top, bz_bottom = tokens.body_zone
+    return [{
+        **block,
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }]
+
 
 class BuildError(Exception):
     """Raised with a stable exit-code hint for the CLI."""
@@ -92,6 +114,8 @@ def build_deck(
                 tname,
                 str(deck_path.parent),
             ) + blocks
+        if tname == "content":
+            blocks = _center_sole_block(blocks, tokens)
         for block in blocks:
             render_block(new_slide, tokens, block)
         rendered += 1

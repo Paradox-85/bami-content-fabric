@@ -64,9 +64,9 @@ A renderer must not silently approximate a category it does not support. See
 
 | Coverage tier | Categories | Count |
 |---|---|---|
-| Native PPTX block (Branch B) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `gantt-matrix`, `roadmap-with-milestones`, `data-table`, `numbered-process-steps`, `chart-bar-column` | 8 |
+| Native PPTX block (Branch B) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `gantt-matrix`, `roadmap-with-milestones`, `data-table`, `numbered-process-steps`, `chart-bar-column`, `chart-line-area` | 9 |
 | Mermaid→PNG in PPTX (Branch B) | `funnel-diagram`, `decision-tree-flowchart`, `swimlane-diagram`, `mind-map-radial`, `checklist-status`, `historical-timeline`, `architecture-diagram`, `quadrant-matrix`, `chart-donut-pie` | 9 |
 | Vue component (Branch A) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `funnel-diagram`, `decision-tree-flowchart`, `swimlane-diagram`, `mind-map-radial`, `checklist-status` | 8 |
-| Reference-only (no renderer) | All others in taxonomy | 27 |
+| Reference-only (no renderer) | All others in taxonomy | 26 |
 
 Per `docs/architecture/renderer-ownership-matrix.md` for the detailed per-category matrix.

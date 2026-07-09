@@ -1,4 +1,4 @@
-"""Parametrized build+validate per live block kind (the 11 in BUILDERS)."""
+"""Parametrized build+validate per live block kind (the 13 in BUILDERS)."""
 
 from __future__ import annotations
 
@@ -41,7 +41,13 @@ KIND_REPS = {
         "series": [{"name": "Revenue", "values": [120, 185, 210, 290]}],
         "title": "Quarterly Revenue"
     },
-}
+    "chart-line-area": {
+        "kind": "chart-line-area", "x": 0.6, "y": 1.8, "w": 8.0, "h": 5.0,
+        "categories": ["Jan", "Feb", "Mar", "Apr"],
+        "series": [{"name": "Pipeline", "values": [18, 24, 21, 29]}],
+        "title": "Monthly Pipeline",
+        "number_format": "0"
+    },}
 
 
 def _deck_for_kind(kind: str, block: dict) -> dict:
@@ -100,3 +106,124 @@ def test_chart_bar_column_adds_native_chart(tmp_path, tmp_out, tokens_path, temp
     assert chart.has_title
     assert chart.chart_title.text_frame.text == "Quarterly Revenue"
     assert len(chart.series[0].points) == 4
+
+
+def test_chart_line_area_adds_native_chart(tmp_path, tmp_out, tokens_path, template_path):
+    from pptx import Presentation
+    from pptx.enum.chart import XL_CHART_TYPE
+
+    deck = _deck_for_kind(
+        "chart-line-area-native",
+        {
+            "kind": "chart-line-area",
+            "x": 0.6,
+            "y": 1.8,
+            "w": 8.0,
+            "h": 5.0,
+            "categories": ["Jan", "Feb", "Mar", "Apr"],
+            "series": [
+                {"name": "Actual", "values": [18, 24, 21, 29]},
+                {"name": "Target", "values": [16, 20, 23, 27], "color": "primary_dark"},
+            ],
+            "title": "Monthly Pipeline",
+            "marker_size": 10,
+        },
+    )
+    deck_path = _write_deck(tmp_path, deck)
+    result = build_deck(deck_path, tmp_out, template_path, tokens_path)
+    assert result["slides_rendered"] == 3
+
+    prs = Presentation(str(tmp_out))
+    slide = prs.slides[1]
+    chart_shapes = [shape for shape in slide.shapes if getattr(shape, "has_chart", False)]
+    assert len(chart_shapes) == 1, "Expected one native PPTX chart shape"
+    chart = chart_shapes[0].chart
+    assert chart.chart_type == XL_CHART_TYPE.LINE_MARKERS
+    assert len(chart.series) == 2
+    assert chart.has_title
+    assert chart.chart_title.text_frame.text == "Monthly Pipeline"
+    assert len(chart.series[0].points) == 4
+
+
+def test_chart_line_area_applies_area_fill_alpha(tmp_path, tmp_out, tokens_path, template_path):
+    """fill_opacity must produce a translucent area fill: an <a:alpha> element
+    under each series <c:spPr><a:solidFill><a:srgbClr>."""
+    from pptx import Presentation
+    from pptx.oxml.ns import qn
+
+    deck = _deck_for_kind(
+        "chart-line-area-fill",
+        {
+            "kind": "chart-line-area",
+            "x": 0.6, "y": 1.8, "w": 8.0, "h": 5.0,
+            "categories": ["Jan", "Feb", "Mar"],
+            "series": [{"name": "Actual", "values": [18, 24, 21]}],
+            "fill_opacity": 40,
+        },
+    )
+    deck_path = _write_deck(tmp_path, deck)
+    build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+    prs = Presentation(str(tmp_out))
+    slide = prs.slides[1]
+    chart = [s for s in slide.shapes if getattr(s, "has_chart", False)][0].chart
+    series = chart.series[0]
+    spPr = series._element.find(qn("c:spPr"))
+    srgbClr = spPr.find(qn("a:solidFill")).find(qn("a:srgbClr"))
+    alpha = srgbClr.find(qn("a:alpha"))
+    assert alpha is not None, "Expected <a:alpha> area-fill element on series spPr"
+    assert alpha.get("val") == "40000", f"Expected alpha 40000 (40%), got {alpha.get('val')}"
+
+
+def test_sole_chart_centered_to_body_zone(tmp_path, tmp_out, tokens_path, template_path):
+    """A single chart block on a content slide should be expanded to fill the
+    body zone (full content width + zone height), regardless of its stated x/y/w/h."""
+    from pptx import Presentation
+
+    deck = {
+        "title": "Sole chart centering",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {"template": "content", "fields": {"title": "Chart"},
+             "blocks": [{"kind": "chart-bar-column", "x": 2.0, "y": 3.0, "w": 5.0, "h": 3.0,
+                         "categories": ["A", "B"], "series": [{"name": "S", "values": [1, 2]}]}]},
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+    prs = Presentation(str(tmp_out))
+    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0]
+    EMU = 914400
+    assert round(chart.left / EMU, 2) == 0.6, "sole chart should start at margin_x"
+    assert round(chart.top / EMU, 2) == 1.2, "sole chart should start at body_zone top"
+    assert round(chart.width / EMU, 2) == 18.8, "sole chart should span content_width"
+    assert round(chart.height / EMU, 2) == 9.3, "sole chart should span body_zone height"
+
+
+def test_multi_block_chart_not_centered(tmp_path, tmp_out, tokens_path, template_path):
+    """When a chart shares a slide with another block, the auto-centering must
+    NOT apply - the chart keeps its explicit geometry."""
+    from pptx import Presentation
+
+    deck = {
+        "title": "Multi-block no centering",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {"template": "content", "fields": {"title": "Chart + caption"},
+             "blocks": [
+                 {"kind": "chart-bar-column", "x": 0.6, "y": 1.6, "w": 9.0, "h": 6.0,
+                  "categories": ["A", "B"], "series": [{"name": "S", "values": [1, 2]}]},
+                 {"kind": "caption", "x": 0.6, "y": 8.0, "w": 9.0, "text": "note"},
+             ]},
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+    prs = Presentation(str(tmp_out))
+    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0]
+    EMU = 914400
+    assert round(chart.width / EMU, 2) == 9.0, "multi-block chart must keep explicit width"

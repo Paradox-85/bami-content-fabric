@@ -146,3 +146,53 @@ def test_chart_bar_column_values_length_matches_categories(tmp_path, tmp_out, to
     deck_path = _write_deck(tmp_path, deck)
     with pytest.raises(ValueError, match="values length must match categories length"):
         build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_line_area_missing_series_rejected_by_schema():
+    deck = {
+        "title": "Line chart missing series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-line-area",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Jan", "Feb"],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'series' is a required property"):
+        validate_deck(deck)
+
+
+def test_chart_line_area_values_length_matches_categories(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Line chart bad series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-line-area",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Jan", "Feb", "Mar"],
+                    "series": [{"name": "Pipeline", "values": [18, 24]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(ValueError, match="values length must match categories length"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)

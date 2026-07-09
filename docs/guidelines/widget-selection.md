@@ -44,7 +44,7 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | 3D cube with three faces | `infographic-3d-cube` | `architecture-diagram` |
 | Charts: bar / column comparison across categories | `infographic` | `kpi-dashboard-grid` |
 | Charts: bar, donut, pie, line, waterfall | `infographic` | `kpi-dashboard-grid` |
-| Multiple metrics stacked | `scorecard` | `kpi-dashboard-grid` |
+| Trend across periods, forecast line, baseline vs actual | `infographic` | `scorecard` |
 | Checklist with done/pending/blocked | `checklist-status` | `numbered-process-steps` |
 | Vertical icon + text feature list | `icon-text-feature-list` | `bullets` primitive |
 | Ranked top-N items | `numbered-ranking-list` | `data-table` |
@@ -83,6 +83,7 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | `numbered-process-steps` | `steps` | -- | native python-pptx |
 | `tier-pricing-cards` | `card` | -- | native python-pptx |
 | `infographic` (bar/column only) | `chart-bar-column` | -- | native python-pptx (add_chart_bar_column) |
+| `infographic` (line/area only) | `chart-line-area` | -- | native python-pptx (add_chart_line_area) |
 
 ### Chart bar / column block usage
 
@@ -108,6 +109,40 @@ columns only, with one or more numeric series across shared categories.
 actual by phase, or any simple bar/column story. For donut/pie and other chart
 families, keep using the existing Mermaid/reference paths until native support
 is added intentionally.
+
+**Layout behavior:** when a content slide carries a single chart block
+(`chart-bar-column` or `chart-line-area`) and no other content, the build
+pipeline auto-centers it and scales it to fill the body zone (full content width,
+full zone height) so the slide reads as a full-bleed chart. The stated
+`x`/`y`/`w`/`h` are ignored in that case. Slides with multiple blocks keep their
+explicit geometry.
+
+### Chart line / area block usage
+
+Use the ``chart-line-area`` block for time-ordered or sequence-ordered series
+where the story is primarily about trend, movement, or divergence over periods.
+This block is intentionally narrow in scope: native Branch B line chart with
+markers, optional title, and one or more numeric series across shared
+categories.
+
+**Schema fields:**
+
+- ``categories`` (required) — ordered labels for periods or sequence steps
+- ``series`` (required) — one or more objects with:
+  - ``values`` (required) — numeric values, one per category
+  - ``name`` (optional) — legend label
+  - ``color`` (optional) — brand token / hex override for that series
+- ``title`` (optional) — chart title
+- ``number_format`` (optional, default ``0``) — PPTX numeric display format for
+  axis and data labels
+- ``fill_opacity`` (optional, default ``30``) — area fill opacity percent (0–100; higher = more opaque) applied beneath each series line
+- ``marker_size`` (optional, default ``8``) — point marker size
+- ``x``, ``y``, ``w``, ``h`` — standard geometry (``h`` defaults to 4.5)
+
+**When to use:** monthly trend lines, actual vs target progression, forecast vs
+baseline, or any ordered comparison where continuity between points matters.
+For stacked area, scatter/bubble, waterfall, and statistical charts, keep using
+existing reference/Mermaid paths until native support is added intentionally.
 
 ## Rich Mermaid layouts (rendered via mmdc to PNG)
 

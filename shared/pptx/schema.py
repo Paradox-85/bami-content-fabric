@@ -57,9 +57,13 @@ SCHEMA: dict[str, Any] = {
                                     "if": {"properties": {"kind": {"const": "chart-bar-column"}}},
                                     "then": {"required": ["categories", "series"]},
                                 },
+                                {
+                                    "if": {"properties": {"kind": {"const": "chart-line-area"}}},
+                                    "then": {"required": ["categories", "series"]},
+                                },
                             ],
                             "properties": {
-                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid", "chart-bar-column"]},
+                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid", "chart-bar-column", "chart-line-area"]},
                                 "x": {"type": "number", "minimum": 0},
                                 "y": {"type": "number", "minimum": 0},
                                 "w": {"type": "number", "minimum": 0.1},
@@ -98,6 +102,8 @@ SCHEMA: dict[str, Any] = {
                                 },
                                 "bar_color": {"type": "string"},
                                 "number_format": {"type": "string"},
+                                "fill_opacity": {"type": "integer", "minimum": 0, "maximum": 100},
+                                "marker_size": {"type": "integer", "minimum": 2, "maximum": 72},
                             },
                             "additionalProperties": True,
                         },
@@ -161,22 +167,23 @@ def _validate_semantics(deck: dict[str, Any]) -> None:
                 f"are only allowed on 'content' slides (template {t!r} is slot-based)"
             )
         for j, block in enumerate(s.get("blocks", [])):
-            if block.get("kind") != "chart-bar-column":
+            if block.get("kind") not in ("chart-bar-column", "chart-line-area"):
                 continue
             categories = block.get("categories") or []
             series = block.get("series") or []
+            kind_label = block.get("kind")
             if not categories:
-                raise ValueError(f"slide {i} block {j}: chart-bar-column requires categories")
+                raise ValueError(f"slide {i} block {j}: {kind_label} requires categories")
             if not series:
-                raise ValueError(f"slide {i} block {j}: chart-bar-column requires series")
+                raise ValueError(f"slide {i} block {j}: {kind_label} requires series")
             for k, series_spec in enumerate(series):
                 values = (series_spec or {}).get("values") if isinstance(series_spec, dict) else None
                 if not isinstance(values, list) or not values:
                     raise ValueError(
-                        f"slide {i} block {j} series {k}: chart-bar-column requires values[]"
+                        f"slide {i} block {j} series {k}: {kind_label} requires values[]"
                     )
                 if len(values) != len(categories):
                     raise ValueError(
-                        f"slide {i} block {j} series {k}: chart-bar-column values length "
+                        f"slide {i} block {j} series {k}: {kind_label} values length "
                         f"must match categories length"
                     )

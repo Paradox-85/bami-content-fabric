@@ -6,16 +6,17 @@ guaranteed. Block *placement* is free; block *styling* is system-bound.
 
 Supported kinds (see schemas/content-schema.json):
     heading, body, bullets, caption, table, card, darkcard, steps, kpi,
-    gantt, mermaid, chart-bar-column
+    gantt, mermaid, chart-bar-column, chart-line-area
 """
 
 from __future__ import annotations
 
 from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION
+from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
+from pptx.oxml.ns import qn
 
 from shared.pptx.style import (
     hex_to_rgb,
@@ -476,6 +477,138 @@ def add_mermaid_image(slide, tokens: Tokens, b: dict):
 # --------------------------------------------------------------------------- chart
 
 
+def _apply_series_area_fill(series_obj, rgb_color, fill_opacity):
+    """Apply a translucent area fill beneath a line-chart series line.
+
+    ``fill_opacity`` is the area fill opacity in percent (0–100; higher = more
+    opaque). Implemented as a solid fill on the series shape properties plus an
+    ``<a:alpha>`` child of ``<a:srgbClr>``, because python-pptx exposes no
+    public alpha API for chart series fills.
+    """
+    fill = series_obj.format.fill
+    fill.solid()
+    fill.fore_color.rgb = rgb_color
+    alpha_pct = max(0, min(100, int(fill_opacity)))
+    spPr = series_obj._element.find(qn("c:spPr"))
+    srgbClr = spPr.find(qn("a:solidFill")).find(qn("a:srgbClr"))
+    alpha_el = srgbClr.makeelement(qn("a:alpha"), {"val": str(alpha_pct * 1000)})
+    srgbClr.append(alpha_el)
+
+
+def add_chart_line_area(slide, tokens: Tokens, b: dict):
+    """Render a native PPTX line/area chart with BAMi brand styling.
+
+    Creates a PPTX line chart with markers and a subtle area fill beneath
+    each series line. Supports single- and multi-series payloads.
+
+    Minimal payload contract:
+        categories : list[str]                     — category labels
+        series     : list[{name?, values, color?}] — one or more numeric series
+        title      : str (optional)                — chart title
+        number_format : str (optional)             — data label / axis format
+        fill_opacity : int (optional, default 30)  — area fill opacity percent (0–100; higher = more opaque)
+        marker_size : int (optional, default 8)    — marker point size
+    """
+    x, y, w = float(b["x"]), float(b["y"]), float(b["w"])
+    h = float(b.get("h", 4.5))
+    _check_zone("chart-line-area", tokens, x, y, w, h)
+
+    categories = [str(cat) for cat in (b.get("categories") or [])]
+    raw_series = b.get("series") or []
+    if not categories:
+        raise ValueError("chart-line-area: 'categories' is required with at least one entry")
+    if not raw_series:
+        raise ValueError("chart-line-area: 'series' is required with at least one entry")
+
+    chart_data = CategoryChartData()
+    chart_data.categories = categories
+
+    normalized_series = []
+    for idx, series_spec in enumerate(raw_series, start=1):
+        if not isinstance(series_spec, dict):
+            raise ValueError("chart-line-area: each series entry must be an object")
+        values = series_spec.get("values")
+        if not isinstance(values, list) or not values:
+            raise ValueError("chart-line-area: each series must define a non-empty 'values' array")
+        if len(values) != len(categories):
+            raise ValueError(
+                "chart-line-area: each series.values length must match categories length"
+            )
+        try:
+            normalized_values = tuple(float(value) for value in values)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("chart-line-area: series values must be numeric") from exc
+
+        normalized = {
+            "name": str(series_spec.get("name") or f"Series {idx}"),
+            "values": normalized_values,
+            "color": series_spec.get("color"),
+        }
+        normalized_series.append(normalized)
+        chart_data.add_series(normalized["name"], normalized_values)
+
+    graphic_frame = slide.shapes.add_chart(
+        XL_CHART_TYPE.LINE_MARKERS,
+        inches(x),
+        inches(y),
+        inches(w),
+        inches(h),
+        chart_data,
+    )
+    chart = graphic_frame.chart
+    chart.has_legend = len(normalized_series) > 1
+    if chart.has_legend:
+        chart.legend.position = XL_LEGEND_POSITION.TOP
+        chart.legend.include_in_layout = False
+
+    title = str(b.get("title") or "")
+    chart.has_title = bool(title)
+    if title:
+        tf = chart.chart_title.text_frame
+        tf.clear()
+        style_text_frame(tf, tokens, pt=13, color="text_2", bold=True, align="LEFT")
+        tf.paragraphs[0].runs[0].text = title
+
+    plot = chart.plots[0]
+    plot.has_data_labels = True
+    data_labels = plot.data_labels
+    data_labels.number_format = str(b.get("number_format", "0"))
+    data_labels.font.size = Pt(9)
+
+    fill_opacity = int(b.get("fill_opacity", 30))
+    marker_size = int(b.get("marker_size", 8))
+
+    palette = ["primary", "primary_dark", "primary_mid", "positive", "warning"]
+    for idx, series_obj in enumerate(chart.series):
+        spec = normalized_series[idx]
+        color_token = spec["color"] or (
+            "primary" if len(normalized_series) == 1 else palette[idx % len(palette)]
+        )
+        rgb_color = hex_to_rgb(tokens.resolve_color(color_token))
+
+        # Line style
+        line = series_obj.format.line
+        line.color.rgb = rgb_color
+        line.width = Pt(2.5)
+
+        # Area fill beneath the line (translucent; opacity governed by fill_opacity)
+        _apply_series_area_fill(series_obj, rgb_color, fill_opacity)
+
+        # Marker
+        series_obj.smooth = False
+        markers = series_obj.marker
+        markers.style = XL_MARKER_STYLE.CIRCLE
+        markers.size = marker_size
+        markers.format.fill.solid()
+        markers.format.fill.fore_color.rgb = rgb_color
+        markers.format.line.color.rgb = rgb_color
+    # Value axis
+    value_axis = chart.value_axis
+    value_axis.has_major_gridlines = True
+    value_axis.tick_labels.number_format = str(b.get("number_format", "0"))
+    value_axis.tick_labels.font.size = Pt(10)
+
+    return graphic_frame
 def add_chart_bar_column(slide, tokens: Tokens, b: dict):
     """Render a native PPTX clustered-column chart with BAMi brand styling.
 
@@ -595,6 +728,7 @@ BUILDERS = {
     "gantt": add_gantt,
     "mermaid": add_mermaid_image,
     "chart-bar-column": add_chart_bar_column,
+    "chart-line-area": add_chart_line_area,
 }
 
 

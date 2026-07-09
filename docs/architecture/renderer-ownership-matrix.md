@@ -53,7 +53,7 @@ renderer priority hierarchy (Branch B primary, Branch A secondary, Mermaid tempo
 | `circular-process-loop` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `infographic` | — | none | — | — | Reference-only catch-all. No real renderer on either branch. |
 | `chart-bar-column` | python | none | verified | client-pptx | Branch B native python-pptx chart block (CategoryChartData + clustered column). Added in P1 #7 session. |
-| `chart-line-area` | — | none | — | — | Reference-only. No real renderer on either branch. |
+| `chart-line-area` | python | none | verified | client-pptx | Branch B native python-pptx line chart block with markers and optional fill styling. Added in P1 #8 session. |
 | `chart-waterfall` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `chart-scatter-bubble` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `chart-statistical` | — | none | — | — | Reference-only. No real renderer on either branch. |

@@ -6,7 +6,7 @@ guaranteed. Block *placement* is free; block *styling* is system-bound.
 
 Supported kinds (see schemas/content-schema.json):
     heading, body, bullets, caption, table, card, darkcard, steps, kpi,
-    gantt, mermaid, chart-bar-column, chart-line-area
+    gantt, mermaid, chart-bar-column, chart-line-area, chart-donut-pie
 """
 
 from __future__ import annotations
@@ -609,6 +609,126 @@ def add_chart_line_area(slide, tokens: Tokens, b: dict):
     value_axis.tick_labels.font.size = Pt(10)
 
     return graphic_frame
+
+def _apply_doughnut_hole_size(plot, hole_size):
+    """Set the donut hole size (percentage 0-90) via the <c:holeSize> XML
+    element, since DoughnutPlot exposes no public hole-size attribute.
+
+    ``hole_size`` is the hole diameter as a percentage of the donut diameter
+    (0-90; higher = larger hole). PowerPoint's default is ~50.
+    """
+    pct = max(0, min(90, int(hole_size)))
+    chart_el = plot._element  # <c:doughnutChart>
+    for el in chart_el.findall(qn("c:holeSize")):
+        chart_el.remove(el)
+    hole_el = chart_el.makeelement(qn("c:holeSize"), {"val": str(pct)})
+    chart_el.append(hole_el)
+
+
+def add_chart_donut_pie(slide, tokens: Tokens, b: dict):
+    """Render a native PPTX donut or pie chart with BAMi brand styling.
+
+    A pie/donut is an inherently single-measure chart: ``categories`` are the
+    slice labels and the first series' ``values`` are the slice sizes.
+
+    Minimal payload contract:
+        categories    : list[str]               - slice labels
+        series        : list[{name?, values}]   - uses series[0].values as sizes
+        variant       : str (optional, default 'donut') - 'donut' | 'pie'
+        title         : str (optional)          - chart title
+        number_format : str (optional, default '0%') - data-label number format
+        donut_hole    : int (optional, default 50) - hole size percent (donut only)
+    """
+    x, y, w = float(b["x"]), float(b["y"]), float(b["w"])
+    h = float(b.get("h", 4.5))
+    _check_zone("chart-donut-pie", tokens, x, y, w, h)
+
+    categories = [str(cat) for cat in (b.get("categories") or [])]
+    raw_series = b.get("series") or []
+    if not categories:
+        raise ValueError("chart-donut-pie: 'categories' is required with at least one entry")
+    if not raw_series:
+        raise ValueError("chart-donut-pie: 'series' is required with at least one entry")
+
+    # Pie/donut is single-measure: the first series' values are the slice sizes.
+    first = raw_series[0]
+    if not isinstance(first, dict):
+        raise ValueError("chart-donut-pie: first series entry must be an object")
+    values = first.get("values")
+    if not isinstance(values, list) or not values:
+        raise ValueError("chart-donut-pie: first series must define a non-empty 'values' array")
+    if len(values) != len(categories):
+        raise ValueError(
+            "chart-donut-pie: first series.values length must match categories length"
+        )
+    try:
+        slice_values = tuple(float(v) for v in values)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("chart-donut-pie: series values must be numeric") from exc
+
+    variant = str(b.get("variant") or "donut").lower()
+    if variant not in ("donut", "pie"):
+        raise ValueError("chart-donut-pie: 'variant' must be 'donut' or 'pie'")
+    chart_type = XL_CHART_TYPE.DOUGHNUT if variant == "donut" else XL_CHART_TYPE.PIE
+
+    chart_data = CategoryChartData()
+    chart_data.categories = categories
+    series_name = str(first.get("name") or "Distribution")
+    chart_data.add_series(series_name, slice_values)
+
+    graphic_frame = slide.shapes.add_chart(
+        chart_type,
+        inches(x),
+        inches(y),
+        inches(w),
+        inches(h),
+        chart_data,
+    )
+    chart = graphic_frame.chart
+
+    # Legend (slice labels can be long; a legend avoids cramped category labels)
+    chart.has_legend = True
+    chart.legend.position = XL_LEGEND_POSITION.RIGHT
+    chart.legend.include_in_layout = False
+
+    title = str(b.get("title") or "")
+    chart.has_title = bool(title)
+    if title:
+        tf = chart.chart_title.text_frame
+        tf.clear()
+        style_text_frame(tf, tokens, pt=13, color="text_2", bold=True, align="LEFT")
+        tf.paragraphs[0].runs[0].text = title
+
+    plot = chart.plots[0]
+
+    # Data labels: percentage of the whole (natural pie/donut metric)
+    plot.has_data_labels = True
+    data_labels = plot.data_labels
+    data_labels.show_percentage = True
+    data_labels.show_value = False
+    data_labels.show_category_name = False
+    data_labels.number_format = str(b.get("number_format", "0%"))
+    data_labels.number_format_is_linked = False
+    data_labels.font.size = Pt(9)
+
+    # Donut hole size (no public API; written as <c:holeSize>)
+    if variant == "donut":
+        _apply_doughnut_hole_size(plot, int(b.get("donut_hole", 50)))
+
+    # Per-slice colors cycling the brand palette, with a thin surface separator
+    palette = ["primary", "primary_dark", "primary_mid", "positive", "warning"]
+    separator_rgb = hex_to_rgb(tokens.resolve_color("bg_offwhite"))
+    series_obj = plot.series[0]
+    for idx, point in enumerate(series_obj.points):
+        color_token = palette[idx % len(palette)]
+        rgb_color = hex_to_rgb(tokens.resolve_color(color_token))
+        point.format.fill.solid()
+        point.format.fill.fore_color.rgb = rgb_color
+        point.format.line.color.rgb = separator_rgb
+        point.format.line.width = Pt(1.5)
+
+    return graphic_frame
+
 def add_chart_bar_column(slide, tokens: Tokens, b: dict):
     """Render a native PPTX clustered-column chart with BAMi brand styling.
 
@@ -729,6 +849,7 @@ BUILDERS = {
     "mermaid": add_mermaid_image,
     "chart-bar-column": add_chart_bar_column,
     "chart-line-area": add_chart_line_area,
+    "chart-donut-pie": add_chart_donut_pie,
 }
 
 

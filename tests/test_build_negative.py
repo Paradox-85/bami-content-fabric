@@ -196,3 +196,53 @@ def test_chart_line_area_values_length_matches_categories(tmp_path, tmp_out, tok
     deck_path = _write_deck(tmp_path, deck)
     with pytest.raises(ValueError, match="values length must match categories length"):
         build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_donut_pie_missing_series_rejected_by_schema():
+    deck = {
+        "title": "Donut chart missing series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-donut-pie",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["A", "B"],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'series' is a required property"):
+        validate_deck(deck)
+
+
+def test_chart_donut_pie_values_length_matches_categories(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Donut chart bad series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-donut-pie",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["A", "B", "C"],
+                    "series": [{"name": "S", "values": [50, 30]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(ValueError, match="values length must match categories length"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)

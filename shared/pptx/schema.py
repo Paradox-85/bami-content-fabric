@@ -61,9 +61,31 @@ SCHEMA: dict[str, Any] = {
                                     "if": {"properties": {"kind": {"const": "chart-line-area"}}},
                                     "then": {"required": ["categories", "series"]},
                                 },
+                                {
+                                    "if": {"properties": {"kind": {"const": "chart-donut-pie"}}},
+                                    "then": {"required": ["categories", "series"]},
+                                },
                             ],
                             "properties": {
-                                "kind": {"type": "string", "enum": ["heading", "body", "bullets", "caption", "table", "card", "darkcard", "steps", "kpi", "gantt", "mermaid", "chart-bar-column", "chart-line-area"]},
+                                "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                        "heading",
+                                        "body",
+                                        "bullets",
+                                        "caption",
+                                        "table",
+                                        "card",
+                                        "darkcard",
+                                        "steps",
+                                        "kpi",
+                                        "gantt",
+                                        "mermaid",
+                                        "chart-bar-column",
+                                        "chart-line-area",
+                                        "chart-donut-pie",
+                                    ]
+                                },
                                 "x": {"type": "number", "minimum": 0},
                                 "y": {"type": "number", "minimum": 0},
                                 "w": {"type": "number", "minimum": 0.1},
@@ -104,6 +126,8 @@ SCHEMA: dict[str, Any] = {
                                 "number_format": {"type": "string"},
                                 "fill_opacity": {"type": "integer", "minimum": 0, "maximum": 100},
                                 "marker_size": {"type": "integer", "minimum": 2, "maximum": 72},
+                                "variant": {"type": "string", "enum": ["donut", "pie"]},
+                                "donut_hole": {"type": "integer", "minimum": 0, "maximum": 90},
                             },
                             "additionalProperties": True,
                         },
@@ -167,7 +191,7 @@ def _validate_semantics(deck: dict[str, Any]) -> None:
                 f"are only allowed on 'content' slides (template {t!r} is slot-based)"
             )
         for j, block in enumerate(s.get("blocks", [])):
-            if block.get("kind") not in ("chart-bar-column", "chart-line-area"):
+            if block.get("kind") not in ("chart-bar-column", "chart-line-area", "chart-donut-pie"):
                 continue
             categories = block.get("categories") or []
             series = block.get("series") or []

@@ -1,4 +1,4 @@
-"""Parametrized build+validate per live block kind (the 13 in BUILDERS)."""
+"""Parametrized build+validate per live block kind (the 14 in BUILDERS)."""
 
 from __future__ import annotations
 
@@ -227,3 +227,93 @@ def test_multi_block_chart_not_centered(tmp_path, tmp_out, tokens_path, template
     chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0]
     EMU = 914400
     assert round(chart.width / EMU, 2) == 9.0, "multi-block chart must keep explicit width"
+
+
+def test_chart_donut_pie_adds_native_chart(tmp_path, tmp_out, tokens_path, template_path):
+    from pptx import Presentation
+    from pptx.enum.chart import XL_CHART_TYPE
+
+    deck = _deck_for_kind(
+        "chart-donut-pie-native",
+        {
+            "kind": "chart-donut-pie",
+            "x": 0.6, "y": 1.8, "w": 8.0, "h": 5.0,
+            "categories": ["Product", "Service", "Support", "Other"],
+            "series": [{"name": "Revenue", "values": [42, 28, 18, 12]}],
+            "variant": "donut",
+            "title": "Revenue Split",
+        },
+    )
+    deck_path = _write_deck(tmp_path, deck)
+    result = build_deck(deck_path, tmp_out, template_path, tokens_path)
+    assert result["slides_rendered"] == 3
+
+    prs = Presentation(str(tmp_out))
+    slide = prs.slides[1]
+    chart_shapes = [shape for shape in slide.shapes if getattr(shape, "has_chart", False)]
+    assert len(chart_shapes) == 1, "Expected one native PPTX chart shape"
+    chart = chart_shapes[0].chart
+    assert chart.chart_type == XL_CHART_TYPE.DOUGHNUT
+    assert chart.has_legend
+    assert chart.has_title
+    assert chart.chart_title.text_frame.text == "Revenue Split"
+    # Single series; four slices
+    assert len(chart.series) == 1
+    assert len(chart.series[0].points) == 4
+    # Percentage data labels (natural pie/donut metric)
+    assert chart.plots[0].data_labels.show_percentage
+    assert chart.plots[0].data_labels.show_value is False
+
+
+def test_chart_donut_pie_variant_pie(tmp_path, tmp_out, tokens_path, template_path):
+    """variant='pie' produces a solid PIE chart and must not write a holeSize element."""
+    from pptx import Presentation
+    from pptx.enum.chart import XL_CHART_TYPE
+    from pptx.oxml.ns import qn
+
+    deck = _deck_for_kind(
+        "chart-donut-pie-pie-variant",
+        {
+            "kind": "chart-donut-pie",
+            "x": 0.6, "y": 1.8, "w": 8.0, "h": 5.0,
+            "categories": ["A", "B", "C"],
+            "series": [{"values": [50, 30, 20]}],
+            "variant": "pie",
+        },
+    )
+    deck_path = _write_deck(tmp_path, deck)
+    build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+    prs = Presentation(str(tmp_out))
+    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0].chart
+    assert chart.chart_type == XL_CHART_TYPE.PIE
+    # pie variant must NOT carry a <c:holeSize> element
+    plot_el = chart.plots[0]._element
+    assert plot_el.find(qn("c:holeSize")) is None, "pie variant must not write holeSize"
+
+
+def test_chart_donut_pie_writes_hole_size(tmp_path, tmp_out, tokens_path, template_path):
+    """donut variant + donut_hole must persist a <c:holeSize val=N> element."""
+    from pptx import Presentation
+    from pptx.oxml.ns import qn
+
+    deck = _deck_for_kind(
+        "chart-donut-pie-hole",
+        {
+            "kind": "chart-donut-pie",
+            "x": 0.6, "y": 1.8, "w": 8.0, "h": 5.0,
+            "categories": ["A", "B", "C", "D"],
+            "series": [{"values": [10, 20, 30, 40]}],
+            "variant": "donut",
+            "donut_hole": 60,
+        },
+    )
+    deck_path = _write_deck(tmp_path, deck)
+    build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+    prs = Presentation(str(tmp_out))
+    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0].chart
+    plot_el = chart.plots[0]._element
+    hole = plot_el.find(qn("c:holeSize"))
+    assert hole is not None, "Expected <c:holeSize> element for donut variant"
+    assert hole.get("val") == "60", f"Expected holeSize 60, got {hole.get('val')}"

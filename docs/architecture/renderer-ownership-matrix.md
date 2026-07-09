@@ -43,7 +43,7 @@ renderer priority hierarchy (Branch B primary, Branch A secondary, Mermaid tempo
 | `historical-timeline` | python | none | verified | client-pptx | Branch B Mermaid timeline → PNG. No Vue component. |
 | `architecture-diagram` | python | none | verified | client-pptx | Branch B Mermaid flowchart architecture → PNG. No Vue component. |
 | `quadrant-matrix` | python | none | verified | client-pptx | Branch B Mermaid quadrant → PNG. No Vue component. |
-| `chart-donut-pie` | python | none | verified | client-pptx | Branch B Mermaid pie → PNG. No Vue component. |
+| `chart-donut-pie` | python | none | verified | client-pptx | Branch B native python-pptx donut/pie chart block with brand slice colors and optional hole sizing. |
 | `maturity-model-ladder` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `comparison-table` | — | none | — | — | Reference-only. No real renderer on either branch. `comparison_panel` layout is defective (E1). |
 | `before-after-split` | — | none | — | — | Reference-only. No real renderer on either branch. |

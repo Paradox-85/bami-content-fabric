@@ -61,6 +61,53 @@
                 "y",
                 "w"
               ],
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-bar-column"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-line-area"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-donut-pie"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                }
+              ],
               "properties": {
                 "kind": {
                   "type": "string",
@@ -77,7 +124,8 @@
                     "gantt",
                     "mermaid",
                     "chart-bar-column",
-                    "chart-line-area"
+                    "chart-line-area",
+                    "chart-donut-pie"
                   ]
                 },
                 "x": {
@@ -204,41 +252,21 @@
                   "type": "integer",
                   "minimum": 2,
                   "maximum": 72
+                },
+                "variant": {
+                  "type": "string",
+                  "enum": [
+                    "donut",
+                    "pie"
+                  ]
+                },
+                "donut_hole": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 90
                 }
               },
-              "additionalProperties": true,
-              "allOf": [
-                {
-                  "if": {
-                    "properties": {
-                      "kind": {
-                        "const": "chart-bar-column"
-                      }
-                    }
-                  },
-                  "then": {
-                    "required": [
-                      "categories",
-                      "series"
-                    ]
-                  }
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "kind": {
-                        "const": "chart-line-area"
-                      }
-                    }
-                  },
-                  "then": {
-                    "required": [
-                      "categories",
-                      "series"
-                    ]
-                  }
-                }
-              ]
+              "additionalProperties": true
             }
           }
         },

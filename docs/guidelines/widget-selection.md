@@ -84,6 +84,7 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | `tier-pricing-cards` | `card` | -- | native python-pptx |
 | `infographic` (bar/column only) | `chart-bar-column` | -- | native python-pptx (add_chart_bar_column) |
 | `infographic` (line/area only) | `chart-line-area` | -- | native python-pptx (add_chart_line_area) |
+| `infographic` (donut/pie only) | `chart-donut-pie` | -- | native python-pptx (add_chart_donut_pie) |
 
 ### Chart bar / column block usage
 
@@ -110,12 +111,10 @@ actual by phase, or any simple bar/column story. For donut/pie and other chart
 families, keep using the existing Mermaid/reference paths until native support
 is added intentionally.
 
-**Layout behavior:** when a content slide carries a single chart block
-(`chart-bar-column` or `chart-line-area`) and no other content, the build
-pipeline auto-centers it and scales it to fill the body zone (full content width,
-full zone height) so the slide reads as a full-bleed chart. The stated
-`x`/`y`/`w`/`h` are ignored in that case. Slides with multiple blocks keep their
-explicit geometry.
+**Layout behavior:** When a content slide carries exactly one chart block
+(``chart-bar-column``, ``chart-line-area``, or ``chart-donut-pie``) and no other
+content, the build automatically expands it to fill the body zone for a
+full-slide, centered chart. Multi-block slides keep explicit geometry.
 
 ### Chart line / area block usage
 
@@ -144,7 +143,35 @@ baseline, or any ordered comparison where continuity between points matters.
 For stacked area, scatter/bubble, waterfall, and statistical charts, keep using
 existing reference/Mermaid paths until native support is added intentionally.
 
+
+### Chart donut / pie block usage
+
+Use the ``chart-donut-pie`` block when a slide needs a proportional-partition
+chart -- e.g. market share by segment, budget breakdown by department, or any
+category-to-total relationship where individual contributions matter more than
+precise value comparison.
+
+Minimal payload contract (``kind: "chart-donut-pie"``):
+- ``categories`` -- slice labels (``list[str]``)
+- ``series`` -- series array (uses ``series[0].values`` as slice sizes)
+- ``variant`` (optional, default ``"donut"``) -- ``"donut"`` | ``"pie"``
+- ``title`` (optional) -- chart title
+- ``number_format`` (optional, default ``"0%"``) -- data-label number format
+- ``donut_hole`` (optional, default ``50``) -- hole size percent for donut variant (0--90)
+- ``x``, ``y``, ``w``, ``h`` -- standard geometry (``h`` defaults to 4.5)
+
+**When to use:** proportional splits, market-share breakdowns, budget allocations,
+any category-to-total relationship where understanding distribution (not bar-to-bar
+comparisons) is the goal. For part-to-whole with many small slices, consider
+combining small categories into "Other" to avoid visual clutter.
+
+**Layout behavior:** When a content slide carries exactly one chart block
+(``chart-bar-column``, ``chart-line-area``, or ``chart-donut-pie``) and no other
+content, the build automatically expands it to fill the body zone for a
+full-slide, centered chart. Multi-block slides keep explicit geometry.
+
 ## Rich Mermaid layouts (rendered via mmdc to PNG)
+
 
 | Category ID | Mermaid type | Layout |
 |---|---|---|
@@ -156,7 +183,6 @@ existing reference/Mermaid paths until native support is added intentionally.
 | `decision-tree-flowchart` | flowchart TD | `decision-tree-flowchart` |
 | `architecture-diagram` | flowchart TB + subgraphs | `architecture-diagram` |
 | `quadrant-matrix` | quadrantChart | `quadrant-matrix` |
-| `chart-donut-pie` | pie | `chart-donut-pie` |
 ## Primitive fallbacks for reference-only categories
 
 | Category ID | Primitive fallback |

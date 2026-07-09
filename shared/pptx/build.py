@@ -36,15 +36,18 @@ def _clear_body_zone(slide, tokens) -> int:
 def _center_sole_block(blocks, tokens):
     """Scale a sole chart block to fill the body zone on a content slide.
 
-    When a content slide carries a single chart block and nothing else, expand
-    it to fill the body zone (full content width, full zone height) so the slide
-    reads as a full-bleed, centered chart instead of a small off-center object.
-    Multi-block slides are left untouched.
+    When a content slide carries a single block whose ``kind`` starts with
+    ``"chart-"`` and nothing else, expand it to fill the body zone (full
+    content width, full zone height) so the slide reads as a full-bleed,
+    centered chart instead of a small off-centre object.
+
+    Multi-block slides and non-chart kinds are left untouched.
+    Any future ``chart-*`` kind automatically inherits this behaviour.
     """
     if len(blocks) != 1:
         return blocks
     block = blocks[0]
-    if block.get("kind") not in ("chart-bar-column", "chart-line-area"):
+    if not block.get("kind", "").startswith("chart-"):
         return blocks
     bz_top, bz_bottom = tokens.body_zone
     return [{

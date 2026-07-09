@@ -8,6 +8,7 @@ composition). See schemas/content-schema.json for the contract.
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +17,8 @@ try:
 except ImportError:  # pragma: no cover - jsonschema is a hard dep in pyproject
     jsonschema = None
 
-TEMPLATE_NAMES = ("cover", "content", "closing")
+TEMPLATE_NAMES = ("cover", "content", "closing")  # canonical default; kept as the contract
+
 
 # Inline schema (also persisted to schemas/content-schema.json for the skill/docs).
 SCHEMA: dict[str, Any] = {
@@ -86,19 +88,29 @@ SCHEMA: dict[str, Any] = {
 }
 
 
-def load_deck(path: str | Path) -> dict[str, Any]:
+def _build_schema(template_names: tuple[str, ...] = TEMPLATE_NAMES) -> dict[str, Any]:
+    """Build a JSON Schema with the given template-name enum."""
+    schema = deepcopy(SCHEMA)  # deepcopy to avoid mutating the global template
+    items = schema["properties"]["slides"]["items"]
+    items = dict(items)
+    items["properties"] = {**items["properties"], "template": {"enum": list(template_names)}}
+    schema["properties"]["slides"]["items"] = items
+    return schema
+
+
+def load_deck(path: str | Path, template_names: tuple[str, ...] | None = None) -> dict[str, Any]:
     path = Path(path)
     with path.open("r", encoding="utf-8") as fh:
         deck = json.load(fh)
-    validate_deck(deck)
+    validate_deck(deck, template_names or TEMPLATE_NAMES)
     _validate_semantics(deck)
     return deck
 
 
-def validate_deck(deck: dict[str, Any]) -> None:
+def validate_deck(deck: dict[str, Any], template_names: tuple[str, ...] = TEMPLATE_NAMES) -> None:
     if jsonschema is None:
         return  # graceful: structural checks in _validate_semantics still run
-    jsonschema.validate(instance=deck, schema=SCHEMA)
+    jsonschema.validate(instance=deck, schema=_build_schema(template_names))
 
 
 def _validate_semantics(deck: dict[str, Any]) -> None:

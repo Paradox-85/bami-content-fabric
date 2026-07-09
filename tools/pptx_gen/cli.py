@@ -4,7 +4,7 @@ Usage (run from the repository root; the repository identity is transitioning
 from presentation-framework to bami-content-fabric):
 
     python -m tools.pptx_gen --schema clients/_sample/deck.json --out branded.pptx \
-        --template templates/template.pptx --tokens templates/design_tokens.yaml
+        --template templates/bami/template.pptx --tokens templates/bami/design_tokens.yaml
 
 Exit codes: 0 ok; 1 generic; 2 unknown template; 3 missing field; 4 coordinate;
 5 template/tokens/deck file missing.
@@ -41,30 +41,37 @@ def _exit_for(message: str) -> int:
     return 1
 
 
+BRAND_DIRS = {
+    "bami": {"template": "templates/bami/template.pptx",       "tokens": "templates/bami/design_tokens.yaml"},
+    "kvi":  {"template": "templates/kvi/template.pptx",       "tokens": "templates/kvi/design_tokens.yaml"}
+}
+
+
 @click.command()
 @click.option("--schema", "schema_path", required=True, type=click.Path(exists=True, dir_okay=False),
               help="Path to deck.json (the content model).")
 @click.option("--out", "out_path", required=True, type=click.Path(dir_okay=False),
               help="Output .pptx path.")
-@click.option("--template", "template_path", default="templates/template.pptx",
-              type=click.Path(exists=True, dir_okay=False),
-              help="Locked template.pptx (default: templates/template.pptx).")
-@click.option("--tokens", "tokens_path", default="templates/design_tokens.yaml",
-              type=click.Path(exists=True, dir_okay=False),
-              help="design_tokens.yaml (default: templates/design_tokens.yaml).")
-def main(schema_path, out_path, template_path, tokens_path):
-    """Generate a branded BAMi presentation from a deck.json content model."""
+@click.option("--brand", default="bami", type=click.Choice(list(BRAND_DIRS)),
+              help="Brand template set (default: bami). Sets --template/--tokens defaults.")
+@click.option("--template", "template_path", default=None, type=click.Path(dir_okay=False),
+              help="Override template.pptx (default: brand dir).")
+@click.option("--tokens", "tokens_path", default=None, type=click.Path(dir_okay=False),
+              help="Override design_tokens.yaml (default: brand dir).")
+def main(schema_path, out_path, brand, template_path, tokens_path):
+    """Generate a branded presentation from a deck.json content model."""
+    brand_def = BRAND_DIRS[brand]
+    template_path = template_path or brand_def["template"]
+    tokens_path = tokens_path or brand_def["tokens"]
     try:
         result = build_deck(schema_path, out_path, template_path, tokens_path)
     except BuildError as exc:
-        click.echo(f"error: {exc}", err=True)
-        sys.exit(_exit_for(str(exc)))
-    except Exception as exc:  # noqa: BLE001 - surface any failure as a clear message
-        click.echo(f"error: {exc}", err=True)
-        sys.exit(1)
+        click.echo(f"error: {exc}", err=True); sys.exit(_exit_for(str(exc)))
+    except Exception as exc:  # noqa: BLE001
+        click.echo(f"error: {exc}", err=True); sys.exit(1)
     click.echo(
         f"built {result['slides_rendered']} slide(s) -> {result['out']} "
-        f"(pruned {result['pruned']} reference slide(s))"
+        f"(brand={brand}, pruned {result['pruned']} reference slide(s))"
     )
 
 

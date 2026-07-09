@@ -43,6 +43,32 @@ class Tokens:
     def type_scale_pt(self) -> list[float]:
         return self._d["type_scale_pt"]
 
+
+    @property
+    def body_zone(self) -> tuple[float, float]:
+        """(y_top_in, y_bottom_in) of the free-composition band; defaults to BAMI values."""
+        bz = self.grid.get("body_zone", {})
+        return float(bz.get("y_top_in", 1.2)), float(bz.get("y_bottom_in", 10.5))
+
+    @property
+    def clear_top_in(self) -> float:
+        """Top of the body-clear band on cloned content slides (slightly above body_zone top)."""
+        bz = self.grid.get("body_zone", {})
+        return float(bz.get("clear_top_in", self.body_zone[0]))
+
+    @property
+    def content_width(self) -> float:
+        """Usable body width = canvas width − 2× horizontal margin."""
+        g = self.grid
+        cw = float(self.canvas["width_in"])
+        mx = float(g.get("margin_x_in", g.get("base_margin_in", 0.6)))
+        return float(g.get("content_width_in", round(cw - 2 * mx, 3)))
+
+    @property
+    def margin_x(self) -> float:
+        g = self.grid
+        return float(g.get("margin_x_in", g.get("base_margin_in", 0.6)))
+
     # -- helpers --
     def resolve_color(self, value: str) -> str:
         """Resolve a token key (e.g. 'primary') or pass through a hex ('#1FB8B8')."""

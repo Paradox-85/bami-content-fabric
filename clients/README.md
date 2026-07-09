@@ -6,7 +6,7 @@ Per-engagement working area for deck content models.
 
 - `clients/_sample/` — **committed generic samples** only. No customer content.
 - `clients/<engagement>/` — **local working decks** for real engagements. These are gitignored by convention and must not be committed with customer-sensitive content.
-- Generated `.pptx` outputs are ignored by default (`*.pptx`), except for `templates/template.pptx`.
+- Generated `.pptx` outputs are ignored by default (`*.pptx`), except for `templates/bami/template.pptx`.
 
 ## Guidance
 

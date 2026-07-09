@@ -7,16 +7,16 @@ End-to-end recipe for producing a branded `.pptx`.
 This workflow must be run from the **repository root**. The repository is being
 renamed from `presentation-framework` toward `bami-content-fabric`, but the
 runtime expectation is the same: the working directory must contain
-`tools/pptx_gen/cli.py` and `templates/template.pptx`.
+`tools/pptx_gen/cli.py` and `templates/bami/template.pptx`.
 
 ## Prerequisites
 
 - Python 3.10+ with `python-pptx==1.0.2`, `pyyaml`, `jsonschema`, `click`
   (either `pip install -e .` from the repository root, or install the deps
   manually: `pip install python-pptx==1.0.2 pyyaml jsonschema click`).
-- `templates/template.pptx` present (locked brand asset).
+- `templates/bami/template.pptx` present (locked brand asset).
 - (Recommended) Montserrat installed locally for accurate rendering.
-- `templates/template.pptx` present (locked brand asset).
+- `templates/bami/template.pptx` present (locked brand asset).
 - (Recommended) Montserrat installed locally for accurate rendering.
 
 ## Steps
@@ -56,7 +56,7 @@ runtime expectation is the same: the working directory must contain
 The template references Montserrat by name but does not embed it. To guarantee
 the font on any machine:
 
-1. Open `templates/template.pptx` in PowerPoint.
+1. Open `templates/bami/template.pptx` in PowerPoint.
 2. File → Options → Save → *Embed fonts in the file* → choose *Embed all
    characters* → OK → Save.
 3. Re-run `python scripts/dump_tokens.py` (no slot changes expected) and commit
@@ -68,7 +68,7 @@ as a future enhancement.
 
 ## When the template is re-authored by a designer
 
-1. Replace `templates/template.pptx`.
+1. Replace `templates/bami/template.pptx`.
 2. `python scripts/dump_tokens.py` → reconcile any shifted shape names /
-   positions in `templates/design_tokens.yaml`.
+   positions in `templates/bami/design_tokens.yaml`.
 3. Regenerate + validate the sample deck; the validator flags any chrome drift.

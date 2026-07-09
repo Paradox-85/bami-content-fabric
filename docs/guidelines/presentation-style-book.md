@@ -6,8 +6,8 @@ typography, same brand colours, same sizing rhythm. **Composition may vary;
 the system does not.**
 
 All values below are the single source of truth in
-`templates/design_tokens.yaml` and are verified against
-`templates/template.pptx` by `scripts/dump_tokens.py`.
+`templates/bami/design_tokens.yaml` and are verified against
+`templates/bami/template.pptx` by `scripts/dump_tokens.py`.
 
 ---
 

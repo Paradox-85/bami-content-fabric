@@ -103,7 +103,7 @@ def _layout_gantt(
             DeprecationWarning, stacklevel=2,
         )
 
-    return [{"kind": "gantt", "x": 0.6, "y": 1.4, "w": 18.8, **content}]
+    return [{"kind": "gantt", "x": tokens.margin_x, "y": 1.4, "w": tokens.content_width, **content}]
 
 
 # ---------------------------------------------------------------------------
@@ -146,7 +146,7 @@ def _layout_comparison_panel(
     title = (variant or {}).get("title", "")
     if title:
         blocks.append({
-            "kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8,
+            "kind": "heading", "x": tokens.margin_x, "y": 1.3, "w": tokens.content_width,
             "text": title, "pt": 18, "color": "text_2",
         })
 
@@ -158,11 +158,11 @@ def _layout_comparison_panel(
         return blocks
 
     gap = 0.4
-    col_w = (18.8 - gap * (cols - 1)) / cols
+    col_w = (tokens.content_width - gap * (cols - 1)) / cols
     for i, panel in enumerate(panels[:cols]):
         blocks.append({
             "kind": "card",
-            "x": 0.6 + i * (col_w + gap),
+            "x": tokens.margin_x + i * (col_w + gap),
             "y": y_start,
             "w": col_w,
             "h": variant.get("panel_h", 3.5) if variant else 3.5,
@@ -209,7 +209,7 @@ def _layout_kpi_strip(
     title = (variant or {}).get("title", "")
     if title:
         blocks.append({
-            "kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8,
+            "kind": "heading", "x": tokens.margin_x, "y": 1.3, "w": tokens.content_width,
             "text": title, "pt": 18, "color": "text_2",
         })
 
@@ -223,11 +223,11 @@ def _layout_kpi_strip(
     cols = (variant or {}).get("columns", count)
     cols = max(1, min(cols, 4))  # clamp to 4 max — at 5+ cards overflow (F-05)
     gap = 0.4
-    avail_w = 18.8
+    avail_w = tokens.content_width
     col_w = (avail_w - gap * (cols - 1)) / cols
 
     for i, kpi_item in enumerate(kpis[:cols]):
-        cx = 0.6 + i * (col_w + gap)
+        cx = tokens.margin_x + i * (col_w + gap)
         kpi_block: dict[str, Any] = {
             "kind": "kpi",
             "x": cx,
@@ -270,7 +270,7 @@ def _layout_numbered_process_steps(
     n = len(items)
     numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
-        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
+        "kind": "steps", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width,
         "count": n, "numbers": numbers, "titles": items,
     }]
 
@@ -283,7 +283,7 @@ def _layout_circular_process_loop(
     n = len(items)
     numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
-        "kind": "steps", "x": 0.6, "y": 1.5, "w": 18.8,
+        "kind": "steps", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width,
         "count": n, "numbers": numbers, "titles": items,
     }]
 
@@ -294,7 +294,7 @@ def _layout_funnel_diagram(
     """Rich layout: funnel → Mermaid sankey diagram."""
     title = (variant or {}).get("title", "Funnel")
     definition = _mmd_sankey(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -308,7 +308,7 @@ def _layout_historical_timeline(
     from shared.pptx._mermaid_helpers import _mmd_timeline
     title = (variant or {}).get("title", "Historical Timeline")
     definition = _mmd_timeline(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -316,14 +316,14 @@ def _layout_phased_rollout_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
     """Rich layout: phased rollout → native gantt block with sections."""
-    return [_gantt_block(content or {}, variant)]
+    return [_gantt_block(content or {}, variant, tokens)]
 
 
 def _layout_roadmap_with_milestones(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
     """Rich layout: roadmap with milestones → native gantt block."""
-    return [_gantt_block(content or {}, variant)]
+    return [_gantt_block(content or {}, variant, tokens)]
 
 
 # --- Card-based layouts (use card blocks) ---
@@ -336,11 +336,11 @@ def _layout_tier_pricing_cards(
     items = (content or {}).get("tiers", (content or {}).get("items", []))
     cols = len(items) or 2
     gap = 0.4
-    col_w = (18.8 - gap * (cols - 1)) / cols
+    col_w = (tokens.content_width - gap * (cols - 1)) / cols
     blocks = []
     for i, item in enumerate(items[:4]):
         blocks.append({
-            "kind": "card", "x": 0.6 + i * (col_w + gap), "y": 1.5,
+            "kind": "card", "x": tokens.margin_x + i * (col_w + gap), "y": 1.5,
             "w": col_w, "h": 3.5,
             "title": item.get("name", item.get("title", f"Tier {i+1}")),
             "body": item.get("description", item.get("body", "")),
@@ -356,9 +356,13 @@ def _layout_pros_cons_list(
     cons = (content or {}).get("cons", [])
     blocks = []
     if pros:
-        blocks.append({"kind": "card", "x": 0.6, "y": 1.5, "w": 8.5, "h": 3.5,
+        col_w = (tokens.content_width - 0.4) / 2  # 2 cols with 0.4" gap
+        blocks.append({"kind": "card", "x": tokens.margin_x, "y": 1.5, "w": col_w, "h": 3.5,
                         "title": "Pros", "body": "\n".join(f"✓ {i}" for i in pros[:12])})
     if cons:
+        col_w = (tokens.content_width - 0.4) / 2
+        blocks.append({"kind": "card", "x": tokens.margin_x + col_w + 0.4, "y": 1.5, "w": col_w, "h": 3.5,
+                        "title": "Cons", "body": "\n".join(f"✗ {i}" for i in cons[:12])})
         blocks.append({"kind": "card", "x": 10.1, "y": 1.5, "w": 8.5, "h": 3.5,
                         "title": "Cons", "body": "\n".join(f"✗ {i}" for i in cons[:12])})
     return blocks
@@ -374,7 +378,7 @@ def _layout_swimlane_diagram(
     title = (variant or {}).get("title", "Process")
     from shared.pptx._mermaid_helpers import _mmd_flowchart_lr_swimlane
     definition = _mmd_flowchart_lr_swimlane(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -384,7 +388,7 @@ def _layout_competitive_matrix(
     """Reference-only stub: features × vendors → ``table`` block."""
     header = (content or {}).get("header", (content or {}).get("vendors", []))
     rows = (content or {}).get("rows", [])
-    return [{"kind": "table", "x": 0.6, "y": 1.5, "w": 18.8,
+    return [{"kind": "table", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width,
              "header": header, "rows": rows}]
 
 
@@ -396,7 +400,7 @@ def _layout_checklist_status(
 ) -> list[dict]:
     """Rich layout: checklist status → Mermaid kanban board."""
     definition = _mmd_kanban(content)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -405,7 +409,7 @@ def _layout_icon_text_feature_list(
 ) -> list[dict]:
     """Reference-only stub: icon+text list → ``bullets`` block."""
     items = (content or {}).get("items", [])
-    return [{"kind": "bullets", "x": 0.6, "y": 1.5, "w": 18.8, "items": items}]
+    return [{"kind": "bullets", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "items": items}]
 
 
 def _layout_mind_map_radial(
@@ -415,7 +419,7 @@ def _layout_mind_map_radial(
     title = (variant or {}).get("title", (content or {}).get("title", "Map"))
     from shared.pptx._mermaid_helpers import _mmd_mindmap
     definition = _mmd_mindmap(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -426,7 +430,7 @@ def _layout_decision_tree_flowchart(
     """Rich layout: decision tree → Mermaid flowchart TD."""
     title = (variant or {}).get("title", "Decision Tree")
     definition = _mmd_flowchart_td(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -438,7 +442,7 @@ def _layout_architecture_diagram(
     """Rich layout: architecture diagram → Mermaid architecture diagram."""
     title = (variant or {}).get("title", "Architecture")
     definition = _mmd_flowchart_architecture(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -448,7 +452,7 @@ def _layout_quadrant_matrix(
     """Rich layout: quadrant matrix → Mermaid quadrantChart."""
     title = (variant or {}).get("title", "Matrix")
     definition = _mmd_quadrant(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
@@ -458,16 +462,16 @@ def _layout_chart_donut_pie(
     """Rich layout: donut/pie chart → Mermaid pie chart."""
     title = (variant or {}).get("title", "Distribution")
     definition = _mmd_pie(content, title=title)
-    return [{"kind": "mermaid", "x": 0.6, "y": 1.5, "w": 18.8, "h": 8.0,
+    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
 
 
 
 
-def _gantt_block(content: dict, variant: dict | None = None) -> dict:
+def _gantt_block(content: dict, variant: dict | None = None, tokens: Tokens | None = None) -> dict:
     """Build a native gantt block dict with safe width calculation.
 
-    Computes w so that x + w <= 19.2 (slide width) given the
+    Computes w so that x + w <= canvas width (slide width) given the
     number of periods and default label width.
     If periods are not provided but sections contain task bars
     with period_keys, periods are inferred automatically.
@@ -485,11 +489,14 @@ def _gantt_block(content: dict, variant: dict | None = None) -> dict:
         periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
     n_periods = len(periods) or 4
     label_w = 2.8 if variant is None else variant.get("label_w", 2.8)
-    # Safe width: leave 0.6" right margin, start at x=0.6
-    safe_w = min(18.8, 0.6 + n_periods * 2.8 + label_w)
-    safe_w = max(12.0, min(safe_w, 18.6))
+    slide_w = float(tokens.canvas["width_in"]) if tokens else 20.0
+    margin = tokens.margin_x if tokens else 0.6
+    content_w = tokens.content_width if tokens else 18.8
+    # Safe width: leave margin right, start at margin
+    safe_w = min(content_w, margin + n_periods * 2.8 + label_w)
+    safe_w = max(12.0, min(safe_w, content_w - 0.2))
     return {
-        "kind": "gantt", "x": 0.6, "y": 1.4, "w": safe_w,
+        "kind": "gantt", "x": margin, "y": 1.4, "w": safe_w,
         "label_w": label_w,
         "periods": periods,
         "sections": sections,

@@ -1,0 +1,95 @@
+{
+  "title": "KVI Test Presentation — Gantt Demo",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "title": "Kanadevia Inova",
+        "subtitle": "Unified Engineering Pilot Project",
+        "metadata": "AVEVA Unified Engineering  |  RG Pilot",
+        "date": "July 2026"
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Project timeline — Phase 1 rollout" },
+      "blocks": [
+        {
+          "kind": "gantt",
+          "x": 0.472,
+          "y": 1.2,
+          "w": 12.389,
+          "label_w": 2.5,
+          "period_h": 0.32,
+          "row_h": 0.3,
+          "section_h": 0.26,
+          "row_gap": 0.04,
+          "section_gap": 0.06,
+          "bar_h": 0.18,
+          "periods": [
+            { "label": "Q1 2026", "key": "q1" },
+            { "label": "Q2 2026", "key": "q2" },
+            { "label": "Q3 2026", "key": "q3" },
+            { "label": "Q4 2026", "key": "q4" }
+          ],
+          "sections": [
+            {
+              "name": "Engineering setup",
+              "color": "primary",
+              "tasks": [
+                { "label": "CAD integration", "period_items": [{ "period_key": "q1", "span": 1.0 }] },
+                { "label": "Template migration", "period_items": [{ "period_key": "q1", "span": 1.5 }] },
+                { "label": "User acceptance", "period_items": [{ "period_key": "q2", "span": 1.0 }] }
+              ]
+            },
+            {
+              "name": "Data migration",
+              "color": "accent_blue",
+              "tasks": [
+                { "label": "Schema mapping", "period_items": [{ "period_key": "q1", "span": 0.8 }] },
+                { "label": "Bulk ETL", "period_items": [{ "period_key": "q2", "span": 1.5 }] },
+                { "label": "Validation & sign-off", "period_items": [{ "period_key": "q3", "span": 0.8 }] }
+              ]
+            },
+            {
+              "name": "Training & go-live",
+              "color": "accent_green",
+              "tasks": [
+                { "label": "Train the trainer", "period_items": [{ "period_key": "q2", "span": 0.5 }] },
+                { "label": "Pilot rollout", "period_items": [{ "period_key": "q3", "span": 1.5 }] },
+                { "label": "Hypercare", "period_items": [{ "period_key": "q4", "span": 1.0 }] }
+              ]
+            }
+          ],
+          "legend": [
+            { "label": "Engineering", "color": "primary" },
+            { "label": "Data", "color": "accent_blue" },
+            { "label": "Training", "color": "accent_green" }
+          ],
+          "today": { "period_key": "q2", "offset": 0.3, "label": "Today" }
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "hero": "Thank you",
+        "c1_header": "Contact",
+        "c1_name": "Andrei Aitzhanov",
+        "c1_function": "Engineering Lead",
+        "c1_email": "aan@bamiengineering.com",
+        "c1_phone": "+41 79 123 45 67",
+        "c2_header": "Project Office",
+        "c2_name": "Kanadevia Inova",
+        "c2_function": "Unified Engineering",
+        "c2_email": "info@kanadevia-inova.com",
+        "c2_phone": "",
+        "c3_header": "",
+        "c3_name": "",
+        "c3_function": "",
+        "c3_email": "",
+        "c3_phone": ""
+      }
+    }
+  ]
+}

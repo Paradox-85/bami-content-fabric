@@ -1,0 +1,58 @@
+{
+  "title": "KVI Sample Deck",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "title": "AVEVA UE Pilot for Renewable Gas",
+        "subtitle": "Kick-off Meeting",
+        "metadata": "Fabrice Gbaguidi",
+        "date": "July 8, 2026"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Project Overview"
+      },
+      "blocks": [
+        { "kind": "heading", "x": 0.472, "y": 1.3, "w": 12.0, "text": "Project Objectives", "pt": 22 },
+        { "kind": "body", "x": 0.472, "y": 2.0, "w": 12.0, "text": "Implement the Renewable Gas technology and engineering methodology from KVI within the AVEVA Unified Engineering environment.", "pt": 14 },
+        { "kind": "body", "x": 0.472, "y": 2.8, "w": 12.0, "text": "Evaluate AVEVA Unified Engineering as alternative solution to Siemens COMOS for Renewable Gas projects.", "pt": 14 }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Project Scope"
+      },
+      "blocks": [
+        { "kind": "heading", "x": 0.472, "y": 1.3, "w": 5.8, "text": "Phase 1", "pt": 18 },
+        { "kind": "body", "x": 0.472, "y": 1.9, "w": 5.8, "text": "Core Engineering Backbone: PFD, P&ID and related core lists.", "pt": 13 },
+        { "kind": "heading", "x": 6.5, "y": 1.3, "w": 5.8, "text": "Phase 2", "pt": 18 },
+        { "kind": "body", "x": 6.5, "y": 1.9, "w": 5.8, "text": "Extended Lists & Datasheets for additional structured deliverables.", "pt": 13 }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "hero": "Thank you!",
+        "c1_header": "Project Lead",
+        "c1_name": "Fabrice Gbaguidi",
+        "c1_function": "Digital Engineering Systems Senior Engineer",
+        "c1_email": "fabrice.gbaguidi@kvi.com",
+        "c1_phone": "+41 00 000 00 00",
+        "c2_header": "Sponsor",
+        "c2_name": "Fabio Bitetto",
+        "c2_function": "Project Sponsor",
+        "c2_email": "fabio.bitetto@kvi.com",
+        "c2_phone": "+41 00 000 00 00",
+        "c3_header": "Support",
+        "c3_name": "BAMI Srl",
+        "c3_function": "Implementation Partner",
+        "c3_email": "info@bamiengineering.com",
+        "c3_phone": "+39 00 000 00 00"
+      }
+    }
+  ]
+}

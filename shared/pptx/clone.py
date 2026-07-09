@@ -1,6 +1,6 @@
 """Slide deep-clone for python-pptx (no built-in clone exists).
 
-Validated 2026-06-17 against templates/template.pptx: bit-faithful shape copy
+Validated 2026-06-17 against templates/bami/template.pptx: bit-faithful shape copy
 (53/53 shapes) with image relationships remapped (background + logo + icons all
 resolve). The cloned slide inherits the source slide's layout.
 """

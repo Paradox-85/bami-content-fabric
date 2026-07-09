@@ -17,16 +17,11 @@ from shared.pptx.schema import load_deck
 from shared.pptx.layouts import expand_layout
 from shared.pptx.tokens import Tokens, load_tokens
 
-# Body-zone vertical band (inches). On a cloned CONTENT slide we remove every
-# shape whose top falls in this band — that clears the reference slide's body
-# while preserving all chrome (background, title bar+title, logo, footer, divider).
-_BODY_TOP = 1.0
-_BODY_BOTTOM = 10.5
 
 
-def _clear_body_zone(slide) -> int:
-    emu_top = int(_BODY_TOP * 914400)
-    emu_bottom = int(_BODY_BOTTOM * 914400)
+def _clear_body_zone(slide, tokens) -> int:
+    emu_top = int(tokens.clear_top_in * 914400)
+    emu_bottom = int(tokens.body_zone[1] * 914400)
     removed = 0
     for shp in list(slide.shapes):
         top = shp.top
@@ -36,6 +31,7 @@ def _clear_body_zone(slide) -> int:
             shp._element.getparent().remove(shp._element)
             removed += 1
     return removed
+
 
 
 class BuildError(Exception):
@@ -58,9 +54,10 @@ def build_deck(
         if not p.exists():
             raise BuildError(f"{what} file not found: {p}")
 
-    deck = load_deck(deck_path)            # raises on schema/semantic error
+    tokens = load_tokens(tokens_path)                       # moved up
+    template_names = tuple(sorted(tokens.templates.keys()))
+    deck = load_deck(deck_path, template_names=template_names)
     chrome_mode = ((deck.get("options") or {}).get("chrome") or "full")
-    tokens = load_tokens(tokens_path)
     prs = Presentation(str(template_path))
     n_orig = len(prs.slides._sldIdLst)     # 8 reference slides in the corporate deck
 
@@ -79,7 +76,7 @@ def build_deck(
         tmpl = tokens.template(tname)
         # Content slides: clear the reference body, keep chrome, then recompose.
         if tname == "content":
-            _clear_body_zone(new_slide)
+            _clear_body_zone(new_slide, tokens)
         # Fill chrome slots (title for content; hero fields for cover/closing).
         apply_slots(new_slide, tmpl.get("slots", {}), slide_spec.get("fields", {}))
         # Compose the free body zone (content slides only). Expand semantic layouts
@@ -104,7 +101,7 @@ def build_deck(
         delete_slide_at(prs, 0)
 
     try:
-        prs.core_properties.category = f"bami:chrome={chrome_mode}"
+        prs.core_properties.category = f"{tokens.raw.get('brand', 'unknown')}:chrome={chrome_mode}"
     except Exception:
         pass
     out_path.parent.mkdir(parents=True, exist_ok=True)

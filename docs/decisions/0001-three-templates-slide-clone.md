@@ -37,7 +37,7 @@ colour/background, fonts, sizing and overall **uniformity** are binding.
 Adopt a **three-templated-slides model with slide-clone**:
 
 1. **Exactly three templates** — **Cover**, **Content**, **Closing**. Each is a
-   locked slide inside `templates/template.pptx` carrying fixed, verified chrome.
+   locked slide inside `templates/bami/template.pptx` carrying fixed, verified chrome.
 2. **Slide-clone** (deep-copy `<p:sld>` + remap image relationships). The
    generator clones the chosen template so every slide inherits the background,
    logo and chrome **bit-for-bit**, sidestepping all four `python-pptx` limits.
@@ -62,7 +62,7 @@ Adopt a **three-templated-slides model with slide-clone**:
 - **Open:** Montserrat is **not embedded** in the template (verified: no
   `/ppt/fonts/` parts, no `<p:embeddedFontLst>`). Every generated run declares
   Montserrat by name; for cross-machine fidelity Montserrat must be embedded in
-  `templates/template.pptx` via the PowerPoint UI (one-time) — see
+  `templates/bami/template.pptx` via the PowerPoint UI (one-time) — see
   `docs/runbooks/generate-deck.md`. Open XML SDK (.NET) remains an optional
   programmatic escape hatch.
 

@@ -1,0 +1,119 @@
+# KVI (Kanadevia Inova) Design Tokens — presentation domain
+# Derived from the KVI onboarding deck. Canvas is 16:9 widescreen (13.333 × 7.5).
+#
+# Template slides from the source:
+#   ref_index 0 = Slide 0 (cover title page)
+#   ref_index 2 = Slide 2 (content slide with title, body zone, footer)
+#   ref_index 6 = Slide 6 (closing — Thank you layout)
+
+version: 1
+strategy: template-clone
+brand: kvi
+
+canvas:
+  width_emu: 12192000      # 13.333 in
+  height_emu: 6858000      # 7.500 in
+  width_in: 13.333
+  height_in: 7.5
+  ratio: "16:9"
+
+fonts:
+  primary: "Arial"
+  fallback_stack: ["Helvetica", "Calibri", "sans-serif"]
+
+# Role -> hex. The ONLY run/fill colours permitted in a generated KVI deck.
+colors:
+  primary:       "#0E7F80"   # accent1 — teal-green, primary brand
+  primary_dark:  "#0A6B6C"   # derived darker teal (emphasis)
+  primary_mid:   "#4A9FA0"   # teal hierarchy level 2
+  primary_pale:  "#86BFBF"   # teal hierarchy level 3
+  accent_blue:   "#007DB9"   # accent2 — secondary
+  accent_green:  "#00A082"   # accent3
+  accent_gold:   "#E6BC00"   # accent4
+  accent_orange: "#E16446"   # accent5 — orange-red
+  positive:      "#00A082"   # reuse green
+  negative:      "#E16446"   # reuse orange-red
+  warning:       "#E6BC00"   # reuse gold
+  neutral:       "#666666"   # lt2 — captions, legends
+  text_1:        "#000000"   # dk1 — headings
+  text_2:        "#1A1A1A"   # body on light
+  text_3:        "#2B2B2B"   # secondary body on light
+  bg_offwhite:   "#E6E6E6"   # dk2 — light-gray surface
+  white:         "#FFFFFF"   # accent6 / lt1 — hero text on dark
+
+type_scale_pt: [8, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 40, 54]
+
+grid:
+  base_margin_in: 0.6
+  margin_x_in: 0.472        # KVI content title / wordmark left edge
+  content_width_in: 12.389  # 13.333 - 2*0.472
+  body_zone:
+    y_top_in: 1.05          # below content title (~0.477+0.5)
+    clear_top_in: 0.95
+    y_bottom_in: 6.95       # above footer bar at 7.108
+  footer_divider_y_in: 7.108
+  footer_y_in: 7.15
+
+templates:
+
+  # --- COVER: title page with title + metadata ---
+  cover:
+    ref_index: 0
+    # KVI cover has no footer — omit footer so validator skips it.
+    slots:
+      title:    "Title 1"
+      subtitle: "Text Placeholder 3"
+      metadata: "Text Placeholder 4"
+      date:     "Datumsplatzhalter 2"
+
+  # --- CONTENT: title + footer + free body zone ---
+  content:
+    ref_index: 2
+    logo:
+      left_in: 11.812
+      top_in: 0.477
+      width_in: 1.049
+      height_in: 0.347
+    # KVI content has NO black title bar — omit title_bar (validator skips it).
+    title_text:
+      shape_name: "Title 1"
+      font: Arial
+      pt: 24
+      bold: true
+      color: text_1          # dark title on light master
+      align: LEFT
+      left_in: 0.472
+      top_in: 0.477
+      width_in: 10.0
+      height_in: 0.6
+    footer:
+      left:  { text: "EAD - Person", pt: 8, bold: false, color: neutral, align: LEFT,  left_in: 1.031, top_in: 7.108 }
+    slots:
+      title: "Title 1"
+
+  # --- CLOSING: empty slide ---
+  closing:
+    ref_index: 6
+    logo:
+      left_in: 0.472
+      top_in: 0.807
+      width_in: 2.92
+      height_in: 0.967
+    # KVI closing has no footer — omit footer so validator skips it.
+    slots:
+      hero:    "kvi_closing_thanks"
+      c1_header: "kvi_c1_header"
+      c1_name: "kvi_c1_name"
+      c1_function: "kvi_c1_function"
+      c1_email: "kvi_c1_email"
+      c1_phone: "kvi_c1_phone"
+      c2_header: "kvi_c2_header"
+      c2_name: "kvi_c2_name"
+      c2_function: "kvi_c2_function"
+      c2_email: "kvi_c2_email"
+      c2_phone: "kvi_c2_phone"
+      c3_header: "kvi_c3_header"
+      c3_name: "kvi_c3_name"
+      c3_function: "kvi_c3_function"
+      c3_email: "kvi_c3_email"
+      c3_phone: "kvi_c3_phone"

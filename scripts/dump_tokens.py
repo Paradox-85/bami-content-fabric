@@ -4,13 +4,12 @@
 For each of the three reference slides (cover/content/closing) it lists the
 picture shapes (background + logo) and the named text shapes, with position,
 size and the first run's font/size/color/bold/alignment. Use this after any
-change to templates/template.pptx to confirm the slot maps in design_tokens.yaml
-still match reality.
+change to templates/bami/template.pptx to confirm the slot maps in
+design_tokens.yaml still match reality.
 
-Usage (from the repository root; repository identity is transitioning from
-presentation-framework to bami-content-fabric):
+Usage (from the repository root):
     python scripts/dump_tokens.py
-    python scripts/dump_tokens.py --template templates/template.pptx
+    python scripts/dump_tokens.py --template templates/bami/template.pptx
 """
 
 from __future__ import annotations
@@ -21,7 +20,7 @@ from pathlib import Path
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
-DEFAULT_TEMPLATE = "templates/template.pptx"
+DEFAULT_TEMPLATE = "templates/bami/template.pptx"
 REFERENCES = {"cover": 0, "content": 1, "closing": 7}
 
 

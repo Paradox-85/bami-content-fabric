@@ -24,19 +24,17 @@ from shared.pptx.style import (
 from shared.pptx.tokens import Tokens
 
 # Body zone guards (kept in sync with design_tokens.grid.body_zone).
-_BODY_TOP = 1.2
-_BODY_BOTTOM = 10.5
-
-
-def _check_zone(kind, x, y, w, h):
-    if y < _BODY_TOP - 0.05:
+def _check_zone(kind, tokens, x, y, w, h):
+    body_top, body_bottom = tokens.body_zone
+    if y < body_top - 0.05:
         raise ValueError(
-            f"block '{kind}' at y={y} is inside the title bar zone (must be >= {_BODY_TOP})"
+            f"block '{kind}' at y={y} is inside the title bar zone (must be >= {body_top})"
         )
-    if y + (h or 0) > _BODY_BOTTOM + 0.05:
+    if y + (h or 0) > body_bottom + 0.05:
         raise ValueError(
-            f"block '{kind}' at y={y} h={h} crosses the footer divider (max y+h = {_BODY_BOTTOM})"
+            f"block '{kind}' at y={y} h={h} crosses the footer divider (max y+h = {body_bottom})"
         )
+
 
 
 # --------------------------------------------------------------------------- text
@@ -45,7 +43,7 @@ def add_heading(slide, tokens: Tokens, b: dict):
     text = b["text"]
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 0.7)
-    _check_zone("heading", x, y, w, h)
+    _check_zone("heading", tokens, x, y, w, h)
     box = slide.shapes.add_textbox(inches(x), inches(y), inches(w), inches(h))
     tf = box.text_frame
     tf.word_wrap = True
@@ -62,7 +60,7 @@ def add_body(slide, tokens: Tokens, b: dict):
     text = b["text"]
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 0.6)
-    _check_zone("body", x, y, w, h)
+    _check_zone("body", tokens, x, y, w, h)
     box = slide.shapes.add_textbox(inches(x), inches(y), inches(w), inches(h))
     tf = box.text_frame
     tf.word_wrap = True
@@ -80,7 +78,7 @@ def add_bullets(slide, tokens: Tokens, b: dict):
     items = b["items"]
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 0.4 * max(1, len(items)))
-    _check_zone("bullets", x, y, w, h)
+    _check_zone("bullets", tokens, x, y, w, h)
     box = slide.shapes.add_textbox(inches(x), inches(y), inches(w), inches(h))
     tf = box.text_frame
     tf.word_wrap = True
@@ -122,7 +120,7 @@ def add_card(slide, tokens: Tokens, b: dict):
     """White card with an optional brand top-accent bar."""
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 2.4)
-    _check_zone("card", x, y, w, h)
+    _check_zone("card", tokens, x, y, w, h)
     card = _rectangle(slide, tokens, x, y, w, h, b.get("fill", "white"))
     # top accent
     accent_h = b.get("accent_h", 0.07)
@@ -150,7 +148,7 @@ def add_darkcard(slide, tokens: Tokens, b: dict):
     """Dark card (#0A0A0A) with a brand left accent — for emphasis blocks."""
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 1.05)
-    _check_zone("darkcard", x, y, w, h)
+    _check_zone("darkcard", tokens, x, y, w, h)
     card = _rectangle(slide, tokens, x, y, w, h, "text_1")
     _rectangle(slide, tokens, x, y, 0.1, h, b.get("accent", "primary"))
     if b.get("text"):
@@ -173,11 +171,11 @@ def add_steps(slide, tokens: Tokens, b: dict):
     if not (len(numbers) == count):
         raise ValueError("steps: numbers length must equal count")
     x, y = b["x"], b["y"]
-    w_total = b.get("w", 18.8)
+    w_total = b.get("w", tokens.content_width)
     gap = b.get("gap", 0.4)
     col_w = (w_total - gap * (count - 1)) / count
     col_h = b.get("h", 2.6)
-    _check_zone("steps", x, y, w_total, col_h)
+    _check_zone("steps", tokens, x, y, w_total, col_h)
     for i in range(count):
         cx = x + i * (col_w + gap)
         # number
@@ -205,7 +203,7 @@ def add_kpi(slide, tokens: Tokens, b: dict):
     """Big number + label infographic block."""
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 1.6)
-    _check_zone("kpi", x, y, w, h)
+    _check_zone("kpi", tokens, x, y, w, h)
     nbox = slide.shapes.add_textbox(inches(x), inches(y), inches(w), inches(1.0))
     style_text_frame(nbox.text_frame, tokens, pt=b.get("number_pt", 40), color=b.get("color", "primary"),
                      bold=True, align="LEFT")
@@ -281,7 +279,7 @@ def add_gantt(slide, tokens: Tokens, b: dict):
     if legend:
         total_h += 0.45
     total_h += 0.2
-    _check_zone("gantt", x, y, w, total_h)
+    _check_zone("gantt", tokens, x, y, w, total_h)
 
     time_x = x + label_w
     time_w = max(0.5, w - label_w)
@@ -400,7 +398,7 @@ def add_table(slide, tokens: Tokens, b: dict):
     n_cols = len(header)
     n_rows = len(rows) + 1
     h = b.get("h", 0.4 * n_rows)
-    _check_zone("table", x, y, w, h)
+    _check_zone("table", tokens, x, y, w, h)
     tbl_shape = slide.shapes.add_table(n_rows, n_cols, inches(x), inches(y), inches(w), inches(h))
     tbl = tbl_shape.table
 
@@ -442,7 +440,7 @@ def add_mermaid_image(slide, tokens: Tokens, b: dict):
     """
     x, y, w = b["x"], b["y"], b["w"]
     h = b.get("h", 5.0)
-    _check_zone("mermaid", x, y, w, h)
+    _check_zone("mermaid", tokens, x, y, w, h)
     definition = b.get("text", "")
     if not definition:
         raise ValueError("mermaid: block 'text' (diagram definition) is required")

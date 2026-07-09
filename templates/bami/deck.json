@@ -1,0 +1,76 @@
+{
+  "title": "BAMI Agent Factory — Sample",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "eyebrow": "June 2026   |   Sales proposal",
+        "kicker": "BAMI AGENT FACTORY",
+        "hero": "Guided agent building in your Copilot tenant.",
+        "subtitle": "An agile service that takes an agent idea from intake to deployment.",
+        "steps": ["Idea", "Evaluation", "Tier 0–3", "Quick Proposal", "Build"]
+      }
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Use cases by department" },
+      "blocks": [
+        {
+          "kind": "table",
+          "x": 0.6, "y": 1.5, "w": 18.8,
+          "header": ["Tier 0 — Simple", "Tier 1 — Skills", "Tier 2 — RAG", "Tier 3 — Extra"],
+          "rows": [
+            ["Engineering & Construction", "Project, Engineering, HSE", "Standards lookup", "Spec Q&A", "Design copilot"],
+            ["Procurement", "Sourcing, Contracts", "Vendor lookup", "Contract review", "Spend analyst"],
+            ["Corporate", "HR, Finance, Legal", "Policy Q&A", "Onboarding buddy", "Invoice triage"]
+          ]
+        },
+        { "kind": "caption", "x": 0.6, "y": 9.8, "w": 18.8, "text": "Indicative examples — same backbone, different tiers." }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "The end-to-end process" },
+      "blocks": [
+        { "kind": "heading", "x": 0.6, "y": 1.3, "w": 18.8, "text": "Five steps from idea to deployed agent.", "pt": 24, "color": "text_2" },
+        {
+          "kind": "steps",
+          "x": 0.6, "y": 2.4, "w": 18.8, "count": 5,
+          "numbers": ["01", "02", "03", "04", "05"],
+          "titles": ["Idea Intake", "Evaluation", "Tiering", "Quick Proposal", "Build & Hand-off"],
+          "bodies": ["Requester submits a structured idea.", "BAMI scores intent, data, risk.", "Agent is classified Tier 0–3.", "Scope, team and roadmap produced.", "Built, tested and handed to the tenant."]
+        }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": { "title": "Why it works" },
+      "blocks": [
+        { "kind": "card", "x": 0.6, "y": 1.6, "w": 6.0, "h": 2.4, "accent": "primary", "title": "Same backbone", "body": "One intake and assessment pipeline for every tier." },
+        { "kind": "card", "x": 7.0, "y": 1.6, "w": 6.0, "h": 2.4, "accent": "primary", "title": "Tenant-native", "body": "Only the tools already in your Copilot tenant." },
+        { "kind": "card", "x": 13.4, "y": 1.6, "w": 6.0, "h": 2.4, "accent": "primary", "title": "Built to scale", "body": "From a single agent to a governed portfolio." },
+        { "kind": "kpi", "x": 0.6, "y": 4.6, "w": 6.0, "number": "1–2 wks", "label": "Tier 0 to production", "color": "primary" },
+        { "kind": "kpi", "x": 7.0, "y": 4.6, "w": 6.0, "number": "5", "label": "Assessment dimensions", "color": "primary_dark" },
+        { "kind": "kpi", "x": 13.4, "y": 4.6, "w": 6.0, "number": "4", "label": "Agent tiers", "color": "primary_mid" },
+        { "kind": "darkcard", "x": 0.6, "y": 6.6, "w": 18.8, "h": 1.05, "text": "Operational output: scope, team and roadmap — not slideware." },
+        { "kind": "bullets", "x": 0.6, "y": 8.2, "w": 18.8, "items": ["Native governance and decision log", "Semi-automated intake and evaluation", "Every idea classified before any build"] }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "eyebrow": "NEXT STEPS",
+        "hero": "Let's start now.",
+        "subtitle": "Three steps to begin. No commercial commitment.",
+        "step_numbers": ["01", "02", "03"],
+        "step_titles": ["Discovery & governance", "Intake setup", "First two PoCs"],
+        "step_bodies": [
+          "A 2-hour workshop with leads from the three departments.",
+          "BAMI configures the intake form and the evaluation rubric.",
+          "Pick two ideas at different tiers and run them end-to-end."
+        ],
+        "contact": "Let's talk   •   info@bamiengineering.com   •   bamiengineering.com"
+      }
+    }
+  ]
+}

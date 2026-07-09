@@ -22,8 +22,8 @@ Both branches share the same **brand design tokens** (`design_tokens.yaml`) and 
 The intermediate JSON schema (`intermediate-slide-schema.json`) serves as the bridge between content intent and both renderers.
 The implementation is built around three ideas:
 
-- **locked template inheritance** — chrome comes from `templates/template.pptx`
-- **machine-readable design tokens** — `templates/design_tokens.yaml`
+- **locked template inheritance** — chrome comes from `templates/bami/template.pptx`
+- **machine-readable design tokens** — `templates/bami/design_tokens.yaml`
 - **JSON authoring contract** — `schemas/content-schema.json`
 
 This keeps brand fidelity high while preserving enough flexibility for per-slide body composition.
@@ -36,8 +36,8 @@ Generation and validation commands must be executed from the repository root con
 
 - `tools/pptx_gen/cli.py`
 - `tools/pptx_validate/cli.py`
-- `templates/template.pptx`
-- `templates/design_tokens.yaml`
+- `templates/bami/template.pptx`
+- `templates/bami/design_tokens.yaml`
 
 ### Branch A: Slidev pipeline
 

@@ -5,7 +5,7 @@
   "title": "Radial mind map",
   "description": "Radial mind map with center root node and branching child nodes at multiple levels.",
   "current_runtime_kind": "diagram",
-  "implemented": false,
+  "implemented": true,
   "props": [
     {
       "name": "root",

@@ -29,6 +29,11 @@ def sample_deck(root) -> Path:
     return root / "clients" / "_sample" / "deck.json"
 
 
+@pytest.fixture(scope="session")
+def sample_deck(root) -> Path:
+    return root / "clients" / "_sample" / "deck.json"
+
+
 @pytest.fixture()
 def tmp_out(tmp_path) -> Path:
     return tmp_path / "out.pptx"

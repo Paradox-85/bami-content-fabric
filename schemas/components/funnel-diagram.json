@@ -5,7 +5,7 @@
   "title": "Funnel / pipeline diagram",
   "description": "Visual funnel with narrowing stages. Each stage shows a label and value. Supports highlighting.",
   "current_runtime_kind": "diagram",
-  "implemented": false,
+  "implemented": true,
   "props": [
     {
       "name": "stages",

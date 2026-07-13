@@ -17,6 +17,7 @@ from tests.conftest import ROOT
 
 
 REGISTRY_DIR = ROOT / "schemas" / "components"
+SLIDEV_COMPONENTS_DIR = ROOT / "tools" / "slidev" / "components"
 CATEGORIES_YAML = ROOT / "templates" / "media" / "reference" / "library" / "categories.yaml"
 
 
@@ -71,3 +72,45 @@ def test_registry_ids_match_categories_yaml(registry):
     for entry in registry["components"]:
         assert entry["id"] in cat_ids, \
             f"{entry['id']} not found in categories.yaml"
+
+
+def test_implemented_components_have_vue_and_contract(registry):
+    """P0-1: Every registry entry with implemented:true must have a matching .vue file
+    and a contract file with implemented:true. This prevents the swimlane-drift pattern"""
+    vue_names = {p.stem for p in SLIDEV_COMPONENTS_DIR.glob("*.vue")}
+    errors = []
+    for entry in registry["components"]:
+        cid = entry["id"]
+        if not entry.get("implemented", False):
+            continue
+        # Check .vue file exists
+        vue_component = entry.get("vue_component", "")
+        if vue_component not in vue_names:
+            errors.append(f"{cid}: vue_component '{vue_component}' not found in {SLIDEV_COMPONENTS_DIR}")
+        # Check contract exists and has implemented:true
+        contract_file = entry.get("contract", "")
+        contract_path = REGISTRY_DIR / contract_file
+        if not contract_path.exists():
+            errors.append(f"{cid}: contract '{contract_file}' not found")
+        else:
+            contract = json.loads(contract_path.read_text(encoding="utf-8"))
+            if not contract.get("implemented", False):
+                errors.append(f"{cid}: contract '{contract_file}' has implemented != true")
+    assert not errors, "\n".join(errors)
+
+
+def test_contracts_have_runtime_kind(registry):
+    """P0-2: Every component contract must declare current_runtime_kind.
+    Prevents drift between Vue component reality and runtime block kind."""
+    errors = []
+    for entry in registry["components"]:
+        contract_file = entry.get("contract", "")
+        contract_path = REGISTRY_DIR / contract_file
+        if not contract_path.exists():
+            errors.append(f"{entry['id']}: contract '{contract_file}' not found")
+            continue
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        rk = contract.get("current_runtime_kind", "")
+        if not rk:
+            errors.append(f"{entry['id']}: current_runtime_kind missing or empty")
+    assert not errors, "\n".join(errors)

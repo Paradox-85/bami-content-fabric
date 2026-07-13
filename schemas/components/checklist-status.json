@@ -5,7 +5,7 @@
   "title": "Checklist / status tracker",
   "description": "Status checklist with per-item state (done, pending, in-progress, blocked) and optional assignee.",
   "current_runtime_kind": "list",
-  "implemented": false,
+  "implemented": true,
   "props": [
     {
       "name": "items",

@@ -13,10 +13,11 @@ The production workflow is:
 3. validate the output with `python -m tools.pptx_validate`
 4. deliver only when validation exits `0`
 
-As of 2026-07-06, a **dual-renderer architecture** is operational:
+As of 2026-07-06, a **dual-renderer architecture** is operational, with
+Branch B as the primary delivery renderer:
 
-1. **Branch A (Slidev)** — intermediate JSON → Slidev Markdown → Web SPA / PDF / PPTX
-2. **Branch B (python-pptx)** — `deck.json` → branded `.pptx` (existing, stable)
+1. **Branch B (python-pptx)** — `deck.json` → branded `.pptx` (production, stable, primary)
+2. **Branch A (Slidev / Vue)** — intermediate JSON → Slidev Markdown → Web SPA / PDF (fallback, preview, secondary)
 
 Both branches share the same **brand design tokens** (`design_tokens.yaml`) and **widget taxonomy** (`categories.yaml`).
 The intermediate JSON schema (`intermediate-slide-schema.json`) serves as the bridge between content intent and both renderers.
@@ -135,7 +136,7 @@ The taxonomy defines **44 categories** across **9 semantic groups**:
 
 ### Runtime vs reference-only
 
-Of the 44 categories, **5 have native generative runtime widgets** (python-pptx):
+Of the 44 categories, **11 have native generative runtime widgets** (python-pptx):
 
 | Category | Runtime kind | Layout |
 |----------|-------------|--------|
@@ -146,7 +147,10 @@ Of the 44 categories, **5 have native generative runtime widgets** (python-pptx)
 | `data-table` | `table` | -- |
 | `numbered-process-steps` | `steps` | -- |
 | `tier-pricing-cards` | `card` | -- |
-
+| `chart-bar-column` | `chart-bar-column` | -- |
+| `chart-line-area` | `chart-line-area` | -- |
+| `chart-donut-pie` | `chart-donut-pie` | -- |
+| `chart-scatter-bubble` | `chart-scatter-bubble` | -- |
 Additionally, **8 categories have Slidev Vue components** (Branch A) registered in `schemas/components/registry.json` with full prop contracts:
 
 | Category | Vue Component |
@@ -173,9 +177,9 @@ to PNG and embedded as pictures). These go beyond the primitive fallbacks:
 | `decision-tree-flowchart` | flowchart TD | `decision-tree-flowchart` |
 | `architecture-diagram` | flowchart TB | `architecture-diagram` |
 | `quadrant-matrix` | quadrantChart | `quadrant-matrix` |
-| `chart-donut-pie` | pie | `chart-donut-pie` |
+| `chart-waterfall` | xychart-beta | `chart-waterfall` |
 
-The remaining **30 categories are reference-only**: they exist as visual PNG
+The remaining **24 categories are reference-only**: they exist as visual PNG
 references but cannot be generated programmatically. Each has a documented
 **primitive fallback** (see `docs/guidelines/widget-selection.md`).
 

@@ -61,12 +61,12 @@ A renderer must not silently approximate a category it does not support. See
 3. **Web/PDF polish** — Slidev styling, export quality, and interactive features.
 
 ## Renderer Coverage Quick Reference
-
+> **Last updated:** 2026-07-09
 | Coverage tier | Categories | Count |
 |---|---|---|
-| Native PPTX block (Branch B) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `gantt-matrix`, `roadmap-with-milestones`, `data-table`, `numbered-process-steps`, `chart-bar-column`, `chart-line-area`, `chart-donut-pie` | 10 |
-| Mermaid→PNG in PPTX (Branch B) | `funnel-diagram`, `decision-tree-flowchart`, `swimlane-diagram`, `mind-map-radial`, `checklist-status`, `historical-timeline`, `architecture-diagram`, `quadrant-matrix` | 8 |
+| Native PPTX block (Branch B) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `gantt-matrix`, `roadmap-with-milestones`, `data-table`, `numbered-process-steps`, `chart-bar-column`, `chart-line-area`, `chart-donut-pie`, `chart-scatter-bubble` | 11 |
+| Mermaid→PNG in PPTX (Branch B) | `chart-waterfall`, `funnel-diagram`, `decision-tree-flowchart`, `swimlane-diagram`, `mind-map-radial`, `checklist-status`, `historical-timeline`, `architecture-diagram`, `quadrant-matrix` | 9 |
 | Vue component (Branch A) | `tier-pricing-cards`, `phased-rollout-timeline`, `kpi-dashboard-grid`, `funnel-diagram`, `decision-tree-flowchart`, `swimlane-diagram`, `mind-map-radial`, `checklist-status` | 8 |
-| Reference-only (no renderer) | All others in taxonomy | 25 |
+| Reference-only (no renderer) | All others in taxonomy | 24 |
 
 Per `docs/architecture/renderer-ownership-matrix.md` for the detailed per-category matrix.

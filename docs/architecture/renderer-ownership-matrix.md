@@ -54,8 +54,8 @@ renderer priority hierarchy (Branch B primary, Branch A secondary, Mermaid tempo
 | `infographic` | — | none | — | — | Reference-only catch-all. No real renderer on either branch. |
 | `chart-bar-column` | python | none | verified | client-pptx | Branch B native python-pptx chart block (CategoryChartData + clustered column). Added in P1 #7 session. |
 | `chart-line-area` | python | none | verified | client-pptx | Branch B native python-pptx line chart block with markers and optional fill styling. Added in P1 #8 session. |
-| `chart-waterfall` | — | none | — | — | Reference-only. No real renderer on either branch. |
-| `chart-scatter-bubble` | — | none | — | — | Reference-only. No real renderer on either branch. |
+| `chart-waterfall` | python | mermaid | experimental | client-pptx | Branch B renders via accepted Mermaid→PNG workaround (mmdc xychart → PNG). The PPTX contains a rasterised picture, not a native editable chart. This is the documented, officially supported Branch B delivery path — see `docs/guidelines/widget-selection.md`. |
+| `chart-scatter-bubble` | python | none | verified | client-pptx | Branch B native python-pptx scatter/bubble chart block using XyChartData/BubbleChartData. Added in P2 #9 session. Supports both scatter (marker-only, XY_SCATTER) and bubble (BUBBLE) variants with brand-colored markers. |
 | `chart-statistical` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `chart-sunburst-treemap` | — | none | — | — | Reference-only. No real renderer on either branch. |
 | `scorecard` | — | none | — | — | Reference-only. No real renderer on either branch. |

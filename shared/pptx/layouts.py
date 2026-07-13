@@ -7,25 +7,31 @@ Layouts are the **preferred** authoring path for common slide archetypes.
 Raw ``blocks`` in deck.json remain available as the escape hatch for
 block-level positioning control.
 
-Registered layouts (3 full, 14 reference-only stubs):
-    - ``gantt``                    : Gantt/roadmap matrix.
+Registered layouts:
+    === Full generative builders ===
+    - ``gantt``                    : Gantt/roadmap matrix. (Native PPTX gantt block)
     - ``comparison_panel``         : Side-by-side panel comparison (emits card blocks).
     - ``kpi_strip``                : Horizontal KPI/metric strip.
-    --- Reference-only stubs (primitive fallbacks, see widget-selection.md) ---
-    - ``numbered-process-steps``   : ``steps`` block.
-    - ``circular-process-loop``    : ``steps`` block.
-    - ``funnel-diagram``           : ``steps`` block (descending).
-    - ``decision-tree-flowchart``  : ``bullets`` with indented prefixes.
-    - ``historical-timeline``      : Single-row ``gantt`` block.
-    - ``phased-rollout-timeline``  : Section-grouped ``gantt``.
-    - ``roadmap-with-milestones``  : ``gantt`` with milestone markers.
-    - ``tier-pricing-cards``       : ``card`` blocks, one per tier.
-    - ``pros-cons-list``           : Two ``card`` + ``bullets``.
-    - ``checklist-status``         : ``bullets`` with status prefixes.
-    - ``swimlane-diagram``         : ``table`` block.
-    - ``competitive-matrix``       : ``table`` block.
-    - ``mind-map-radial``          : ``heading`` + ``bullets``.
-    - ``icon-text-feature-list``   : ``bullets`` block.
+    --- Gantt-based (native PPTX gantt block) ---
+    - ``phased-rollout-timeline"   : Section-grouped gantt.
+    - ``roadmap-with-milestones"   : Gantt with milestone markers.
+    --- Mermaid-rich (Mermaid → PNG rasterization via mmdc) ---
+    - ``funnel-diagram"           : Mermaid sankey/flow.
+    - ``decision-tree-flowchart"  : Mermaid flowchart TD.
+    - ``historical-timeline"      : Mermaid timeline block.
+    - ``swimlane-diagram"          : Mermaid flowchart LR with subgraphs.
+    - ``mind-map-radial"           : Mermaid mindmap.
+    - ``architecture-diagram"      : Mermaid flowchart architecture.
+    - ``quadrant-matrix"           : Mermaid quadrant chart.
+    - ``chart-donut-pie"           : Mermaid pie chart.
+    - ``checklist-status"          : Mermaid kanban board.
+    --- Primitive stubs (no Mermaid; fallback blocks) ---
+    - ``numbered-process-steps"    : ``steps`` block.
+    - ``circular-process-loop"     : ``steps`` block.
+    - ``tier-pricing-cards"        : ``card`` blocks, one per tier.
+    - ``pros-cons-list"            : Two ``card`` + ``bullets``.
+    - ``competitive-matrix"        : ``table`` block.
+    - ``icon-text-feature-list"    : ``bullets`` block.
 """
 
 from __future__ import annotations
@@ -263,10 +269,6 @@ def _layout_numbered_process_steps(
 ) -> list[dict]:
     """Reference-only stub: numbered sequential steps → ``steps`` block."""
     items = _items(content)
-    items = _items(content)
-    items = _items(content)
-    """Reference-only stub: numbered sequential steps → ``steps`` block."""
-    items = _items(content)
     n = len(items)
     numbers = [f"{i:02d}" for i in range(1, n + 1)]
     return [{
@@ -362,8 +364,6 @@ def _layout_pros_cons_list(
     if cons:
         col_w = (tokens.content_width - 0.4) / 2
         blocks.append({"kind": "card", "x": tokens.margin_x + col_w + 0.4, "y": 1.5, "w": col_w, "h": 3.5,
-                        "title": "Cons", "body": "\n".join(f"✗ {i}" for i in cons[:12])})
-        blocks.append({"kind": "card", "x": 10.1, "y": 1.5, "w": 8.5, "h": 3.5,
                         "title": "Cons", "body": "\n".join(f"✗ {i}" for i in cons[:12])})
     return blocks
 

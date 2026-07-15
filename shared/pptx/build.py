@@ -15,6 +15,7 @@ from shared.pptx.chrome import apply_slots
 from shared.pptx.clone import clone_slide, delete_slide_at
 from shared.pptx.schema import load_deck
 from shared.pptx.layouts import expand_layout
+from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
 from shared.pptx.tokens import Tokens, load_tokens
 
 
@@ -95,6 +96,7 @@ def build_deck(
     refs = {name: prs.slides[idx] for name, idx in wanted.items()}
 
     rendered = 0
+    selection_warnings: list[str] = []
     for slide_spec in deck["slides"]:
         tname = slide_spec["template"]
         new_slide, _ = clone_slide(prs, refs[tname])
@@ -117,9 +119,35 @@ def build_deck(
                 tname,
                 str(deck_path.parent),
             ) + blocks
+        # Fallback: if content is present but layout and blocks are absent, resolve deterministically
+        selection_warnings = []
+        if tname == "content" and not layout_name and not slide_spec.get("blocks") and slide_spec.get("content"):
+            try:
+                sel = resolve_pattern(
+                    slide_spec["content"], tokens,
+                    narrative_intent=slide_spec.get("variant", {}).get("narrative_intent"),
+                )
+                layout_name = sel.layout
+                combined_variant = {**(slide_spec.get("variant") or {}), **sel.variant}
+                slide_spec = {**slide_spec, "variant": combined_variant}
+                selection_warnings = sel.warnings
+                # Apply resolved layout
+                if layout_name:
+                    blocks = expand_layout(
+                        layout_name,
+                        tokens,
+                        slide_spec.get("variant"),
+                        slide_spec.get("content"),
+                        tname,
+                        str(deck_path.parent),
+                    ) + blocks
+            except PatternSelectionError as e:
+                raise BuildError(str(e)) from e
         if tname == "content":
             blocks = _center_sole_block(blocks, tokens)
         for block in blocks:
+            if block.get("kind") == "image" and not block.get("engagement_dir"):
+                block = {**block, "engagement_dir": str(deck_path.parent)}
             render_block(new_slide, tokens, block)
         rendered += 1
 
@@ -133,4 +161,9 @@ def build_deck(
         pass
     out_path.parent.mkdir(parents=True, exist_ok=True)
     prs.save(str(out_path))
-    return {"slides_rendered": rendered, "out": str(out_path), "pruned": n_orig}
+    return {
+        "slides_rendered": rendered,
+        "out": str(out_path),
+        "pruned": n_orig,
+        "selection_warnings": selection_warnings,
+    }

@@ -40,6 +40,10 @@ from typing import Any, Callable
 
 from shared.pptx.tokens import Tokens
 from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_flowchart_architecture
+from typing import Any
+
+from shared.pptx.tokens import Tokens
+from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_flowchart_architecture
 
 
 # ---------------------------------------------------------------------------
@@ -556,3 +560,24 @@ def expand_layout(
             f"registered layouts: {sorted(LAYOUTS)}"
         )
     return LAYOUTS[layout_name](tokens, variant, content, tname, deck_dir)
+
+
+def resolve_layout_from_content(
+    content: dict[str, Any],
+    tokens: Tokens,
+    *,
+    narrative_intent: str | list[str] | None = None,
+) -> str | None:
+    """Resolve a layout name from content using the deterministic pattern resolver.
+
+    Thin wrapper around ``shared.pptx.pattern_selection.resolve_pattern``.
+    Returns the layout name (or ``None`` if the resolved pattern has no layout).
+
+    Raises ``ValueError`` only if the resolver itself fails.
+    """
+    from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
+    try:
+        sel = resolve_pattern(content, tokens, narrative_intent=narrative_intent)
+        return sel.layout
+    except PatternSelectionError as e:
+        raise ValueError(str(e)) from e

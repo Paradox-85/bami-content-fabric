@@ -18,6 +18,15 @@ STEP 5: Compose block JSON: y ∈ [1.2, 10.5], цвета из brand token set.
 STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — если оба присутствуют → ошибка.
 ```
 
+
+> **Machine-readable counterpart:** The table above is encoded as an executable
+> manifest at `schemas/pattern-selection-manifest.yaml`. The deterministic
+> resolver `shared/pptx/pattern_selection.py` implements this D1/D2 mapping for
+> Branch B (python-pptx). The manifest is the Single Source of Truth for
+> `pattern_family ↔ layout ↔ block_kind` resolution. Any drift between D2 here
+> and the manifest should be resolved in favour of the manifest (it is the
+> executing code path).
+
 ## D2. Content-type → Canonical category mapping
 
 | Content signal | Primary category | Secondary (if signal weaker) |
@@ -85,6 +94,32 @@ STEP 6: Validate: layout и blocks ВЗАИМОИСКЛЮЧАЮЩИЕ — есл
 | `infographic` (bar/column only) | `chart-bar-column` | -- | native python-pptx (add_chart_bar_column) |
 | `infographic` (line/area only) | `chart-line-area` | -- | native python-pptx (add_chart_line_area) |
 | `infographic` (donut/pie only) | `chart-donut-pie` | -- | native python-pptx (add_chart_donut_pie) |
+| `infographic` (waterfall) | `chart-waterfall` | -- | **Mermaid→PNG workaround** — not a native editable PPTX chart. See docs below for details. |
+| `image` | `image` | -- | native python-pptx (add_image) |
+| `scatter/bubble` | `chart-scatter-bubble` | -- | native python-pptx (add_chart_scatter_bubble) |
+
+### Image block usage
+
+Use the ``image`` block when a slide needs to embed an external raster image
+(PNG / JPEG) — e.g. product photos, team headshots, screenshots, brand-logos,
+pre-rendered architecture diagrams, or any graphic that cannot be composed from
+native shapes or Mermaid.
+
+**Schema fields:**
+
+- ``src`` (required) — file path resolved in this order (see ``shared/pptx/media.py``):
+  1. Absolute filesystem path
+  2. Relative to engagement directory (typically the deck directory)
+  3. Relative to current working directory
+  4. Relative to repository root
+  5. Relative to ``templates/media/reference/``
+  6. Recursive basename lookup under ``templates/media/reference/`` (``src`` must be a bare filename, no path)
+- ``fit`` (optional, default ``contain``) — ``contain`` (scale to fit, centred,
+  letterboxed), ``cover`` (scale to fill, centred, cropped), or ``fill`` (stretch
+  to w×h, may distort)
+- ``caption`` (optional) — branded caption string rendered below the image
+- ``border`` (optional) — brand colour name or hex for a thin outline
+- ``x``, ``y``, ``w``, ``h`` — standard geometry (``h`` defaults to 3.0)
 
 ### Chart bar / column block usage
 
@@ -112,10 +147,9 @@ families, keep using the existing Mermaid/reference paths until native support
 is added intentionally.
 
 **Layout behavior:** When a content slide carries exactly one chart block
-(``chart-bar-column``, ``chart-line-area``, or ``chart-donut-pie``) and no other
-content, the build automatically expands it to fill the body zone for a
-full-slide, centered chart. Multi-block slides keep explicit geometry.
-
+(any ``chart-*`` kind) and no other content, the build automatically
+expands it to fill the body zone for a full-slide, centered chart.
+Multi-block slides keep explicit geometry.
 ### Chart line / area block usage
 
 Use the ``chart-line-area`` block for time-ordered or sequence-ordered series
@@ -140,8 +174,14 @@ categories.
 
 **When to use:** monthly trend lines, actual vs target progression, forecast vs
 baseline, or any ordered comparison where continuity between points matters.
-For stacked area, scatter/bubble, waterfall, and statistical charts, keep using
+For stacked area and statistical charts, keep using
 existing reference/Mermaid paths until native support is added intentionally.
+For scatter/bubble charts, use the built-in ``chart-scatter-bubble`` block: it
+renders as a native editable Branch B chart via python-pptx XyChartData (scatter)
+or BubbleChartData (bubble) — see the ``chart-scatter-bubble`` section below.
+For waterfall charts, use the built-in ``chart-waterfall`` block: see the
+dedicated ``chart-waterfall`` section below for the accepted Mermaid→PNG
+workaround details.
 
 
 ### Chart donut / pie block usage
@@ -166,9 +206,68 @@ comparisons) is the goal. For part-to-whole with many small slices, consider
 combining small categories into "Other" to avoid visual clutter.
 
 **Layout behavior:** When a content slide carries exactly one chart block
-(``chart-bar-column``, ``chart-line-area``, or ``chart-donut-pie``) and no other
-content, the build automatically expands it to fill the body zone for a
-full-slide, centered chart. Multi-block slides keep explicit geometry.
+(any ``chart-*`` kind) and no other content, the build automatically expands
+it to fill the body zone for a full-slide, centered chart. Multi-block slides keep
+explicit geometry.
+
+### Chart waterfall block usage (official Mermaid→PNG workaround)
+
+Use the ``chart-waterfall`` block when a slide needs a waterfall-style chart
+showing incremental contributions (positive and negative) to a running total.
+
+**Status: officially supported workaround.**
+python-pptx does not provide a native waterfall chart API. Rather than
+leaving ``chart-waterfall`` unsupported, the builder converts the block's data
+into a Mermaid XYBAR chart definition and renders it through the existing
+mmdc (Mermaid CLI) → PNG pipeline.
+
+The resulting PPTX contains a **rasterised picture**, not a native editable
+chart.  This is the documented, permanent, officially supported Branch B
+behaviour for waterfall charts — accepted as a deliberate trade-off.
+
+Minimal payload contract (``kind: "chart-waterfall"``):
+- ``categories`` — category labels (``list[str]``)
+- ``series`` — single series: ``[{name?, values}]`` where ``values`` are the
+  bar heights (positive = increase, negative = decrease)
+- ``title`` (optional) — chart title
+- ``x``, ``y``, ``w``, ``h`` — standard geometry (``h`` defaults to 4.5)
+
+**What you get:** A PNG picture embedded in the PPTX at the requested geometry.
+The picture is not editable as a chart (no double-click → edit data in PowerPoint).
+For editable native waterfall output, evaluate python-pptx upgrade or a future
+native PPTX block.
+
+**When to use:** Any waterfall chart story — budget variance, P&L bridge,
+cash-flow step analysis, or before/after contribution breakdown with positive
+and negative values.
+
+### Chart scatter / bubble block usage
+
+Use the ``chart-scatter-bubble`` block when a slide needs a scatter plot (X/Y
+coordinate pairs with markers) or a bubble chart (X/Y pairs with variable-size
+markers) — e.g. correlation analysis, performance vs cost scatter, or
+bubble-sized portfolio maps.
+
+**Status: native Branch B chart block.**
+The ``chart-scatter-bubble`` block renders as a **native editable PPTX chart**
+via python-pptx ``XyChartData`` (scatter variant) or ``BubbleChartData`` (bubble
+variant). Both variants are fully editable in PowerPoint (double-click → edit data).
+
+Minimal payload contract (``kind: "chart-scatter-bubble"``):
+- ``series`` (required) — one or more objects with:
+  - ``points`` (required) — array of point objects, each with:
+    - ``x`` (required) — numeric X coordinate
+    - ``y`` (required) — numeric Y coordinate
+    - ``size`` (optional, bubble variant only) — numeric radius scaling value
+  - ``name`` (optional) — legend label
+  - ``color`` (optional) — brand token / hex override for markers
+- ``variant`` (optional, default ``"scatter"``) — ``"scatter"`` | ``"bubble"``
+- ``title`` (optional) — chart title
+- ``x``, ``y``, ``w``, ``h`` — standard geometry (``h`` defaults to 4.5)
+
+**When to use:** Any scatter or bubble story — correlation plots, risk/return
+positioning, portfolio allocation maps, or any X/Y coordinate narrative where
+category-to-category comparison (bar/column) is not appropriate.
 
 ## Rich Mermaid layouts (rendered via mmdc to PNG)
 

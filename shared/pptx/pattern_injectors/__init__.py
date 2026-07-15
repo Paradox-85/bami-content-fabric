@@ -20,6 +20,7 @@ from shared.pptx.pattern_injectors import (
     quadrant_matrix,
     funnel,
     steps,
+    folded_arrow,
     maturity_ladder,
     comparison,
     case_study,

@@ -1187,7 +1187,10 @@ def add_inject_pattern(slide, tokens: Tokens, b: dict):
     if not canonical_id:
         raise ValueError("inject-pattern block requires 'canonical_id'")
     # Extract injector-specific params (everything except reserved keys)
-    reserved = {"kind", "canonical_id", "x", "y", "w", "h"}
+    reserved = {
+        "kind", "canonical_id", "x", "y", "w", "h",
+        "pattern_template_id", "pattern_version", "graphical_variant", "features",
+    }
     params = {k: v for k, v in b.items() if k not in reserved}
     created = inject_pattern(
         slide, tokens, canonical_id,

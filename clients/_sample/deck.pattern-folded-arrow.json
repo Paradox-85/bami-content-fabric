@@ -1,0 +1,54 @@
+{
+  "title": "Pattern Folded Arrow — Pilot Deck",
+  "description": "Content-only numbered process slides resolved through folded-arrow-horizontal native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Folded Arrow Pilot"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Our Process — 3 Steps"
+      },
+      "content": {
+        "items": [
+          "Discover & Assess",
+          "Design & Prototype",
+          "Deploy & Optimize"
+        ]
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Detailed Process — 5 Steps"
+      },
+      "content": {
+        "steps": [
+          {"title": "Research", "body": "Market analysis and user research"},
+          {"title": "Strategy", "body": "Define goals and KPIs"},
+          {"title": "Design", "body": "Create wireframes and prototypes"},
+          {"title": "Develop", "body": "Build and iterate"},
+          {"title": "Launch", "body": "Deploy and monitor"}
+        ]
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Legacy Body Support — 4 Steps"
+      },
+      "content": {
+        "items": ["Plan", "Execute", "Review", "Improve"],
+        "bodies": ["Define scope", "Run the process", "Check results", "Optimize"]
+      }
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

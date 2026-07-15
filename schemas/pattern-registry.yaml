@@ -44,11 +44,11 @@ entries:
     graphical_variants:
       - graphical_variant: folded-arrow-horizontal
         version: 1.0.0
-        status: planned  # not yet runtime-default in Pass 1
+        status: enabled  # runtime-default in Pass 2
         pattern_template_id: numbered-process-steps/folded-arrow-horizontal@1.0.0
         renderer_binding:
           native:
-            injector_id: numbered-process-steps
+            injector_id: folded-arrow-horizontal
             injector_version: 1.0.0
           slidev: null  # not yet implemented in Slidev
         features:

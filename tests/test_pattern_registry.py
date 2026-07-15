@@ -112,7 +112,7 @@ def test_get_enabled_variants(registry):
 
 def test_get_planned_variants(registry):
     """get_planned_variants returns only status=planned variants."""
-    entry = get_family_entry(registry, "numbered-process-steps")
+    entry = get_family_entry(registry, "circular-process-loop")
     planned = get_planned_variants(entry)
     assert len(planned) >= 1
     for v in planned:

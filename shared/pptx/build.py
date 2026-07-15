@@ -127,6 +127,44 @@ def _terminal_block_materialize(
     return [block]
 
 
+def _legacy_content_to_steps(content: dict) -> list[dict]:
+    """Transform legacy process content into steps list for native injectors.
+
+    Accepts:
+      - {"items": ["A", "B", "C"]}  (plain strings)
+      - {"items": ["A", "B"], "bodies": ["desc1", "desc2"]}
+      - {"steps": [{"title": "A", "body": "..."}, ...]}
+      - {"items": [{"title": "A", "body": "..."}, ...]}
+
+    Returns a list of dicts with keys: number, title, body (optional).
+    """
+    steps_raw = content.get("steps") or content.get("items") or []
+    bodies_raw = content.get("bodies") or []
+    result = []
+    for idx, item in enumerate(steps_raw):
+        number = f"{idx + 1:02d}"
+        if isinstance(item, dict):
+            step = {
+                "number": item.get("number", number),
+                "title": item.get("title", ""),
+            }
+            if item.get("body"):
+                step["body"] = item["body"]
+            result.append(step)
+        else:
+            step = {
+                "number": number,
+                "title": str(item),
+            }
+            if idx < len(bodies_raw) and bodies_raw[idx]:
+                step["body"] = str(bodies_raw[idx])
+            result.append(step)
+    return result
+
+
+class BuildError(Exception):
+    """Raised with a stable exit-code hint for the CLI."""
+
 class BuildError(Exception):
     """Raised with a stable exit-code hint for the CLI."""
 
@@ -198,8 +236,35 @@ def build_deck(
                 combined_variant = {**(slide_spec.get("variant") or {}), **sel.variant}
                 slide_spec = {**slide_spec, "variant": combined_variant}
                 selection_warnings = sel.warnings
-                # Apply resolved layout
-                if layout_name:
+                # Registry-backed native injector: materialize inject-pattern block
+                # Pass 2: only enabled for numbered-process-steps pilot family via registry
+                injector_id = None
+                if sel.renderer_binding and sel.pattern_template_id:
+                    inj = sel.renderer_binding.get("native", {})
+                    # Gate: only route families with explicit pattern templates enabled
+                    if sel.pattern_template_id and \
+                       sel.pattern_template_id.startswith("numbered-process-steps/"):
+                        injector_id = inj.get("injector_id")
+                if layout_name and injector_id:
+                    # Transform legacy content into steps for the injector
+                    content = slide_spec.get("content", {})
+                    steps_list = _legacy_content_to_steps(content)
+                    bz_top, bz_bottom = tokens.body_zone
+                    injector_block = {
+                        "kind": "inject-pattern",
+                        "canonical_id": injector_id,
+                        "x": round(tokens.margin_x, 3),
+                        "y": bz_top,
+                        "w": round(tokens.content_width, 3),
+                        "h": round(bz_bottom - bz_top, 3),
+                        "steps": steps_list,
+                        "pattern_template_id": sel.pattern_template_id,
+                        "pattern_version": sel.family_version,
+                        "graphical_variant": sel.graphical_variant,
+                        "features": sel.features or {},
+                    }
+                    blocks = [injector_block] + blocks
+                elif layout_name:
                     blocks = expand_layout(
                         layout_name,
                         tokens,

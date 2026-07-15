@@ -576,9 +576,10 @@ def _build_result(
     """Build a ``SelectionResult`` from a manifest entry.
 
     Populates versioned pattern fields from the entry when available.
-    If a manifest entry carries optional version/features/renderer_binding/contract
-    metadata, those values are forwarded into the result. Legacy entries without
-    these fields leave the versioned fields as ``None``.
+    Falls back to the versioned registry for default variant metadata
+    when the manifest entry does not carry explicit variant fields.
+    Legacy entries without these fields leave the versioned fields as ``None``
+    if no registry entry exists.
     """
     family = entry.get("family", "unknown")
     layout = entry.get("layout")
@@ -608,6 +609,31 @@ def _build_result(
     elif isinstance(contracts, str):
         contract_ref = contracts
 
+    # If the entry lacks explicit variant metadata, try the versioned registry
+    if graphical_variant is None and renderer_binding is None and family_version is None:
+        try:
+            from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
+            registry = load_registry()
+            fam_entry = get_family_entry(registry, family)
+            if fam_entry is not None:
+                # Use entry-level version from registry if not on manifest entry
+                if family_version is None:
+                    family_version = fam_entry.get("version")
+                # Use entry-level contracts from registry if not on manifest entry
+                if contract_ref is None:
+                    reg_contracts = fam_entry.get("contracts", [])
+                    if reg_contracts:
+                        contract_ref = reg_contracts[0]
+                # Resolve the default enabled graphical variant
+                variant_entry = resolve_variant(fam_entry, graphical_variant)
+                if variant_entry is not None:
+                    if graphical_variant is None:
+                        graphical_variant = variant_entry.get("graphical_variant")
+                    features = variant_entry.get("features", features)
+                    renderer_binding = variant_entry.get("renderer_binding", renderer_binding)
+        except Exception:
+            pass  # registry unavailable, leave versioned fields as None
+
     pattern_template_id: str | None = None
     if family_version and graphical_variant and family:
         pattern_template_id = f"{family}/{graphical_variant}@{family_version}"
@@ -623,7 +649,7 @@ def _build_result(
             ),
             tokens,
         )
-)
+    )
 
     return SelectionResult(
         family=family,

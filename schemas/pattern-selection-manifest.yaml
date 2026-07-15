@@ -1,0 +1,788 @@
+# ============================================================================
+# pattern-selection-manifest.yaml
+# ============================================================================
+# Executable encoding of D1/D2 decision tables (widget-selection.md).
+# Machine-readable SSOT for deterministic pattern selection in Branch B
+# (python-pptx). SVG-agnostic by design — operates on canonical
+# pattern_family / layout / block_kind identifiers only.
+#
+# Methodology (every entry):
+#   - registry drift reconciliation: explicit layout/block_kind, not
+#     trusting categories.yaml runtime_kind
+#   - naming aliases: kebab/underscore/D2-word variants
+#   - roadmap vs timeline distinction via scenario_signal + disallowed_when
+#   - process vs loop distinction via scenario_signal + structural keys
+#   - structural requirements: required_any / required_all
+#   - variant thresholds (item_count): min/max per family, canvas-adaptive
+#   - spatial fit checks: orientation, min_col_width_in, overflow action
+#   - color binding: auto_status (kpi delta), palette tokens
+#   - content sufficiency: missing required keys → reject (no-implicit-fallback)
+#   - disallowed uses: layout XOR blocks, template locks, etc.
+#   - fallback chains: primary → secondary → primitive terminal
+#
+# Tie-breaking rule:
+#   The FIRST fully matching entry in declaration order wins.
+#   If two entries have equal structural specificity, rank (descending)
+#   breaks the tie. This guarantees two agents with identical input
+#   produce identical output.
+#
+# Registry drift notes (categories.yaml runtime_kind stale):
+#   - funnel-diagram, swimlane, decision-tree, mind-map, checklist-status,
+#     chart-donut-pie, chart-* → stale/null in categories.yaml
+#   - phased-rollout-timeline, roadmap-with-milestones, historical-timeline
+#     → stale/null runtime_kind (use gantt/mermaid block_kind directly)
+#   - comparison-panel used as layout name, block_kind=card (card blocks)
+# ============================================================================
+
+manifest:
+  version: 1
+  description: >-
+    Deterministic pattern selection manifest for Branch B (python-pptx).
+    Maps content signals → (pattern_family, layout, block_kind, render_method).
+    SVG-agnostic.
+
+  entries:
+
+    # -- Gantt-based (native PPTX gantt block) ---
+
+    - family: gantt-matrix
+      aliases: [gantt, task-rows-x-periods]
+      layout: gantt
+      block_kind: gantt
+      render_method: native
+      scenario_signal: task-rows-x-periods
+      narrative_intent: [roadmap, scheduling, plan-with-phases]
+      structural:
+        required_any: [[periods], [sections]]
+        required_all: []
+        count_key: periods
+      capacity:
+        min: 2
+        max:
+          bami: 8
+          kvi: 6
+        count_path: periods
+        overflow:
+          at: 9
+          switch_family: data-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [phased-rollout-timeline, historical-timeline]
+      disallowed_when: [events-only-no-periods]
+      rank: 100
+
+    - family: phased-rollout-timeline
+      aliases: [rollout, phased-rollout]
+      layout: phased-rollout-timeline
+      block_kind: gantt
+      render_method: native
+      scenario_signal: section-grouped-rollout
+      narrative_intent: [phased-rollout, section-grouped-timeline]
+      structural:
+        required_any: [[sections]]
+        required_all: []
+        count_key: sections
+      capacity:
+        min: 2
+        max:
+          bami: 8
+          kvi: 6
+        count_path: sections
+        overflow:
+          at: 9
+          switch_family: data-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [gantt-matrix, historical-timeline]
+      disallowed_when: [events-only-no-sections]
+      rank: 90
+
+    - family: roadmap-with-milestones
+      aliases: [roadmap, milestones]
+      layout: roadmap-with-milestones
+      block_kind: gantt
+      render_method: native
+      scenario_signal: forward-milestones
+      narrative_intent: [roadmap, milestones, forward-plan]
+      structural:
+        required_any: [[sections], [milestones]]
+        required_all: []
+        count_key: milestones
+      capacity:
+        min: 2
+        max:
+          bami: 8
+          kvi: 6
+        count_path: milestones
+        overflow:
+          at: 9
+          switch_family: phased-rollout-timeline
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [phased-rollout-timeline, gantt-matrix]
+      disallowed_when: [events-only-no-sections]
+      rank: 90
+
+    # -- Timeline (Mermaid) ---
+
+    - family: historical-timeline
+      aliases: [timeline, events-timeline]
+      layout: historical-timeline
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: past-events-chronological
+      narrative_intent: [history, events-chronological, past-timeline]
+      structural:
+        required_any: [[events], [items]]
+        required_all: []
+        count_key: events
+      capacity:
+        min: 2
+        max:
+          bami: 12
+          kvi: 10
+        count_path: events
+        overflow:
+          at: 13
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [roadmap-with-milestones, gantt-matrix]
+      disallowed_when: [forward-dated-periods]
+      rank: 85
+
+    # -- KPI / Metrics ---
+
+    - family: kpi-dashboard-grid
+      aliases: [kpi, kpi-strip, kpi-grid, metrics]
+      layout: kpi_strip
+      block_kind: kpi
+      render_method: native
+      scenario_signal: metrics-dashboard
+      narrative_intent: [metrics, dashboard, kpi-summary]
+      structural:
+        required_any: [[kpis]]
+        required_all: []
+        count_key: kpis
+      capacity:
+        min: 1
+        max:
+          bami: 4
+          kvi: 4
+        count_path: kpis
+        overflow:
+          at: 5
+          switch_family: data-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: true
+        palette: [primary, positive, warning, negative]
+      fallback_chain: [data-table, pros-cons-list]
+      disallowed_when: [no-kpis-key]
+      rank: 100
+
+    # -- Process steps ---
+
+    - family: numbered-process-steps
+      aliases: [steps, process, linear-steps]
+      layout: numbered-process-steps
+      block_kind: steps
+      render_method: native
+      scenario_signal: linear-sequential-steps
+      narrative_intent: [process, steps, linear-workflow]
+      structural:
+        required_any: [[items], [steps]]
+        required_all: []
+        count_key: items
+      capacity:
+        min: 3
+        max:
+          bami: 6
+          kvi: 5
+        count_path: items
+        overflow:
+          at: 7
+          switch_family: circular-process-loop
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [circular-process-loop, icon-text-feature-list]
+      disallowed_when: [loop-true, stages-cyclic]
+      rank: 100
+
+    - family: circular-process-loop
+      aliases: [loop, cycle, stages]
+      layout: circular-process-loop
+      block_kind: steps
+      render_method: native
+      scenario_signal: cyclic-loop
+      narrative_intent: [cycle, loop, continuous-process]
+      structural:
+        required_any: [[stages], [items]]
+        required_all: []
+        count_key: stages
+      capacity:
+        min: 3
+        max:
+          bami: 6
+          kvi: 5
+        count_path: stages
+        overflow:
+          at: 7
+          switch_family: numbered-process-steps
+      spatial:
+        orientation: radial
+        min_col_width_in: 2.0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [numbered-process-steps, icon-text-feature-list]
+      disallowed_when: [linear-explicit]
+      rank: 90
+
+    # -- Cards / Pricing ---
+
+    - family: tier-pricing-cards
+      aliases: [pricing, tier, plans]
+      layout: tier-pricing-cards
+      block_kind: card
+      render_method: native
+      scenario_signal: tiered-pricing
+      narrative_intent: [pricing, plans, tier-comparison]
+      structural:
+        required_any: [[tiers], [items]]
+        required_all: []
+        count_key: tiers
+      capacity:
+        min: 2
+        max:
+          bami: 5
+          kvi: 4
+        count_path: tiers
+        overflow:
+          at: 6
+          switch_family: comparison-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, positive, warning]
+      fallback_chain: [comparison-table, pros-cons-list]
+      disallowed_when: [no-tiers-key]
+      rank: 90
+
+    - family: comparison-table
+      aliases: [comparison, side-by-side, panels]
+      layout: comparison_panel
+      block_kind: card
+      render_method: native
+      scenario_signal: side-by-side-panels
+      narrative_intent: [comparison, side-by-side, panel-comparison]
+      structural:
+        required_any: [[panels]]
+        required_all: []
+        count_key: panels
+      capacity:
+        min: 2
+        max:
+          bami: 4
+          kvi: 3
+        count_path: panels
+        overflow:
+          at: 5
+          switch_family: competitive-matrix
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive]
+      fallback_chain: [competitive-matrix, pros-cons-list]
+      disallowed_when: [no-panels-key]
+      rank: 80
+
+    # -- Pros/Cons ---
+
+    - family: pros-cons-list
+      aliases: [pros-cons, advantages-disadvantages]
+      layout: pros-cons-list
+      block_kind: card
+      render_method: native
+      scenario_signal: pros-cons
+      narrative_intent: [evaluation, pros-cons, tradeoffs]
+      structural:
+        required_any: [[pros], [cons]]
+        required_all: []
+        count_key: pros
+      capacity:
+        min: 1
+        max:
+          bami: 12
+          kvi: 10
+        count_path: pros
+        overflow:
+          at: 13
+          switch_family: comparison-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [positive, negative, primary]
+      fallback_chain: [comparison-table, before-after-split]
+      disallowed_when: []
+      rank: 80
+
+    # -- Competitive matrix ---
+
+    - family: competitive-matrix
+      aliases: [vendor-matrix, feature-matrix]
+      layout: competitive-matrix
+      block_kind: table
+      render_method: native
+      scenario_signal: vendor-feature-matrix
+      narrative_intent: [competitive-analysis, vendor-comparison, feature-matrix]
+      structural:
+        required_any: [[vendors], [header]]
+        required_all: []
+        count_key: vendors
+      capacity:
+        min: 2
+        max:
+          bami: 6
+          kvi: 5
+        count_path: vendors
+        overflow:
+          at: 7
+          switch_family: data-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 1.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [comparison-table, data-table]
+      disallowed_when: [no-vendors-header]
+      rank: 80
+
+    # -- Checklist ---
+
+    - family: checklist-status
+      aliases: [checklist, todo-status]
+      layout: checklist-status
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: checklist-items
+      narrative_intent: [checklist, todo, status-report]
+      structural:
+        required_any: [[items], [checklist]]
+        required_all: []
+        count_key: items
+      capacity:
+        min: 1
+        max:
+          bami: 20
+          kvi: 16
+        count_path: items
+        overflow:
+          at: 21
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [positive, warning, negative, primary]
+      fallback_chain: [icon-text-feature-list, bullets]
+      disallowed_when: []
+      rank: 75
+
+    # -- Mermaid diagram families ---
+
+    - family: swimlane-diagram
+      aliases: [swimlane, roles-process]
+      layout: swimlane-diagram
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: swimlane-process
+      narrative_intent: [swimlane, process-flow, roles-stages]
+      structural:
+        required_any: [[swimlanes], [lanes], [stages]]
+        required_all: []
+        count_key: swimlanes
+      capacity:
+        min: 2
+        max:
+          bami: 8
+          kvi: 6
+        count_path: swimlanes
+        overflow:
+          at: 9
+          switch_family: numbered-process-steps
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 1.5
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [numbered-process-steps, data-table]
+      disallowed_when: []
+      rank: 80
+
+    - family: decision-tree-flowchart
+      aliases: [decision-tree, flowchart, branching-logic]
+      layout: decision-tree-flowchart
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: branching-decision
+      narrative_intent: [decision-tree, flowchart, branching-logic]
+      structural:
+        required_any: [[decisions], [branches], [nodes]]
+        required_all: []
+        count_key: decisions
+      capacity:
+        min: 2
+        max:
+          bami: 12
+          kvi: 10
+        count_path: decisions
+        overflow:
+          at: 13
+          switch_family: numbered-process-steps
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, positive, negative, warning]
+      fallback_chain: [numbered-process-steps, pros-cons-list]
+      disallowed_when: []
+      rank: 80
+
+    - family: mind-map-radial
+      aliases: [mindmap, mind-map, radial-map]
+      layout: mind-map-radial
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: radial-mindmap
+      narrative_intent: [mind-map, brainstorming, radial-ideas]
+      structural:
+        required_any: [[nodes], [topics], [items]]
+        required_all: []
+        count_key: nodes
+      capacity:
+        min: 2
+        max:
+          bami: 16
+          kvi: 12
+        count_path: nodes
+        overflow:
+          at: 17
+          switch_family: numbered-process-steps
+      spatial:
+        orientation: radial
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_mid, positive, warning, secondary]
+      fallback_chain: [numbered-process-steps, icon-text-feature-list]
+      disallowed_when: []
+      rank: 80
+
+    - family: architecture-diagram
+      aliases: [architecture, system-architecture, layers]
+      layout: architecture-diagram
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: layered-architecture
+      narrative_intent: [architecture, system-design, layered-diagram]
+      structural:
+        required_any: [[layers], [components], [nodes]]
+        required_all: []
+        count_key: layers
+      capacity:
+        min: 2
+        max:
+          bami: 10
+          kvi: 8
+        count_path: layers
+        overflow:
+          at: 11
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [data-table, comparison-table]
+      disallowed_when: []
+      rank: 80
+
+    - family: quadrant-matrix
+      aliases: [quadrant, swot, 2x2-matrix]
+      layout: quadrant-matrix
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: quadrant-classification
+      narrative_intent: [matrix, quadrant, swot-analysis, priority-grid]
+      structural:
+        required_any: [[quadrants], [cells], [items]]
+        required_all: []
+        count_key: quadrants
+      capacity:
+        min: 4
+        max:
+          bami: 4
+          kvi: 4
+        count_path: quadrants
+        overflow:
+          at: 5
+          switch_family: comparison-table
+      spatial:
+        orientation: grid
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, positive, warning, negative]
+      fallback_chain: [comparison-table, competitive-matrix]
+      disallowed_when: []
+      rank: 80
+
+    - family: funnel-diagram
+      aliases: [funnel, pipeline-funnel]
+      layout: funnel-diagram
+      block_kind: mermaid
+      render_method: mermaid
+      scenario_signal: funnel-progression
+      narrative_intent: [funnel, pipeline, conversion-funnel]
+      structural:
+        required_any: [[stages], [steps], [items]]
+        required_all: []
+        count_key: stages
+      capacity:
+        min: 2
+        max:
+          bami: 8
+          kvi: 6
+        count_path: stages
+        overflow:
+          at: 9
+          switch_family: numbered-process-steps
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [numbered-process-steps, data-table]
+      disallowed_when: []
+      rank: 75
+
+    # -- Chart family ---
+
+    - family: chart-donut-pie
+      aliases: [donut, pie, distribution-chart]
+      layout: chart-donut-pie
+      block_kind: chart-donut-pie
+      render_method: mermaid
+      scenario_signal: proportional-distribution
+      narrative_intent: [distribution, proportion, market-share]
+      structural:
+        required_any: [[categories, series]]
+        required_all: []
+        count_key: categories
+      capacity:
+        min: 2
+        max:
+          bami: 10
+          kvi: 8
+        count_path: categories
+        overflow:
+          at: 11
+          switch_family: data-table
+      spatial:
+        orientation: radial
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning, negative]
+      fallback_chain: [data-table, kpi-dashboard-grid]
+      disallowed_when: []
+      rank: 75
+
+    # -- Feature list (bullets) ---
+
+    - family: icon-text-feature-list
+      aliases: [feature-list, icon-list, bullets-list]
+      layout: icon-text-feature-list
+      block_kind: bullets
+      render_method: native
+      scenario_signal: icon-text-list
+      narrative_intent: [feature-list, icon-text, capabilities]
+      structural:
+        required_any: [[items]]
+        required_all: []
+        count_key: items
+      capacity:
+        min: 1
+        max:
+          bami: 20
+          kvi: 16
+        count_path: items
+        overflow:
+          at: 21
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark]
+      fallback_chain: [bullets]
+      disallowed_when: []
+      rank: 70
+
+    # -- Terminal primitive fallbacks (no layout, direct block_kind) ---
+
+    - family: data-table
+      aliases: [table, grid-data]
+      layout: null
+      block_kind: table
+      render_method: native
+      scenario_signal: dense-grid-data
+      narrative_intent: [data-table, spreadsheet, tabular-data]
+      structural:
+        required_any: [[header], [rows]]
+        required_all: []
+        count_key: rows
+      capacity:
+        min: 1
+        max:
+          bami: 30
+          kvi: 25
+        count_path: rows
+        overflow:
+          at: 31
+          switch_family: null
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid]
+      fallback_chain: []
+      disallowed_when: []
+      rank: 50
+
+    - family: before-after-split
+      aliases: [before-after, split-comparison]
+      layout: null
+      block_kind: darkcard
+      render_method: primitive
+      scenario_signal: before-after-state
+      narrative_intent: [before-after, state-change, transformation]
+      structural:
+        required_any: [[before], [after]]
+        required_all: []
+        count_key: before
+      capacity:
+        min: 1
+        max:
+          bami: 2
+          kvi: 2
+        count_path: before
+        overflow:
+          at: 3
+          switch_family: comparison-table
+      spatial:
+        orientation: horizontal
+        min_col_width_in: 2.5
+      color:
+        auto_status: false
+        palette: [primary, positive, negative]
+      fallback_chain: [comparison-table, pros-cons-list]
+      disallowed_when: []
+      rank: 60
+
+    - family: impact-table
+      aliases: [impact, risk-impact]
+      layout: null
+      block_kind: table
+      render_method: primitive
+      scenario_signal: impact-matrix
+      narrative_intent: [impact-analysis, risk-matrix, factor-impact]
+      structural:
+        required_any: [[rows], [items]]
+        required_all: []
+        count_key: rows
+      capacity:
+        min: 1
+        max:
+          bami: 20
+          kvi: 16
+        count_path: rows
+        overflow:
+          at: 21
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, positive, warning, negative]
+      fallback_chain: [data-table]
+      disallowed_when: []
+      rank: 60
+
+    - family: bullets
+      aliases: [bullet-list, text-items]
+      layout: null
+      block_kind: bullets
+      render_method: native
+      scenario_signal: plain-text-items
+      narrative_intent: [list, bullets, text-items]
+      structural:
+        required_any: [[items]]
+        required_all: []
+        count_key: items
+      capacity:
+        min: 1
+        max:
+          bami: 30
+          kvi: 25
+        count_path: items
+        overflow:
+          at: 31
+          switch_family: null
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary]
+      fallback_chain: []
+      disallowed_when: []
+      rank: 10  # lowest — absolute terminal

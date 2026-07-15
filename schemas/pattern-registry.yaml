@@ -1,0 +1,328 @@
+# ============================================================================
+# pattern-registry.yaml
+# ============================================================================
+# Versioned graphical pattern registry — SSOT for family → graphical variant
+# mapping, renderer binding, validation contracts, and complexity metadata.
+#
+# Augments pattern-selection-manifest.yaml: does NOT replace it.
+# Cross-validated at test time by tests/test_manifest_sync.py.
+#
+# Methodology:
+#   - registry_version: SemVer-tracked registry schema version.
+#   - entries: Each links a family to one or more graphical_variants.
+#     Variations within a family share the same semantic content contract
+#     but produce different graphical layouts.
+#   - pattern_template_id: stable key "{family}/{graphical_variant}@{version}".
+#   - renderer_binding: tells the resolver which injector (if any) to use.
+#   - status: "enabled" = active in runtime, "planned" = scaffolded but not
+#     yet default, "disabled" = intentionally not deployed.
+# ============================================================================
+
+registry_version: 1.0.0
+description: >-
+  Versioned graphical pattern registry for Branch B (python-pptx).
+  Maps selection families → versioned graphical templates with
+  renderer bindings, validation contracts, and complexity metadata.
+
+entries:
+
+  # --------------------------------------------------------------------------
+  # Numbered process steps — pilot family for Pass 2
+  # --------------------------------------------------------------------------
+  - family: numbered-process-steps
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Linear numbered steps with optional bodies
+      min_items: 3
+      max_items:
+        bami: 6
+        kvi: 5
+    contracts:
+      - schemas/contracts/numbered-process-steps.v1.json
+    graphical_variants:
+      - graphical_variant: folded-arrow-horizontal
+        version: 1.0.0
+        status: planned  # not yet runtime-default in Pass 1
+        pattern_template_id: numbered-process-steps/folded-arrow-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: numbered-process-steps
+            injector_version: 1.0.0
+          slidev: null  # not yet implemented in Slidev
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 24
+          connector_budget: 6
+          text_density: low
+          min_step_width_in: 1.5
+          brand_adaptive: true
+          reference_asset_required: false
+        graphical_variant_description: >-
+          Horizontal folded arrow with numbered circles. Each step is a
+          filled circle with a white numeral; adjacent circles joined by a
+          thin chevron/arrow. No body text. Designed for 3–6 items.
+
+  # --------------------------------------------------------------------------
+  # Circular process loop — planned variant scaffold
+  # --------------------------------------------------------------------------
+  - family: circular-process-loop
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Cyclic/radial process loop
+      min_items: 3
+      max_items:
+        bami: 6
+        kvi: 5
+    contracts:
+      - schemas/contracts/circular-process-loop.v1.json
+    graphical_variants:
+      - graphical_variant: radial-cycle
+        version: 1.0.0
+        status: planned
+        pattern_template_id: circular-process-loop/radial-cycle@1.0.0
+        renderer_binding:
+          native:
+            injector_id: circular-process-loop
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 18
+          connector_budget: 6
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # KPI dashboard grid — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: kpi-dashboard-grid
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Horizontal KPI/metric strip
+      min_items: 1
+      max_items:
+        bami: 4
+        kvi: 4
+    contracts:
+      - schemas/contracts/kpi-dashboard-grid.v1.json
+    graphical_variants:
+      - graphical_variant: default-horizontal
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: kpi-dashboard-grid/default-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: kpi-dashboard-grid
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 4
+          shape_budget: 12
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 2.5
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Quadrant matrix — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: quadrant-matrix
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/quadrant-matrix.v1.json
+    graphical_variants:
+      - graphical_variant: default-grid
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: quadrant-matrix/default-grid@1.0.0
+        renderer_binding:
+          native:
+            injector_id: quadrant-matrix
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 4
+          shape_budget: 8
+          connector_budget: 0
+          text_density: medium
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Funnel diagram — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: funnel-diagram
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/funnel-diagram.v1.json
+    graphical_variants:
+      - graphical_variant: default-vertical
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: funnel-diagram/default-vertical@1.0.0
+        renderer_binding:
+          native:
+            injector_id: funnel-diagram
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 8
+          shape_budget: 16
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Comparison table — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: comparison-table
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/comparison-table.v1.json
+    graphical_variants:
+      - graphical_variant: default-side-by-side
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: comparison-table/default-side-by-side@1.0.0
+        renderer_binding:
+          native:
+            injector_id: comparison-table
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 4
+          shape_budget: 12
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 2.5
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Tier pricing cards — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: tier-pricing-cards
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/tier-pricing-cards.v1.json
+    graphical_variants:
+      - graphical_variant: default-horizontal
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: tier-pricing-cards/default-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: tier-pricing-cards
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 5
+          shape_budget: 20
+          connector_budget: 0
+          text_density: medium
+          min_step_width_in: 2.5
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Maturity model ladder — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: maturity-model-ladder
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/maturity-model-ladder.v1.json
+    graphical_variants:
+      - graphical_variant: default-vertical
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: maturity-model-ladder/default-vertical@1.0.0
+        renderer_binding:
+          native:
+            injector_id: maturity-model-ladder
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: true
+          max_items: 6
+          shape_budget: 14
+          connector_budget: 0
+          text_density: medium
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+
+  # --------------------------------------------------------------------------
+  # Case study card — legacy entry with placeholder contract
+  # --------------------------------------------------------------------------
+  - family: case-study-card
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    contracts:
+      - schemas/contracts/case-study-card.v1.json
+    graphical_variants:
+      - graphical_variant: default-card
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: case-study-card/default-card@1.0.0
+        renderer_binding:
+          native:
+            injector_id: case-study-card
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: true
+          max_items: 1
+          shape_budget: 8
+          connector_budget: 0
+          text_density: high
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false

@@ -47,6 +47,11 @@ SCHEMA: dict[str, Any] = {
                     "layout": {"type": "string"},
                     "variant": {"type": "object"},
                     "content": {"type": "object"},
+                    "pattern_selection_version": {"type": "string", "description": "Version of the pattern selection algorithm (SemVer)"},
+                    "pattern_version": {"type": "string", "description": "Resolved pattern version (SemVer) from registry"},
+                    "graphical_variant": {"type": "string", "description": "Selected graphical template variant ID"},
+                    "features": {"type": "object", "description": "Feature flags from graphical-feature-vocabulary.yaml"},
+                    "content_schema_ref": {"type": "string", "description": "Reference to a JSON Schema contract for validation"},
                     "blocks": {
                         "type": "array",
                         "items": {
@@ -186,6 +191,22 @@ SCHEMA: dict[str, Any] = {
                                 "canonical_id": {
                                     "type": "string",
                                     "description": "Registered injector canonical ID (required when kind=inject-pattern)",
+                                },
+                                "pattern_version": {
+                                    "type": "string",
+                                    "description": "Resolved pattern version (SemVer) for inject-pattern block"
+                                },
+                                "graphical_variant": {
+                                    "type": "string",
+                                    "description": "Selected graphical template variant ID"
+                                },
+                                "features": {
+                                    "type": "object",
+                                    "description": "Feature flags from graphical-feature-vocabulary.yaml"
+                                },
+                                "content_schema": {
+                                    "type": "string",
+                                    "description": "Reference to a JSON Schema contract for validation"
                                 },
                             },
                             "additionalProperties": True,

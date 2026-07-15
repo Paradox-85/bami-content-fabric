@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAMi Graphical Pattern Registry Schema",
+  "description": "JSON Schema for schemas/pattern-registry.yaml. Validates registry shape, versioning, renderer bindings, and feature vocabulary.",
+  "type": "object",
+  "required": ["registry_version", "entries"],
+  "properties": {
+    "registry_version": {
+      "type": "string",
+      "description": "SemVer version of the registry schema itself",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["family", "version", "status", "graphical_variants"],
+        "properties": {
+          "family": {
+            "type": "string",
+            "description": "Family key matching a manifest entry family"
+          },
+          "version": {
+            "type": "string",
+            "description": "Latest family version",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "status": {
+            "type": "string",
+            "description": "Overall family status",
+            "enum": ["enabled", "planned", "disabled"]
+          },
+          "selection_version": {
+            "type": "string",
+            "description": "Version of the selection manifest entry this registry entry syncs with",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "family_metadata": {
+            "type": "object",
+            "properties": {
+              "description": {"type": "string"},
+              "min_items": {"type": "integer", "minimum": 1},
+              "max_items": {
+                "description": "Per-brand max items; integer or {bami: N, kvi: M}",
+                "oneOf": [
+                  {"type": "integer", "minimum": 1},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "bami": {"type": "integer"},
+                      "kvi": {"type": "integer"}
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a JSON Schema contract file (relative to repo root)"
+            }
+          },
+          "graphical_variants": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "graphical_variant",
+                "version",
+                "status",
+                "pattern_template_id",
+                "renderer_binding",
+                "features"
+              ],
+              "properties": {
+                "graphical_variant": {
+                  "type": "string",
+                  "description": "Identifier for this graphical template variant",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["enabled", "planned", "disabled"]
+                },
+                "pattern_template_id": {
+                  "type": "string",
+                  "description": "Stable key: {family}/{graphical_variant}@{version}",
+                  "pattern": "^[a-z][a-z0-9-]*/[a-z][a-z0-9-]*@\\d+\\.\\d+\\.\\d+$"
+                },
+                "graphical_variant_description": {
+                  "type": "string"
+                },
+                "renderer_binding": {
+                  "type": "object",
+                  "required": ["native"],
+                  "properties": {
+                    "native": {
+                      "type": "object",
+                      "properties": {
+                        "injector_id": {"type": "string"},
+                        "injector_version": {
+                          "type": "string",
+                          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                        }
+                      },
+                      "required": ["injector_id", "injector_version"],
+                      "additionalProperties": false
+                    },
+                    "slidev": {
+                      "description": "Slidev-side renderer binding; null if not implemented",
+                      "oneOf": [
+                        {"type": "null"},
+                        {
+                          "type": "object",
+                          "properties": {
+                            "component": {"type": "string"}
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "features": {
+                  "type": "object",
+                  "description": "Feature flags from graphical-feature-vocabulary.yaml",
+                  "properties": {
+                    "native_editable": {"type": "boolean"},
+                    "requires_mermaid": {"type": "boolean"},
+                    "supports_body_text": {"type": "boolean"},
+                    "max_items": {"type": "integer", "minimum": 1},
+                    "shape_budget": {"type": "integer", "minimum": 0},
+                    "connector_budget": {"type": "integer", "minimum": 0},
+                    "text_density": {"type": "string", "enum": ["low", "medium", "high"]},
+                    "min_step_width_in": {"type": "number", "minimum": 0},
+                    "brand_adaptive": {"type": "boolean"},
+                    "reference_asset_required": {"type": "boolean"},
+                    "provenance_id": {"type": "string"}
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

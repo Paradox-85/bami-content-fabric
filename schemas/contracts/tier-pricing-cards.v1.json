@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tier Pricing Cards v1",
+  "description": "Placeholder contract for tier-pricing-cards native injector.",
+  "type": "object",
+  "required": ["tiers"],
+  "properties": {
+    "tiers": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "price": {"type": "string"},
+          "features": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

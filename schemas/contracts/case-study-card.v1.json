@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Case Study Card v1",
+  "description": "Placeholder contract for case-study-card native injector.",
+  "type": "object",
+  "required": ["title", "metrics"],
+  "properties": {
+    "title": {"type": "string"},
+    "subtitle": {"type": "string"},
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {"type": "string"},
+          "value": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

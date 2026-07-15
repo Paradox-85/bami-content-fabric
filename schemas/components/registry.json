@@ -1,12 +1,21 @@
 {
   "registry_version": "1.0.0",
-  "description": "Index of all BAMi Slidev components. Each entry links the canonical widget category (categories.yaml) to a Vue component and its prop contract.",
+  "description": "Index of all BAMi Slidev components. Each entry links the canonical widget category (categories.yaml) to a Vue component and its prop contract. Optional fields: version, features, renderer_binding for cross-referencing with the pattern registry.",
   "components": [
     {
       "id": "tier-pricing-cards",
       "vue_component": "TierPricingCards",
       "contract": "tier-pricing-cards.json",
-      "implemented": true
+      "implemented": true,
+      "version": "1.0.0",
+      "features": {
+        "native_editable": true,
+        "requires_mermaid": false
+      },
+      "renderer_binding": {
+        "native_injector_id": "tier-pricing-cards",
+        "pattern_registry_variant": "tier-pricing-cards/default-horizontal@1.0.0"
+      }
     },
     {
       "id": "phased-rollout-timeline",
@@ -18,13 +27,31 @@
       "id": "kpi-dashboard-grid",
       "vue_component": "KpiStrip",
       "contract": "kpi-strip.json",
-      "implemented": true
+      "implemented": true,
+      "version": "1.0.0",
+      "features": {
+        "native_editable": true,
+        "requires_mermaid": false
+      },
+      "renderer_binding": {
+        "native_injector_id": "kpi-dashboard-grid",
+        "pattern_registry_variant": "kpi-dashboard-grid/default-horizontal@1.0.0"
+      }
     },
     {
       "id": "funnel-diagram",
       "vue_component": "FunnelDiagram",
       "contract": "funnel-diagram.json",
-      "implemented": true
+      "implemented": true,
+      "version": "1.0.0",
+      "features": {
+        "native_editable": true,
+        "requires_mermaid": false
+      },
+      "renderer_binding": {
+        "native_injector_id": "funnel-diagram",
+        "pattern_registry_variant": "funnel-diagram/default-vertical@1.0.0"
+      }
     },
     {
       "id": "decision-tree-flowchart",

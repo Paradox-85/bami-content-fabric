@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quadrant Matrix v1",
+  "description": "Placeholder contract for quadrant-matrix native injector.",
+  "type": "object",
+  "required": ["quadrants"],
+  "properties": {
+    "quadrants": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "items": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

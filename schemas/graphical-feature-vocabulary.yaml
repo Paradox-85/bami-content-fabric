@@ -1,0 +1,78 @@
+# ============================================================================
+# graphical-feature-vocabulary.yaml
+# ============================================================================
+# Controlled vocabulary of graphical features used by pattern registry
+# entries. Features describe rendering capabilities, constraints, and
+# complexity metadata. The same names are used in registry entries and
+# in the complexity gate (shared/pptx/graphical_complexity.py).
+# ============================================================================
+
+# --- Renderer capability ---
+native_editable:
+  description: Pattern is rendered with native PPTX shapes; each shape is
+    individually editable in PowerPoint without raster fallback.
+  type: boolean
+  default: false
+
+requires_mermaid:
+  description: Pattern requires Mermaid CLI (mmdc) for rendering.
+  type: boolean
+  default: false
+
+supports_body_text:
+  description: Pattern accommodates optional per-step body/description text
+    in addition to titles.
+  type: boolean
+  default: false
+
+# --- Capacity & complexity ---
+max_items:
+  description: Maximum number of items (steps, stages, nodes) supported
+    by this graphical template before the complexity gate rejects.
+  type: integer
+  brand_capable: true  # per-brand values supported (bami/kvi)
+
+shape_budget:
+  description: Maximum number of PPTX shapes the pattern may create for a
+    single slide. Used as a soft capacity gate.
+  type: integer
+  brand_capable: false
+
+connector_budget:
+  description: Maximum number of connector/arrow shapes the pattern may
+    create. Used for overlap and z-order validation.
+  type: integer
+  brand_capable: false
+
+text_density:
+  description: Estimated text density in characters per item. Values:
+    low (0-40), medium (41-100), high (101+).
+  type: string
+  enum: [low, medium, high]
+  default: low
+
+min_step_width_in:
+  description: Minimum width in inches required per step/item for the
+    graphical template to lay out without overlap.
+  type: number
+  unit: inches
+  brand_capable: true
+
+# --- Brand & assets ---
+brand_adaptive:
+  description: Pattern adapts to brand tokens (color palette, fonts).
+    If false, pattern uses hard-coded colours and may not work for KVI.
+  type: boolean
+  default: true
+
+reference_asset_required:
+  description: Pattern requires a reference PNG or SVG asset for visual
+    verification. The asset must exist under templates/media/reference/.
+  type: boolean
+  default: false
+
+provenance_id:
+  description: Identifier linking to a reference asset path or sidecar
+    metadata under templates/media/reference/library/pattern-assets.yaml.
+  type: string
+  nullable: true

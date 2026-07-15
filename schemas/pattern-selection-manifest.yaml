@@ -36,11 +36,20 @@
 
 manifest:
   version: 1
+  manifest_version: 1.0.0  # SemVer-compatible manifest schema version for registry cross-validation
+  selection_version: 1.0.0  # Active selection algorithm version
   description: >-
     Deterministic pattern selection manifest for Branch B (python-pptx).
-    Maps content signals → (pattern_family, layout, block_kind, render_method).
+    Maps content signals -> (pattern_family, layout, block_kind, render_method).
     SVG-agnostic.
 
+    Optional per-entry fields:
+    - version: family version string (SemVer), defaults to 1.0.0 for legacy entries.
+    - features: list of feature names from graphical-feature-vocabulary.yaml.
+    - renderer_binding: pointer to a pattern_registry.yaml variant entry.
+    - family_metadata: structured metadata about the family.
+    - validation_contract: path to a JSON Schema contract file.
+    - graphical_variants: list of references to pattern_registry.yaml variants.
   entries:
 
     # -- Gantt-based (native PPTX gantt block) ---

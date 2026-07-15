@@ -1,0 +1,72 @@
+# ============================================================================
+# pattern-assets.yaml
+# ============================================================================
+# Provenance index linking enabled/planned graphical pattern variants to
+# reference assets under templates/media/reference/library/ and
+# templates/media/reference/input/.
+#
+# Each entry maps a pattern_template_id to one or more reference assets
+# used for visual verification. Entries may also declare that no reference
+# asset is required (reference_asset_required: false).
+#
+# This file is maintained as part of the pattern registry and validated
+# by tests/test_pattern_registry.py.
+# ============================================================================
+
+assets:
+  # Folded arrow — pilot pattern (planned for Pass 2)
+  - pattern_template_id: numbered-process-steps/folded-arrow-horizontal@1.0.0
+    status: planned
+    reference_asset_required: false
+    notes: >
+      No reference asset yet; geometry is deterministic native PPTX.
+      Add reference PNG under templates/media/reference/library/process/
+      when visual parity is required.
+
+  # KPI dashboard strip
+  - pattern_template_id: kpi-dashboard-grid/default-horizontal@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches kpi_strip layout output.
+
+  # Quadrant matrix
+  - pattern_template_id: quadrant-matrix/default-grid@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches quadrant matrix injector.
+
+  # Funnel diagram
+  - pattern_template_id: funnel-diagram/default-vertical@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches funnel injector.
+
+  # Comparison table
+  - pattern_template_id: comparison-table/default-side-by-side@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches comparison injector.
+
+  # Tier pricing cards
+  - pattern_template_id: tier-pricing-cards/default-horizontal@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches tier pricing injector.
+
+  # Maturity model ladder
+  - pattern_template_id: maturity-model-ladder/default-vertical@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches maturity injector.
+
+  # Case study card
+  - pattern_template_id: case-study-card/default-card@1.0.0
+    status: enabled
+    reference_asset_required: false
+    notes: Legacy pattern; geometry matches case study injector.
+
+  # Circular process loop — planned
+  - pattern_template_id: circular-process-loop/radial-cycle@1.0.0
+    status: planned
+    reference_asset_required: false
+    notes: Planned variant for Pass 3; no reference asset yet.

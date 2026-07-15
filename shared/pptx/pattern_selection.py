@@ -27,6 +27,25 @@ class SelectionResult:
     """Result of a deterministic pattern selection.
 
     Guaranteed to be identical for identical inputs (deterministic).
+
+    Fields:
+        family: Selected pattern family (e.g. "numbered-process-steps").
+        layout: Resolved layout name (may be None for terminal families).
+        block_kind: Block kind for rendering (e.g. "steps", "bullets").
+        render_method: "native" or "mermaid".
+        variant: dict of color/brand variant metadata.
+        warnings: list of warning strings.
+        fallback_chain_used: list of families tried before the winner.
+        rejected: list of (family, reason) tuples for rejected candidates.
+
+        -- Versioned pattern fields (optional, populated if registry is loaded) --
+        family_version: SemVer string for the resolved family, or None.
+        graphical_variant: Selected graphical template variant ID, or None.
+        features: dict of feature flags from graphical-feature-vocabulary.yaml.
+        renderer_binding: dict with native/slidev renderer binding, or None.
+        contract_ref: path to JSON Schema contract, or None.
+        selection_version: SemVer of the selection algorithm used.
+        pattern_template_id: Stable key "{family}/{graphical_variant}@{version}", or None.
     """
 
     family: str
@@ -38,6 +57,15 @@ class SelectionResult:
     fallback_chain_used: list[str] = field(default_factory=list)
     rejected: list[tuple[str, str]] = field(default_factory=list)
 
+    # Versioned pattern fields (all defaulting to None for legacy compatibility)
+    family_version: str | None = None
+    graphical_variant: str | None = None
+    features: dict[str, Any] | None = None
+    renderer_binding: dict[str, Any] | None = None
+    contract_ref: str | None = None
+    selection_version: str | None = None
+    pattern_template_id: str | None = None
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "family": self.family,
@@ -48,6 +76,13 @@ class SelectionResult:
             "warnings": self.warnings,
             "fallback_chain_used": self.fallback_chain_used,
             "rejected": self.rejected,
+            "family_version": self.family_version,
+            "graphical_variant": self.graphical_variant,
+            "features": self.features,
+            "renderer_binding": self.renderer_binding,
+            "contract_ref": self.contract_ref,
+            "selection_version": self.selection_version,
+            "pattern_template_id": self.pattern_template_id,
         }
 
 
@@ -538,7 +573,13 @@ def _build_result(
     tokens: Any,
     warnings: list[str] | None = None,
 ) -> SelectionResult:
-    """Build a ``SelectionResult`` from a manifest entry."""
+    """Build a ``SelectionResult`` from a manifest entry.
+
+    Populates versioned pattern fields from the entry when available.
+    If a manifest entry carries optional version/features/renderer_binding/contract
+    metadata, those values are forwarded into the result. Legacy entries without
+    these fields leave the versioned fields as ``None``.
+    """
     family = entry.get("family", "unknown")
     layout = entry.get("layout")
     block_kind = entry.get("block_kind", "bullets")
@@ -552,6 +593,25 @@ def _build_result(
     if palette:
         variant["palette"] = list(palette)
 
+    # Versioned pattern fields (compatibility: None for legacy entries)
+    family_version: str | None = entry.get("version")
+    selection_version: str | None = entry.get("selection_version") or "1.0.0"
+
+    # If there is a graphical_variant on the entry-level, use it
+    graphical_variant: str | None = entry.get("graphical_variant")
+    features: dict[str, Any] | None = entry.get("features")
+    renderer_binding: dict[str, Any] | None = entry.get("renderer_binding")
+    contract_ref: str | None = None
+    contracts = entry.get("contracts") or entry.get("validation_contract")
+    if isinstance(contracts, list) and contracts:
+        contract_ref = contracts[0]
+    elif isinstance(contracts, str):
+        contract_ref = contracts
+
+    pattern_template_id: str | None = None
+    if family_version and graphical_variant and family:
+        pattern_template_id = f"{family}/{graphical_variant}@{family_version}"
+
     all_warnings: list[str] = list(warnings or [])
     all_warnings.extend(
         _check_spatial_fit(
@@ -563,7 +623,7 @@ def _build_result(
             ),
             tokens,
         )
-    )
+)
 
     return SelectionResult(
         family=family,
@@ -574,4 +634,11 @@ def _build_result(
         warnings=all_warnings,
         fallback_chain_used=fallback_chain_used,
         rejected=rejected,
+        family_version=family_version,
+        graphical_variant=graphical_variant,
+        features=features,
+        renderer_binding=renderer_binding,
+        contract_ref=contract_ref,
+        selection_version=selection_version,
+        pattern_template_id=pattern_template_id,
     )

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Numbered Process Steps v1",
+  "description": "Input contract for numbered-process-steps family graphical pattern templates. Compatible with content authored as embedded 'items' (strings), 'steps' (dicts), or legacy 'items' + optional 'bodies'.",
+  "type": "object",
+  "required": [],
+  "anyOf": [
+    {"required": ["items"]},
+    {"required": ["steps"]}
+  ],
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Step items. Each element may be a plain string (legacy) or an object with title/body/number fields.",
+      "minItems": 2,
+      "items": {
+        "oneOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "required": ["title"],
+            "properties": {
+              "title": {"type": "string"},
+              "body": {"type": "string"},
+              "number": {"type": "string"},
+              "color": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "Explicit steps array (alternative to 'items'). Each step has title, optional body, optional number.",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {"type": "string"},
+          "body": {"type": "string"},
+          "number": {"type": "string"},
+          "color": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "titles": {
+      "type": "array",
+      "description": "Legacy parallel titles array (paired with items by index)."
+    },
+    "bodies": {
+      "type": "array",
+      "description": "Legacy parallel bodies array (paired with items by index)."
+    }
+  },
+  "additionalProperties": false
+}

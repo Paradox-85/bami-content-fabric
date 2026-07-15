@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Comparison Table v1",
+  "description": "Placeholder contract for comparison-table native injector.",
+  "type": "object",
+  "required": ["headers"],
+  "properties": {
+    "headers": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string"}
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  },
+  "additionalProperties": false
+}

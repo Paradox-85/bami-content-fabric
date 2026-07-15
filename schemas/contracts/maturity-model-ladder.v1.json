@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Maturity Model Ladder v1",
+  "description": "Placeholder contract for maturity-model-ladder native injector.",
+  "type": "object",
+  "required": ["rungs"],
+  "properties": {
+    "rungs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

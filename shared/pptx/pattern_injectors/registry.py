@@ -7,38 +7,99 @@ Usage::
     injector = get_injector("kpi-dashboard-grid")
     if injector:
         shapes = injector(slide, tokens, x=0.5, y=1.2, w=9.0, h=3.5, ...)
+
+Supports optional version metadata for injector registration.
+Legacy ``@register("id")`` usage continues to work and defaults
+injector version to ``"1.0.0"``.
 """
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 from typing import Any, Callable
 
 from pptx.shapes.base import BaseShape
+
 
 # ---------------------------------------------------------------------------
 # Injector type: (slide, tokens, x, y, w, h, **params) -> list[BaseShape]
 # ---------------------------------------------------------------------------
 InjectorFunc = Callable[..., list[BaseShape]]
 
-_REGISTRY: dict[str, InjectorFunc] = {}
+
+@dataclass
+class InjectorEntry:
+    """An injector entry with optional version metadata.
+
+    Fields:
+        func: The injector callable.
+        version: Version string (SemVer), defaults to ``"1.0.0"``.
+    """
+    func: InjectorFunc
+    version: str = "1.0.0"
 
 
-def register(canonical_id: str) -> Callable[[InjectorFunc], InjectorFunc]:
-    """Decorator that registers an injector under a canonical category id."""
+_REGISTRY: dict[str, InjectorEntry] = {}
+
+
+def register(
+    canonical_id: str,
+    *,
+    version: str = "1.0.0",
+) -> Callable[[InjectorFunc], InjectorFunc]:
+    """Decorator that registers an injector under a canonical category id.
+
+    Args:
+        canonical_id: The canonical id for the injector.
+        version: Version string (SemVer). Defaults to ``"1.0.0"``.
+
+    Usage::
+
+        @register("kpi-dashboard-grid", version="1.0.0")
+        def inject_kpi(...):
+            ...
+
+    Legacy usage (without ``version``) continues to work::
+
+        @register("numbered-process-steps")
+        def inject_steps(...):
+            ...
+    """
     def _wrap(fn: InjectorFunc) -> InjectorFunc:
-        _REGISTRY[canonical_id] = fn
+        _REGISTRY[canonical_id] = InjectorEntry(func=fn, version=version)
         return fn
     return _wrap
 
 
 def get_injector(canonical_id: str) -> InjectorFunc | None:
     """Return the registered injector for *canonical_id*, or None."""
-    return _REGISTRY.get(canonical_id)
+    entry = _REGISTRY.get(canonical_id)
+    if entry is None:
+        return None
+    return entry.func
+
+
+def get_injector_version(canonical_id: str) -> str | None:
+    """Return the version string for a registered injector, or None.
+
+    Legacy injectors registered without a version return ``"1.0.0"``.
+    """
+    entry = _REGISTRY.get(canonical_id)
+    if entry is None:
+        return None
+    return entry.version
 
 
 def list_injectors() -> list[str]:
     """Return sorted list of registered canonical ids."""
     return sorted(_REGISTRY)
+
+
+def list_injectors_with_versions() -> list[tuple[str, str]]:
+    """Return sorted list of (canonical_id, version) tuples."""
+    return sorted(
+        (cid, entry.version) for cid, entry in _REGISTRY.items()
+    )
 
 
 def inject_pattern(

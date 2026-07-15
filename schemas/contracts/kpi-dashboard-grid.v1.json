@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KPI Dashboard Grid v1",
+  "description": "Placeholder contract for kpi-dashboard-grid. Content supplies 'kpis' array with number, label, optional delta.",
+  "type": "object",
+  "required": ["kpis"],
+  "properties": {
+    "kpis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["number", "label"],
+        "properties": {
+          "number": {"type": "string"},
+          "label": {"type": "string"},
+          "delta": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

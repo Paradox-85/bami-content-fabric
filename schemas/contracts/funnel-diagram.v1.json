@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Funnel Diagram v1",
+  "description": "Placeholder contract for funnel-diagram native injector.",
+  "type": "object",
+  "required": ["segments"],
+  "properties": {
+    "segments": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {"type": "string"},
+          "value": {"type": "number"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -4,6 +4,38 @@ Authoritative reference for composing valid BAMi slide decks.
 Every generated deck.json must conform to these rules. See also
 `docs/guidelines/widget-selection.md` for widget category mapping.
 
+## Branch A (Slidev / Vue) Pipeline
+
+In addition to the python-pptx (Branch B) pipeline (the **primary production renderer**),
+the repository supports a Slidev / Vue (Branch A) rendering path as a **secondary
+fallback/preview renderer**. Key differences:
+
+See `docs/architecture/renderer-operating-model.md` for the full renderer policy hierarchy.
+
+- **Input format:** Same intermediate JSON (`schemas/intermediate-slide-schema.json`).
+- **Generation:** The generator `tools.slidev_generate.generate_slides_md()` reads the intermediate JSON and
+  produces a Slidev markdown file under `tools/slidev/`.
+When generating a presentation for the **web/PDF path**, use the Branch A pipeline:
+
+```bash
+# E2E pipeline: generate -> validate -> build -> export
+python -m tools.slidev_pipeline --schema path/to/intermediate.json
+
+# Or run individual steps:
+
+# 1. Generate Slidev markdown from intermediate JSON
+#    (handled internally by the pipeline)
+
+# 2. Validate the intermediate JSON
+#    python -m tools.slidev_validate --schema path/to/intermediate.json
+
+# 3. Build the Slidev site (SPA)
+cd tools/slidev && npm run build
+
+# 4. Export to PDF
+cd tools/slidev && npm run export
+```
+
 ## E1. Slide structure
 
 | Template | Purpose | Fields |
@@ -113,15 +145,15 @@ Sizes outside this list are not guaranteed to render correctly.
 
 ## Self-check (pre-submit)
 
-## Self-check (pre-submit)
-
 Before delivering any deck.json or generated PPTX, run through this checklist.
 
-### Deck generation check
+### Deck generation check (Branch B — python-pptx)
 
 ```
 [ ]  block kind in BUILDERS: heading | body | bullets | caption |
-    table | card | darkcard | steps | kpi | gantt | mermaid
+    table | card | darkcard | steps | kpi | gantt | mermaid | image |
+    chart-bar-column | chart-line-area | chart-donut-pie |
+    chart-waterfall | chart-scatter-bubble
 [ ]  layout name in LAYOUTS: gantt | kpi_strip | comparison_panel |
     funnel-diagram | historical-timeline | swimlane-diagram |
     checklist-status | mind-map-radial | decision-tree-flowchart |
@@ -134,21 +166,17 @@ Before delivering any deck.json or generated PPTX, run through this checklist.
 [ ]  Deck passed validator: python -m tools.pptx_validate <deck.pptx>
 [ ]  If mermaid block used: definition renders without mmdc error
     (test: mmdc -i <temp>.mmd -o <temp>.png -b white)
+[ ]  If Branch A (Slidev) target: component generates without error
+    (python -m tools.slidev_validate --schema path/to/intermediate.json)
 ```
-### Deck generation check
+
+### Deck generation check (Branch A — Slidev / Vue)
 
 ```
-□ Каждый category ID существует в categories.yaml
-□ Каждый block kind есть в BUILDERS: heading | body | bullets | caption |
-  table | card | darkcard | steps | kpi | gantt
-□ НЕ использован: image (E6 — not implemented)
-□ Каждый layout name есть в LAYOUTS: gantt | kpi_strip
-□ comparison_panel layout исправлен (E1 FIXED — emits card blocks)
-□ Слайд не имеет одновременно layout и blocks (E9 — known gap)
-□ Все y ∈ [1.2, 10.5] на content slides
-□ Все цвета — token names, не hex
-□ Font sizes из approved scale
-□ Deck прошёл validator:
-   python -m tools.pptx_validate .pi/temp/out.pptx
-□ Если предложена новая canonical category — она добавлена в categories.yaml первой
+[ ]  Each component name used in intermediate JSON is registered in schemas/components/registry.json
+[ ]  Each Vue component from registry exists under tools/slidev/components/<vue_component>.vue
+[ ]  Component props match its contract at schemas/components/<contract>
+[ ]  Slidev build succeeds: cd tools/slidev && npm run build
+[ ]  All colours use brand token names (not raw hex) per bami-tokens.css
+[ ]  Falls under renderer-ownership-matrix.md rules (no implicit fallback)
 ```

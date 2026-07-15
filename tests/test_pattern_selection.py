@@ -326,3 +326,75 @@ def test_manifest_entries_have_required_fields():
         assert "max" in capacity, f"{family}: capacity missing 'max'"
         assert "fallback_chain" in entry, f"{family}: missing 'fallback_chain'"
         assert "rank" in entry, f"{family}: missing 'rank'"
+
+
+# ---------------------------------------------------------------------------
+# Chart family structural matching (r2 fix)
+# ---------------------------------------------------------------------------
+
+
+def test_chart_donut_pie_full_payload():
+    """categories + series both present → chart-donut-pie (full payload)."""
+    content = {
+        "categories": [{"label": "A"}, {"label": "B"}, {"label": "C"}],
+        "series": [{"values": [10, 20, 30]}],
+    }
+    result = resolve_pattern(content, FakeTokens("bami"))
+    assert result.family == "chart-donut-pie", (
+        f"Expected chart-donut-pie for full payload, got {result.family}"
+    )
+    assert result.layout == "chart-donut-pie"
+
+
+def test_chart_donut_pie_categories_only_rejected():
+    """Only categories (no series) → reject / fallback, not false-positive match."""
+    content = {"categories": [{"label": "A"}, {"label": "B"}]}
+    with pytest.raises(PatternSelectionError):
+        resolve_pattern(content, FakeTokens("bami"))
+
+
+def test_chart_donut_pie_series_only_rejected():
+    """Only series (no categories) → reject / fallback, not false-positive match."""
+    content = {"series": [{"values": [1, 2, 3]}]}
+    with pytest.raises(PatternSelectionError):
+        resolve_pattern(content, FakeTokens("bami"))
+
+
+# ---------------------------------------------------------------------------
+# Terminal layout:null families (r2 fix)
+# ---------------------------------------------------------------------------
+
+
+def test_data_table_layout_none():
+    """data-table family has layout=None, block_kind='table'."""
+    content = {
+        "header": ["Metric", "Value"],
+        "rows": [["Revenue", "$10M"], ["Margin", "25%"]],
+    }
+    result = resolve_pattern(content, FakeTokens("bami"))
+    assert result.family == "data-table"
+    assert result.layout is None
+    assert result.block_kind == "table"
+
+
+def test_impact_table_layout_none():
+    """impact-table family has layout=None, block_kind='table'."""
+    content = {
+        "rows": [["Factor", "Score"], ["Risk", "High"]],
+    }
+    result = resolve_pattern(content, FakeTokens("bami"))
+    assert result.family == "impact-table"
+    assert result.layout is None
+    assert result.block_kind == "table"
+
+
+def test_before_after_split_layout_none():
+    """before-after-split family has layout=None, block_kind='darkcard'."""
+    content = {
+        "before": {"title": "Old", "metrics": ["X"]},
+        "after": {"title": "New", "metrics": ["Y"]},
+    }
+    result = resolve_pattern(content, FakeTokens("bami"))
+    assert result.family == "before-after-split"
+    assert result.layout is None
+    assert result.block_kind == "darkcard"

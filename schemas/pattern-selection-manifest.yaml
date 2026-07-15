@@ -611,7 +611,7 @@ manifest:
       scenario_signal: proportional-distribution
       narrative_intent: [distribution, proportion, market-share]
       structural:
-        required_any: [[categories, series]]
+        required_any: [["categories,series"]]
         required_all: []
         count_key: categories
       capacity:

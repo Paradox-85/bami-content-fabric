@@ -60,6 +60,73 @@ def _center_sole_block(blocks, tokens):
     }]
 
 
+def _terminal_block_materialize(
+    block_kind: str,
+    tokens: Tokens,
+    content: dict,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+) -> list[dict]:
+    """Materialize a terminal (layout:null) family into renderable block(s).
+
+    Each terminal block_kind may need its own synthesis logic because the
+    raw content dict does not always supply every key that the renderer
+    requires (e.g. ``table`` requires ``header``, ``darkcard`` requires
+    ``text``).
+
+    Returns a list of block dicts ready for ``render_block``.
+    """
+    if block_kind == "darkcard":
+        # before-after-split: render one darkcard per side
+        half_w = (w - 0.3) / 2
+        blocks = []
+        if content.get("before"):
+            blocks.append({
+                "kind": "darkcard",
+                "x": round(x, 3),
+                "y": round(y, 3),
+                "w": round(half_w, 3),
+                "h": round(h, 3),
+                "text": str(content["before"]),
+            })
+        if content.get("after"):
+            blocks.append({
+                "kind": "darkcard",
+                "x": round(x + half_w + 0.3, 3),
+                "y": round(y, 3),
+                "w": round(half_w, 3),
+                "h": round(h, 3),
+                "text": str(content["after"]),
+            })
+        return blocks
+
+    # Default: naive spread (works for data-table, bullets, etc.)
+    block = {
+        "kind": block_kind,
+        "x": round(x, 3),
+        "y": round(y, 3),
+        "w": round(w, 3),
+        "h": round(h, 3),
+        **content,
+    }
+
+    # table-based terminal families (impact-table, data-table):
+    # synthesize a default header if missing so the renderer does not crash
+    if block_kind == "table" and "header" not in block:
+        if block.get("rows"):
+            n_cols = max(len(r) for r in block["rows"]) if block["rows"] else 2
+            if n_cols == 2:
+                block["header"] = ["Item", "Value"]
+            else:
+                block["header"] = [f"Column {i+1}" for i in range(n_cols)]
+        else:
+            block["header"] = ["Item", "Value"]
+
+    return [block]
+
+
 class BuildError(Exception):
     """Raised with a stable exit-code hint for the CLI."""
 
@@ -141,6 +208,18 @@ def build_deck(
                         tname,
                         str(deck_path.parent),
                     ) + blocks
+                elif sel.block_kind:
+                    # Terminal family with no layout (e.g. data-table, bullets,
+                    # before-after-split, impact-table): materialize a primitive
+                    # block directly from the resolved block_kind + content.
+                    bz_top, bz_bottom = tokens.body_zone
+                    content = slide_spec.get("content", {})
+                    blocks = _terminal_block_materialize(
+                        sel.block_kind, tokens, content,
+                        round(tokens.margin_x, 3), bz_top,
+                        round(tokens.content_width, 3),
+                        round(bz_bottom - bz_top, 3),
+                    )
             except PatternSelectionError as e:
                 raise BuildError(str(e)) from e
         if tname == "content":

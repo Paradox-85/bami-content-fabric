@@ -106,6 +106,72 @@
                       "series"
                     ]
                   }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "image"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "src"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-waterfall"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "categories",
+                      "series"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "chart-scatter-bubble"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "series"
+                    ],
+                    "properties": {
+                      "series": {
+                        "items": {
+                          "required": [
+                            "points"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "inject-pattern"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "canonical_id"
+                    ]
+                  }
                 }
               ],
               "properties": {
@@ -123,9 +189,13 @@
                     "kpi",
                     "gantt",
                     "mermaid",
+                    "image",
                     "chart-bar-column",
                     "chart-line-area",
-                    "chart-donut-pie"
+                    "chart-donut-pie",
+                    "chart-waterfall",
+                    "chart-scatter-bubble",
+                    "inject-pattern"
                   ]
                 },
                 "x": {
@@ -204,6 +274,26 @@
                 "accent": {
                   "type": "string"
                 },
+                "src": {
+                  "type": "string"
+                },
+                "fit": {
+                  "type": "string",
+                  "enum": [
+                    "contain",
+                    "cover",
+                    "fill"
+                  ]
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "border": {
+                  "type": "string"
+                },
+                "engagement_dir": {
+                  "type": "string"
+                },
                 "categories": {
                   "type": "array",
                   "minItems": 1,
@@ -216,8 +306,17 @@
                   "minItems": 1,
                   "items": {
                     "type": "object",
-                    "required": [
-                      "values"
+                    "oneOf": [
+                      {
+                        "required": [
+                          "values"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "points"
+                        ]
+                      }
                     ],
                     "properties": {
                       "name": {
@@ -232,6 +331,29 @@
                       },
                       "color": {
                         "type": "string"
+                      },
+                      "points": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            },
+                            "size": {
+                              "type": "number"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
                       }
                     },
                     "additionalProperties": false
@@ -257,13 +379,19 @@
                   "type": "string",
                   "enum": [
                     "donut",
-                    "pie"
+                    "pie",
+                    "scatter",
+                    "bubble"
                   ]
                 },
                 "donut_hole": {
                   "type": "integer",
                   "minimum": 0,
                   "maximum": 90
+                },
+                "canonical_id": {
+                  "type": "string",
+                  "description": "Registered injector canonical ID (required when kind=inject-pattern)"
                 }
               },
               "additionalProperties": true

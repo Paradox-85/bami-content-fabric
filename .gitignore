@@ -32,6 +32,7 @@ templates/media/from_envato/
 templates/media/_staging/
 templates/media/_raw_archive/
 templates/media/_envato_ingest/
+templates/media/_svg_input_ingest/
 # Archives and binary files (not committed to version control)
 *.zip
 *.tar.gz

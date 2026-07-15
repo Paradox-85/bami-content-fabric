@@ -1,0 +1,2985 @@
+{
+  "Bento_Box_Infographic_Template_c43cda": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Bento_Box_Infographic_Template_c43cda_Blue_-_1920x1080px_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Bento_Box_Infographic_Template_c43cda_Blue_-_1920x1080px_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Bento_Box_Infographic_Template_c43cda_Green_-_1920x1080px_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "Bundle_3-7_Circular_Pie_Chart_Di_30d6be": {
+    "canonical_category": "circular-process-loop",
+    "variant_of": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_4_Circular_Pie_Chart_Diag_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_5_Circular_Pie_Chart_Diag_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_6_Circular_Pie_Chart_Diag_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_7_Circular_Pie_Chart_Diag_005.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 5
+  },
+  "Case_Study_ce7a8d": {
+    "canonical_category": "case-study-card",
+    "variant_of": "infographic_Case_Study_ce7a8d_Case_Study_005.svg",
+    "members": [
+      {
+        "filename": "infographic_Case_Study_ce7a8d_Case_Study_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Case_Study_ce7a8d_Case_Study_Artboard_1_Art_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Case_Study_ce7a8d_Case_Study_Artboard_1_cop_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Case_Study_ce7a8d_Case_Study__1_001.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_Case_Study_ce7a8d_Case_Study__2_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 4
+  },
+  "Comparison_Table_Infographic_cb70fc": {
+    "canonical_category": "comparison-table",
+    "variant_of": "infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "Comparison_Table_–_Infographics_eea0b5": {
+    "canonical_category": "comparison-table",
+    "variant_of": "infographic_Comparison_Table_–_Infographics_eea0b5_comparison_CC_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Comparison_Table_–_Infographics_eea0b5_comparison_CC_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Comparison_Table_–_Infographics_eea0b5_comparison_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Comparison_Table_–_Infographics_eea0b5_comparison_EPS10_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 3
+  },
+  "Cycle_Vector_Infographic_Diagram_598423": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Cycle_Vector_Infographic_Diagram_598423_03_opt_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_03_opt_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_04_opt_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_05_opt_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_06_opt_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_07_opt_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Cycle_Vector_Infographic_Diagram_598423_08_opt_006.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 6
+  },
+  "Diagram_Infographics_f77ae0": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Diagram_Infographics_f77ae0_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Diagram_Infographics_f77ae0_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_f77ae0_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_f77ae0_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_f77ae0_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "Diagram_Infographics_fbb780": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Diagram_Infographics_fbb780_Diagram_10_002.svg",
+    "members": [
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_10_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_11_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_12_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_13_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_14_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_15_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_16_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_17_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_18_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_19_011.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_1_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_20_013.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_2_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_3_014.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_4_015.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_5_016.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_6_017.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_7_018.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_8_019.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Diagram_Infographics_fbb780_Diagram_9_020.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 20
+  },
+  "ESG_Sustainability_Report_Infogr_c3dc22": {
+    "canonical_category": "case-study-card",
+    "variant_of": "infographic_ESG_Sustainability_Report_Infogr_c3dc22_ESG_Sustainability_Report.svg",
+    "members": [
+      {
+        "filename": "infographic_ESG_Sustainability_Report_Infogr_c3dc22_ESG_Sustainability_Report.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Empathy_Map_Infographic_2dc5cb": {
+    "canonical_category": "case-study-card",
+    "variant_of": "infographic_Empathy_Map_Infographic_2dc5cb_Empathy_Map.svg",
+    "members": [
+      {
+        "filename": "infographic_Empathy_Map_Infographic_2dc5cb_Empathy_Map.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Funnel_Diagram_Infographic_8c475a": {
+    "canonical_category": "funnel-diagram",
+    "variant_of": "infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg",
+    "members": [
+      {
+        "filename": "infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Gradient_Matrix_Infographics_66318c": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_004.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 3
+  },
+  "Green_Aesthetic_Self_Care_Checkl_85d5bc": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Green_Aesthetic_Self_Care_Checkl_85d5bc_Self_Care_Summer.svg",
+    "members": [
+      {
+        "filename": "infographic_Green_Aesthetic_Self_Care_Checkl_85d5bc_Self_Care_Summer.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Infographics_Bundle_15bd12": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Infographics_Bundle_15bd12_Infographics_Bundle.svg",
+    "members": [
+      {
+        "filename": "infographic_Infographics_Bundle_15bd12_Infographics_Bundle.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Information_Table_Infographic_355c8b": {
+    "canonical_category": "data-table",
+    "variant_of": "infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "KPI_Dashboard_Infographic_1296eb": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_KPI_Dashboard_Infographic_1296eb_KPI_Dashboard_02.svg",
+    "members": [
+      {
+        "filename": "infographic_KPI_Dashboard_Infographic_1296eb_KPI_Dashboard_02.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Ladder_–_Infographics_Design_093443": {
+    "canonical_category": "maturity-model-ladder",
+    "variant_of": "infographic_Ladder_–_Infographics_Design_093443_ladder_CC20_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Ladder_–_Infographics_Design_093443_ladder_CC20_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Ladder_–_Infographics_Design_093443_ladder_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "Matrix_Infographic_Asset_b1c877": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg",
+    "members": [
+      {
+        "filename": "infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Modern_Gantt_Chart_Infographic_0_4a93ff": {
+    "canonical_category": "gantt-matrix",
+    "variant_of": "infographic_Modern_Gantt_Chart_Infographic_0_4a93ff_Gantt_Chart_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_Modern_Gantt_Chart_Infographic_0_4a93ff_Gantt_Chart_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Modern_KPI_Dashboard_Infographic_445c3c": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_004.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 3
+  },
+  "Pie_Chart_Infographic_4dd94c": {
+    "canonical_category": "chart-donut-pie",
+    "variant_of": "infographic_Pie_Chart_Infographic_4dd94c_Pie_Chart.svg",
+    "members": [
+      {
+        "filename": "infographic_Pie_Chart_Infographic_4dd94c_Pie_Chart.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Prize_Table_Infographic_Asset_d66c15": {
+    "canonical_category": "tier-pricing-cards",
+    "variant_of": "infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg",
+    "members": [
+      {
+        "filename": "infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Quadrant_Chart_Diagram_Infograph_cc85a7": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_011.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 11
+  },
+  "Quadrant_Chart_Infographic_b3e4b1": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_011.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 11
+  },
+  "Timeline_Infographics_9f4fea": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_Timeline_Infographics_9f4fea_Timeline_Infographics.svg",
+    "members": [
+      {
+        "filename": "infographic_Timeline_Infographics_9f4fea_Timeline_Infographics.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "Timeline_Roadmap_Infographic_1c9830": {
+    "canonical_category": "roadmap-with-milestones",
+    "variant_of": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_10_003.svg",
+    "members": [
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_10_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_11_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_12_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_13_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_14_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_15_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_1_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_2_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_3_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_4_011.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_5_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_6_013.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_7_014.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_8_015.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Page_9_016.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Timeline_017.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Timeline_Roadmap_Infographic_1c9830_Timeline_Infographic__Tim_001.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 17
+  },
+  "Tree_–_Infographics_Design_ba6f36": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_Tree_–_Infographics_Design_ba6f36_TREES_CC20_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Tree_–_Infographics_Design_ba6f36_TREES_CC20_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Tree_–_Infographics_Design_ba6f36_TREES_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "Vector_Infographics_Template_1b14dd": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_Vector_Infographics_Template_1b14dd_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Vector_Infographics_Template_1b14dd_008.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 8
+  },
+  "Venn_Diagram_Infographic_03eec1": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_001.svg",
+    "members": [
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_011.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_013.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_014.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_015.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_016.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_017.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_018.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_019.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_020.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic_021.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 21
+  },
+  "White_Cyan_Modern_KPI_Dashboard_30a08e": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_White_Cyan_Modern_KPI_Dashboard_30a08e_KPI_Dashboard_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_White_Cyan_Modern_KPI_Dashboard_30a08e_KPI_Dashboard_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "abstract-3d-business-infographic_197c72": {
+    "canonical_category": "infographic-3d-cube",
+    "variant_of": "infographic_abstract-3d-business-infographic_197c72_001.svg",
+    "members": [
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_abstract-3d-business-infographic_197c72_006.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 6
+  },
+  "amethyst-v3-infographic_298f38": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3-02_010.svg",
+    "members": [
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3-02_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3-03_011.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3-04_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-02_001.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-03_002.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-04_003.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-02_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-03_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-04_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_007.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_008.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_009.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 6
+  },
+  "arrow-process-infographics_f8e31e": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "arrows-infographic-templates_f8571b": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_arrows-infographic-templates_f8571b_001.svg",
+    "members": [
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_011.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_013.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_014.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_015.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_016.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_017.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_018.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_019.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_arrows-infographic-templates_f8571b_020.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 20
+  },
+  "artificial-intelligence-workflow_c744f6": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_artificial-intelligence-workflow_c744f6_M045T0101_Modern_artifici.svg",
+    "members": [
+      {
+        "filename": "infographic_artificial-intelligence-workflow_c744f6_M045T0101_Modern_artifici.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "bar-charts-infographics_dfc740": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_bar-charts-infographics_dfc740_Bar_Charts_Infographics.svg",
+    "members": [
+      {
+        "filename": "infographic_bar-charts-infographics_dfc740_Bar_Charts_Infographics.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "black-colorful-modern-gantt-char_72dbf7": {
+    "canonical_category": "gantt-matrix",
+    "variant_of": "infographic_black-colorful-modern-gantt-char_72dbf7_Gantt_Chart_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_black-colorful-modern-gantt-char_72dbf7_Gantt_Chart_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "branchflow-infographics_051ca1": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_branchflow-infographics_051ca1_01_BranchFlow_001.svg",
+    "members": [
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_01_BranchFlow_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_02_BranchFlow_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_03_BranchFlow_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_04_BranchFlow_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_05_BranchFlow_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_branchflow-infographics_051ca1_06_BranchFlow_006.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 6
+  },
+  "bundle-arrow-step-infographic_303a08": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_bundle-arrow-step-infographic_303a08_Arrow_3_Step_Infographic_001.svg",
+    "members": [
+      {
+        "filename": "infographic_bundle-arrow-step-infographic_303a08_Arrow_3_Step_Infographic_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_bundle-arrow-step-infographic_303a08_Arrow_4_Step_Infographic_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_bundle-arrow-step-infographic_303a08_Arrow_5_Step_Infographic_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_bundle-arrow-step-infographic_303a08_Arrow_6_Step_Infographic_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "business-infographic-elements_dc3469": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_business-infographic-elements_dc3469_01_Infographic_001.svg",
+    "members": [
+      {
+        "filename": "infographic_business-infographic-elements_dc3469_01_Infographic_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-infographic-elements_dc3469_03_Infographic_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-infographic-elements_dc3469_04_Infographic_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-infographic-elements_dc3469_05_Infographic_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-infographic-elements_dc3469_06_Infographic_006.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 5
+  },
+  "business-infographic-pack_52fd5f": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_business-infographic-pack_52fd5f_Infographic_Pack_09_010.svg",
+    "members": [
+      {
+        "filename": "infographic_business-infographic-pack_52fd5f_Infographic_Pack_09_010.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "business-presentation-infographi_d814c7": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_business-presentation-infographi_d814c7_Infographic-Template-Busi.svg",
+    "members": [
+      {
+        "filename": "infographic_business-presentation-infographi_d814c7_Infographic-Template-Busi.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "business-stair-success-infograph_749488": {
+    "canonical_category": "maturity-model-ladder",
+    "variant_of": "infographic_business-stair-success-infograph_749488_001.svg",
+    "members": [
+      {
+        "filename": "infographic_business-stair-success-infograph_749488_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-stair-success-infograph_749488_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-stair-success-infograph_749488_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_business-stair-success-infograph_749488_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "business-timeline-infographic_f35117": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_business-timeline-infographic_f35117_Business_Icon_Set_001.svg",
+    "members": [
+      {
+        "filename": "infographic_business-timeline-infographic_f35117_Business_Icon_Set_001.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "business-timeline-infographics_41de08": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_business-timeline-infographics_41de08_Business_Timeline_Infogra.svg",
+    "members": [
+      {
+        "filename": "infographic_business-timeline-infographics_41de08_Business_Timeline_Infogra.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "chart-template-chart_27ccfb": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_chart-template-chart_27ccfb_Gear_Infographic-01_001.svg",
+    "members": [
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-01_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-02_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-03_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-04_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-05_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-06_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-07_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-08_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-09_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic-10_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_chart-template-chart_27ccfb_Gear_Infographic_011.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 11
+  },
+  "circle-step-infographic_a05527": {
+    "canonical_category": "circular-process-loop",
+    "variant_of": "infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg",
+    "members": [
+      {
+        "filename": "infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_circle-step-infographic_a05527_Circle_5_step_Infographic_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_circle-step-infographic_a05527_Circle_6_step_Infographic_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_circle-step-infographic_a05527_Circle_7_step_Infographic_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_circle-step-infographic_a05527_Circle_8_step_Infographic_005.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 5
+  },
+  "colorful-gradient-csat-infograph_b2a0fb": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_colorful-gradient-csat-infograph_b2a0fb_Colorful_Gradient_CSAT_In_001.svg",
+    "members": [
+      {
+        "filename": "infographic_colorful-gradient-csat-infograph_b2a0fb_Colorful_Gradient_CSAT_In_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_colorful-gradient-csat-infograph_b2a0fb_Colorful_Gradient_CSAT_In_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_colorful-gradient-csat-infograph_b2a0fb_Colorful_Gradient_CSAT_In_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 3
+  },
+  "colorful-minimalist-timeline-gan_66c348": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_001.svg",
+    "members": [
+      {
+        "filename": "infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "conversion-path-infographics_5f45bf": {
+    "canonical_category": "funnel-diagram",
+    "variant_of": "infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg",
+    "members": [
+      {
+        "filename": "infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_conversion-path-infographics_5f45bf_02_Conversion_Path_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_conversion-path-infographics_5f45bf_03_Conversion_Path_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_conversion-path-infographics_5f45bf_04_Conversion_Path_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_conversion-path-infographics_5f45bf_05_Conversion_Path_005.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 5
+  },
+  "cream-colorful-modern-onboarding_c6caac": {
+    "canonical_category": "phased-rollout-timeline",
+    "variant_of": "infographic_cream-colorful-modern-onboarding_c6caac_Employee_Onboarding_Roadm.svg",
+    "members": [
+      {
+        "filename": "infographic_cream-colorful-modern-onboarding_c6caac_Employee_Onboarding_Roadm.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "customer-journey-map-infographic_027d8a": {
+    "canonical_category": "funnel-diagram",
+    "variant_of": "infographic_customer-journey-map-infographic_027d8a_Customer_Journey_Map_Info.svg",
+    "members": [
+      {
+        "filename": "infographic_customer-journey-map-infographic_027d8a_Customer_Journey_Map_Info.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "e-commerce-infographic_388d05": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_e-commerce-infographic_388d05_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_e-commerce-infographic_388d05_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_e-commerce-infographic_388d05_Sourcefile_-_EPS_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "e-commerce-infographic_a0d4db": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_e-commerce-infographic_a0d4db_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_e-commerce-infographic_a0d4db_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_e-commerce-infographic_a0d4db_Sourcefile_-_EPS_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "factory-infographic_c2b096": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_factory-infographic_c2b096_Factory_Infographic-02_005.svg",
+    "members": [
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-02_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-02_CS_004.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-03_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-03_CS_006.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-04_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic-04_CS_008.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic_10-02_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic_10-03_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_factory-infographic_c2b096_Factory_Infographic_10-04_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 6
+  },
+  "flowchart-line-infographics-desi_95edb8": {
+    "canonical_category": "decision-tree-flowchart",
+    "variant_of": "infographic_flowchart-line-infographics-desi_95edb8_Flowchart_Line_CC20_001.svg",
+    "members": [
+      {
+        "filename": "infographic_flowchart-line-infographics-desi_95edb8_Flowchart_Line_CC20_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_flowchart-line-infographics-desi_95edb8_Flowchart_Line_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "flowchart-map-infographics-desig_da41a2": {
+    "canonical_category": "decision-tree-flowchart",
+    "variant_of": "infographic_flowchart-map-infographics-desig_da41a2_Flowchart_Map_CS6_002.svg",
+    "members": [
+      {
+        "filename": "infographic_flowchart-map-infographics-desig_da41a2_Flowchart_Map_CS6_002.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "flowchart-process-infographics-d_5fa1fa": {
+    "canonical_category": "decision-tree-flowchart",
+    "variant_of": "infographic_flowchart-process-infographics-d_5fa1fa_flowchart_CC_001.svg",
+    "members": [
+      {
+        "filename": "infographic_flowchart-process-infographics-d_5fa1fa_flowchart_CC_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_flowchart-process-infographics-d_5fa1fa_flowchart_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_flowchart-process-infographics-d_5fa1fa_flowchart_EPS10_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 3
+  },
+  "framework-infographic_609e13": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_framework-infographic_609e13_Framework_Infographic_ai_002.svg",
+    "members": [
+      {
+        "filename": "infographic_framework-infographic_609e13_Framework_Infographic_ai_002.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "gray-modern-gantt-chart-infograp_46057b": {
+    "canonical_category": "gantt-matrix",
+    "variant_of": "infographic_gray-modern-gantt-chart-infograp_46057b_Gantt_Chart_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_gray-modern-gantt-chart-infograp_46057b_Gantt_Chart_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "grey-blue-manufacturing-kpi-insi_a0c19d": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_grey-blue-manufacturing-kpi-insi_a0c19d_01__Main_File_001.svg",
+    "members": [
+      {
+        "filename": "infographic_grey-blue-manufacturing-kpi-insi_a0c19d_01__Main_File_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_grey-blue-manufacturing-kpi-insi_a0c19d_02__Main_File_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_grey-blue-manufacturing-kpi-insi_a0c19d_03__Main_File_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_grey-blue-manufacturing-kpi-insi_a0c19d_04__Main_File_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "horizontal-timeline-infographics_55d735": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_horizontal-timeline-infographics_55d735_Horizontal_Timeline_Infog.svg",
+    "members": [
+      {
+        "filename": "infographic_horizontal-timeline-infographics_55d735_Horizontal_Timeline_Infog.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "infographic-chart-elements_faae50": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_infographic-chart-elements_faae50_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_infographic-chart-elements_faae50_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_infographic-chart-elements_faae50_Sourcefile_-_EPS_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "infographics-bundle_27059d": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_infographics-bundle_27059d_Infographics_Bundle.svg",
+    "members": [
+      {
+        "filename": "infographic_infographics-bundle_27059d_Infographics_Bundle.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "kpi-dashboard-infographic_770fe3": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_kpi-dashboard-infographic_770fe3_KPI_Dashboard_Style_3.svg",
+    "members": [
+      {
+        "filename": "infographic_kpi-dashboard-infographic_770fe3_KPI_Dashboard_Style_3.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "laboratory-infographic_5e0fbe": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_004.svg",
+    "members": [
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_005.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_007.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_009.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 6
+  },
+  "mind-map_b276ee": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_mind-map_b276ee_01_Mind_Map-01_001.svg",
+    "members": [
+      {
+        "filename": "infographic_mind-map_b276ee_01_Mind_Map-01_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_mind-map_b276ee_01_Mind_Map-02_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_mind-map_b276ee_01_Mind_Map-03_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_mind-map_b276ee_01_Mind_Map_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "mind-maps-infographic-asset-illu_dfef02": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_mind-maps-infographic-asset-illu_dfef02_Mind_Map_Inf.svg",
+    "members": [
+      {
+        "filename": "infographic_mind-maps-infographic-asset-illu_dfef02_Mind_Map_Inf.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "minimal-infographics-set-01_5b1b5d": {
+    "canonical_category": "chart-bar-column",
+    "variant_of": "infographic_minimal-infographics-set-01_5b1b5d_001.svg",
+    "members": [
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_minimal-infographics-set-01_5b1b5d_010.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 10
+  },
+  "modern-clean-infographic_171f59": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_modern-clean-infographic_171f59_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-clean-infographic_171f59_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-clean-infographic_171f59_Sourcefile_-_EPS_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "modern-corporate-infographic_b1c411": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_modern-corporate-infographic_b1c411_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-corporate-infographic_b1c411_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "modern-gantt-chart-infographic-s_ae7ead": {
+    "canonical_category": "gantt-matrix",
+    "variant_of": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_10_002.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_10_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_1_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_2_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_3_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_4_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_5_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_6_007.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_7_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_8_009.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_9_010.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 10
+  },
+  "modern-infographic-pack_c6cdd0": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_modern-infographic-pack_c6cdd0_Infographic_Pack_07_010.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-infographic-pack_c6cdd0_Infographic_Pack_07_010.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "modern-onboarding-roadmap-infogr_995a48": {
+    "canonical_category": "phased-rollout-timeline",
+    "variant_of": "infographic_modern-onboarding-roadmap-infogr_995a48_Employee_Onboarding_Roadm.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-onboarding-roadmap-infogr_995a48_Employee_Onboarding_Roadm.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "modern-retro-style-infographics_ff1edc": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_modern-retro-style-infographics_ff1edc_Modern_Retro_Style_Infogr.svg",
+    "members": [
+      {
+        "filename": "infographic_modern-retro-style-infographics_ff1edc_Modern_Retro_Style_Infogr.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "objectum-infographic-spaceship_68d061": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_objectum-infographic-spaceship_68d061_3294_Editable_Text_002.svg",
+    "members": [
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3294_Editable_Text_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3300_Editable_Text_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3301_Editable_Text_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3302_Editable_Text_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3312_Editable_Text_010.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3313_Editable_Text_012.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3314_Editable_Text_014.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3315_Editable_Text_016.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3316_Editable_Text_018.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3317_Editable_Text_020.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_objectum-infographic-spaceship_68d061_3326_Editable_Text_022.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 11
+  },
+  "odissey-space-infographic_ac4664": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_001.svg",
+    "members": [
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_005.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_006.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_007.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_008.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_009.svg",
+        "rendered": false,
+        "selectable": false,
+        "reason": "keep=N (cs-duplicate or exluded)"
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": false,
+    "rendered_count": 6
+  },
+  "orange-yellow-pink-modern-agile_f489f5": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_orange-yellow-pink-modern-agile_f489f5_Safe_Agile_Frameworks.svg",
+    "members": [
+      {
+        "filename": "infographic_orange-yellow-pink-modern-agile_f489f5_Safe_Agile_Frameworks.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "price-table_391f12": {
+    "canonical_category": "tier-pricing-cards",
+    "variant_of": "infographic_price-table_391f12_Price-Table-48.svg",
+    "members": [
+      {
+        "filename": "infographic_price-table_391f12_Price-Table-48.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "pricing-table-infographic_c4b8e2": {
+    "canonical_category": "tier-pricing-cards",
+    "variant_of": "infographic_pricing-table-infographic_c4b8e2_01-Pricing_Table_Infograp_002.svg",
+    "members": [
+      {
+        "filename": "infographic_pricing-table-infographic_c4b8e2_01-Pricing_Table_Infograp_002.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "process-gradient-infographics_41c50c": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_process-gradient-infographics_41c50c_Process_Gradient.svg",
+    "members": [
+      {
+        "filename": "infographic_process-gradient-infographics_41c50c_Process_Gradient.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "purple-modern-roadmap-infographi_aeb6f8": {
+    "canonical_category": "roadmap-with-milestones",
+    "variant_of": "infographic_purple-modern-roadmap-infographi_aeb6f8_Purple_Modern_Roadmap_Inf.svg",
+    "members": [
+      {
+        "filename": "infographic_purple-modern-roadmap-infographi_aeb6f8_Purple_Modern_Roadmap_Inf.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "pyramid-infographics-design_51e627": {
+    "canonical_category": "mind-map-radial",
+    "variant_of": "infographic_pyramid-infographics-design_51e627_PYRAMID_CC20_001.svg",
+    "members": [
+      {
+        "filename": "infographic_pyramid-infographics-design_51e627_PYRAMID_CC20_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_pyramid-infographics-design_51e627_PYRAMID_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_pyramid-infographics-design_51e627_PYRAMID_EPS10_003.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 3
+  },
+  "roadmap-infographic-template_204c7e": {
+    "canonical_category": "roadmap-with-milestones",
+    "variant_of": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_001.svg",
+    "members": [
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_004.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_005.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_006.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "format",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 6
+  },
+  "roadmap-infographics_81faa8": {
+    "canonical_category": "roadmap-with-milestones",
+    "variant_of": "infographic_roadmap-infographics_81faa8_General_object_roadmap_pr.svg",
+    "members": [
+      {
+        "filename": "infographic_roadmap-infographics_81faa8_General_object_roadmap_pr.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "sales-growth-infographic_9fe6f5": {
+    "canonical_category": "funnel-diagram",
+    "variant_of": "infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg",
+    "members": [
+      {
+        "filename": "infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "stair-infographic_ee1d96": {
+    "canonical_category": "maturity-model-ladder",
+    "variant_of": "infographic_stair-infographic_ee1d96_Stair_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_stair-infographic_ee1d96_Stair_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "step-by-step-infographic_e6a516": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_step-by-step-infographic_e6a516_Sourcefile_-_Ai_001.svg",
+    "members": [
+      {
+        "filename": "infographic_step-by-step-infographic_e6a516_Sourcefile_-_Ai_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "step-up-to-growth_5251b2": {
+    "canonical_category": "maturity-model-ladder",
+    "variant_of": "infographic_step-up-to-growth_5251b2_Step_up_to_Growth.svg",
+    "members": [
+      {
+        "filename": "infographic_step-up-to-growth_5251b2_Step_up_to_Growth.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "strategic-core-value-infographic_3f1fc0": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_strategic-core-value-infographic_3f1fc0_Strategic_Core_Value_Info.svg",
+    "members": [
+      {
+        "filename": "infographic_strategic-core-value-infographic_3f1fc0_Strategic_Core_Value_Info.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "swot-diagram-slide-for-pitch-pla_b25260": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_swot-diagram-slide-for-pitch-pla_b25260_Startup_Pitch_SWOT_Infogr.svg",
+    "members": [
+      {
+        "filename": "infographic_swot-diagram-slide-for-pitch-pla_b25260_Startup_Pitch_SWOT_Infogr.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "swot-infographic-asset-illustrat_ad168c": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_swot-infographic-asset-illustrat_ad168c_SWOT_-_INF.svg",
+    "members": [
+      {
+        "filename": "infographic_swot-infographic-asset-illustrat_ad168c_SWOT_-_INF.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "swot-infographic_9b81b0": {
+    "canonical_category": "quadrant-matrix",
+    "variant_of": "infographic_swot-infographic_9b81b0_Swot_INf.svg",
+    "members": [
+      {
+        "filename": "infographic_swot-infographic_9b81b0_Swot_INf.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "timeline-infographic_445588": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_timeline-infographic_445588_Timeline_Inf.svg",
+    "members": [
+      {
+        "filename": "infographic_timeline-infographic_445588_Timeline_Inf.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "timeline-step-infographics-desig_773283": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_timeline-step-infographics-desig_773283_timeline_CC20_001.svg",
+    "members": [
+      {
+        "filename": "infographic_timeline-step-infographics-desig_773283_timeline_CC20_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_timeline-step-infographics-desig_773283_timeline_CS6_002.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 2
+  },
+  "timeline-table-infographics-desi_2db266": {
+    "canonical_category": "data-table",
+    "variant_of": "infographic_timeline-table-infographics-desi_2db266_timeline_3_CS6_002.svg",
+    "members": [
+      {
+        "filename": "infographic_timeline-table-infographics-desi_2db266_timeline_3_CS6_002.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "vector_set_of_infographics_for_d_c0f825": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_vector_set_of_infographics_for_d_c0f825_001.svg",
+    "members": [
+      {
+        "filename": "infographic_vector_set_of_infographics_for_d_c0f825_001.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-blue-pink-modern-kpi-dashb_52c531": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-blue-pink-modern-kpi-dashb_52c531_KPI_Dashboard.svg",
+    "members": [
+      {
+        "filename": "infographic_white-blue-pink-modern-kpi-dashb_52c531_KPI_Dashboard.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-clean-colorful-modern-kpi_bfe6a5": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-clean-colorful-modern-kpi_bfe6a5_KPI_Dashboard.svg",
+    "members": [
+      {
+        "filename": "infographic_white-clean-colorful-modern-kpi_bfe6a5_KPI_Dashboard.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-colorful-kpi-dashboard-inf_0a88e1": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-colorful-kpi-dashboard-inf_0a88e1_White_Colorful_KPI_Dashbo.svg",
+    "members": [
+      {
+        "filename": "infographic_white-colorful-kpi-dashboard-inf_0a88e1_White_Colorful_KPI_Dashbo.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-colorful-modern-5s-methodo_334caa": {
+    "canonical_category": "numbered-process-steps",
+    "variant_of": "infographic_white-colorful-modern-5s-methodo_334caa_5S_Methodology_Infographi.svg",
+    "members": [
+      {
+        "filename": "infographic_white-colorful-modern-5s-methodo_334caa_5S_Methodology_Infographi.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-colorful-modern-timeline-i_662016": {
+    "canonical_category": "historical-timeline",
+    "variant_of": "infographic_white-colorful-modern-timeline-i_662016_Timeline_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_white-colorful-modern-timeline-i_662016_Timeline_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-colorful-onboarding-roadma_87daf8": {
+    "canonical_category": "phased-rollout-timeline",
+    "variant_of": "infographic_white-colorful-onboarding-roadma_87daf8_Employee_Onboarding_Roadm.svg",
+    "members": [
+      {
+        "filename": "infographic_white-colorful-onboarding-roadma_87daf8_Employee_Onboarding_Roadm.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-colorful-roadmap-infograph_a54c90": {
+    "canonical_category": "roadmap-with-milestones",
+    "variant_of": "infographic_white-colorful-roadmap-infograph_a54c90_Road_Map_Infographic.svg",
+    "members": [
+      {
+        "filename": "infographic_white-colorful-roadmap-infograph_a54c90_Road_Map_Infographic.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-green-blue-modern-kpi-dash_68e894": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-green-blue-modern-kpi-dash_68e894_KPI_Dashboard_10_001.svg",
+    "members": [
+      {
+        "filename": "infographic_white-green-blue-modern-kpi-dash_68e894_KPI_Dashboard_10_001.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-manufacturing-kpi-insights_f5229c": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-manufacturing-kpi-insights_f5229c_01__Main_File_001.svg",
+    "members": [
+      {
+        "filename": "infographic_white-manufacturing-kpi-insights_f5229c_01__Main_File_001.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_white-manufacturing-kpi-insights_f5229c_02__Main_File_002.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_white-manufacturing-kpi-insights_f5229c_03__Main_File_003.svg",
+        "rendered": true,
+        "selectable": true
+      },
+      {
+        "filename": "infographic_white-manufacturing-kpi-insights_f5229c_04__Main_File_004.svg",
+        "rendered": true,
+        "selectable": true
+      }
+    ],
+    "style_axis": "color",
+    "selectable_for_random": true,
+    "all_rendered": true,
+    "rendered_count": 4
+  },
+  "white-red-clean-modern-kpi-dashb_0be452": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-red-clean-modern-kpi-dashb_0be452_KPI_Dashboard.svg",
+    "members": [
+      {
+        "filename": "infographic_white-red-clean-modern-kpi-dashb_0be452_KPI_Dashboard.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-yellow-blue-modern-sales-l_c35ea5": {
+    "canonical_category": "infographic",
+    "variant_of": "infographic_white-yellow-blue-modern-sales-l_c35ea5_White_Yellow_Blue_Modern.svg",
+    "members": [
+      {
+        "filename": "infographic_white-yellow-blue-modern-sales-l_c35ea5_White_Yellow_Blue_Modern.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  },
+  "white-yellow-green-modern-kpi-da_76a0b6": {
+    "canonical_category": "kpi-dashboard-grid",
+    "variant_of": "infographic_white-yellow-green-modern-kpi-da_76a0b6_KPI_Dashboard.svg",
+    "members": [
+      {
+        "filename": "infographic_white-yellow-green-modern-kpi-da_76a0b6_KPI_Dashboard.svg",
+        "rendered": true,
+        "selectable": false
+      }
+    ],
+    "style_axis": "none",
+    "selectable_for_random": false,
+    "all_rendered": true,
+    "rendered_count": 1
+  }
+}

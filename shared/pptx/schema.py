@@ -65,6 +65,31 @@ SCHEMA: dict[str, Any] = {
                                     "if": {"properties": {"kind": {"const": "chart-donut-pie"}}},
                                     "then": {"required": ["categories", "series"]},
                                 },
+                                {
+                                    "if": {"properties": {"kind": {"const": "image"}}},
+                                    "then": {"required": ["src"]},
+                                },
+                                {
+                                    "if": {"properties": {"kind": {"const": "chart-waterfall"}}},
+                                    "then": {"required": ["categories", "series"]},
+                                },
+                                {
+                                    "if": {"properties": {"kind": {"const": "chart-scatter-bubble"}}},
+                                    "then": {
+                                        "required": ["series"],
+                                        "properties": {
+                                            "series": {
+                                                "items": {
+                                                    "required": ["points"]
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "if": {"properties": {"kind": {"const": "inject-pattern"}}},
+                                    "then": {"required": ["canonical_id"]},
+                                },
                             ],
                             "properties": {
                                 "kind": {
@@ -81,9 +106,13 @@ SCHEMA: dict[str, Any] = {
                                         "kpi",
                                         "gantt",
                                         "mermaid",
+                                        "image",
                                         "chart-bar-column",
                                         "chart-line-area",
                                         "chart-donut-pie",
+                                        "chart-waterfall",
+                                        "chart-scatter-bubble",
+                                        "inject-pattern",
                                     ]
                                 },
                                 "x": {"type": "number", "minimum": 0},
@@ -107,17 +136,43 @@ SCHEMA: dict[str, Any] = {
                                 "body": {"type": "string"},
                                 "fill": {"type": "string"},
                                 "accent": {"type": "string"},
+                                "src": {"type": "string"},
+                                "fit": {"type": "string", "enum": ["contain", "cover", "fill"]},
+                                "caption": {"type": "string"},
+                                "border": {"type": "string"},
+                                "engagement_dir": {"type": "string"},
                                 "categories": {"type": "array", "minItems": 1, "items": {"type": "string"}},
                                 "series": {
                                     "type": "array",
                                     "minItems": 1,
                                     "items": {
                                         "type": "object",
-                                        "required": ["values"],
+                                        "oneOf": [
+                                            {
+                                                "required": ["values"]
+                                            },
+                                            {
+                                                "required": ["points"]
+                                            }
+                                        ],
                                         "properties": {
                                             "name": {"type": "string"},
                                             "values": {"type": "array", "minItems": 1, "items": {"type": "number"}},
-                                            "color": {"type": "string"}
+                                            "color": {"type": "string"},
+                                            "points": {
+                                                "type": "array",
+                                                "minItems": 1,
+                                                "items": {
+                                                    "type": "object",
+                                                    "required": ["x", "y"],
+                                                    "properties": {
+                                                        "x": {"type": "number"},
+                                                        "y": {"type": "number"},
+                                                        "size": {"type": "number"}
+                                                    },
+                                                    "additionalProperties": False
+                                                }
+                                            }
                                         },
                                         "additionalProperties": False
                                     }
@@ -126,8 +181,12 @@ SCHEMA: dict[str, Any] = {
                                 "number_format": {"type": "string"},
                                 "fill_opacity": {"type": "integer", "minimum": 0, "maximum": 100},
                                 "marker_size": {"type": "integer", "minimum": 2, "maximum": 72},
-                                "variant": {"type": "string", "enum": ["donut", "pie"]},
+                                "variant": {"type": "string", "enum": ["donut", "pie", "scatter", "bubble"]},
                                 "donut_hole": {"type": "integer", "minimum": 0, "maximum": 90},
+                                "canonical_id": {
+                                    "type": "string",
+                                    "description": "Registered injector canonical ID (required when kind=inject-pattern)",
+                                },
                             },
                             "additionalProperties": True,
                         },
@@ -190,8 +249,9 @@ def _validate_semantics(deck: dict[str, Any]) -> None:
                 f"slide {i}: body composition keys (blocks/layout/variant/content) "
                 f"are only allowed on 'content' slides (template {t!r} is slot-based)"
             )
+        scatter_kinds = ("chart-bar-column", "chart-line-area", "chart-donut-pie")
         for j, block in enumerate(s.get("blocks", [])):
-            if block.get("kind") not in ("chart-bar-column", "chart-line-area", "chart-donut-pie"):
+            if block.get("kind") not in scatter_kinds:
                 continue
             categories = block.get("categories") or []
             series = block.get("series") or []
@@ -210,4 +270,20 @@ def _validate_semantics(deck: dict[str, Any]) -> None:
                     raise ValueError(
                         f"slide {i} block {j} series {k}: {kind_label} values length "
                         f"must match categories length"
+                    )
+        # chart-scatter-bubble semantic check: each series must have points[]
+        for j, block in enumerate(s.get("blocks", [])):
+            if block.get("kind") != "chart-scatter-bubble":
+                continue
+            series = block.get("series") or []
+            kind_label = block.get("kind")
+            if not series:
+                raise ValueError(f"slide {i} block {j}: {kind_label} requires series")
+            for k, series_spec in enumerate(series):
+                spec = series_spec if isinstance(series_spec, dict) else {}
+                points = spec.get("points")
+                if not isinstance(points, list) or not points:
+                    raise ValueError(
+                        f"slide {i} block {j} series {k}: {kind_label} requires "
+                        f"a non-empty points[] array"
                     )

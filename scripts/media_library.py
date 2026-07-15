@@ -51,6 +51,11 @@ QA_REPORT_PATH = QA_DIR / "qa-report.md"
 DUPLICATES_PATH = QA_DIR / "duplicates.json"
 COVERAGE_PATH = QA_DIR / "coverage.md"
 
+# SVG input ingest bridge dir (parallel to _envato_ingest/)
+SVG_INPUT_INGEST_DIR = MEDIA_DIR / "_svg_input_ingest"
+SVG_INPUT_META_PATH = SVG_INPUT_INGEST_DIR / "_svg_input_meta.json"
+SVG_CLASSIFICATION_CSV_PATH = QA_DIR / "input-classification.csv"
+
 # Module-level override for Envato crop index (set by tools.envato_assets before handoff)
 # When set, inventory() injects Envato metadata into _envato_ingest/ entries.
 # This is a list of dicts to avoid module-reload issues with shared references.
@@ -61,6 +66,7 @@ def configure(media_root: Path) -> None:
     global ROOT, MEDIA_DIR, REFERENCE_DIR, LIBRARY_DIR, QA_DIR
     global STAGING_DIR, RAW_ARCHIVE_DIR, MANIFEST_PATH
     global CLASSIFICATION_REVIEW_PATH, QA_REPORT_PATH, DUPLICATES_PATH, COVERAGE_PATH
+    global SVG_INPUT_INGEST_DIR, SVG_INPUT_META_PATH, SVG_CLASSIFICATION_CSV_PATH
     ROOT = media_root
     MEDIA_DIR = media_root
     REFERENCE_DIR = MEDIA_DIR / "reference"
@@ -68,6 +74,9 @@ def configure(media_root: Path) -> None:
     QA_DIR = LIBRARY_DIR / "_qa"
     STAGING_DIR = MEDIA_DIR / "_staging"
     RAW_ARCHIVE_DIR = MEDIA_DIR / "_raw_archive"
+    SVG_INPUT_INGEST_DIR = MEDIA_DIR / "_svg_input_ingest"
+    SVG_INPUT_META_PATH = SVG_INPUT_INGEST_DIR / "_svg_input_meta.json"
+    SVG_CLASSIFICATION_CSV_PATH = QA_DIR / "input-classification.csv"
     MANIFEST_PATH = QA_DIR / "manifest.json"
     CLASSIFICATION_REVIEW_PATH = QA_DIR / "classification-review.md"
     QA_REPORT_PATH = QA_DIR / "qa-report.md"
@@ -130,6 +139,27 @@ CATEGORY_STRUCTURES = {
     "background": "decorative full-slide background, non-structural visual treatment",
     "infographic-element": "standalone infographic element or decorative diagram primitive",
     "uncategorized": "ambiguous structure requiring manual review",
+    # Canonical-category entries (extended for SVG-input migration)
+    "case-study-card": "case-study panels, narrative summary, customer/problem/solution grouping",
+    "chart-bar-column": "bar/column chart with grouped or stacked categories",
+    "chart-donut-pie": "donut or pie chart showing proportional breakdown",
+    "circular-process-loop": "cycle diagram with labelled nodes in a circular flow",
+    "comparison-table": "side-by-side table comparison, pros/cons or feature matrix",
+    "data-table": "tabular data grid with headers, rows, and numeric columns",
+    "decision-tree-flowchart": "decision nodes, branching paths, and flow connectors",
+    "funnel-diagram": "funnel/pipe stages with narrowing conversion path",
+    "gantt-matrix": "task rows, time columns, duration bars, milestone markers",
+    "historical-timeline": "chronological timeline with events and milestones",
+    "infographic": "standalone infographic element or decorative diagram primitive",
+    "infographic-3d-cube": "3D cube infographic with multi-face content panels",
+    "kpi-dashboard-grid": "headline metrics, scorecards, charts, numeric summary panels",
+    "maturity-model-ladder": "ladder/rung progression showing maturity stages",
+    "mind-map-radial": "hub-spoke mind map with branching nodes",
+    "numbered-process-steps": "numbered steps, process stages, circular or linear progression",
+    "phased-rollout-timeline": "phase-based rollout with time ranges and milestones",
+    "quadrant-matrix": "2×2 quadrant grid, SWOT, or decision matrix",
+    "roadmap-with-milestones": "roadmap with milestones, phase spans, and time axis",
+    "tier-pricing-cards": "multi-tier pricing cards with feature comparison",
 }
 CATEGORY_REUSABLE = {
     "background": "no",
@@ -189,6 +219,33 @@ def _inject_envato_meta(entry: dict[str, Any]) -> dict[str, Any]:
     return entry
 
 
+def _inject_svg_input_meta(entry: dict[str, Any]) -> dict[str, Any]:
+    """For files from _svg_input_ingest/, look up the sidecar meta file
+    and inject pre-computed classification and metadata.
+    """
+    if not SVG_INPUT_META_PATH.exists():
+        return entry
+    try:
+        with open(SVG_INPUT_META_PATH, "r", encoding="utf-8") as f:
+            idx = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return entry
+    fname = entry.get("original_name", "")
+    if fname in idx:
+        meta = idx[fname]
+        svg_input_fields = {
+            "category": meta.get("canonical_category"),
+            "confidence": meta.get("confidence", 0.9),
+            "category_source": "svg-input",
+            "source_svg": meta.get("source_svg", ""),
+            "scout_label": meta.get("scout_label", ""),
+            "set_slug": meta.get("set_slug", ""),
+            "hex_hash": meta.get("hex_hash", ""),
+            "variant_of": meta.get("variant_of", ""),
+        }
+        entry.update(svg_input_fields)
+    return entry
+
 def now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
@@ -215,7 +272,13 @@ def iter_raw_files() -> list[Path]:
                 for ingest_file in sorted(entry.iterdir()):
                     if ingest_file.suffix.lower() in SUPPORTED_EXTENSIONS:
                         out.append(ingest_file)
-            continue
+                continue
+            # Descend into _svg_input_ingest/ (bridge from SVG input migration)
+            if entry.name == "_svg_input_ingest" and entry.is_dir():
+                for ingest_file in sorted(entry.iterdir()):
+                    if ingest_file.suffix.lower() in SUPPORTED_EXTENSIONS and not ingest_file.name.startswith("_"):
+                        out.append(ingest_file)
+                continue
         if entry.suffix.lower() in SUPPORTED_EXTENSIONS:
             out.append(entry)
     return out
@@ -291,12 +354,16 @@ def normalize_name_for_match(filename: str) -> str:
 
 def classify_entry(entry: dict[str, Any]) -> dict[str, Any]:
     """Classify a manifest entry into a library category.
-    
+
     Skips re-classification if the entry already carries an explicit
-    Envato-injected classification (category_source == "envato").
+    Envato-injected classification (category_source == "envato")
+    or SVG-input-injected classification (category_source == "svg-input").
     """
     # Preserve Envato-injected classification (from _envato_ingest/ bridge)
     if entry.get("category_source") == "envato":
+        return entry
+    # Preserve SVG-input-injected classification (from _svg_input_ingest/ bridge)
+    if entry.get("category_source") == "svg-input":
         return entry
 
     filename = entry["original_name"]
@@ -502,6 +569,9 @@ def inventory() -> None:
         # Inject Envato metadata for _envato_ingest/ files
         if entry.get("relative_media_path", "").startswith("_envato_ingest/"):
             _inject_envato_meta(entry)
+        # Inject SVG input metadata for _svg_input_ingest/ files
+        if entry.get("relative_media_path", "").startswith("_svg_input_ingest/"):
+            _inject_svg_input_meta(entry)
         by_ext[entry["extension"]] += 1
         entries.append(entry)
     manifest = {
@@ -629,6 +699,20 @@ def finalize() -> None:
     manifest = load_manifest()
     ensure_dir(LIBRARY_DIR)
     counters: dict[str, int] = defaultdict(int)
+    # Seed counters from existing library PNGs so we don't renumber them
+    if LIBRARY_DIR.exists():
+        for cat_dir in LIBRARY_DIR.iterdir():
+            if not cat_dir.is_dir() or cat_dir.name.startswith("_"):
+                continue
+            max_n = 0
+            for png in cat_dir.glob("*.png"):
+                m = re.match(r"^.+-0*(\d+)\.png$", png.name)
+                if m:
+                    n = int(m.group(1))
+                    if n > max_n:
+                        max_n = n
+            if max_n > 0:
+                counters[cat_dir.name] = max_n
     index_lines = [
         "# Media Reference Library",
         "",
@@ -668,7 +752,7 @@ def finalize() -> None:
                 "| `{file}` | {style} | {struct} | {reusable} | {ignore} |".format(
                     file=entry["converted_name"],
                     style=derive_source_style(entry),
-                    struct=CATEGORY_STRUCTURES[category],
+                    struct=CATEGORY_STRUCTURES.get(category, "general media reference"),
                     reusable=derive_reusable(category),
                     ignore=derive_ignore(entry),
                 )
@@ -868,10 +952,116 @@ def restore() -> None:
         moved += 1
     click.echo(f"Restore complete: moved {moved} originals back -> {rel_to_root(MEDIA_DIR)}")
 
+@cli.command()
+def migrate_input() -> None:
+    """Render keep=Y SVGs from input/ into _svg_input_ingest/ PNGs
+    using the versioned classification table and taxonomy map.
+
+    Idempotent: removes any stale PNGs and meta file before rendering.
+
+    Reads:
+      templates/media/reference/library/_qa/input-classification.csv
+      templates/media/reference/library/_qa/input-taxonomy-map.json
+      templates/media/reference/library/_qa/input-variant-groups.json
+    Writes:
+      templates/media/_svg_input_ingest/<canonical_category>--<set_slug>--<variant_id>.png
+      templates/media/_svg_input_ingest/_svg_input_meta.json
+    """
+    import csv
+    svg_input_dir = REFERENCE_DIR / "input"
+    ingest_dir = SVG_INPUT_INGEST_DIR
+    ensure_dir(ingest_dir)
+
+    # ---- Idempotency: clean stale PNGs and meta before render ----
+    for existing in ingest_dir.iterdir():
+        if existing.suffix.lower() == ".png" or existing.name == "_svg_input_meta.json":
+            existing.unlink()
+
+    # Load classification from versioned location (QA_DIR, not .pi/)
+    csv_path = SVG_CLASSIFICATION_CSV_PATH
+    if not csv_path.exists():
+        click.echo("ERROR: classification CSV not found at " + str(csv_path), err=True)
+        raise click.ClickException("input-classification.csv missing; run the generator first")
+
+    rows = []
+    with open(csv_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            rows.append(row)
+
+    click.echo(f"Loaded {len(rows)} classification rows")
+
+    # Load taxonomy map (used for cross-reference but not consumed per-file)
+    map_path = QA_DIR / "input-taxonomy-map.json"
+    if map_path.exists():
+        taxonomy_map = json.loads(map_path.read_text(encoding="utf-8"))
+    else:
+        taxonomy_map = {}
+
+    # Load variant groups for metadata
+    vg_path = QA_DIR / "input-variant-groups.json"
+    variant_groups = {}
+    if vg_path.exists():
+        variant_groups = json.loads(vg_path.read_text(encoding="utf-8"))
+
+    rendered = 0
+    failed = 0
+    skipped = 0
+    meta = {}
+
+    for row in rows:
+        if row["keep"] != "Y":
+            skipped += 1
+            continue
+        fname = row["input_filename"]
+        src = svg_input_dir / fname
+        if not src.exists():
+            click.echo(f"  WARNING: source SVG not found: {fname}", err=True)
+            skipped += 1
+            continue
+        category = row["canonical_category"]
+        set_slug = row["set_slug"]
+        variant_id = row["variant_id"]
+        out_name = f"{category}--{set_slug}--{variant_id}.png"
+        out_path = ingest_dir / out_name
+        # Determine variant_of (members are list[dict] each with a "filename" key)
+        variant_of = ""
+        for gk, vg in variant_groups.items():
+            for m in vg.get("members", []):
+                if isinstance(m, dict) and m.get("filename") == fname:
+                    variant_of = vg.get("variant_of", "")
+                    break
+            if variant_of:
+                break
+        try:
+            width, height = render_svg_to_png(src, out_path)
+            meta[out_name] = {
+                "source_svg": fname,
+                "canonical_category": category,
+                "confidence": float(row.get("confidence", 0.9)),
+                "scout_label": row.get("scout_label", ""),
+                "set_slug": set_slug,
+                "hex_hash": row.get("hex_hash", ""),
+                "variant_of": variant_of,
+            }
+            rendered += 1
+            click.echo(f"  RENDER {out_name} ({width}x{height})")
+        except Exception as exc:
+            failed += 1
+            click.echo(f"  FAIL {out_name}: {exc}", err=True)
+
+    # Write sidecar meta (atomic: delete old, write new)
+    meta_path = ingest_dir / "_svg_input_meta.json"
+    meta_path.write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    click.echo(f"migrate-input complete: {rendered} rendered, {failed} failed, {skipped} skipped")
 
 @cli.command()
+@click.option("--with-svg-input", is_flag=True, help="Include SVG input migration in the pipeline.")
 @click.option("--force-archive", is_flag=True, help="Archive originals after QA even without sign-off.")
-def full(force_archive: bool) -> None:
+def full(with_svg_input: bool, force_archive: bool) -> None:
+    if with_svg_input:
+        migrate_input.callback()  # type: ignore[attr-defined]
     inventory.callback()  # type: ignore[attr-defined]
     classify.callback()  # type: ignore[attr-defined]
     convert.callback()  # type: ignore[attr-defined]

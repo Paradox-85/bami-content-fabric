@@ -97,6 +97,45 @@ def test_block_in_title_bar_raises(tmp_path, tmp_out, tokens_path, template_path
         build_deck(deck_path, tmp_out, template_path, tokens_path)
 
 
+def test_image_without_src_rejected_by_schema(tmp_path):
+    """validate_deck must reject an image block without src (schema-level)."""
+    deck = {
+        "title": "Image no src",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {"template": "content", "fields": {"title": "Slide"},
+             "blocks": [{"kind": "image", "x": 0.6, "y": 2.0, "w": 5.0, "h": 3.0}]},
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'src' is a required property"):
+        validate_deck(deck)
+
+
+def test_image_caption_respects_body_zone(tmp_path, tmp_out, tokens_path, template_path):
+    """Image with caption at the bottom of body zone should be rejected
+    if image height + caption height exceeds body_bottom."""
+    from PIL import Image
+    img_path = tmp_path / "cap-zone-test.png"
+    Image.new("RGB", (100, 80), color=(255, 0, 0)).save(img_path)
+    deck = {
+        "title": "Caption zone",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {"template": "content", "fields": {"title": "Slide"},
+             "blocks": [{
+                 "kind": "image", "x": 0.6, "y": 9.0, "w": 5.0, "h": 1.5,
+                 "src": str(img_path), "caption": "Below image", "fit": "contain"
+             }]},
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    # y=9.0, h=1.5, caption_offset=0.48 => zone_h=1.98 => y+zone_h=10.98 > 10.5
+    # => should be rejected
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(ValueError, match="crosses the footer"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+
 
 def test_chart_bar_column_missing_series_rejected_by_schema():
     deck = {
@@ -246,3 +285,210 @@ def test_chart_donut_pie_values_length_matches_categories(tmp_path, tmp_out, tok
     deck_path = _write_deck(tmp_path, deck)
     with pytest.raises(ValueError, match="values length must match categories length"):
         build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_waterfall_missing_series_rejected_by_schema():
+    deck = {
+        "title": "Waterfall chart missing series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-waterfall",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Start", "Step 1", "Step 2", "End"],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'series' is a required property"):
+        validate_deck(deck)
+
+
+def test_chart_waterfall_values_length_matches_categories(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Waterfall chart bad series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-waterfall",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Start", "Step 1", "Step 2", "End"],
+                    "series": [{"name": "Flow", "values": [100, -20, 30]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(ValueError, match="values length must match categories length"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_waterfall_rejects_multiple_series(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Waterfall chart multiple series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-waterfall",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "categories": ["Start", "Step 1", "Step 2", "End"],
+                    "series": [
+                        {"name": "Flow A", "values": [100, -20, 30, 110]},
+                        {"name": "Flow B", "values": [90, -10, 20, 100]},
+                    ],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(Exception, match="exactly one series|supports exactly one series|too long|maxItems"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_scatter_bubble_missing_series_rejected_by_schema():
+    deck = {
+        "title": "Scatter missing series",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-scatter-bubble",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "variant": "scatter",
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'series' is a required property"):
+        validate_deck(deck)
+
+
+def test_chart_scatter_bubble_points_missing_x_y(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Scatter bad points",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-scatter-bubble",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "variant": "scatter",
+                    "series": [{"name": "Bad", "points": [{"x": 1}]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(Exception, match="'y' is a required property"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_scatter_bubble_rejects_invalid_variant(tmp_path, tmp_out, tokens_path, template_path):
+    deck = {
+        "title": "Scatter bad variant",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-scatter-bubble",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "variant": "invalid",
+                    "series": [{"name": "S", "points": [{"x": 1, "y": 2}]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = _write_deck(tmp_path, deck)
+    with pytest.raises(Exception, match="'invalid' is not one of"):
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+
+
+def test_chart_scatter_bubble_values_without_points_rejected_by_schema():
+    """validate_deck must reject chart-scatter-bubble where series has
+    values[] but no points[] — the runtime requires points[]."""
+    deck = {
+        "title": "Scatter values without points",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Chart"},
+                "blocks": [{
+                    "kind": "chart-scatter-bubble",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                    "variant": "scatter",
+                    "series": [{"name": "S", "values": [1, 2, 3]}],
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'points' is a required property"):
+        validate_deck(deck)
+
+
+
+def test_inject_pattern_without_canonical_id_rejected_by_schema():
+    """validate_deck must reject an inject-pattern block without canonical_id (schema-level)."""
+    deck = {
+        "title": "Inject pattern no canonical_id",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Slide"},
+                "blocks": [{
+                    "kind": "inject-pattern",
+                    "x": 0.6,
+                    "y": 2.0,
+                    "w": 8.0,
+                    "h": 5.0,
+                }],
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    with pytest.raises(Exception, match="'canonical_id' is a required property"):
+        validate_deck(deck)

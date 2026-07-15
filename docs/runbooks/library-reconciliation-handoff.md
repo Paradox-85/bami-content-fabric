@@ -239,3 +239,74 @@ The following C2 tasks were completed in this session:
 5. **The 5 runtime-supported categories are:** gantt-matrix, kpi-dashboard-grid, data-table,
    numbered-process-steps, tier-pricing-cards. All other canonical categories are reference-only
    and cannot be generated programmatically.
+
+---
+
+## C3 workstream — SVG input migration (R3 — Bridge: transitional, Native injectors: first-subset integrated)
+
+### What was done
+
+1. **ADR-0005:** SVG Input Migration — Dual-track (PNG Bridge + Native PPTX Injectors).
+2. **Classification artifacts (versioned):**
+   - `input-taxonomy-map.json` — 95 scout labels → 44 canonical categories
+   - `input-classification.csv` — 375-row per-file classification (357 `keep=Y`, 18 `keep=N`)
+   - `input-variant-groups.json` — 109 variant groups with `selectable_for_random` metadata
+3. **Pipeline extension (`scripts/media_library.py`):**
+   - `migrate-input` command renders `keep=Y` SVGs → `_svg_input_ingest/` PNGs (idempotent)
+   - `iter_raw_files()` descends `_svg_input_ingest/`
+   - `_inject_svg_input_meta()` injects pre-computed classification in `inventory()`
+   - `classify_entry()` short-circuits on `category_source == "svg-input"`
+   - `finalize()` seeds counters from existing library PNGs (no renumbering)
+   - `finalize()` supports canonical category IDs in CATEGORY_STRUCTURES (KeyError fix)
+   - `migrate-input()` correctly propagates `variant_of` from variant-groups dict members
+   - `full --with-svg-input` flag integrates SVG migration into the full pipeline
+4. **Native injector framework (`shared/pptx/pattern_injectors/`):**
+   - 9 registered injectors (kpi-dashboard-grid, quadrant-matrix, funnel-diagram,
+   numbered-process-steps, circular-process-loop, maturity-model-ladder,
+   comparison-table, tier-pricing-cards, case-study-card)
+   - Decorator-based registry with `inject_pattern()` dispatch
+   - First injector family (`kpi-dashboard-grid`) integrated into `shared/pptx/blocks.py`
+   as `inject-pattern` block kind, callable from any deck.json via blocks array
+5. **Taxonomy sync test extended:** `test_svg_input_map_targets_are_canonical()` added
+6. **Regression tests added:** canonical-category full-pipeline exercise for SVG input path
+7. **Non-destructive:** input/ SVGs untouched; `.gitignore` updated for `_svg_input_ingest/`
+
+### New / modified files
+
+| File | Type |
+|------|------|
+| `docs/decisions/0005-svg-input-migration.md` | ADR (new, updated R2/R3) |
+| `templates/media/reference/library/_qa/input-classification.csv` | Classification table (versioned) |
+| `templates/media/reference/library/_qa/input-taxonomy-map.json` | Taxonomy map (new) |
+| `templates/media/reference/library/_qa/input-variant-groups.json` | Variant groups (new) |
+| `templates/media/reference/library/_qa/svg-input-migration-2026-07-15.md` | Audit trail (new) |
+| `docs/runbooks/svg-input-variant-selection.md` | Variant selection design spec (new) |
+| `scripts/media_library.py` | Multiple pipeline extensions + canonical-category support + variant_of fix |
+| `shared/pptx/blocks.py` | `inject-pattern` block kind in BUILDERS dispatch |
+| `shared/pptx/schema.py` | `inject-pattern` in block kind enum |
+| `tests/test_taxonomy_sync.py` | +1 test for SVG input map validation |
+| `tests/test_media_library.py` | + regression test for canonical-category full-pipeline path |
+| `tests/test_pattern_injectors.py` | Registry, contract validation, and dispatch tests |
+| `.gitignore` | + `_svg_input_ingest/` |
+
+### Known gaps
+
+1. **SVG corpus not version-controlled** — The 375 SVGs in `input/` are untracked (`git ls-files`=0).
+   The `migrate-input` bridge requires the SVG files present on disk; it is an **optional local
+   enrichment workflow**, not a reproducible-from-checkout pipeline. The versioned CSV/JSON artifacts
+   document the mapping but cannot reproduce the rendered PNGs without the source SVGs.
+2. **Random variant selection not implemented** — `selectable_for_random` metadata recorded but
+   no client-side selector exists. Documented in `docs/runbooks/svg-input-variant-selection.md`.
+3. **No per-file rendering timeout** — large SVGs (up to 46 MB) may block the pipeline.
+4. **24 canonical categories still uncovered** — no matching SVG assets in the corpus.
+5. **8 more injectors needed** — Only the 9 highest-priority pattern families have native injectors.
+   The remaining 35 categories (including all reference-only) still rely on the PNG bridge.
+6. **`inject-pattern` block kind integrated for kpi-dashboard-grid only** — The schema and
+   BUILDERS dispatch support `inject-pattern`, but only the kpi-dashboard-grid family has been
+   connected end-to-end. Extension to other families requires adding their block kind variants.
+### Known gaps
+
+1. **Random variant selection not implemented** — `selectable_for_random` metadata recorded but
+   no client-side selector exists. Documented in `docs/runbooks/svg-input-variant-selection.md`.
+2. **No per-file rendering timeout** — large SVGs (up to 46 MB) may block the pipeline.
+3. **24 canonical categories still uncovered** — no matching SVG assets in the corpus.

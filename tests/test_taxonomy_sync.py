@@ -73,3 +73,35 @@ def test_config_py_categories_match_yaml():
     extra = config_set - canonical_ids
     assert not missing, f"In YAML but not config.py: {sorted(missing)}"
     assert not extra, f"In config.py but not YAML: {sorted(extra)}"
+
+
+def test_svg_input_map_targets_are_canonical():
+    """Every canonical_category value in input-taxonomy-map.json
+    and input-classification.csv must be a valid canonical ID.
+    """
+    import csv
+    import json
+    canonical_ids = get_canonical_ids()
+    # Check taxonomy map
+    map_path = LIBRARY_DIR / "_qa" / "input-taxonomy-map.json"
+    if not map_path.exists():
+        pytest.skip("input-taxonomy-map.json not found — SVG migration data not generated")
+    mapping = json.loads(map_path.read_text(encoding="utf-8"))
+    for label, entry in mapping.items():
+        cc = entry["canonical_category"]
+        assert cc in canonical_ids, (
+            f"Map entry '{label}' has non-canonical target '{cc}'. "
+            f"Expected one of: {sorted(canonical_ids)}"
+        )
+    # Check classification CSV
+    csv_path = LIBRARY_DIR / "_qa" / "input-classification.csv"
+    if not csv_path.exists():
+        pytest.skip("input-classification.csv not found — SVG migration data not generated")
+    with open(csv_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            cc = row["canonical_category"]
+            assert cc in canonical_ids, (
+                f"CSV row '{row['input_filename']}' has non-canonical target '{cc}'. ",
+                f"Expected one of: {sorted(canonical_ids)}",
+            )

@@ -75,9 +75,7 @@ class TestMultiVariantFamilies:
                 if variant.get("status") == "disabled":
                     continue
                 if not features.get("provenance_id"):
-                    # Only missing if reference_asset_required is true
-                    if features.get("reference_asset_required", False):
-                        missing.append((family, pt_id))
+                    missing.append((family, pt_id))
         assert not missing, f"Variants missing provenance_id: {missing}"
 
     def test_pattern_template_id_format(self, registry):

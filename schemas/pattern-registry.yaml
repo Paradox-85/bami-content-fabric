@@ -61,7 +61,7 @@ entries:
           text_density: low
           min_step_width_in: 1.5
           brand_adaptive: true
-          reference_asset_required: false
+          reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
         graphical_variant_description: >-
           Horizontal folded arrow with numbered circles. Each step is a
@@ -103,7 +103,7 @@ entries:
           text_density: low
           min_step_width_in: 0
           brand_adaptive: true
-          reference_asset_required: false
+          reference_asset_required: true
           provenance_id: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
 
   # --------------------------------------------------------------------------
@@ -141,7 +141,8 @@ entries:
           text_density: low
           min_step_width_in: 2.5
           brand_adaptive: true
-          reference_asset_required: false
+          reference_asset_required: true
+          provenance_id: KPI_Dashboard_Infographic_1296eb
 
   # --------------------------------------------------------------------------
   # Quadrant matrix — legacy entry with placeholder contract

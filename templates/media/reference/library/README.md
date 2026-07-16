@@ -57,7 +57,9 @@ organized by canonical category here. See `categories.yaml` for the full taxonom
 
 ## Machine-readable indexes
 
-- `svg-variant-index.yaml` — variant group index (109 groups, 375 files from `input/`)
+- `svg-variant-index.yaml` — complete variant group index (109 groups, 375 files).
+  Covers all SVGs from `input/` including deprecated-category entries;
+  use `canonical_category` to filter library-classified entries.
 - `pattern-assets.yaml` — pattern/variant ↔ SVG linkage
 - `categories.yaml` — canonical widget taxonomy SSOT
 

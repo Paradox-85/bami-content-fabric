@@ -19,6 +19,14 @@
       "items": {
         "type": "object",
         "required": ["pattern_template_id", "status"],
+        "if": {
+          "properties": {
+            "reference_asset_required": { "const": true }
+          }
+        },
+        "then": {
+          "required": ["provenance_id"]
+        },
         "properties": {
           "pattern_template_id": {
             "type": "string",

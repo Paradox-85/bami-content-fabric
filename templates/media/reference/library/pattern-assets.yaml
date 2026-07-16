@@ -1,72 +1,85 @@
-# ============================================================================
-# pattern-assets.yaml
-# ============================================================================
-# Provenance index linking enabled/planned graphical pattern variants to
-# reference assets under templates/media/reference/library/ and
-# templates/media/reference/input/.
-#
-# Each entry maps a pattern_template_id to one or more reference assets
-# used for visual verification. Entries may also declare that no reference
-# asset is required (reference_asset_required: false).
-#
-# This file is maintained as part of the pattern registry and validated
-# by tests/test_pattern_registry.py.
-# ============================================================================
-
+format_version: 1.0.0
+description: Pattern/variant-to-SVG linkage index. Maps pattern_template_ids to classified
+  SVG provenance in library/. Generated from svg-variant-index.yaml and pattern-registry.yaml.
 assets:
-  # Folded arrow — pilot pattern (planned for Pass 2)
-  - pattern_template_id: numbered-process-steps/folded-arrow-horizontal@1.0.0
-    status: planned
-    reference_asset_required: false
-    notes: >
-      No reference asset yet; geometry is deterministic native PPTX.
-      Add reference PNG under templates/media/reference/library/process/
-      when visual parity is required.
-
-  # KPI dashboard strip
-  - pattern_template_id: kpi-dashboard-grid/default-horizontal@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches kpi_strip layout output.
-
-  # Quadrant matrix
-  - pattern_template_id: quadrant-matrix/default-grid@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches quadrant matrix injector.
-
-  # Funnel diagram
-  - pattern_template_id: funnel-diagram/default-vertical@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches funnel injector.
-
-  # Comparison table
-  - pattern_template_id: comparison-table/default-side-by-side@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches comparison injector.
-
-  # Tier pricing cards
-  - pattern_template_id: tier-pricing-cards/default-horizontal@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches tier pricing injector.
-
-  # Maturity model ladder
-  - pattern_template_id: maturity-model-ladder/default-vertical@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches maturity injector.
-
-  # Case study card
-  - pattern_template_id: case-study-card/default-card@1.0.0
-    status: enabled
-    reference_asset_required: false
-    notes: Legacy pattern; geometry matches case study injector.
-
-  # Circular process loop — planned
-  - pattern_template_id: circular-process-loop/radial-cycle@1.0.0
-    status: planned
-    reference_asset_required: false
-    notes: Planned variant for Pass 3; no reference asset yet.
+- pattern_template_id: numbered-process-steps/folded-arrow-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in numbered-process-steps/ category (6 variant groups,
+    29 files).
+  provenance_id: arrow-process-infographics_f8e31e
+  variant_group_key: arrow-process-infographics_f8e31e
+  source_svg: infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+  library_svg: numbered-process-steps/infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+- pattern_template_id: circular-process-loop/radial-cycle@1.0.0
+  status: planned
+  reference_asset_required: true
+  notes: SVG provenance available in circular-process-loop/ category (2 variant groups,
+    10 files).
+  provenance_id: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
+  variant_group_key: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
+  source_svg: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
+  library_svg: circular-process-loop/infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
+- pattern_template_id: kpi-dashboard-grid/default-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in kpi-dashboard-grid/ category (12 variant groups,
+    21 files).
+  provenance_id: KPI_Dashboard_Infographic_1296eb
+  variant_group_key: KPI_Dashboard_Infographic_1296eb
+  source_svg: infographic_KPI_Dashboard_Infographic_1296eb_KPI_Dashboard_02.svg
+  library_svg: kpi-dashboard-grid/infographic_KPI_Dashboard_Infographic_1296eb_KPI_Dashboard_02.svg
+- pattern_template_id: quadrant-matrix/default-grid@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in quadrant-matrix/ category (7 variant groups,
+    27 files).
+  provenance_id: Matrix_Infographic_Asset_b1c877
+  variant_group_key: Matrix_Infographic_Asset_b1c877
+  source_svg: infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg
+  library_svg: quadrant-matrix/infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg
+- pattern_template_id: funnel-diagram/default-vertical@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in funnel-diagram/ category (4 variant groups, 9
+    files).
+  provenance_id: Funnel_Diagram_Infographic_8c475a
+  variant_group_key: Funnel_Diagram_Infographic_8c475a
+  source_svg: infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg
+  library_svg: funnel-diagram/infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg
+- pattern_template_id: comparison-table/default-side-by-side@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in comparison-table/ category (2 variant groups,
+    7 files).
+  provenance_id: Comparison_Table_Infographic_cb70fc
+  variant_group_key: Comparison_Table_Infographic_cb70fc
+  source_svg: infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_001.svg
+  library_svg: comparison-table/infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_001.svg
+- pattern_template_id: tier-pricing-cards/default-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in tier-pricing-cards/ category (3 variant groups,
+    3 files).
+  provenance_id: Prize_Table_Infographic_Asset_d66c15
+  variant_group_key: Prize_Table_Infographic_Asset_d66c15
+  source_svg: infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg
+  library_svg: tier-pricing-cards/infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg
+- pattern_template_id: maturity-model-ladder/default-vertical@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in maturity-model-ladder/ category (4 variant groups,
+    8 files).
+  provenance_id: Ladder_–_Infographics_Design_093443
+  variant_group_key: Ladder_–_Infographics_Design_093443
+  source_svg: infographic_Ladder_–_Infographics_Design_093443_ladder_CC20_001.svg
+  library_svg: maturity-model-ladder/infographic_Ladder_–_Infographics_Design_093443_ladder_CC20_001.svg
+- pattern_template_id: case-study-card/default-card@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in case-study-card/ category (3 variant groups,
+    7 files).
+  provenance_id: Case_Study_ce7a8d
+  variant_group_key: Case_Study_ce7a8d
+  source_svg: infographic_Case_Study_ce7a8d_Case_Study_005.svg
+  library_svg: case-study-card/infographic_Case_Study_ce7a8d_Case_Study_005.svg

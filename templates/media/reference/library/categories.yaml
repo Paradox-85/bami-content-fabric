@@ -112,9 +112,10 @@ groups:
         description: Dense table with zebra striping, numeric alignment.
         runtime_kind: table
       - id: infographic
-        title: Infographic
-        description: Single chart/visualization (bar, column, donut, pie, line, waterfall, etc.). Sub-types documented in README.
+        title: Infographic (DEPRECATED)
+        description: Legacy bucket — no new placements. Remains for existing PNG assets only.
         runtime_kind: null
+        status: deprecated
 
   # Chart sub-categories (formerly consolidated under infographic)
       - id: chart-bar-column

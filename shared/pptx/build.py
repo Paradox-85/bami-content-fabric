@@ -16,6 +16,7 @@ from shared.pptx.clone import clone_slide, delete_slide_at
 from shared.pptx.schema import load_deck
 from shared.pptx.layouts import expand_layout
 from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
+from shared.pptx.contract_validation import validate_content
 from shared.pptx.tokens import Tokens, load_tokens
 
 
@@ -165,10 +166,6 @@ def _legacy_content_to_steps(content: dict) -> list[dict]:
 class BuildError(Exception):
     """Raised with a stable exit-code hint for the CLI."""
 
-class BuildError(Exception):
-    """Raised with a stable exit-code hint for the CLI."""
-
-
 def build_deck(
     deck_path: str | Path,
     out_path: str | Path,
@@ -242,12 +239,25 @@ def build_deck(
                 if sel.renderer_binding and sel.pattern_template_id:
                     inj = sel.renderer_binding.get("native", {})
                     # Gate: only route families with explicit pattern templates enabled
-                    if sel.pattern_template_id and \
-                       sel.pattern_template_id.startswith("numbered-process-steps/"):
+                    if sel.pattern_template_id.startswith("numbered-process-steps/"):
                         injector_id = inj.get("injector_id")
+                # Validate resolved content against contract_ref
+                # Gate: only fail-fast for the pilot pattern (numbered-process-steps);
+                # warn-only for other registry-backed families and legacy entries
+                is_pilot = bool(
+                    sel.pattern_template_id
+                    and sel.pattern_template_id.startswith("numbered-process-steps/")
+                )
+                content = slide_spec.get("content", {})
+                if sel.contract_ref and is_pilot:
+                    cw = validate_content(content, sel.contract_ref, fail_fast=True)
+                    selection_warnings.extend(cw)
+                else:
+                    # Non-pilot entries with contract_ref or legacy: warn but do not block
+                    cw = validate_content(content, sel.contract_ref, fail_fast=False)
+                    selection_warnings.extend(cw)
                 if layout_name and injector_id:
                     # Transform legacy content into steps for the injector
-                    content = slide_spec.get("content", {})
                     steps_list = _legacy_content_to_steps(content)
                     bz_top, bz_bottom = tokens.body_zone
                     injector_block = {

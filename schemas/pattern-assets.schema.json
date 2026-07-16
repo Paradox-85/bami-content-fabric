@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAMi Pattern Assets Schema",
+  "description": "JSON Schema for templates/media/reference/library/pattern-assets.yaml. Validates the pattern/variant-to-SVG linkage for classified reference assets.",
+  "type": "object",
+  "required": ["format_version", "assets"],
+  "properties": {
+    "format_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "SemVer version of the pattern-assets schema"
+    },
+    "description": {
+      "type": "string"
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": ["pattern_template_id", "status"],
+        "properties": {
+          "pattern_template_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*/[a-z][a-z0-9-]*@\\d+\\.\\d+\\.\\d+$",
+            "description": "Stable key: {family}/{graphical_variant}@{version}"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["enabled", "planned", "deprecated"],
+            "description": "Asset mapping status"
+          },
+          "reference_asset_required": {
+            "type": "boolean",
+            "description": "Whether a reference SVG asset is required for this pattern"
+          },
+          "provenance_id": {
+            "type": "string",
+            "description": "Variant group identifier from svg-variant-index.yaml"
+          },
+          "variant_group_key": {
+            "type": "string",
+            "description": "Key into groups in svg-variant-index.yaml"
+          },
+          "source_svg": {
+            "type": "string",
+            "description": "Relative path to source SVG in templates/media/reference/input/"
+          },
+          "library_svg": {
+            "type": "string",
+            "description": "Relative path to classified SVG in templates/media/reference/library/<category>/"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

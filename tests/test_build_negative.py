@@ -492,3 +492,57 @@ def test_inject_pattern_without_canonical_id_rejected_by_schema():
     }
     with pytest.raises(Exception, match="'canonical_id' is a required property"):
         validate_deck(deck)
+
+
+# ---------------------------------------------------------------------------
+# Contract validation integration tests
+# ---------------------------------------------------------------------------
+
+
+def test_pilot_content_only_contract_violation_fails_build(tmp_path, tmp_out, tokens_path, template_path):
+    """Pilot content-only with invalid content raises BuildError (fail-fast)."""
+    deck_path = _write_deck(tmp_path, {
+        "title": "Pilot contract violation",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Process"},
+                # content-only (no layout, no blocks) --- resolves to folded-arrow pilot,
+                # but 'bogus' violates additionalProperties in the contract
+                "content": {"items": ["A", "B", "C"], "bogus": "value"}
+            },
+            {"template": "closing", "fields": {}}
+        ]
+    })
+    with pytest.raises(Exception) as exc:
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+    msg = str(exc.value).lower()
+    assert "contract" in msg or "additional" in msg or "validation" in msg, f"Unexpected error: {msg}"
+
+
+def test_non_pilot_content_only_with_placeholder_contract_builds_ok(tmp_path, tmp_out, tokens_path, template_path):
+    """Non-pilot registry-backed family with placeholder contract builds OK (warn-only)."""
+    deck_path = _write_deck(tmp_path, {
+        "title": "Non-pilot contract ok",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "KPI Dashboard"},
+                # content-only resolution selects kpi-dashboard-grid (non-pilot,
+                # has contract_ref but is NOT numbered-process-steps)
+                "content": {
+                    "kpis": [
+                        {"label": "Revenue", "value": "$1.2M"}
+                    ]
+                }
+            },
+            {"template": "closing", "fields": {}}
+        ]
+    })
+    result = build_deck(deck_path, tmp_out, template_path, tokens_path)
+    assert result["slides_rendered"] >= 1
+    assert "slides_rendered" in result
+    # Should have selection_warnings (warn-only, not fail-fast)
+    assert "selection_warnings" in result

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAMi SVG Variant Index Schema",
+  "description": "JSON Schema for templates/media/reference/library/svg-variant-index.yaml. Validates the machine-readable index of classified SVGs with variant group metadata.",
+  "type": "object",
+  "required": ["format_version", "groups"],
+  "properties": {
+    "format_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "SemVer version of the index schema"
+    },
+    "description": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "object",
+      "description": "Variant groups keyed by group_id (derived from set_slug_hex_hash)",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["canonical_category", "members"],
+        "properties": {
+          "canonical_category": {
+            "type": "string",
+            "description": "Canonical category ID from categories.yaml"
+          },
+          "style_axis": {
+            "type": "string",
+            "enum": ["color", "format", "none"],
+            "description": "Axis of visual variation within this group"
+          },
+          "selectable_for_random": {
+            "type": "boolean"
+          },
+          "all_rendered": {
+            "type": "boolean"
+          },
+          "rendered_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "members": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["filename"],
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "description": "SVG filename in templates/media/reference/input/"
+                },
+                "rendered": {
+                  "type": "boolean"
+                },
+                "selectable": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "canonical_category": {
+                  "type": "string",
+                  "description": "Per-member override of group canonical_category"
+                },
+                "keep": {
+                  "type": "string",
+                  "enum": ["Y", "N"],
+                  "description": "Whether to keep this file in the library"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

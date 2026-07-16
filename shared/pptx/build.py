@@ -18,6 +18,7 @@ from shared.pptx.layouts import expand_layout
 from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
 from shared.pptx.contract_validation import validate_content
 from shared.pptx.tokens import Tokens, load_tokens
+from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
 
 
 
@@ -163,6 +164,61 @@ def _legacy_content_to_steps(content: dict) -> list[dict]:
     return result
 
 
+def _content_to_injector_params(content: dict, injector_id: str) -> dict:
+    """Transform slide content dict into injector params for the given injector.
+
+    Each injector expects different param keys. This function maps the
+    standard slide content structure to the injector's expected params.
+    """
+    if not content:
+        return {}
+    if injector_id in ("folded-arrow-horizontal", "numbered-process-steps"):
+        return {"steps": _legacy_content_to_steps(content)}
+    if injector_id == "circular-process-loop":
+        return {"nodes": _legacy_content_to_steps(content)}
+    if injector_id == "kpi-dashboard-grid":
+        kpis = content.get("kpis", [])
+        cards = []
+        for kpi in kpis:
+            card = {}
+            if isinstance(kpi, dict):
+                card["number"] = kpi.get("number", "")
+                card["label"] = kpi.get("label", "")
+                if kpi.get("delta"):
+                    card["delta"] = kpi["delta"]
+                if kpi.get("period"):
+                    card["period"] = kpi["period"]
+                if kpi.get("color"):
+                    card["color"] = kpi["color"]
+            else:
+                card["label"] = str(kpi)
+            cards.append(card)
+        return {"cards": cards}
+    if injector_id == "quadrant-matrix":
+        return {"quadrants": content.get("quadrants", content.get("items", []))}
+    if injector_id == "funnel-diagram":
+        return {"segments": content.get("segments", content.get("items", []))}
+    if injector_id == "maturity-model-ladder":
+        return {"rungs": content.get("rungs", content.get("items", []))}
+    if injector_id == "case-study-card":
+        result = {}
+        if content.get("title"):
+            result["title"] = content["title"]
+        if content.get("subtitle"):
+            result["subtitle"] = content["subtitle"]
+        result["sections"] = content.get("sections", content.get("items", []))
+        return result
+    if injector_id in ("comparison-table",):
+        result = {}
+        result["headers"] = content.get("headers", content.get("header", []))
+        result["rows"] = content.get("rows", content.get("items", []))
+        return result
+    if injector_id == "tier-pricing-cards":
+        return {"tiers": content.get("tiers", content.get("items", []))}
+    # Fallback: pass raw content as-is (injector will need to handle it)
+    return dict(content)
+
+
 class BuildError(Exception):
     """Raised with a stable exit-code hint for the CLI."""
 
@@ -234,31 +290,33 @@ def build_deck(
                 slide_spec = {**slide_spec, "variant": combined_variant}
                 selection_warnings = sel.warnings
                 # Registry-backed native injector: materialize inject-pattern block
-                # Pass 2: only enabled for numbered-process-steps pilot family via registry
+                # Pass 3: route any family with renderer_binding.native.injector_id
                 injector_id = None
                 if sel.renderer_binding and sel.pattern_template_id:
                     inj = sel.renderer_binding.get("native", {})
-                    # Gate: only route families with explicit pattern templates enabled
-                    if sel.pattern_template_id.startswith("numbered-process-steps/"):
-                        injector_id = inj.get("injector_id")
+                    # Route if a native injector_id is declared in the registry binding
+                    if inj.get("injector_id"):
+                        injector_id = inj["injector_id"]
                 # Validate resolved content against contract_ref
-                # Gate: only fail-fast for the pilot pattern (numbered-process-steps);
-                # warn-only for other registry-backed families and legacy entries
-                is_pilot = bool(
-                    sel.pattern_template_id
-                    and sel.pattern_template_id.startswith("numbered-process-steps/")
-                )
+                # Pass 3: fail-fast for enabled variants, warn-only for planned/disabled/legacy
                 content = slide_spec.get("content", {})
-                if sel.contract_ref and is_pilot:
-                    cw = validate_content(content, sel.contract_ref, fail_fast=True)
-                    selection_warnings.extend(cw)
-                else:
-                    # Non-pilot entries with contract_ref or legacy: warn but do not block
-                    cw = validate_content(content, sel.contract_ref, fail_fast=False)
-                    selection_warnings.extend(cw)
+                fail_fast = False
+                if sel.contract_ref and sel.pattern_template_id and sel.family:
+                    try:
+                        registry = load_registry()
+                        fam_entry = get_family_entry(registry, sel.family)
+                        if fam_entry is not None:
+                            variant_entry = resolve_variant(fam_entry, sel.graphical_variant)
+                            if variant_entry is not None and variant_entry.get("status") == "enabled":
+                                fail_fast = True
+                    except Exception:
+                        pass  # registry unavailable; fall back to warn-only
+                cw = validate_content(content, sel.contract_ref, fail_fast=fail_fast)
+                selection_warnings.extend(cw)
                 if layout_name and injector_id:
                     # Transform legacy content into steps for the injector
-                    steps_list = _legacy_content_to_steps(content)
+                    # Transform content into injector-specific params
+                    injector_params = _content_to_injector_params(content, injector_id)
                     bz_top, bz_bottom = tokens.body_zone
                     injector_block = {
                         "kind": "inject-pattern",
@@ -267,7 +325,7 @@ def build_deck(
                         "y": bz_top,
                         "w": round(tokens.content_width, 3),
                         "h": round(bz_bottom - bz_top, 3),
-                        "steps": steps_list,
+                        **injector_params,
                         "pattern_template_id": sel.pattern_template_id,
                         "pattern_version": sel.family_version,
                         "graphical_variant": sel.graphical_variant,

@@ -522,7 +522,7 @@ def test_pilot_content_only_contract_violation_fails_build(tmp_path, tmp_out, to
 
 
 def test_non_pilot_content_only_with_placeholder_contract_builds_ok(tmp_path, tmp_out, tokens_path, template_path):
-    """Non-pilot registry-backed family with placeholder contract builds OK (warn-only)."""
+    """Enabled registry-backed family builds with valid contract content (no error)."""
     deck_path = _write_deck(tmp_path, {
         "title": "Non-pilot contract ok",
         "slides": [
@@ -530,11 +530,11 @@ def test_non_pilot_content_only_with_placeholder_contract_builds_ok(tmp_path, tm
             {
                 "template": "content",
                 "fields": {"title": "KPI Dashboard"},
-                # content-only resolution selects kpi-dashboard-grid (non-pilot,
-                # has contract_ref but is NOT numbered-process-steps)
+                # content-only resolution selects kpi-dashboard-grid (enabled,
+                # has contract_ref and is no longer gated as "non-pilot")
                 "content": {
                     "kpis": [
-                        {"label": "Revenue", "value": "$1.2M"}
+                        {"number": "1", "label": "Revenue", "delta": "+12%"}
                     ]
                 }
             },

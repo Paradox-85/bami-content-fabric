@@ -577,7 +577,7 @@ manifest:
         auto_status: false
         palette: [primary, positive, warning, negative]
       fallback_chain: [comparison-table, competitive-matrix]
-      disallowed_when: []
+      disallowed_when: [no-quadrants-key, quadrants-exact-four]
       rank: 80
 
     - family: funnel-diagram

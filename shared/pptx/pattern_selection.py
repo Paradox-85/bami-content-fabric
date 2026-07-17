@@ -46,6 +46,7 @@ class SelectionResult:
         contract_ref: path to JSON Schema contract, or None.
         selection_version: SemVer of the selection algorithm used.
         pattern_template_id: Stable key "{family}/{graphical_variant}@{version}", or None.
+        narrative_intent_original: Original narrative_intent passed to resolve_pattern, or None.
     """
 
     family: str
@@ -65,6 +66,7 @@ class SelectionResult:
     contract_ref: str | None = None
     selection_version: str | None = None
     pattern_template_id: str | None = None
+    narrative_intent_original: str | list[str] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -83,6 +85,7 @@ class SelectionResult:
             "contract_ref": self.contract_ref,
             "selection_version": self.selection_version,
             "pattern_template_id": self.pattern_template_id,
+            "narrative_intent_original": self.narrative_intent_original,
         }
 
 
@@ -236,6 +239,13 @@ def _check_disallowed(content: dict, disallowed_rules: list[str]) -> str | None:
         elif rule == "no-panels-key":
             if "panels" not in content:
                 return rule
+        elif rule == "no-quadrants-key":
+            if "quadrants" not in content:
+                return rule
+        elif rule == "quadrants-exact-four":
+            quadrants = content.get("quadrants")
+            if not isinstance(quadrants, list) or len(quadrants) != 4:
+                return rule
         elif rule == "no-vendors-header":
             if "vendors" not in content and "header" not in content:
                 return rule
@@ -339,7 +349,7 @@ def resolve_pattern(
         for entry in manifest.get("entries", []):
             aliases = _expand_aliases(entry)
             if hint_category in aliases:
-                return _build_result(entry, [], [], content, tokens, graphical_variant=graphical_variant)
+                return _build_result(entry, [], [], content, tokens, graphical_variant=graphical_variant, narrative_intent_original=narrative_intent)
 
     manifest = load_manifest()
     entries = manifest.get("entries", [])
@@ -408,6 +418,7 @@ def resolve_pattern(
                         entry, [], rejected, content, tokens,
                         warnings=["matched via narrative_intent only"],
                         graphical_variant=graphical_variant,
+                        narrative_intent_original=narrative_intent,
                     )
 
         # Terminal: bullets only if content has 'items'
@@ -420,6 +431,7 @@ def resolve_pattern(
                             "structural match failed; "
                             "fell back to terminal 'bullets'"
                         ],
+                        narrative_intent_original=narrative_intent,
                     )
 
         raise PatternSelectionError(
@@ -460,6 +472,7 @@ def resolve_pattern(
                 tokens,
                 warnings=[overflow_warning],
                 graphical_variant=graphical_variant,
+                narrative_intent_original=narrative_intent,
             )
 
     # Check capacity bounds: over max or under min
@@ -493,6 +506,7 @@ def resolve_pattern(
                         f"{best_entry.get('family')}; fallback to {fb_family}"
                     ],
                     graphical_variant=graphical_variant,
+                    narrative_intent_original=narrative_intent,
                 )
 
         # Last resort: forced fallback (structural check only, ignore capacity)
@@ -512,6 +526,7 @@ def resolve_pattern(
                     f"capacity exceeded; forced fallback to {fb_family}"
                 ],
                 graphical_variant=graphical_variant,
+                narrative_intent_original=narrative_intent,
             )
 
         # If fallback chain exhausted, return best match anyway with warning
@@ -528,6 +543,7 @@ def resolve_pattern(
             tokens,
             warnings=[f"{issue_msg}; no fallback found in {fallback_chain}"],
             graphical_variant=graphical_variant,
+            narrative_intent_original=narrative_intent,
         )
 
     # Return best match within capacity
@@ -539,6 +555,7 @@ def resolve_pattern(
         tokens,
         warnings=[],
         graphical_variant=graphical_variant,
+        narrative_intent_original=narrative_intent,
     )
 
 
@@ -583,6 +600,7 @@ def _build_result(
     warnings: list[str] | None = None,
     *,
     graphical_variant: str | None = None,
+    narrative_intent_original: str | list[str] | None = None,
 ) -> SelectionResult:
     """Build a ``SelectionResult`` from a manifest entry.
 
@@ -712,4 +730,5 @@ def _build_result(
         contract_ref=contract_ref,
         selection_version=selection_version,
         pattern_template_id=pattern_template_id,
+        narrative_intent_original=narrative_intent_original,
     )

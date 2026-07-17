@@ -654,13 +654,13 @@ def test_explicit_variant_not_found_falls_back_to_first_enabled(tmp_path, tmp_ou
     deck_path = _write_deck(tmp_path, deck)
     result = build_deck(deck_path, tmp_out, template_path, tokens_path)
     assert result["slides_rendered"] == 3
-    # Should have produced a selection warning about the fallback
+    # Must produce a selection warning about the fallback
     warnings = result.get("selection_warnings", [])
     has_fallback_warning = any(
         "fallback" in w.lower() or "variant" in w.lower()
         for w in warnings
     )
-    if not has_fallback_warning:
-        # Also allow: no warning but successful fallback (the current behavior)
-        pass
-
+    assert has_fallback_warning, (
+        f"Expected a fallback/variant warning when requesting nonexistent-variant, "
+        f"got warnings: {warnings}"
+    )

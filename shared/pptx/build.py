@@ -283,7 +283,7 @@ def build_deck(
                 str(deck_path.parent),
             ) + blocks
         # Fallback: if content is present but layout and blocks are absent, resolve deterministically
-        selection_warnings = []
+        slide_warnings: list[str] = []
         if tname == "content" and not layout_name and not slide_spec.get("blocks") and slide_spec.get("content"):
             try:
                 sel = resolve_pattern(
@@ -294,7 +294,7 @@ def build_deck(
                 layout_name = sel.layout
                 combined_variant = {**(slide_spec.get("variant") or {}), **sel.variant}
                 slide_spec = {**slide_spec, "variant": combined_variant}
-                selection_warnings = sel.warnings
+                slide_warnings = sel.warnings
                 # Registry-backed native injector: materialize inject-pattern block
                 # Pass 3: route any family with renderer_binding.native.injector_id
                 injector_id = None
@@ -318,7 +318,7 @@ def build_deck(
                     except Exception:
                         pass  # registry unavailable; fall back to warn-only
                 cw = validate_content(content, sel.contract_ref, fail_fast=fail_fast)
-                selection_warnings.extend(cw)
+                slide_warnings.extend(cw)
                 if layout_name and injector_id:
                     # Transform content into injector-specific params
                     injector_params = _content_to_injector_params(content, injector_id)
@@ -345,7 +345,7 @@ def build_deck(
                                 sel.features, content, n_items=n_steps, fail_fast=True,
                             )
                             if gate_verdict.level in ("warn",):
-                                selection_warnings.append(
+                                slide_warnings.append(
                                     f"Complexity warning for {sel.pattern_template_id}: "
                                     f"{gate_verdict.message}"
                                 )
@@ -381,6 +381,7 @@ def build_deck(
                 raise BuildError(str(e)) from e
         if tname == "content":
             blocks = _center_sole_block(blocks, tokens)
+        selection_warnings.extend(slide_warnings)
         for block in blocks:
             if block.get("kind") == "image" and not block.get("engagement_dir"):
                 block = {**block, "engagement_dir": str(deck_path.parent)}

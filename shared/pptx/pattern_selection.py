@@ -622,6 +622,7 @@ def _build_result(
         contract_ref = contracts
     # If the entry lacks explicit variant metadata, or an explicit graphical_variant
     # was requested from the caller, try the versioned registry
+    all_warnings: list[str] = list(warnings or [])
     needs_registry = (
         resolved_gv is not None
         or renderer_binding is None
@@ -649,6 +650,13 @@ def _build_result(
                         resolved_gv = gv_from_resolve
                     elif resolved_gv != gv_from_resolve:
                         # Caller-requested variant not found; use the resolved default
+                        # and emit a warning so silent-loss is eliminated
+                        if warnings is None:
+                            warnings = []
+                        all_warnings.append(
+                            f"Requested graphical_variant '{resolved_gv}' not found; "
+                            f"fell back to '{gv_from_resolve}'"
+                        )
                         resolved_gv = gv_from_resolve
                     features = variant_entry.get("features", features)
                     renderer_binding = variant_entry.get("renderer_binding", renderer_binding)
@@ -659,7 +667,6 @@ def _build_result(
     if family_version and resolved_gv and family:
         pattern_template_id = f"{family}/{resolved_gv}@{family_version}"
 
-    all_warnings: list[str] = list(warnings or [])
     all_warnings.extend(
         _check_spatial_fit(
             SelectionResult(

@@ -48,8 +48,10 @@ def report() -> dict:
 class TestPatternValidation:
     def test_pattern_validation_ok(self, report):
         """The pattern validation tool should pass with exit code 0."""
-        if not report["exit_code"] == 0:
-            pytest.skip("Pattern validation requires library SVGs to exist on disk")
+        assert report["exit_code"] == 0, (
+            f"Pattern validation exited with code {report['exit_code']}, expected 0. "
+            "Run `python -m tools.pptx_validate.patterns` to see violations."
+        )
 
 
 class TestPatternValidationDirect:

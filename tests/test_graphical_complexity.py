@@ -174,11 +174,6 @@ class TestMultiVariantComplexity:
         verdict = evaluate_complexity(features, n_items=6)
         assert verdict.level == "reject"
         assert "exceeds" in verdict.message
-        """Simple-arrow (20 shapes) should reject 6-step content (6*3+5=23 shapes)."""
-        features = {"shape_budget": 20, "connector_budget": 6, "text_density": "low"}
-        verdict = evaluate_complexity(features, n_items=6)
-        assert verdict.level == "reject"
-        assert "exceeds" in verdict.message
 
     def test_block_arrow_accepts_6_steps(self):
         """Block-arrow (28 shapes) should accept 6-step (6*3+5=23 shapes)."""

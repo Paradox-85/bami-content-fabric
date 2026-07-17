@@ -289,6 +289,7 @@ def build_deck(
                 sel = resolve_pattern(
                     slide_spec["content"], tokens,
                     narrative_intent=slide_spec.get("variant", {}).get("narrative_intent"),
+                    graphical_variant=slide_spec.get("graphical_variant"),
                 )
                 layout_name = sel.layout
                 combined_variant = {**(slide_spec.get("variant") or {}), **sel.variant}
@@ -335,6 +336,25 @@ def build_deck(
                         "graphical_variant": sel.graphical_variant,
                         "features": sel.features or {},
                     }
+                    # Pass 3: evaluate graphical complexity gate before rendering
+                    try:
+                        from shared.pptx.graphical_complexity import complexity_gate
+                        n_steps = len(injector_params.get("steps", injector_params.get("nodes", [])))
+                        if n_steps > 0 and sel.features:
+                            gate_verdict = complexity_gate(
+                                sel.features, content, n_items=n_steps, fail_fast=True,
+                            )
+                            if gate_verdict.level in ("warn",):
+                                selection_warnings.append(
+                                    f"Complexity warning for {sel.pattern_template_id}: "
+                                    f"{gate_verdict.message}"
+                                )
+                    except ImportError:
+                        pass  # graphical_complexity module not available
+                    except ValueError as e:
+                        raise BuildError(
+                            f"Complexity gate rejected {sel.pattern_template_id}: {e}"
+                        ) from e
                     blocks = [injector_block] + blocks
                 elif layout_name:
                     blocks = expand_layout(

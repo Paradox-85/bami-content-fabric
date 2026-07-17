@@ -292,6 +292,7 @@ def resolve_pattern(
     *,
     hint_category: str | None = None,
     narrative_intent: str | list[str] | None = None,
+    graphical_variant: str | None = None,
 ) -> SelectionResult:
     """Deterministic pattern selection from content signals.
 
@@ -320,7 +321,9 @@ def resolve_pattern(
         tokens: ``Tokens`` object for brand and canvas info.
         hint_category: Explicit category hint for alias resolution.
         narrative_intent: Explicit intent signal.
-
+        graphical_variant: Explicit graphical variant ID to select.
+            If None, the default (first enabled) variant is used.
+    
     Returns:
         ``SelectionResult``.
 
@@ -336,7 +339,7 @@ def resolve_pattern(
         for entry in manifest.get("entries", []):
             aliases = _expand_aliases(entry)
             if hint_category in aliases:
-                return _build_result(entry, [], [], content, tokens)
+                return _build_result(entry, [], [], content, tokens, graphical_variant=graphical_variant)
 
     manifest = load_manifest()
     entries = manifest.get("entries", [])
@@ -404,6 +407,7 @@ def resolve_pattern(
                     return _build_result(
                         entry, [], rejected, content, tokens,
                         warnings=["matched via narrative_intent only"],
+                        graphical_variant=graphical_variant,
                     )
 
         # Terminal: bullets only if content has 'items'
@@ -455,6 +459,7 @@ def resolve_pattern(
                 content,
                 tokens,
                 warnings=[overflow_warning],
+                graphical_variant=graphical_variant,
             )
 
     # Check capacity bounds: over max or under min
@@ -487,6 +492,7 @@ def resolve_pattern(
                         f"capacity exceeded for "
                         f"{best_entry.get('family')}; fallback to {fb_family}"
                     ],
+                    graphical_variant=graphical_variant,
                 )
 
         # Last resort: forced fallback (structural check only, ignore capacity)
@@ -505,6 +511,7 @@ def resolve_pattern(
                 warnings=[
                     f"capacity exceeded; forced fallback to {fb_family}"
                 ],
+                graphical_variant=graphical_variant,
             )
 
         # If fallback chain exhausted, return best match anyway with warning
@@ -520,6 +527,7 @@ def resolve_pattern(
             content,
             tokens,
             warnings=[f"{issue_msg}; no fallback found in {fallback_chain}"],
+            graphical_variant=graphical_variant,
         )
 
     # Return best match within capacity
@@ -530,6 +538,7 @@ def resolve_pattern(
         content,
         tokens,
         warnings=[],
+        graphical_variant=graphical_variant,
     )
 
 
@@ -572,6 +581,8 @@ def _build_result(
     content: dict[str, Any] | None,
     tokens: Any,
     warnings: list[str] | None = None,
+    *,
+    graphical_variant: str | None = None,
 ) -> SelectionResult:
     """Build a ``SelectionResult`` from a manifest entry.
 
@@ -598,8 +609,9 @@ def _build_result(
     family_version: str | None = entry.get("version")
     selection_version: str | None = entry.get("selection_version") or "1.0.0"
 
-    # If there is a graphical_variant on the entry-level, use it
-    graphical_variant: str | None = entry.get("graphical_variant")
+    # Use caller-requested graphical_variant if provided, otherwise entry-level
+    entry_gv = entry.get("graphical_variant")
+    resolved_gv: str | None = graphical_variant if graphical_variant is not None else entry_gv
     features: dict[str, Any] | None = entry.get("features")
     renderer_binding: dict[str, Any] | None = entry.get("renderer_binding")
     contract_ref: str | None = None
@@ -608,35 +620,44 @@ def _build_result(
         contract_ref = contracts[0]
     elif isinstance(contracts, str):
         contract_ref = contracts
-
-    # If the entry lacks explicit variant metadata, try the versioned registry
-    if graphical_variant is None and renderer_binding is None and family_version is None:
+    # If the entry lacks explicit variant metadata, or an explicit graphical_variant
+    # was requested from the caller, try the versioned registry
+    needs_registry = (
+        resolved_gv is not None
+        or renderer_binding is None
+        or family_version is None
+    )
+    if needs_registry:
         try:
             from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
             registry = load_registry()
             fam_entry = get_family_entry(registry, family)
             if fam_entry is not None:
-                # Use entry-level version from registry if not on manifest entry
+                # Use family-level version from registry if not on manifest entry
                 if family_version is None:
                     family_version = fam_entry.get("version")
-                # Use entry-level contracts from registry if not on manifest entry
+                # Use family-level contracts from registry if not on manifest entry
                 if contract_ref is None:
                     reg_contracts = fam_entry.get("contracts", [])
                     if reg_contracts:
                         contract_ref = reg_contracts[0]
-                # Resolve the default enabled graphical variant
-                variant_entry = resolve_variant(fam_entry, graphical_variant)
+                # Resolve the requested or default enabled graphical variant
+                variant_entry = resolve_variant(fam_entry, resolved_gv)
                 if variant_entry is not None:
-                    if graphical_variant is None:
-                        graphical_variant = variant_entry.get("graphical_variant")
+                    gv_from_resolve = variant_entry.get("graphical_variant")
+                    if resolved_gv is None:
+                        resolved_gv = gv_from_resolve
+                    elif resolved_gv != gv_from_resolve:
+                        # Caller-requested variant not found; use the resolved default
+                        resolved_gv = gv_from_resolve
                     features = variant_entry.get("features", features)
                     renderer_binding = variant_entry.get("renderer_binding", renderer_binding)
         except Exception:
             pass  # registry unavailable, leave versioned fields as None
 
     pattern_template_id: str | None = None
-    if family_version and graphical_variant and family:
-        pattern_template_id = f"{family}/{graphical_variant}@{family_version}"
+    if family_version and resolved_gv and family:
+        pattern_template_id = f"{family}/{resolved_gv}@{family_version}"
 
     all_warnings: list[str] = list(warnings or [])
     all_warnings.extend(
@@ -661,7 +682,7 @@ def _build_result(
         fallback_chain_used=fallback_chain_used,
         rejected=rejected,
         family_version=family_version,
-        graphical_variant=graphical_variant,
+        graphical_variant=resolved_gv,
         features=features,
         renderer_binding=renderer_binding,
         contract_ref=contract_ref,

@@ -117,7 +117,7 @@ def inject_simple_arrow_horizontal(
                 inches(max(0.06, conn_w)), inches(conn_h),
             )
             _set_shape_name(connector, f"connector:{idx + 1:02d}")
-            style_shape_solid_fill(connector, tokens, "neutral_light")
+            style_shape_solid_fill(connector, tokens, "neutral")
             no_line(connector)
             created.append(connector)
 

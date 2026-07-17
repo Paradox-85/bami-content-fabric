@@ -544,5 +544,28 @@ def test_non_pilot_content_only_with_placeholder_contract_builds_ok(tmp_path, tm
     result = build_deck(deck_path, tmp_out, template_path, tokens_path)
     assert result["slides_rendered"] >= 1
     assert "slides_rendered" in result
-    # Should have selection_warnings (warn-only, not fail-fast)
+    # selection_warnings present (content is valid, no fail-fast triggered)
     assert "selection_warnings" in result
+
+
+def test_non_pilot_kpi_invalid_content_fails_fast(tmp_path, tmp_out, tokens_path, template_path):
+    """Non-pilot enabled family (kpi-dashboard-grid) with invalid content
+    raises ContractValidationError (fail-fast, not warn-only)."""
+    deck_path = _write_deck(tmp_path, {
+        "title": "KPI contract violation",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Dashboard"},
+                # content-only resolution selects kpi-dashboard-grid (enabled,
+                # has contract_ref), but 'bogus' violates additionalProperties
+                "content": {"kpis": [{"number": "1", "label": "Revenue"}], "bogus": "value"}
+            },
+            {"template": "closing", "fields": {}}
+        ]
+    })
+    with pytest.raises(Exception) as exc:
+        build_deck(deck_path, tmp_out, template_path, tokens_path)
+    msg = str(exc.value).lower()
+    assert "contract" in msg or "additional" in msg or "validation" in msg, f"Unexpected error: {msg}"

@@ -23,30 +23,6 @@ LIBRARY_DIR = ROOT / "templates" / "media" / "reference" / "library"
 REGISTRY_PATH = ROOT / "schemas" / "pattern-registry.yaml"
 OUTPUT = LIBRARY_DIR / "pattern-assets.yaml"
 
-# Mapping from canonical_category to pattern_template_id prefix (family)
-# This maps library categories to the pattern-registry families they support
-CATEGORY_TO_FAMILY = {
-    "numbered-process-steps": "numbered-process-steps",
-    "kpi-dashboard-grid": "kpi-dashboard-grid",
-    "quadrant-matrix": "quadrant-matrix",
-    "funnel-diagram": "funnel-diagram",
-    "comparison-table": "comparison-table",
-    "tier-pricing-cards": "tier-pricing-cards",
-    "maturity-model-ladder": "maturity-model-ladder",
-    "case-study-card": "case-study-card",
-    "circular-process-loop": "circular-process-loop",
-    "gantt-matrix": "gantt-matrix",
-    "historical-timeline": "historical-timeline",
-    "roadmap-with-milestones": "roadmap-with-milestones",
-    "phased-rollout-timeline": "phased-rollout-timeline",
-    "decision-tree-flowchart": "decision-tree-flowchart",
-    "mind-map-radial": "mind-map-radial",
-    "chart-bar-column": "chart-bar-column",
-    "chart-donut-pie": "chart-donut-pie",
-    "chart-line-area": "chart-line-area",
-    "data-table": "data-table",
-    "infographic-3d-cube": "infographic-3d-cube",
-}
 
 
 def main():

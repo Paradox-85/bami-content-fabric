@@ -18,7 +18,7 @@
       "minItems": 0,
       "items": {
         "type": "object",
-        "required": ["pattern_template_id", "status"],
+        "required": ["pattern_template_id", "status", "library_svg"],
         "if": {
           "properties": {
             "reference_asset_required": { "const": true }
@@ -52,11 +52,13 @@
           },
           "source_svg": {
             "type": "string",
-            "description": "Relative path to source SVG in templates/media/reference/input/"
+            "pattern": "^\\S+$",
+            "description": "Filename of source SVG in templates/media/reference/input/ (filename only, no path)"
           },
           "library_svg": {
             "type": "string",
-            "description": "Relative path to classified SVG in templates/media/reference/library/<category>/"
+            "pattern": "^[a-z][a-z0-9-]*/\\S+$",
+            "description": "Relative path '{category}/{filename}' to classified SVG in templates/media/reference/library/<category>/"
           },
           "notes": {
             "type": "string"

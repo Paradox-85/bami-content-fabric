@@ -11,6 +11,24 @@ assets:
   variant_group_key: arrow-process-infographics_f8e31e
   source_svg: infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
   library_svg: numbered-process-steps/infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+- pattern_template_id: numbered-process-steps/block-arrow-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in numbered-process-steps/ category (6 variant groups,
+    29 files).
+  provenance_id: arrow-process-infographics_f8e31e
+  variant_group_key: arrow-process-infographics_f8e31e
+  source_svg: infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+  library_svg: numbered-process-steps/infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+- pattern_template_id: numbered-process-steps/simple-arrow-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in numbered-process-steps/ category (6 variant groups,
+    29 files).
+  provenance_id: arrow-process-infographics_f8e31e
+  variant_group_key: arrow-process-infographics_f8e31e
+  source_svg: infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
+  library_svg: numbered-process-steps/infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg
 - pattern_template_id: circular-process-loop/radial-cycle@1.0.0
   status: planned
   reference_asset_required: true

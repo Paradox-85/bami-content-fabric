@@ -21,6 +21,8 @@ from shared.pptx.pattern_injectors import (
     funnel,
     steps,
     folded_arrow,
+    block_arrow,
+    simple_arrow,
     maturity_ladder,
     comparison,
     case_study,

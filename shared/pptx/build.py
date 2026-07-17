@@ -172,10 +172,15 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
     """
     if not content:
         return {}
-    if injector_id in ("folded-arrow-horizontal", "numbered-process-steps"):
+    if injector_id in ("folded-arrow-horizontal", "block-arrow-horizontal", "simple-arrow-horizontal", "numbered-process-steps"):
         return {"steps": _legacy_content_to_steps(content)}
     if injector_id == "circular-process-loop":
-        return {"nodes": _legacy_content_to_steps(content)}
+        # Map title→label: injector reads 'label', contract provides 'title'
+        nodes = _legacy_content_to_steps(content)
+        for node in nodes:
+            if "title" in node and "label" not in node:
+                node["label"] = node.pop("title")
+        return {"nodes": nodes}
     if injector_id == "kpi-dashboard-grid":
         kpis = content.get("kpis", [])
         cards = []
@@ -314,7 +319,6 @@ def build_deck(
                 cw = validate_content(content, sel.contract_ref, fail_fast=fail_fast)
                 selection_warnings.extend(cw)
                 if layout_name and injector_id:
-                    # Transform legacy content into steps for the injector
                     # Transform content into injector-specific params
                     injector_params = _content_to_injector_params(content, injector_id)
                     bz_top, bz_bottom = tokens.body_zone

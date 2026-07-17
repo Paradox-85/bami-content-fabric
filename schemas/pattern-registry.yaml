@@ -68,6 +68,57 @@ entries:
           filled circle with a white numeral; adjacent circles joined by a
           thin chevron/arrow. No body text. Designed for 3–6 items.
 
+      - graphical_variant: block-arrow-horizontal
+        version: 1.0.0
+        status: enabled  # added in Pass 3 multi-variant slice
+        pattern_template_id: numbered-process-steps/block-arrow-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: block-arrow-horizontal
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 28
+          connector_budget: 6
+          text_density: low
+          min_step_width_in: 1.5
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: arrow-process-infographics_f8e31e
+        graphical_variant_description: >-
+          Horizontal block arrows with numbered rounded rectangles. Each step is a
+          filled rounded-rectangle block with a white numeral; adjacent blocks joined
+          by a block arrow. No body text. Designed for 3–6 items.
+
+      - graphical_variant: simple-arrow-horizontal
+        version: 1.0.0
+        status: enabled  # added in Pass 3 multi-variant slice
+        pattern_template_id: numbered-process-steps/simple-arrow-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: simple-arrow-horizontal
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 20
+          connector_budget: 6
+          text_density: low
+          min_step_width_in: 1.0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: arrow-process-infographics_f8e31e
+        graphical_variant_description: >-
+          Minimalist horizontal process with small filled circles and thin straight
+          connectors. Each step has a white numeral in a smaller circle. Designed for
+          3–6 items with lower visual weight.
   # --------------------------------------------------------------------------
   # Circular process loop — planned variant scaffold
   # --------------------------------------------------------------------------

@@ -398,3 +398,66 @@ def test_before_after_split_layout_none():
     assert result.family == "before-after-split"
     assert result.layout is None
     assert result.block_kind == "darkcard"
+
+
+# ---------------------------------------------------------------------------
+# Explicit graphical_variant: enabled vs disabled/planned
+# ---------------------------------------------------------------------------
+
+
+def test_explicit_variant_enabled_resolves_without_warning():
+    """Requesting an enabled variant returns it without warnings."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        graphical_variant="folded-arrow-horizontal",
+    )
+    assert result.family == "numbered-process-steps"
+    assert result.graphical_variant == "folded-arrow-horizontal"
+    assert result.pattern_template_id is not None
+    # No fallback/status warnings for enabled variant
+    variant_warnings = [
+        w for w in result.warnings
+        if "fallback" in w.lower() or "variant" in w.lower() or "status" in w.lower()
+    ]
+    assert len(variant_warnings) == 0, f"Expected no variant warnings, got: {variant_warnings}"
+
+
+def test_explicit_variant_planned_emits_fallback_warning():
+    """Requesting a planned variant emits a status warning."""
+    content = {"items": ["A", "B", "C"]}
+    # Use a hint_category to force circular-process-loop family
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        hint_category="circular-process-loop",
+        graphical_variant="radial-cycle",
+    )
+    assert result.family == "circular-process-loop"
+    # The planned variant should trigger a status warning
+    has_status_warning = any(
+        "status" in w.lower() or "planned" in w.lower() or "disabled" in w.lower()
+        for w in result.warnings
+    )
+    assert has_status_warning, (
+        f"Expected a status/planned/disabled warning for planned variant 'radial-cycle', "
+        f"got warnings: {result.warnings}"
+    )
+    # resolved_gv should fall back if enabled fallback exists
+    # (circular-process-loop has no enabled variants, so falls through)
+
+
+def test_explicit_variant_nonexistent_emits_fallback_warning():
+    """Requesting a non-existent variant emits a fallback warning."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        graphical_variant="completely-fake-variant",
+    )
+    assert result.family == "numbered-process-steps"
+    has_fallback_warning = any(
+        "fallback" in w.lower() or "variant" in w.lower()
+        for w in result.warnings
+    )
+    assert has_fallback_warning, (
+        f"Expected a fallback warning for nonexistent variant, got warnings: {result.warnings}"
+    )

@@ -648,6 +648,23 @@ def _build_result(
                     gv_from_resolve = variant_entry.get("graphical_variant")
                     if resolved_gv is None:
                         resolved_gv = gv_from_resolve
+                    elif variant_entry.get("status") != "enabled":
+                        # Variant found but not enabled (planned/disabled); fall back
+                        # to first enabled variant with a warning
+                        from shared.pptx.pattern_registry import get_enabled_variants
+                        enabled_list = get_enabled_variants(fam_entry)
+                        fallback_gv = enabled_list[0].get("graphical_variant") if enabled_list else None
+                        if fallback_gv:
+                            all_warnings.append(
+                                f"Requested graphical_variant '{resolved_gv}' has status "
+                                f"'{variant_entry.get('status')}'; fell back to '{fallback_gv}'"
+                            )
+                            resolved_gv = fallback_gv
+                        else:
+                            all_warnings.append(
+                                f"Requested graphical_variant '{resolved_gv}' has status "
+                                f"'{variant_entry.get('status')}' and no enabled fallback"
+                            )
                     elif resolved_gv != gv_from_resolve:
                         # Caller-requested variant not found; use the resolved default
                         # and emit a warning so silent-loss is eliminated

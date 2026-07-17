@@ -57,3 +57,29 @@ def test_validate_missing_file_exit_nonzero(runner):
     """A non-existent file should produce a non-zero exit code."""
     result = runner.invoke(validate_main, ["/nonexistent/path.pptx", "--tokens", str(Path.cwd() / "templates" / "design_tokens.yaml")])
     assert result.exit_code != 0, "Expected non-zero for missing file"
+
+
+def test_validate_patterns_exit_0(runner):
+    """--patterns flag runs pattern validation and exits 0."""
+    result = runner.invoke(validate_main, ["--patterns"])
+    assert result.exit_code == 0, f"Expected 0 for --patterns, got {result.exit_code}: {result.output}"
+
+
+def test_validate_patterns_has_info_messages(runner):
+    """--patterns flag produces expected INFO messages about orphan categories."""
+    result = runner.invoke(validate_main, ["--patterns"])
+    assert result.exit_code == 0
+    assert "INFO:" in result.output, "Expected INFO messages about orphan SVG categories"
+
+
+def test_validate_patterns_output_exit_0_with_orphans(runner):
+    """Pattern validation passes (exit 0) despite informational orphan warnings."""
+    result = runner.invoke(validate_main, ["--patterns"])
+    assert "OK: All pattern validation checks passed." in result.output
+    assert result.exit_code == 0
+
+
+def test_validate_no_args_shows_error(runner):
+    """Calling validate without args or --patterns shows error."""
+    result = runner.invoke(validate_main, [])
+    assert result.exit_code != 0

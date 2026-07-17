@@ -348,15 +348,38 @@ def _is_cover_like(slide, tokens) -> bool | None:
 
 
 @click.command()
-@click.argument("pptx_path", type=click.Path(exists=True, dir_okay=False))
+@click.argument("pptx_path", required=False, default=None, type=click.Path(exists=True, dir_okay=False))
 @click.option("--brand", default="bami", type=click.Choice(["bami", "kvi"]),
               help="Brand template set (default: bami). Sets --tokens default.")
 @click.option("--tokens", "tokens_path", default=None, type=click.Path(exists=True, dir_okay=False),
               help="Override design_tokens.yaml (default: brand dir).")
 @click.option("--chrome", "chrome_mode", type=click.Choice(["full", "partial"]), default=None,
               help="Override chrome mode (default: read bami:chrome=* from deck core-properties).")
-def main(pptx_path, brand, tokens_path, chrome_mode):
-    """Validate a generated .pptx against the branded design system."""
+@click.option("--patterns", is_flag=True, default=False,
+              help="Run pattern library validation (SVGs, registry, assets) instead of PPTX validation.")
+def main(pptx_path, brand, tokens_path, chrome_mode, patterns):
+    """Validate a generated .pptx or the pattern library.
+
+    When PPTX_PATH is given, validates the deck against the branded design
+    system. Use --patterns to validate pattern-assets.yaml, SVG file integrity,
+    registry consistency, and provenance references.
+    """
+    if patterns:
+        from tools.pptx_validate.patterns import run_all
+        rep, orphan_rep = run_all()
+        if orphan_rep.violations:
+            for v in orphan_rep.violations:
+                click.echo(f"INFO: {v}")
+        if rep.ok:
+            click.echo("OK: All pattern validation checks passed.")
+            sys.exit(0)
+        click.echo(f"FAIL: {len(rep.violations)} violation(s):", err=True)
+        for v in rep.violations:
+            click.echo(f"  - {v}", err=True)
+        sys.exit(1)
+    if pptx_path is None:
+        click.echo("Error: PPTX_PATH is required (or use --patterns for pattern validation)", err=True)
+        sys.exit(1)
     if tokens_path is None:
         tokens_path = BRAND_DIRS[brand]["tokens"]
     rep = validate(pptx_path, tokens_path, chrome_mode=chrome_mode)

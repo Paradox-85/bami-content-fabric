@@ -174,7 +174,7 @@ entries:
           requires_mermaid: false
           supports_body_text: false
           max_items: 6
-          shape_budget: 20
+          shape_budget: 24
           connector_budget: 6
           text_density: low
           min_step_width_in: 0
@@ -247,7 +247,7 @@ entries:
           requires_mermaid: false
           supports_body_text: false
           max_items: 4
-          shape_budget: 8
+          shape_budget: 12
           connector_budget: 0
           text_density: medium
           min_step_width_in: 0
@@ -272,7 +272,7 @@ entries:
           requires_mermaid: false
           supports_body_text: true
           max_items: 4
-          shape_budget: 10
+          shape_budget: 18
           connector_budget: 0
           text_density: high
           min_step_width_in: 0

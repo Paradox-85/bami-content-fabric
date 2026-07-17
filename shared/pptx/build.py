@@ -137,10 +137,11 @@ def _legacy_content_to_steps(content: dict) -> list[dict]:
       - {"items": ["A", "B"], "bodies": ["desc1", "desc2"]}
       - {"steps": [{"title": "A", "body": "..."}, ...]}
       - {"items": [{"title": "A", "body": "..."}, ...]}
+      - {"stages": [{"title": "A"}, ...]}  (circular-process-loop alias)
 
     Returns a list of dicts with keys: number, title, body (optional).
     """
-    steps_raw = content.get("steps") or content.get("items") or []
+    steps_raw = content.get("steps") or content.get("items") or content.get("stages") or []
     bodies_raw = content.get("bodies") or []
     result = []
     for idx, item in enumerate(steps_raw):
@@ -203,13 +204,6 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
         return {"quadrants": content.get("quadrants", content.get("items", []))}
     if injector_id == "quadrant-swot":
         return {"quadrants": content.get("quadrants", content.get("items", []))}
-    if injector_id == "circular-process-loop":
-        # Map title -> label: injector reads 'label', contract provides 'title'
-        nodes = _legacy_content_to_steps(content)
-        for node in nodes:
-            if "title" in node and "label" not in node:
-                node["label"] = node.pop("title")
-        return {"nodes": nodes}
     if injector_id == "circle-steps":
         # Map title -> label for circle-steps injector
         nodes = _legacy_content_to_steps(content)

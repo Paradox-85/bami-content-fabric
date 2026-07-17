@@ -8,6 +8,7 @@ variant.
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 from pptx.enum.shapes import MSO_SHAPE
@@ -58,38 +59,38 @@ def inject_circle_steps(
     # Draw connector lines between nodes
     for idx in range(n):
         next_idx = (idx + 1) % n
-        angle_1 = (2 * 3.14159 * idx / n) - 3.14159 / 2
-        angle_2 = (2 * 3.14159 * next_idx / n) - 3.14159 / 2
+        angle_1 = (2 * math.pi * idx / n) - math.pi / 2
+        angle_2 = (2 * math.pi * next_idx / n) - math.pi / 2
 
-        x1 = center_x + radius * __import__("math").cos(angle_1)
-        y1 = center_y + radius * __import__("math").sin(angle_1)
-        x2 = center_x + radius * __import__("math").cos(angle_2)
-        y2 = center_y + radius * __import__("math").sin(angle_2)
+        x1 = center_x + radius * math.cos(angle_1)
+        y1 = center_y + radius * math.sin(angle_1)
+        x2 = center_x + radius * math.cos(angle_2)
+        y2 = center_y + radius * math.sin(angle_2)
 
         # Draw a thin connector line
         mid_x = (x1 + x2) / 2
         mid_y = (y1 + y2) / 2
         dx = x2 - x1
         dy = y2 - y1
-        length = __import__("math").sqrt(dx * dx + dy * dy)
+        length = math.sqrt(dx * dx + dy * dy)
         if length > 0:
-            angle = __import__("math").atan2(dy, dx)
+            angle = math.atan2(dy, dx)
             # Thin rectangle as connector
             conn = slide.shapes.add_shape(
                 MSO_SHAPE.RECTANGLE,
                 inches(mid_x - length / 2), inches(mid_y - 0.015),
                 inches(length), inches(0.03),
             )
-            conn.rotation = angle * 180.0 / 3.14159
+            conn.rotation = angle * 180.0 / math.pi
             style_shape_solid_fill(conn, tokens, "neutral")
             no_line(conn)
             created.append(conn)
 
     # Draw numbered nodes
     for idx, node in enumerate(nodes):
-        angle = (2 * 3.14159 * idx / n) - 3.14159 / 2
-        nx = center_x + radius * __import__("math").cos(angle) - node_r
-        ny = center_y + radius * __import__("math").sin(angle) - node_r
+        angle = (2 * math.pi * idx / n) - math.pi / 2
+        nx = center_x + radius * math.cos(angle) - node_r
+        ny = center_y + radius * math.sin(angle) - node_r
         color = node.get("color", colors[idx % len(colors)])
         number = node.get("number", str(idx + 1))
 

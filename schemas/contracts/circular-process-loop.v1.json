@@ -1,12 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Circular Process Loop v1",
-  "description": "Placeholder contract for circular-process-loop native injector.",
+  "description": "Input contract for circular-process-loop family. Accepts 'stages' for manifest matching (count_path) or 'nodes' directly. Internal converter maps entries to injector's 'nodes' param.",
   "type": "object",
-  "required": ["nodes"],
+  "required": [],
+  "anyOf": [
+    {"required": ["stages"]},
+    {"required": ["nodes"]}
+  ],
   "properties": {
+    "stages": {
+      "type": "array",
+      "description": "Stage items for manifest matching. Each stage has a title and optional body.",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "body": {"type": "string"}
+        }
+      }
+    },
     "nodes": {
       "type": "array",
+      "description": "Explicit nodes (alternative to 'stages'). Each node has a title and optional body.",
       "minItems": 3,
       "items": {
         "type": "object",

@@ -192,7 +192,36 @@ class TestMultiVariantFamilies:
             f"supports (max ~{max_from_budget})"
         )
 
+    def test_circle_steps_max_items_aligned_with_budget(self, registry):
+        """Circle-steps max_items must not exceed what shape_budget supports.
 
+        The circle-steps injector creates exactly 4 shapes per node
+        (connector + circle + number + label). With shape_budget=24,
+        max supported items is 24//4 = 6.
+        """
+        entry = next(
+            (e for e in registry.get("entries", [])
+             if e.get("family") == "circular-process-loop"),
+            None
+        )
+        assert entry is not None
+        circle_steps = next(
+            (v for v in entry.get("graphical_variants", [])
+             if v.get("graphical_variant") == "circle-steps"),
+            None
+        )
+        assert circle_steps is not None, "circle-steps variant not found"
+        feat = circle_steps.get("features", {})
+        max_items = feat.get("max_items", 999)
+        shape_budget = feat.get("shape_budget", 0)
+        # For circle-steps, each item consumes exactly 4 shapes
+        # (1 connector line + 1 circle + 1 number textbox + 1 label textbox).
+        # Budget must allow max_items: max_from_budget = budget // 4
+        max_from_budget = shape_budget // 4
+        assert max_items <= max_from_budget, (
+            f"circle-steps max_items={max_items} exceeds what shape_budget={shape_budget} "
+            f"supports (max ~{max_from_budget})"
+        )
 class TestMultiVariantSelection:
     def test_resolve_specific_variant(self, registry):
         """Resolving by specific graphical_variant returns that variant."""

@@ -196,3 +196,35 @@ def test_block_arrow_5_items(tmp_path, tmp_out, tokens_path, template_path):
 
     rep = validate(tmp_out, tokens_path)
     assert rep.ok, f"Validation violations: {rep.violations}"
+
+
+# ---------------------------------------------------------------------------
+# KVI brand variant tests
+# ---------------------------------------------------------------------------
+
+
+def test_block_arrow_kvi_builds_ok(tmp_path, tmp_out, kvi_template_path, kvi_tokens_path):
+    """KVI-branded deck with block-arrow-horizontal resolves and builds."""
+    from shared.pptx.build import build_deck
+    deck = {
+        "title": "KVI Block Arrow Test",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "KVI Process"},
+                "graphical_variant": "block-arrow-horizontal",
+                "content": {
+                    "items": ["Step A", "Step B", "Step C"],
+                },
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = tmp_path / "_kvi_block_arrow_test.json"
+    deck_path.write_text(json.dumps(deck, indent=2), encoding="utf-8")
+    result = build_deck(deck_path, tmp_out, kvi_template_path, kvi_tokens_path)
+    assert result["slides_rendered"] == 3
+    assert tmp_out.exists()
+    rep = validate(tmp_out, kvi_tokens_path)
+    assert rep.ok, f"KVI validation violations: {rep.violations}"

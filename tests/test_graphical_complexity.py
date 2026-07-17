@@ -153,10 +153,30 @@ class TestMultiVariantComplexity:
         verdict = evaluate_complexity(features, content, n_items=5)
         assert verdict.level == "accept", verdict.message
 
-    def test_simple_arrow_rejects_overflow(self):
-        """Simple-arrow (20 shapes) should reject 7-step content (7*3+6=27 shapes)."""
+    def test_simple_arrow_accepts_5_steps(self):
+        """Simple-arrow (20 shapes) should accept 5-step content (5*3+4=19 shapes)."""
         features = {"shape_budget": 20, "connector_budget": 6, "text_density": "low"}
-        verdict = evaluate_complexity(features, n_items=7)
+        content = {
+            "steps": [
+                {"title": "Plan"},
+                {"title": "Build"},
+                {"title": "Test"},
+                {"title": "Deploy"},
+                {"title": "Monitor"},
+            ]
+        }
+        verdict = evaluate_complexity(features, content, n_items=5)
+        assert verdict.level == "accept", verdict.message
+
+    def test_simple_arrow_rejects_overflow(self):
+        """Simple-arrow (20 shapes) should reject 6-step content (6*3+5=23 shapes)."""
+        features = {"shape_budget": 20, "connector_budget": 6, "text_density": "low"}
+        verdict = evaluate_complexity(features, n_items=6)
+        assert verdict.level == "reject"
+        assert "exceeds" in verdict.message
+        """Simple-arrow (20 shapes) should reject 6-step content (6*3+5=23 shapes)."""
+        features = {"shape_budget": 20, "connector_budget": 6, "text_density": "low"}
+        verdict = evaluate_complexity(features, n_items=6)
         assert verdict.level == "reject"
         assert "exceeds" in verdict.message
 

@@ -159,6 +159,36 @@ class TestMultiVariantFamilies:
                 f"Family '{entry['family']}' variants have identical shape budgets: {budgets}"
             )
 
+    def test_simple_arrow_max_items_aligned_with_budget(self, registry):
+        """Simple-arrow max_items must not exceed what shape_budget supports.
+
+        shape_budget=20 supports at most 5 items (5*3+4=19). 6 items (6*3+5=23) would
+        be rejected by the complexity gate, so variant-level max_items must be <= 5.
+        """
+        entry = next(
+            (e for e in registry.get("entries", [])
+             if e.get("family") == "numbered-process-steps"),
+            None
+        )
+        assert entry is not None
+        simple_arrow = next(
+            (v for v in entry.get("graphical_variants", [])
+             if v.get("graphical_variant") == "simple-arrow-horizontal"),
+            None
+        )
+        assert simple_arrow is not None, "simple-arrow-horizontal variant not found"
+        feat = simple_arrow.get("features", {})
+        max_items = feat.get("max_items", 999)
+        shape_budget = feat.get("shape_budget", 0)
+        # For shape_budget=20, each item consumes ~4 shapes (3 + 1 connector),
+        # but the last item only has 3 shapes (no connector after). So: max = (budget + 1) // 4
+        # For shape_budget=20: (20+1)//4 = 5 -> 5 items: 5*3+4=19 <=20
+        max_from_budget = (shape_budget + 1) // 4
+        assert max_items <= max_from_budget, (
+            f"simple-arrow max_items={max_items} exceeds what shape_budget={shape_budget} "
+            f"supports (max ~{max_from_budget})"
+        )
+
 
 class TestMultiVariantSelection:
     def test_resolve_specific_variant(self, registry):

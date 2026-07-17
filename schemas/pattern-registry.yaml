@@ -107,7 +107,7 @@ entries:
           native_editable: true
           requires_mermaid: false
           supports_body_text: false
-          max_items: 6
+          max_items: 5
           shape_budget: 20
           connector_budget: 6
           text_density: low
@@ -118,7 +118,7 @@ entries:
         graphical_variant_description: >-
           Minimalist horizontal process with small filled circles and thin straight
           connectors. Each step has a white numeral in a smaller circle. Designed for
-          3–6 items with lower visual weight.
+          3–5 items with lower visual weight.
   # --------------------------------------------------------------------------
   # Circular process loop — planned variant scaffold
   # --------------------------------------------------------------------------

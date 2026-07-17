@@ -182,3 +182,35 @@ def test_simple_arrow_shape_naming_convention(tmp_path, tmp_out, tokens_path, te
 
     rep = validate(tmp_out, tokens_path)
     assert rep.ok, f"Validation violations: {rep.violations}"
+
+
+# ---------------------------------------------------------------------------
+# KVI brand variant tests
+# ---------------------------------------------------------------------------
+
+
+def test_simple_arrow_kvi_builds_ok(tmp_path, tmp_out, kvi_template_path, kvi_tokens_path):
+    """KVI-branded deck with simple-arrow-horizontal resolves and builds."""
+    from shared.pptx.build import build_deck
+    deck = {
+        "title": "KVI Simple Arrow Test",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "KVI Steps"},
+                "graphical_variant": "simple-arrow-horizontal",
+                "content": {
+                    "items": ["Step A", "Step B", "Step C"],
+                },
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = tmp_path / "_kvi_simple_arrow_test.json"
+    deck_path.write_text(json.dumps(deck, indent=2), encoding="utf-8")
+    result = build_deck(deck_path, tmp_out, kvi_template_path, kvi_tokens_path)
+    assert result["slides_rendered"] == 3
+    assert tmp_out.exists()
+    rep = validate(tmp_out, kvi_tokens_path)
+    assert rep.ok, f"KVI validation violations: {rep.violations}"

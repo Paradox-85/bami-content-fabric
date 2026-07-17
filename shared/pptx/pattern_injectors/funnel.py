@@ -105,3 +105,80 @@ def inject_funnel_diagram(
             created.append(vbox)
 
     return created
+
+
+@register("funnel-conversion")
+def inject_funnel_conversion(
+    slide: Any,
+    tokens: Any,
+    x: float = 0.0,
+    y: float = 0.0,
+    w: float = 9.0,
+    h: float = 5.0,
+    **params: Any,
+) -> list:
+    """Inject a horizontal conversion pipeline with stage bars.
+
+    Parameters via **params**:
+        stages (list[dict]): Each has:
+            - label (str): Stage name
+            - value (str, optional): Numeric value
+            - pct (float): Bar width as fraction of total width (0-1)
+            - color (str, optional): Token override
+        colors (list[str], optional): Token cycling palette
+    """
+    stages: list[dict] = params.get("stages", [])
+    if not stages:
+        raise ValueError("funnel-conversion: 'stages' parameter is required")
+
+    created: list = []
+    n = len(stages)
+    default_colors = ["primary", "positive", "warning", "primary_dark", "primary_mid"]
+    colors = params.get("colors", default_colors)
+
+    bar_h = min(0.6, (h - 0.4) / max(1, n))
+    gap = 0.12
+    start_y = y + (h - (bar_h * n + gap * (n - 1))) / 2
+
+    for idx, stage in enumerate(stages):
+        pct = float(stage.get("pct", max(0.2, 1.0 - idx * 0.1)))
+        color = stage.get("color", colors[idx % len(colors)])
+        stage_w = w * pct
+        stage_x = x
+        stage_y = start_y + idx * (bar_h + gap)
+
+        # Bar background
+        bar = slide.shapes.add_shape(
+            MSO_SHAPE.ROUNDED_RECTANGLE,
+            inches(stage_x), inches(stage_y),
+            inches(stage_w), inches(bar_h),
+        )
+        style_shape_solid_fill(bar, tokens, color)
+        no_line(bar)
+        bar.adjustments[0] = 0.15
+        created.append(bar)
+
+        # Label
+        label_text = stage.get("label", "")
+        if label_text:
+            lbox = slide.shapes.add_textbox(
+                inches(stage_x + 0.15), inches(stage_y + 0.05),
+                inches(stage_w - 0.3), inches(bar_h * 0.5),
+            )
+            style_text_frame(lbox.text_frame, tokens, pt=11, color="white", bold=True, align="LEFT")
+            lbox.text_frame.word_wrap = True
+            lbox.text_frame.paragraphs[0].runs[0].text = label_text
+            created.append(lbox)
+
+        # Value
+        value_text = stage.get("value", "")
+        if value_text:
+            vbox = slide.shapes.add_textbox(
+                inches(stage_x + 0.15), inches(stage_y + bar_h * 0.45),
+                inches(stage_w - 0.3), inches(bar_h * 0.4),
+            )
+            style_text_frame(vbox.text_frame, tokens, pt=10, color="white", bold=False, align="LEFT")
+            vbox.text_frame.paragraphs[0].runs[0].text = value_text
+            created.append(vbox)
+
+    return created

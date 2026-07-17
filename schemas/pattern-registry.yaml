@@ -258,6 +258,59 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Funnel_Diagram_Infographic_8c475a
+        graphical_variant_description: >-
+          Classic vertical funnel with stacked trapezoidal segments.
+          Each segment narrows toward the bottom. Designed for 3-8 stages.
+
+      - graphical_variant: conversion-pipeline
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: funnel-diagram/conversion-pipeline@1.0.0
+        renderer_binding:
+          native:
+            injector_id: funnel-conversion
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 7
+          shape_budget: 20
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: conversion-path-infographics_5f45bf
+        graphical_variant_description: >-
+          Horizontal conversion pipeline with labelled stages and
+          flow arrows between them. Designed for 3-7 conversion stages.
+
+      - graphical_variant: sales-growth
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: funnel-diagram/sales-growth@1.0.0
+        renderer_binding:
+          native:
+            injector_id: funnel-diagram
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: true
+          max_items: 6
+          shape_budget: 18
+          connector_budget: 0
+          text_density: medium
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: sales-growth-infographic_9fe6f5
+        graphical_variant_description: >-
+          Sales growth funnel with labeled segments and optional body
+          text on each stage. Designed for 2-6 growth stages.
 
   # --------------------------------------------------------------------------
   # Comparison table — legacy entry with placeholder contract

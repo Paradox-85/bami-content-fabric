@@ -65,6 +65,24 @@ assets:
   variant_group_key: Funnel_Diagram_Infographic_8c475a
   source_svg: infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg
   library_svg: funnel-diagram/infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg
+- pattern_template_id: funnel-diagram/conversion-pipeline@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in funnel-diagram/ category (4 variant groups, 9
+    files).
+  provenance_id: conversion-path-infographics_5f45bf
+  variant_group_key: conversion-path-infographics_5f45bf
+  source_svg: infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg
+  library_svg: funnel-diagram/infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg
+- pattern_template_id: funnel-diagram/sales-growth@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in funnel-diagram/ category (4 variant groups, 9
+    files).
+  provenance_id: sales-growth-infographic_9fe6f5
+  variant_group_key: sales-growth-infographic_9fe6f5
+  source_svg: infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg
+  library_svg: funnel-diagram/infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg
 - pattern_template_id: comparison-table/default-side-by-side@1.0.0
   status: enabled
   reference_asset_required: true

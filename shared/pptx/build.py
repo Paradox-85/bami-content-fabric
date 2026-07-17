@@ -203,6 +203,15 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
         return {"quadrants": content.get("quadrants", content.get("items", []))}
     if injector_id == "funnel-diagram":
         return {"segments": content.get("segments", content.get("items", []))}
+    if injector_id == "funnel-conversion":
+        # Map items/stages to conversion pipeline stages
+        stages = content.get("stages", content.get("items", []))
+        if isinstance(stages, list):
+            stages = [
+                s if isinstance(s, dict) else {"label": str(s)}
+                for s in stages
+            ]
+        return {"stages": stages}
     if injector_id == "maturity-model-ladder":
         return {"rungs": content.get("rungs", content.get("items", []))}
     if injector_id == "case-study-card":

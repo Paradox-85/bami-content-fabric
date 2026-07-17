@@ -461,3 +461,52 @@ def test_explicit_variant_nonexistent_emits_fallback_warning():
     assert has_fallback_warning, (
         f"Expected a fallback warning for nonexistent variant, got warnings: {result.warnings}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Multi-variant: funnel-diagram family (proves non-arrow multi-variant)
+# ---------------------------------------------------------------------------
+
+
+def test_funnel_default_vertical_resolves_ok():
+    """Request default-vertical variant on funnel-diagram."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        hint_category="funnel-diagram",
+    )
+    assert result.family == "funnel-diagram"
+    assert result.graphical_variant == "default-vertical"
+    assert result.pattern_template_id == "funnel-diagram/default-vertical@1.0.0"
+
+
+def test_funnel_conversion_pipeline_variant_resolves_ok():
+    """Request conversion-pipeline variant on funnel-diagram."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        hint_category="funnel-diagram",
+        graphical_variant="conversion-pipeline",
+    )
+    assert result.family == "funnel-diagram"
+    assert result.graphical_variant == "conversion-pipeline"
+    assert result.pattern_template_id == "funnel-diagram/conversion-pipeline@1.0.0"
+    assert result.renderer_binding is not None
+    native = result.renderer_binding.get("native", {})
+    assert native.get("injector_id") == "funnel-conversion"
+
+
+def test_funnel_sales_growth_variant_resolves_ok():
+    """Request sales-growth variant on funnel-diagram."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        hint_category="funnel-diagram",
+        graphical_variant="sales-growth",
+    )
+    assert result.family == "funnel-diagram"
+    assert result.graphical_variant == "sales-growth"
+    assert result.pattern_template_id == "funnel-diagram/sales-growth@1.0.0"
+    assert result.renderer_binding is not None
+    native = result.renderer_binding.get("native", {})
+    assert native.get("injector_id") == "funnel-diagram"  # reuses existing injector

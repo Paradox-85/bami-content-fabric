@@ -35,13 +35,7 @@ def kvi_template_path(root) -> Path:
 def kvi_tokens_path(root) -> Path:
     return root / "templates" / "kvi" / "design_tokens.yaml"
 
-@pytest.fixture(scope="session")
-def sample_deck(root) -> Path:
-    return root / "clients" / "_sample" / "deck.json"
 
-@pytest.fixture(scope="session")
-def sample_deck(root) -> Path:
-    return root / "clients" / "_sample" / "deck.json"
 
 
 @pytest.fixture()

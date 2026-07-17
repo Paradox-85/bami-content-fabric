@@ -156,6 +156,34 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
+        graphical_variant_description: >-
+          Radial cycle with circular nodes arranged around a center point.
+          Each node is a filled circle connected by thin arcs. Designed for
+          3-6 items.
+      - graphical_variant: circle-steps
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: circular-process-loop/circle-steps@1.0.0
+        renderer_binding:
+          native:
+            injector_id: circle-steps
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 20
+          connector_budget: 6
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: circle-step-infographic_a05527
+        graphical_variant_description: >-
+          Numbered circle-step diagram with connector lines between nodes.
+          Each step has a numbered circle and a label. Designed for 3-6 items.
 
   # --------------------------------------------------------------------------
   # KPI dashboard grid — legacy entry with placeholder contract
@@ -226,7 +254,35 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Matrix_Infographic_Asset_b1c877
-
+        graphical_variant_description: >-
+          Standard 2x2 quadrant matrix with four equally-sized cells,
+          accent top bars, axis labels, and body text. Designed for 3-4
+          items.
+      - graphical_variant: swot-grid
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: quadrant-matrix/swot-grid@1.0.0
+        renderer_binding:
+          native:
+            injector_id: quadrant-swot
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: true
+          max_items: 4
+          shape_budget: 10
+          connector_budget: 0
+          text_density: high
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: swot-infographic_9b81b0
+        graphical_variant_description: >-
+          SWOT quadrant matrix with color-coded headers (green=Strengths,
+          red=Weaknesses, blue=Opportunities, amber=Threats), labelled
+          bars, and body text area. Designed for strategic analysis.
   # --------------------------------------------------------------------------
   # Funnel diagram — legacy entry with placeholder contract
   # --------------------------------------------------------------------------

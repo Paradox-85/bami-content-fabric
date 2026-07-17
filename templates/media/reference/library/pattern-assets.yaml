@@ -38,6 +38,15 @@ assets:
   variant_group_key: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
   source_svg: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
   library_svg: circular-process-loop/infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
+- pattern_template_id: circular-process-loop/circle-steps@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in circular-process-loop/ category (2 variant groups,
+    10 files).
+  provenance_id: circle-step-infographic_a05527
+  variant_group_key: circle-step-infographic_a05527
+  source_svg: infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg
+  library_svg: circular-process-loop/infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg
 - pattern_template_id: kpi-dashboard-grid/default-horizontal@1.0.0
   status: enabled
   reference_asset_required: true
@@ -56,6 +65,15 @@ assets:
   variant_group_key: Matrix_Infographic_Asset_b1c877
   source_svg: infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg
   library_svg: quadrant-matrix/infographic_Matrix_Infographic_Asset_b1c877_Matrix_Inf.svg
+- pattern_template_id: quadrant-matrix/swot-grid@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: SVG provenance available in quadrant-matrix/ category (7 variant groups,
+    27 files).
+  provenance_id: swot-infographic_9b81b0
+  variant_group_key: swot-infographic_9b81b0
+  source_svg: infographic_swot-infographic_9b81b0_Swot_INf.svg
+  library_svg: quadrant-matrix/infographic_swot-infographic_9b81b0_Swot_INf.svg
 - pattern_template_id: funnel-diagram/default-vertical@1.0.0
   status: enabled
   reference_asset_required: true

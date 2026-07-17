@@ -201,6 +201,22 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
         return {"cards": cards}
     if injector_id == "quadrant-matrix":
         return {"quadrants": content.get("quadrants", content.get("items", []))}
+    if injector_id == "quadrant-swot":
+        return {"quadrants": content.get("quadrants", content.get("items", []))}
+    if injector_id == "circular-process-loop":
+        # Map title -> label: injector reads 'label', contract provides 'title'
+        nodes = _legacy_content_to_steps(content)
+        for node in nodes:
+            if "title" in node and "label" not in node:
+                node["label"] = node.pop("title")
+        return {"nodes": nodes}
+    if injector_id == "circle-steps":
+        # Map title -> label for circle-steps injector
+        nodes = _legacy_content_to_steps(content)
+        for node in nodes:
+            if "title" in node and "label" not in node:
+                node["label"] = node.pop("title")
+        return {"nodes": nodes}
     if injector_id == "funnel-diagram":
         return {"segments": content.get("segments", content.get("items", []))}
     if injector_id == "funnel-conversion":

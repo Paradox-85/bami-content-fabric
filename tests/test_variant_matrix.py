@@ -22,8 +22,11 @@ INDEX_PATH = ROOT / "templates" / "media" / "reference" / "library" / "svg-varia
 # Families that should have >= this many graphical variants
 MULTI_VARIANT_FAMILIES = {
     "numbered-process-steps": 3,  # folded-arrow-horizontal, block-arrow-horizontal, simple-arrow-horizontal
-    "circular-process-loop": 1,
+    "circular-process-loop": 2,  # radial-cycle, circle-steps
+    "quadrant-matrix": 2,  # default-grid, swot-grid
 }
+
+
 
 
 @pytest.fixture(scope="session")

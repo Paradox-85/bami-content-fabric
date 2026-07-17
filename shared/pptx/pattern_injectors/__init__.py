@@ -18,6 +18,8 @@ convention.
 from shared.pptx.pattern_injectors import (
     kpi_dashboard,
     quadrant_matrix,
+    quadrant_swot,
+    circle_steps,
     funnel,
     steps,
     folded_arrow,

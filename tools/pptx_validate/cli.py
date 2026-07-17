@@ -5,10 +5,14 @@ composition: branded background, brand fonts, brand colors, brand logo at the
 token EMU position, content chrome (title bar + title style + footer),
 cover/closing chrome, on-grid placement, and in-bounds shapes.
 
-All chrome specs are read from design_tokens.yaml — a brand that omits a
-chrome section (e.g. KVI with no title_bar) skips that check.
+Policy:
+- SVG-first library architecture: SVGs are the primary source assets;
+  PNG thumbnails in library/ are reference previews only.
+- Multi-brand: all checks apply equally to BAMI and KVI tokens; brand that
+  omits a chrome section skips that check.
+- Exit 0 if the deck passes; exit 1 with a per-violation report otherwise.
 
-Exit 0 if the deck passes; exit 1 with a per-violation report otherwise.
+All chrome specs are read from design_tokens.yaml.
 """
 
 from __future__ import annotations

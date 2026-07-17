@@ -510,3 +510,92 @@ def test_funnel_sales_growth_variant_resolves_ok():
     assert result.renderer_binding is not None
     native = result.renderer_binding.get("native", {})
     assert native.get("injector_id") == "funnel-diagram"  # reuses existing injector
+
+
+# ---------------------------------------------------------------------------
+# Quadrant gate enforcement
+# ---------------------------------------------------------------------------
+
+
+def test_quadrant_gate_rejects_missing_quadrants():
+    """Content with items but no quadrants should NOT match quadrant-matrix.
+
+    The quadrant gate (disallowed_when: [no-quadrants-key]) prevents structural
+    matching when the content does not have an explicit 'quadrants' key.
+    The content should fall through to a different family.
+    """
+    content = {"items": ["A", "B", "C", "D"]}
+    result = resolve_pattern(content, FakeTokens("bami"))
+    # Must NOT match quadrant-matrix — should match a different family
+    assert result.family != "quadrant-matrix", (
+        f"Expected non-quadrant family, got {result.family} with warnings {result.warnings}"
+    )
+    # It should match numbered-process-steps (items with 4 elements)
+    assert result.family == "numbered-process-steps"
+
+
+def test_quadrant_gate_accepts_exact_four_quadrants():
+    """Content with exactly 4 quadrants should match quadrant-matrix.
+
+    The quadrant gate (disallowed_when: [quadrants-exact-four]) is satisfied
+    when quadrants is a list of exactly 4 items.
+    """
+    content = {
+        "quadrants": [
+            {"title": "Strengths"},
+            {"title": "Weaknesses"},
+            {"title": "Opportunities"},
+            {"title": "Threats"},
+        ],
+    }
+    result = resolve_pattern(content, FakeTokens("bami"))
+    assert result.family == "quadrant-matrix"
+
+
+def test_quadrant_gate_rejects_wrong_quadrant_count():
+    """Content with quadrants but not exactly 4 should NOT match quadrant-matrix.
+
+    The quadrants-exact-four rule rejects 3 or 5 quadrants.
+    """
+    # 3 quadrants
+    content_3 = {"quadrants": [{"title": "A"}, {"title": "B"}, {"title": "C"}]}
+    with pytest.raises(PatternSelectionError):
+        resolve_pattern(content_3, FakeTokens("bami"))
+
+    # 5 quadrants
+    content_5 = {"quadrants": [{"title": "A"} for _ in range(5)]}
+    with pytest.raises(PatternSelectionError):
+        resolve_pattern(content_5, FakeTokens("bami"))
+
+
+# ---------------------------------------------------------------------------
+# Narrative intent preservation
+# ---------------------------------------------------------------------------
+
+
+def test_narrative_intent_preserved_in_result():
+    """narrative_intent_original is set when narrative_intent is passed."""
+    content = {"items": ["A", "B", "C"]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        narrative_intent="roadmap",
+    )
+    assert result.narrative_intent_original is not None
+    assert "roadmap" in result.narrative_intent_original
+
+
+def test_narrative_intent_preserved_through_fallback():
+    """narrative_intent_original survives through capacity fallback chain.
+
+    When the selected family overflows and fallback is triggered, the original
+    narrative_intent must still be accessible in the result.
+    """
+    # Use content that overflows dashboards (kpis=5 > 4 max)
+    content = {"kpis": [{"number": str(i)} for i in range(5)]}
+    result = resolve_pattern(
+        content, FakeTokens("bami"),
+        narrative_intent="metrics",
+    )
+    # Overflow switches or warns — the original intent should survive
+    assert result.narrative_intent_original is not None
+    assert "metrics" in result.narrative_intent_original

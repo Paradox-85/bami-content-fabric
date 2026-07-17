@@ -298,3 +298,73 @@ class TestCrossManifestConsistency:
         assert not missing, (
             f"provenance_ids in pattern-assets not found in svg-variant-index: {missing}"
         )
+
+
+class TestMultiBrandConsistency:
+    """Verify that variant resolution and pattern selection work identically across brands.
+
+    Multi-brand tests ensure that brand-specific capacity limits (e.g. KVI max_items)
+    do not cause silent selection divergence. All enabled variants must resolve for
+    both BAMI and KVI tokens."""
+
+    @pytest.fixture(scope="session")
+    def registry(self) -> dict:
+        return yaml.safe_load(REGISTRY_PATH.open(encoding="utf-8"))
+
+    def test_all_enabled_variants_have_bami_and_kvi_capacity(self, registry):
+        """Every family with dict-based max_items (in registry metadata) must define both brands.
+
+        Families using flat capacity.max with brand dict keys (defined in the manifest)
+        are checked separately."""
+        from shared.pptx.pattern_selection import load_manifest
+        manifest = load_manifest()
+        missing = []
+        for entry in registry.get("entries", []):
+            family = entry.get("family", "?")
+            meta = entry.get("family_metadata", {}) or {}
+            max_items = meta.get("max_items", {})
+            if isinstance(max_items, dict) and len(max_items) > 0:
+                if "bami" not in max_items:
+                    missing.append((family, "missing bami max_items"))
+                if "kvi" not in max_items:
+                    missing.append((family, "missing kvi max_items"))
+        # Also check manifest entries with dict-based capacity.max
+        for mentry in manifest.get("entries", []):
+            family = mentry.get("family", "?")
+            cap = mentry.get("capacity", {}) or {}
+            brand_max = cap.get("max", {})
+            if isinstance(brand_max, dict) and len(brand_max) > 0:
+                if "bami" not in brand_max:
+                    missing.append((family, "missing bami capacity.max"))
+                if "kvi" not in brand_max:
+                    missing.append((family, "missing kvi capacity.max"))
+        assert not missing, f"Families with missing brand capacity: {missing}"
+
+    def test_resolve_pattern_kvi_bami_parity(self, registry):
+        """Resolving patterns with KVI tokens should produce same family as BAMI
+        (within brand capacity limits)."""
+        from shared.pptx.pattern_selection import resolve_pattern
+
+        class Tokens:
+            def __init__(self, brand):
+                self._brand = brand
+            @property
+            def raw(self):
+                return {"brand": self._brand}
+
+        test_cases = [
+            ({"items": ["A", "B", "C"]}, "numbered-process-steps"),
+            ({"kpis": [{"number": "42", "label": "X"}]}, "kpi-dashboard-grid"),
+            ({"stages": ["Q1", "Q2", "Q3", "Q4"]}, "circular-process-loop"),
+            ({"quadrants": [{"title": "A"}, {"title": "B"}, {"title": "C"}, {"title": "D"}]}, "quadrant-matrix"),
+        ]
+        for content, expected_family in test_cases:
+            r_bami = resolve_pattern(content, Tokens("bami"))
+            r_kvi = resolve_pattern(content, Tokens("kvi"))
+            assert r_bami.family == expected_family, f"BAMI: expected {expected_family}, got {r_bami.family}"
+            # KVI should resolve to same primary family (may differ within overflow/fallback)
+            assert r_kvi.family == r_bami.family or r_kvi.family in (
+                None, "bullets", "icon-text-feature-list"
+            ), (
+                f"KVI family {r_kvi.family} differs from BAMI {r_bami.family} for {content}"
+            )

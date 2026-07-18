@@ -187,6 +187,7 @@ def run_all() -> tuple[Report, Report]:
     assets = check_assets_schema(rep)
     if not assets:
         return rep, Report()
+    # 2. Provenance consistency
     check_provenance_consistency(rep, assets)
 
     # 3. SVG file existence

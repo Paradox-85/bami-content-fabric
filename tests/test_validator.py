@@ -81,4 +81,4 @@ def test_flags_missing_logo(sample_deck, tokens_path, template_path, tmp_out):
             shp._element.getparent().remove(shp._element)
     _save(prs, tmp_out)
     rep = validate(tmp_out, tokens_path)
-    assert any("logo not at the brand EMU position" in v for v in rep.violations), rep.violations
+    assert any("brand logo not at the token EMU position" in v for v in rep.violations), rep.violations

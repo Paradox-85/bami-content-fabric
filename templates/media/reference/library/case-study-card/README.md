@@ -1,8 +1,3 @@
 # case-study-card
 
-2 files.
-
-| File | Size |
-|------|------|
-| `case-study-card-001.png` | 220K |
-| `case-study-card-002.png` | 192K |
+6 curated SVGs (3 variant groups). Legacy PNGs (2) removed in Pass 3 closure — SVG-first library.

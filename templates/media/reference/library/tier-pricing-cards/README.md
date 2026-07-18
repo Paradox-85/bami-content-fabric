@@ -1,8 +1,3 @@
 # tier-pricing-cards
 
-2 files.
-
-| File | Size |
-|------|------|
-| `tier-pricing-cards-001.png` | 98K |
-| `tier-pricing-cards-002.png` | 30K |
+3 curated SVGs (3 variant groups). Legacy PNGs (2) removed in Pass 3 closure — SVG-first library.

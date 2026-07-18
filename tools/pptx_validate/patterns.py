@@ -1,9 +1,9 @@
 """``pptx_validate patterns`` — validate pattern-assets.yaml and SVG file integrity.
 
 SVG-first library policy:
-- SVGs in library/ are the primary source-of-truth assets.
-- PNG files in library/ are reference previews ONLY; they are not validated
-  and must NOT be referenced by any code path as primary assets.
+- SVGs in library/ are the single source-of-truth assets.
+- PNG files have been **removed** from library/ (Pass 3 closure).
+  No PNG files exist in library/; they must NOT be added back as runtime assets.
 - Every SVG referenced in pattern-assets.yaml must exist on disk.
 - Every pattern_template_id in pattern-assets.yaml must have a matching entry
   in pattern-registry.yaml.
@@ -139,8 +139,8 @@ def check_registry_consistency(rep: Report, assets: dict) -> None:
 def check_orphan_svgs(rep: Report, assets: dict) -> None:
     """Check for categories with SVGs but no asset entries (informational).
 
-    SVG-first policy: SVGs are primary assets; PNG files in library/ are
-    reference previews only and are silently ignored by this check.
+    SVG-first policy: SVGs are primary assets; PNG files have been removed from
+    library/ (Pass 3 closure) and are no longer present. This check is SVG-only.
     """
     referenced_categories: set[str] = set()
     for asset in assets.get("assets", []):

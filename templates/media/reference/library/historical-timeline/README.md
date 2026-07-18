@@ -1,8 +1,3 @@
 # historical-timeline
 
-2 files.
-
-| File | Size |
-|------|------|
-| `historical-timeline-001.png` | 272K |
-| `historical-timeline-002.png` | 187K |
+12 curated SVGs. Legacy PNGs (2) removed in Pass 3 closure — SVG-first library.

@@ -1,7 +1,3 @@
 # pros-cons-list
 
-1 files.
-
-| File | Size |
-|------|------|
-| `pros-cons-list-001.png` | 243K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

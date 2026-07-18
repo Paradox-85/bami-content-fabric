@@ -1,7 +1,3 @@
 # infographic-3d-cube
 
-1 files.
-
-| File | Size |
-|------|------|
-| `infographic-3d-cube-001.png` | 151K |
+6 curated SVGs. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

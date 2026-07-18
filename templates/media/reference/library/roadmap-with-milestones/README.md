@@ -1,7 +1,3 @@
 # roadmap-with-milestones
 
-1 files.
-
-| File | Size |
-|------|------|
-| `roadmap-with-milestones-001.png` | 229K |
+26 curated SVGs. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

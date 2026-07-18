@@ -1,8 +1,3 @@
 # decision-tree-flowchart
 
-2 files.
-
-| File | Size |
-|------|------|
-| `decision-tree-flowchart-001.png` | 271K |
-| `decision-tree-flowchart-002.png` | 100K |
+6 curated SVGs. Legacy PNGs (2) removed in Pass 3 closure — SVG-first library.

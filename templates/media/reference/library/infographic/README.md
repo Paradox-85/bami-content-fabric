@@ -1,14 +1,13 @@
 # infographic
 
+**DEPRECATED** — no new placements.
+
 Group: data-and-metrics
-Status: populated (1 file) — generic chart, OKR dashboard
+Status: empty (legacy PNG removed in Pass 3 closure).
 
 Chart-specific sub-types are in `chart-bar-column/`, `chart-donut-pie/`,
 `chart-line-area/`, `chart-waterfall/`, `chart-statistical/`,
 `chart-sunburst-treemap/`, `chart-scatter-bubble/`.
 
-This directory holds chart images that do not match a specific sub-type.
-
-| File | Size |
-|------|------|
-| `infographic-001.png` | -- |
+This directory held legacy chart images that did not match a specific sub-type.
+All legacy PNG assets removed — SVG-first library is now the single source of truth.

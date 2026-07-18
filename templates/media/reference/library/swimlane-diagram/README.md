@@ -1,7 +1,3 @@
 # swimlane-diagram
 
-1 files.
-
-| File | Size |
-|------|------|
-| `swimlane-diagram-001.png` | 33K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

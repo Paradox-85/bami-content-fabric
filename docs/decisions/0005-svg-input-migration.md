@@ -74,8 +74,7 @@ The migration adopts a dual-track architecture:
 
 ## Consequences
 
-- **Positive**: Zero changes to the existing 82 PNGs or their directory
-  structure. No renumbering (via counter-seeding in `finalize()`).
+- **Positive**: Zero changes to the existing library directory structure.
 - **Positive**: The PNG bridge processes all 375 SVGs through classification and mapping.
   Rendering results cannot be verified from git alone (requires SVG corpus on disk).
 - **Positive**: The injector framework provides a clean path to native

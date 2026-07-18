@@ -1,7 +1,3 @@
 # checklist-status
 
-1 files.
-
-| File | Size |
-|------|------|
-| `checklist-status-001.png` | 220K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

@@ -1,7 +1,3 @@
 # project-overview-card
 
-1 files.
-
-| File | Size |
-|------|------|
-| `project-overview-card-001.png` | 374K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

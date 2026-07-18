@@ -1,7 +1,3 @@
 # icon-text-feature-list
 
-1 files.
-
-| File | Size |
-|------|------|
-| `icon-text-feature-list-001.png` | 149K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

@@ -1,7 +1,3 @@
 # impact-table
 
-1 files.
-
-| File | Size |
-|------|------|
-| `impact-table-001.png` | 280K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

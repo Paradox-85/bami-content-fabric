@@ -1,7 +1,3 @@
 # numbered-ranking-list
 
-1 files.
-
-| File | Size |
-|------|------|
-| `numbered-ranking-list-001.png` | 156K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

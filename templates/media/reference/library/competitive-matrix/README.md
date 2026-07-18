@@ -1,7 +1,3 @@
 # competitive-matrix
 
-1 files.
-
-| File | Size |
-|------|------|
-| `competitive-matrix-001.png` | 261K |
+Empty category. Legacy PNG (1) removed in Pass 3 closure — SVG-first library.

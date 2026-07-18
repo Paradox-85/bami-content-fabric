@@ -7,53 +7,53 @@ organized by canonical category here. See `categories.yaml` for the full taxonom
 
 ## SVG assets by category
 
-| Category | SVGs | PNGs (legacy) |
-|----------|------|--------------|
-| `agenda-toc-list` | 0 | 3 |
-| `background` | 0 | 0 |
-| `case-study-card` | 6 | 2 |
-| `chart-bar-column` | 29 | 3 |
-| `chart-donut-pie` | 1 | 1 |
-| `chart-line-area` | 0 | 1 |
-| `chart-scatter-bubble` | 0 | 0 |
-| `chart-statistical` | 0 | 1 |
-| `chart-sunburst-treemap` | 0 | 2 |
-| `chart-waterfall` | 0 | 1 |
-| `checklist-status` | 0 | 1 |
-| `circular-process-loop` | 10 | 4 |
-| `comparison-table` | 7 | 1 |
-| `competitive-matrix` | 0 | 1 |
-| `data-table` | 5 | 3 |
-| `decision-tree-flowchart` | 6 | 2 |
-| `executive-summary-panel` | 0 | 1 |
-| `flow` | 0 | 0 |
-| `funnel-diagram` | 9 | 2 |
-| `gantt-matrix` | 13 | 4 |
-| `historical-timeline` | 12 | 2 |
-| `icon-text-feature-list` | 0 | 1 |
-| `impact-table` | 0 | 1 |
-| `infographic` | 0 | 1 (deprecated, no new placements) |
-| `infographic-3d-cube` | 6 | 1 |
-| `kpi-dashboard-grid` | 20 | 9 |
-| `maturity-model-ladder` | 8 | 0 |
-| `mind-map-radial` | 37 | 10 |
-| `numbered-process-steps` | 28 | 5 |
-| `numbered-ranking-list` | 0 | 1 |
-| `phased-rollout-timeline` | 3 | 3 |
-| `project-overview-card` | 0 | 1 |
-| `project-status` | 0 | 0 |
-| `pros-cons-list` | 0 | 1 |
-| `quadrant-matrix` | 27 | 3 |
-| `quote-testimonial-card` | 0 | 1 |
-| `roadmap-with-milestones` | 26 | 1 |
-| `scorecard` | 0 | 1 |
-| `section-divider` | 0 | 2 |
-| `swimlane-diagram` | 0 | 1 |
-| `team-contact-card-grid` | 0 | 2 |
-| `tier-pricing-cards` | 3 | 2 |
-| `uncategorized` | 0 | 0 |
+| Category | SVGs |
+|----------|------|
+| `agenda-toc-list` | 0 |
+| `background` | 0 |
+| `case-study-card` | 6 |
+| `chart-bar-column` | 29 |
+| `chart-donut-pie` | 1 |
+| `chart-line-area` | 0 |
+| `chart-scatter-bubble` | 0 |
+| `chart-statistical` | 0 |
+| `chart-sunburst-treemap` | 0 |
+| `chart-waterfall` | 0 |
+| `checklist-status` | 0 |
+| `circular-process-loop` | 10 |
+| `comparison-table` | 7 |
+| `competitive-matrix` | 0 |
+| `data-table` | 5 |
+| `decision-tree-flowchart` | 6 |
+| `executive-summary-panel` | 0 |
+| `flow` | 0 |
+| `funnel-diagram` | 9 |
+| `gantt-matrix` | 13 |
+| `historical-timeline` | 12 |
+| `icon-text-feature-list` | 0 |
+| `impact-table` | 0 |
+| `infographic` | 0 (deprecated, no new placements) |
+| `infographic-3d-cube` | 6 |
+| `kpi-dashboard-grid` | 20 |
+| `maturity-model-ladder` | 8 |
+| `mind-map-radial` | 37 |
+| `numbered-process-steps` | 28 |
+| `numbered-ranking-list` | 0 |
+| `phased-rollout-timeline` | 3 |
+| `project-overview-card` | 0 |
+| `project-status` | 0 |
+| `pros-cons-list` | 0 |
+| `quadrant-matrix` | 27 |
+| `quote-testimonial-card` | 0 |
+| `roadmap-with-milestones` | 26 |
+| `scorecard` | 0 |
+| `section-divider` | 0 |
+| `swimlane-diagram` | 0 |
+| `team-contact-card-grid` | 0 |
+| `tier-pricing-cards` | 3 |
+| `uncategorized` | 0 |
 
-**Totals: 256 SVGs classified across 19 canonical categories, plus 82 legacy PNGs.**
+**Totals: 256 SVGs classified across 19 canonical categories. Legacy PNGs (82) removed in Pass 3 closure.**
 
 ## Machine-readable indexes
 
@@ -65,7 +65,13 @@ organized by canonical category here. See `categories.yaml` for the full taxonom
 
 ## Key change from Pass 2
 
-Pass 3 made `library/` SVG-first. The `infographic` category is deprecated for new placements;
-it remains only for legacy PNG assets. All new intake from `../input/` is classified into canonical
-categories. Runtime PPTX generation does NOT consume these SVGs directly — they are reference
+Pass 3 made `library/` SVG-first. The `infographic` category is deprecated for new placements.
+All new intake from `../input/` is classified into canonical categories.
+Runtime PPTX generation does NOT consume these SVGs directly — they are reference
 assets for variant provenance, validation, and visual parity checks.
+
+## Pass 3 closure
+
+All 82 legacy PNGs have been **removed** from `library/`. The `infographic` category no longer
+holds any assets (deprecated). SVG is now the **sole** format in the library, consistent with
+the SVG-first architecture decision. See `.pi/implementation/20260717-154908-pass3-closure-impl.md`.

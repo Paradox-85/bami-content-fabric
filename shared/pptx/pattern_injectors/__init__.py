@@ -28,4 +28,6 @@ from shared.pptx.pattern_injectors import (
     maturity_ladder,
     comparison,
     case_study,
+    checklist_status,
+    quote_testimonial,
 )

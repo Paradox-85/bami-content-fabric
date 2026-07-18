@@ -396,13 +396,13 @@ manifest:
       disallowed_when: [no-vendors-header]
       rank: 80
 
-    # -- Checklist ---
+    # -- Checklist / status ---
 
     - family: checklist-status
       aliases: [checklist, todo-status]
       layout: checklist-status
-      block_kind: mermaid
-      render_method: mermaid
+      block_kind: inject-pattern
+      render_method: native
       scenario_signal: checklist-items
       narrative_intent: [checklist, todo, status-report]
       structural:
@@ -428,8 +428,35 @@ manifest:
       disallowed_when: []
       rank: 75
 
-    # -- Mermaid diagram families ---
+    # -- Quote / testimonial ---
 
+    - family: quote-testimonial-card
+      aliases: [testimonial, pull-quote, quote]
+      layout: quote-testimonial-card
+      block_kind: inject-pattern
+      render_method: native
+      scenario_signal: testimonial-quote
+      narrative_intent: [testimonial, quote, customer-quote, pull-quote]
+      structural:
+        required_any: [[quote]]
+        required_all: []
+        count_key: null
+      capacity:
+        min: 1
+        max:
+          bami: 1
+          kvi: 1
+      spatial:
+        orientation: vertical
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, accent_1, accent_2]
+      fallback_chain: [icon-text-feature-list, bullets]
+      disallowed_when: []
+      rank: 70
+
+    # -- Mermaid diagram families ---
     - family: swimlane-diagram
       aliases: [swimlane, roles-process]
       layout: swimlane-diagram

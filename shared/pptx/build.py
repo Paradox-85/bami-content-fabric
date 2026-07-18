@@ -239,7 +239,29 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
         return result
     if injector_id == "tier-pricing-cards":
         return {"tiers": content.get("tiers", content.get("items", []))}
-    # Fallback: pass raw content as-is (injector will need to handle it)
+    if injector_id == "checklist-status":
+        result = {}
+        items = content.get("items", [])
+        if items:
+            result["items"] = items
+        if content.get("title"):
+            result["title"] = content["title"]
+        if content.get("icon_size"):
+            result["icon_size"] = content["icon_size"]
+        return result
+    if injector_id == "quote-testimonial-card":
+        result = {}
+        if content.get("quote"):
+            result["quote"] = content["quote"]
+        if content.get("attribution"):
+            result["attribution"] = content["attribution"]
+        if content.get("role"):
+            result["role"] = content["role"]
+        if content.get("accent_color"):
+            result["accent_color"] = content["accent_color"]
+        if content.get("show_accent_line") is not None:
+            result["show_accent_line"] = content["show_accent_line"]
+        return result
     return dict(content)
 
 

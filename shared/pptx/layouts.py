@@ -402,10 +402,70 @@ def _layout_competitive_matrix(
 def _layout_checklist_status(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: checklist status → Mermaid kanban board."""
-    definition = _mmd_kanban(content)
-    return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
-             "text": definition}]
+    """Rich layout: checklist status → native inject-pattern block.
+
+    Emits an ``inject-pattern`` block with ``canonical_id='checklist-status'``
+    and passes ``items``, ``title``, and ``icon_size`` from content through
+    as injector params.
+    """
+    c = content or {}
+    bz_top, bz_bottom = tokens.body_zone
+    block: dict[str, Any] = {
+        "kind": "inject-pattern",
+        "canonical_id": "checklist-status",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }
+    items = c.get("items", [])
+    if items:
+        block["items"] = items
+    if c.get("title"):
+        block["title"] = c["title"]
+    if c.get("icon_size"):
+        block["icon_size"] = c["icon_size"]
+    if not items and not c.get("title"):
+        # Fallback: pass entire content so injector raises with helpful error
+        block["items"] = []
+    return [block]
+
+
+def _layout_quote_testimonial_card(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Rich layout: quote/testimonial card → native inject-pattern block.
+
+    Emits an ``inject-pattern`` block with ``canonical_id='quote-testimonial-card'``
+    and passes ``quote``, ``attribution``, ``role``, ``accent_color``, and
+    ``show_accent_line`` from content through as injector params.
+    """
+    c = content or {}
+    bz_top, bz_bottom = tokens.body_zone
+    block: dict[str, Any] = {
+        "kind": "inject-pattern",
+        "canonical_id": "quote-testimonial-card",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }
+    quote = c.get("quote", "")
+    if quote:
+        block["quote"] = quote
+    if c.get("attribution"):
+        block["attribution"] = c["attribution"]
+    if c.get("role"):
+        block["role"] = c["role"]
+    if c.get("accent_color"):
+        block["accent_color"] = c["accent_color"]
+    if c.get("show_accent_line") is not None:
+        block["show_accent_line"] = c["show_accent_line"]
+    if not quote:
+        # Fallback: pass empty quote so injector raises with helpful error
+        block["quote"] = ""
+    return [block]
+
 
 
 def _layout_icon_text_feature_list(
@@ -532,6 +592,7 @@ LAYOUTS: dict[str, LayoutBuilder] = {
     "tier-pricing-cards": _layout_tier_pricing_cards,
     "pros-cons-list": _layout_pros_cons_list,
     "checklist-status": _layout_checklist_status,
+    "quote-testimonial-card": _layout_quote_testimonial_card,
     "swimlane-diagram": _layout_swimlane_diagram,
     "competitive-matrix": _layout_competitive_matrix,
     "mind-map-radial": _layout_mind_map_radial,

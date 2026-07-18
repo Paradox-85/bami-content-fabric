@@ -20,6 +20,8 @@ from shared.pptx.pattern_injectors import (
     maturity_ladder,
     comparison,
     case_study,
+    checklist_status,
+    quote_testimonial,
 )
 
 
@@ -35,6 +37,8 @@ def test_registry_has_known_injectors():
         "comparison-table",
         "tier-pricing-cards",
         "case-study-card",
+        "checklist-status",
+        "quote-testimonial-card",
     ]
     registered = list_injectors()
     for name in known:
@@ -197,7 +201,6 @@ def test_inject_pattern_in_schema():
     assert "inject-pattern" in kinds, \
         "inject-pattern should be in schema kind enum"
 
-
 def test_inject_pattern_canonical_id_in_schema():
     """canonical_id is a property in the schema block properties."""
     from shared.pptx.schema import SCHEMA
@@ -206,3 +209,47 @@ def test_inject_pattern_canonical_id_in_schema():
         "canonical_id should be a schema property"
     assert props["canonical_id"]["type"] == "string", \
         "canonical_id should be a string type"
+
+
+def test_checklist_status_requires_items():
+    """checklist-status raises ValueError when items param is missing or empty."""
+    with pytest.raises(ValueError, match="'items' parameter is required"):
+        injector = get_injector("checklist-status")
+        injector(None, None, x=0, y=0, w=9, h=4.5)
+
+
+def test_checklist_status_with_items():
+    """checklist-status should not raise when items are provided."""
+    from unittest.mock import MagicMock
+    from shared.pptx.tokens import Tokens
+    injector = get_injector("checklist-status")
+    slide = MagicMock()
+    tokens = MagicMock(spec=Tokens)
+    tokens.resolve_color.return_value = "80C342"
+    # Should not raise
+    result = injector(slide, tokens, x=0, y=0, w=9, h=4.5,
+                       items=[{"label": "Task 1", "status": "done"}])
+    assert isinstance(result, list)
+    # add_shape should have been called (for the status icon circle)
+    assert slide.shapes.add_shape.call_count > 0
+
+def test_quote_testimonial_requires_quote():
+    """quote-testimonial-card raises ValueError when quote param is missing."""
+    with pytest.raises(ValueError, match="'quote' parameter is required"):
+        injector = get_injector("quote-testimonial-card")
+        injector(None, None, x=0, y=0, w=9, h=4.5)
+
+
+def test_quote_testimonial_with_quote():
+    """quote-testimonial-card should not raise when quote is provided."""
+    from unittest.mock import MagicMock
+    from shared.pptx.tokens import Tokens
+    injector = get_injector("quote-testimonial-card")
+    slide = MagicMock()
+    tokens = MagicMock(spec=Tokens)
+    tokens.resolve_color.return_value = "0054A8"
+    # Should not raise
+    result = injector(slide, tokens, x=0, y=0, w=9, h=5.0,
+                       quote="This is a testimonial.")
+    assert isinstance(result, list)
+    assert slide.shapes.add_shape.call_count > 0

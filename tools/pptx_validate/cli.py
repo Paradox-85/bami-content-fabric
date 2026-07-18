@@ -9,7 +9,8 @@ Policy:
 - SVG-first library architecture: SVGs are the primary source assets;
   PNGs have been removed from library/ (Pass 3 closure).
 - Multi-brand: all checks apply equally to BAMI and KVI tokens; brand that
-All chrome specs are read from design_tokens.yaml.
+  omits a chrome section skips that check.
+- Exit 0 if the deck passes; exit 1 with a per-violation report otherwise.
 """
 
 from __future__ import annotations

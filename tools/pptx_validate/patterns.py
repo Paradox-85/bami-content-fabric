@@ -164,15 +164,29 @@ def check_orphan_svgs(rep: Report, assets: dict) -> None:
         rep.add(f"Category '{cat}' has SVGs but no pattern-assets.yaml entries (informational: SVGs are reference/provenance only)")
 
 
-def run_all() -> Report:
+def check_no_pngs(rep: Report) -> None:
+    """Assert zero PNG files exist under library/ (SVG-first invariant).
+
+    Fails if any *.png is found — prevents silent regression of the
+    Pass 3 closure decision (all 82 legacy PNGs removed).
+    """
+    pngs = sorted(LIBRARY_DIR.rglob("*.png"))
+    for p in pngs:
+        rel = p.relative_to(LIBRARY_DIR).as_posix()
+        rep.add(f"PNG file found in library/ (SVG-first invariant violated): {rel}")
+
+
+def run_all() -> tuple[Report, Report]:
     """Run all pattern validation checks and return the Report."""
     rep = Report()
+
+    # 0. SVG-first invariant: no PNGs in library/
+    check_no_pngs(rep)
 
     # 1. Schema validation
     assets = check_assets_schema(rep)
     if not assets:
         return rep, Report()
-    # 2. Provenance consistency
     check_provenance_consistency(rep, assets)
 
     # 3. SVG file existence

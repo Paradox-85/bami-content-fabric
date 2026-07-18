@@ -196,3 +196,50 @@ class TestPatternValidationDirect:
 
         # Validate — should not raise
         jsonschema.validate(instance=index, schema=schema)
+
+
+class TestPngInvariant:
+    """Tests for the SVG-first invariant: no PNG files in library/."""
+
+    def test_no_pngs_in_library(self):
+        """Assert zero PNG files exist under library/ (SVG-first invariant).
+
+        This guards against silent regression of the Pass 3 closure decision
+        (all 82 legacy PNGs removed).
+        """
+        lib_dir = ROOT / "templates" / "media" / "reference" / "library"
+        pngs = list(lib_dir.rglob("*.png"))
+        assert len(pngs) == 0, (
+            f"Found {len(pngs)} PNG file(s) in library/: "
+            + ", ".join(str(p.relative_to(lib_dir)) for p in pngs)
+        )
+
+    def test_check_no_pngs_function_works(self):
+        """Verify that check_no_pngs() reports violations when PNGs exist.
+
+        Uses a temp directory with a dummy PNG to confirm the check is not a no-op.
+        """
+        import tempfile
+        from pathlib import Path
+        from tools.pptx_validate.patterns import check_no_pngs, Report
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            dummy_png = tmp / "subdir" / "test.png"
+            dummy_png.parent.mkdir(parents=True, exist_ok=True)
+            dummy_png.write_text("fake png")
+
+            rep = Report()
+            # Temporarily patch LIBRARY_DIR
+            import tools.pptx_validate.patterns as pv
+            orig = pv.LIBRARY_DIR
+            pv.LIBRARY_DIR = tmp
+            try:
+                check_no_pngs(rep)
+            finally:
+                pv.LIBRARY_DIR = orig
+
+            assert not rep.ok, "check_no_pngs should report violation for a PNG"
+            assert any("test.png" in v for v in rep.violations), (
+                f"Expected violation mentioning 'test.png', got: {rep.violations}"
+            )

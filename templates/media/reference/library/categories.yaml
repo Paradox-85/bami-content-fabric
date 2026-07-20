@@ -54,6 +54,10 @@ groups:
         title: Historical timeline
         description: Events placed on an axis with dates.
         runtime_kind: null
+      - id: customer-journey-map
+        title: Customer journey map
+        description: Visual map of customer touchpoints and experience stages.
+        runtime_kind: null
 
   - id: comparison
     title: Comparison

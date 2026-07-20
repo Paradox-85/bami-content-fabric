@@ -4,6 +4,12 @@ Recreates circular step/process patterns as native PPTX shapes
 -- numbered steps arranged in a circle with connector lines and
 labeled nodes -- matching the ``circular-process-loop/circle-steps``
 variant.
+
+Shape naming convention:
+  pattern:circular-process-loop/circle-steps:connector:{idx:02d}
+  pattern:circular-process-loop/circle-steps:node:{idx:02d}:circle
+  pattern:circular-process-loop/circle-steps:node:{idx:02d}:number
+  pattern:circular-process-loop/circle-steps:node:{idx:02d}:label
 """
 
 from __future__ import annotations
@@ -20,6 +26,14 @@ from shared.pptx.style import (
     style_shape_solid_fill,
     style_text_frame,
 )
+
+
+PATTERN_ID = "circular-process-loop/circle-steps"
+
+
+def _set_shape_name(shape: Any, role: str) -> None:
+    """Set the deterministic shape name."""
+    shape.name = f"pattern:{PATTERN_ID}:{role}"
 
 
 @register("circle-steps")
@@ -84,6 +98,7 @@ def inject_circle_steps(
             conn.rotation = angle * 180.0 / math.pi
             style_shape_solid_fill(conn, tokens, "neutral")
             no_line(conn)
+            _set_shape_name(conn, f"connector:{idx:02d}")
             created.append(conn)
 
     # Draw numbered nodes
@@ -102,6 +117,7 @@ def inject_circle_steps(
         )
         style_shape_solid_fill(circle, tokens, color)
         no_line(circle)
+        _set_shape_name(circle, f"node:{idx:02d}:circle")
         created.append(circle)
 
         # Step number
@@ -111,6 +127,7 @@ def inject_circle_steps(
         )
         style_text_frame(num_box.text_frame, tokens, pt=14, color="white", bold=True, align="CENTER")
         num_box.text_frame.paragraphs[0].runs[0].text = number
+        _set_shape_name(num_box, f"node:{idx:02d}:number")
         created.append(num_box)
 
         # Label below node
@@ -123,6 +140,7 @@ def inject_circle_steps(
             style_text_frame(lbox.text_frame, tokens, pt=9, color="text_3", bold=False, align="CENTER")
             lbox.text_frame.word_wrap = True
             lbox.text_frame.paragraphs[0].runs[0].text = label
+            _set_shape_name(lbox, f"node:{idx:02d}:label")
             created.append(lbox)
 
     return created

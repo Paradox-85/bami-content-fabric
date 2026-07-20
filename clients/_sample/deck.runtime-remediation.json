@@ -1,0 +1,127 @@
+{
+  "title": "Runtime Remediation Showcase — Pass 3",
+  "theme": "bami",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Runtime Remediation Showcase",
+        "subtitle": "Pass 3 — Shape naming, graphical validation, OPC audit"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Numbered Process Steps"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "folded-arrow-horizontal",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 3.0,
+          "steps": [
+            {"number": "01", "title": "Research"},
+            {"number": "02", "title": "Design"},
+            {"number": "03", "title": "Build"},
+            {"number": "04", "title": "Test"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Circular Process Loop"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "circle-steps",
+          "x": 0.5,
+          "y": 0.8,
+          "w": 9.0,
+          "h": 5.5,
+          "nodes": [
+            {"label": "Plan", "number": "1"},
+            {"label": "Do", "number": "2"},
+            {"label": "Check", "number": "3"},
+            {"label": "Act", "number": "4"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Funnel — Default Vertical"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "funnel-diagram",
+          "x": 0.5,
+          "y": 1.0,
+          "w": 9.0,
+          "h": 4.5,
+          "segments": [
+            {"label": "Top of Funnel", "value": 100, "pct": 1.0},
+            {"label": "Qualified Leads", "value": 60, "pct": 0.75},
+            {"label": "Proposals", "value": 30, "pct": 0.5},
+            {"label": "Closed Won", "value": 15, "pct": 0.35}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Funnel — Conversion Pipeline"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "funnel-conversion",
+          "x": 0.5,
+          "y": 1.0,
+          "w": 9.0,
+          "h": 4.5,
+          "stages": [
+            {"label": "Visit", "value": 10000, "pct": 1.0},
+            {"label": "Signup", "value": 2000, "pct": 0.8},
+            {"label": "Activate", "value": 800, "pct": 0.6},
+            {"label": "Convert", "value": 200, "pct": 0.4},
+            {"label": "Retain", "value": 100, "pct": 0.3}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Simple Steps"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "simple-arrow-horizontal",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 3.0,
+          "steps": [
+            {"number": "1", "title": "Step A"},
+            {"number": "2", "title": "Step B"},
+            {"number": "3", "title": "Step C"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

@@ -359,12 +359,20 @@ def _is_cover_like(slide, tokens) -> bool | None:
               help="Override chrome mode (default: read bami:chrome=* from deck core-properties).")
 @click.option("--patterns", is_flag=True, default=False,
               help="Run pattern library validation (SVGs, registry, assets) instead of PPTX validation.")
-def main(pptx_path, brand, tokens_path, chrome_mode, patterns):
+@click.option("--graphical", is_flag=True, default=False,
+              help="Run graphical/topology validation (pattern-aware shape checks).")
+@click.option("--opc", "run_opc", is_flag=True, default=False,
+              help="Run OPC package audit (required parts, relationships, round-trip).")
+def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_opc):
     """Validate a generated .pptx or the pattern library.
 
     When PPTX_PATH is given, validates the deck against the branded design
     system. Use --patterns to validate pattern-assets.yaml, SVG file integrity,
     registry consistency, and provenance references.
+
+    Use --graphical to run pattern-aware graphical/topology validation,
+    and --opc to run OPC package audit. These can be combined with each
+    other and with the default design validation.
     """
     if patterns:
         from tools.pptx_validate.patterns import run_all
@@ -384,14 +392,45 @@ def main(pptx_path, brand, tokens_path, chrome_mode, patterns):
         sys.exit(1)
     if tokens_path is None:
         tokens_path = BRAND_DIRS[brand]["tokens"]
+
+    any_failures = False
+
+    # Design validation (default)
     rep = validate(pptx_path, tokens_path, chrome_mode=chrome_mode)
     if rep.ok:
-        click.echo(f"OK: deck conforms to the {brand} design system ({len(list(Presentation(pptx_path).slides._sldIdLst))} slides)")
-        sys.exit(0)
-    click.echo(f"FAIL: {len(rep.violations)} violation(s):", err=True)
-    for v in rep.violations:
-        click.echo(f"  - {v}", err=True)
-    sys.exit(1)
+        click.echo(f"OK: deck conforms to the {brand} design system "
+                   f"({len(list(Presentation(pptx_path).slides._sldIdLst))} slides)")
+    else:
+        click.echo(f"FAIL: {len(rep.violations)} violation(s) in design validation:", err=True)
+        for v in rep.violations:
+            click.echo(f"  - {v}", err=True)
+        any_failures = True
+
+    # Graphical/topology validation
+    if graphical:
+        from shared.pptx import graphical_validation as gv
+        gref = gv.validate(pptx_path)
+        if gref.ok:
+            click.echo("OK: Graphical validation passed.")
+        else:
+            click.echo(f"FAIL: {len(gref.violations)} violation(s) in graphical validation:", err=True)
+            for v in gref.violations:
+                click.echo(f"  - {v}", err=True)
+            any_failures = True
+
+    # OPC package audit
+    if run_opc:
+        from shared.pptx import opc_audit
+        oref = opc_audit.validate(pptx_path)
+        if oref.ok:
+            click.echo("OK: OPC audit passed.")
+        else:
+            click.echo(f"FAIL: {len(oref.violations)} violation(s) in OPC audit:", err=True)
+            for v in oref.violations:
+                click.echo(f"  - {v}", err=True)
+            any_failures = True
+
+    sys.exit(1 if any_failures else 0)
 
 
 if __name__ == "__main__":

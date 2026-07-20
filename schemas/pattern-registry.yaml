@@ -65,9 +65,9 @@ entries:
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
         graphical_variant_description: >-
-          Horizontal folded arrow with numbered circles. Each step is a
-          filled circle with a white numeral; adjacent circles joined by a
-          thin chevron/arrow. No body text. Designed for 3–6 items.
+          Numbered circles joined by right-arrow connectors (circles-and-arrows
+          style, not a continuous folded ribbon). Each step is a filled circle
+          with a white numeral. No body text. Designed for 3–6 items.
 
       - graphical_variant: block-arrow-horizontal
         version: 1.0.0
@@ -319,8 +319,8 @@ entries:
           reference_asset_required: true
           provenance_id: Funnel_Diagram_Infographic_8c475a
         graphical_variant_description: >-
-          Classic vertical funnel with stacked trapezoidal segments.
-          Each segment narrows toward the bottom. Designed for 3-8 stages.
+          Classic vertical funnel with stacked centered descending rectangular
+          bars. Each segment narrows toward the bottom. Designed for 3-8 stages.
 
       - graphical_variant: conversion-pipeline
         version: 1.0.0
@@ -344,8 +344,8 @@ entries:
           reference_asset_required: true
           provenance_id: conversion-path-infographics_5f45bf
         graphical_variant_description: >-
-          Horizontal conversion pipeline with labelled stages and
-          flow arrows between them. Designed for 3-7 conversion stages.
+          Horizontal conversion pipeline with labelled stages.
+          Designed for 3-7 conversion stages.
 
       - graphical_variant: sales-growth
         version: 1.0.0
@@ -359,7 +359,7 @@ entries:
         features:
           native_editable: true
           requires_mermaid: false
-          supports_body_text: true
+          supports_body_text: false
           max_items: 6
           shape_budget: 18
           connector_budget: 0
@@ -369,8 +369,8 @@ entries:
           reference_asset_required: true
           provenance_id: sales-growth-infographic_9fe6f5
         graphical_variant_description: >-
-          Sales growth funnel with labeled segments and optional body
-          text on each stage. Designed for 2-6 growth stages.
+          Sales growth funnel with labeled segments.
+          Designed for 2-6 growth stages.
 
   # --------------------------------------------------------------------------
   # Comparison table — legacy entry with placeholder contract

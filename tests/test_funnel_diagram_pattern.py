@@ -169,7 +169,10 @@ def _write_deck(tmp_path, deck):
 
 
 def test_funnel_default_vertical_builds_ok(tmp_path, tmp_out, tokens_path, template_path):
-    """Build a deck with funnel-diagram default-vertical variant."""
+    """Build a deck with funnel-diagram default-vertical variant.
+    Verifies that actual funnel pattern shapes are produced (not fallback to
+    numbered-process-steps).
+    """
     from shared.pptx.build import build_deck
 
     deck = {
@@ -179,10 +182,18 @@ def test_funnel_default_vertical_builds_ok(tmp_path, tmp_out, tokens_path, templ
             {
                 "template": "content",
                 "fields": {"title": "Pipeline"},
-                "graphical_variant": "conversion-pipeline",
-                "content": {
-                    "items": ["Awareness", "Interest", "Decision", "Retention"],
-                },
+                "blocks": [
+                    {
+                        "kind": "inject-pattern",
+                        "canonical_id": "funnel-diagram",
+                        "x": 0.5, "y": 1.0, "w": 9.0, "h": 4.5,
+                        "segments": [
+                            {"label": "Awareness", "value": 100, "pct": 1.0},
+                            {"label": "Interest", "value": 60, "pct": 0.75},
+                            {"label": "Decision", "value": 30, "pct": 0.5},
+                        ],
+                    },
+                ],
             },
             {"template": "closing", "fields": {}},
         ],
@@ -191,13 +202,39 @@ def test_funnel_default_vertical_builds_ok(tmp_path, tmp_out, tokens_path, templ
     result = build_deck(deck_path, tmp_out, template_path, tokens_path)
     assert result["slides_rendered"] == 3
     assert tmp_out.exists()
+    # Verify the output contains funnel pattern shapes (not fallback)
+    prs = Presentation(str(tmp_out))
+    slide = list(prs.slides)[1]  # content slide
+    pattern_count = 0
+    has_funnel_shapes = False
+    has_fallback_shapes = False
+    for shp in slide.shapes:
+        name = getattr(shp, "name", "") or ""
+        if name.startswith("pattern:"):
+            pattern_count += 1
+            if "funnel-diagram" in name:
+                has_funnel_shapes = True
+            if "numbered-process-steps" in name:
+                has_fallback_shapes = True
+    assert pattern_count > 0, f"No pattern shapes found on content slide"
+    assert has_funnel_shapes, (
+        f"Expected funnel-diagram pattern shapes but got only "
+        f"numbered-process-steps (fallback). Warnings: {result.get('selection_warnings', [])}"
+    )
+    assert not has_fallback_shapes, (
+        f"Deck fell back to numbered-process-steps instead of funnel. "
+        f"Warnings: {result.get('selection_warnings', [])}"
+    )
     # Validate the output
     report = validate(tmp_out, tokens_path)
     assert report.ok, f"Validation violations: {report.violations}"
 
 
+
 def test_funnel_conversion_pipeline_builds_ok(tmp_path, tmp_out, tokens_path, template_path):
-    """Build a deck with funnel-diagram conversion-pipeline variant."""
+    """Build a deck with funnel-diagram conversion-pipeline variant.
+    Verifies that actual funnel conversion pattern shapes are produced.
+    """
     from shared.pptx.build import build_deck
 
     deck = {
@@ -207,10 +244,19 @@ def test_funnel_conversion_pipeline_builds_ok(tmp_path, tmp_out, tokens_path, te
             {
                 "template": "content",
                 "fields": {"title": "Pipeline"},
-                "graphical_variant": "conversion-pipeline",
-                "content": {
-                    "items": ["Visit", "Signup", "Purchase", "Retain"],
-                },
+                "blocks": [
+                    {
+                        "kind": "inject-pattern",
+                        "canonical_id": "funnel-conversion",
+                        "x": 0.5, "y": 1.0, "w": 9.0, "h": 4.5,
+                        "stages": [
+                            {"label": "Visit", "value": 100, "pct": 1.0},
+                            {"label": "Signup", "value": 80, "pct": 0.8},
+                            {"label": "Purchase", "value": 50, "pct": 0.6},
+                            {"label": "Retain", "value": 20, "pct": 0.4},
+                        ],
+                    },
+                ],
             },
             {"template": "closing", "fields": {}},
         ],
@@ -219,12 +265,31 @@ def test_funnel_conversion_pipeline_builds_ok(tmp_path, tmp_out, tokens_path, te
     result = build_deck(deck_path, tmp_out, template_path, tokens_path)
     assert result["slides_rendered"] == 3
     assert tmp_out.exists()
+    # Verify funnel shapes
+    prs = Presentation(str(tmp_out))
+    slide = list(prs.slides)[1]
+    has_funnel_shapes = False
+    has_fallback_shapes = False
+    for shp in slide.shapes:
+        name = getattr(shp, "name", "") or ""
+        if name.startswith("pattern:"):
+            if "funnel-diagram" in name:
+                has_funnel_shapes = True
+            if "numbered-process-steps" in name:
+                has_fallback_shapes = True
+    assert has_funnel_shapes, (
+        f"Expected funnel-diagram shapes but got fallback to numbered-process-steps. "
+        f"Warnings: {result.get('selection_warnings', [])}"
+    )
+    assert not has_fallback_shapes, "Deck fell back to numbered-process-steps"
     report = validate(tmp_out, tokens_path)
     assert report.ok, f"Validation violations: {report.violations}"
 
 
 def test_funnel_sales_growth_builds_ok(tmp_path, tmp_out, tokens_path, template_path):
-    """Build a deck with funnel-diagram sales-growth variant."""
+    """Build a deck with funnel-diagram sales-growth variant.
+    Verifies that actual funnel pattern shapes are produced.
+    """
     from shared.pptx.build import build_deck
 
     deck = {
@@ -234,10 +299,19 @@ def test_funnel_sales_growth_builds_ok(tmp_path, tmp_out, tokens_path, template_
             {
                 "template": "content",
                 "fields": {"title": "Stages"},
-                "graphical_variant": "sales-growth",
-                "content": {
-                    "items": ["Prospecting", "Qualification", "Proposal", "Close"],
-                },
+                "blocks": [
+                    {
+                        "kind": "inject-pattern",
+                        "canonical_id": "funnel-diagram",
+                        "x": 0.5, "y": 1.0, "w": 9.0, "h": 4.5,
+                        "segments": [
+                            {"label": "Prospecting", "value": 100, "pct": 1.0},
+                            {"label": "Qualification", "value": 80, "pct": 0.75},
+                            {"label": "Proposal", "value": 50, "pct": 0.5},
+                            {"label": "Close", "value": 20, "pct": 0.3},
+                        ],
+                    },
+                ],
             },
             {"template": "closing", "fields": {}},
         ],
@@ -246,6 +320,23 @@ def test_funnel_sales_growth_builds_ok(tmp_path, tmp_out, tokens_path, template_
     result = build_deck(deck_path, tmp_out, template_path, tokens_path)
     assert result["slides_rendered"] == 3
     assert tmp_out.exists()
+    # Verify funnel shapes
+    prs = Presentation(str(tmp_out))
+    slide = list(prs.slides)[1]
+    has_funnel_shapes = False
+    has_fallback_shapes = False
+    for shp in slide.shapes:
+        name = getattr(shp, "name", "") or ""
+        if name.startswith("pattern:"):
+            if "funnel-diagram" in name:
+                has_funnel_shapes = True
+            if "numbered-process-steps" in name:
+                has_fallback_shapes = True
+    assert has_funnel_shapes, (
+        f"Expected funnel-diagram shapes but got fallback to numbered-process-steps. "
+        f"Warnings: {result.get('selection_warnings', [])}"
+    )
+    assert not has_fallback_shapes, "Deck fell back to numbered-process-steps"
     report = validate(tmp_out, tokens_path)
     assert report.ok, f"Validation violations: {report.violations}"
 
@@ -258,7 +349,9 @@ def test_funnel_sales_growth_builds_ok(tmp_path, tmp_out, tokens_path, template_
 def test_funnel_default_vertical_kvi_builds_ok(
     tmp_path, tmp_out, kvi_tokens_path, kvi_template_path,
 ):
-    """Build a KVI-branded deck with funnel-diagram default-vertical variant."""
+    """Build a KVI-branded deck with funnel-diagram default-vertical variant.
+    Verifies that actual funnel pattern shapes are produced.
+    """
     from shared.pptx.build import build_deck
 
     deck = {
@@ -268,10 +361,18 @@ def test_funnel_default_vertical_kvi_builds_ok(
             {
                 "template": "content",
                 "fields": {"title": "Pipeline"},
-                "graphical_variant": "conversion-pipeline",
-                "content": {
-                    "items": ["A", "B", "C"],
-                },
+                "blocks": [
+                    {
+                        "kind": "inject-pattern",
+                        "canonical_id": "funnel-diagram",
+                        "x": 0.5, "y": 1.0, "w": 9.0, "h": 4.5,
+                        "segments": [
+                            {"label": "A", "value": 100, "pct": 1.0},
+                            {"label": "B", "value": 80, "pct": 0.75},
+                            {"label": "C", "value": 50, "pct": 0.5},
+                        ],
+                    },
+                ],
             },
             {"template": "closing", "fields": {}},
         ],
@@ -280,5 +381,22 @@ def test_funnel_default_vertical_kvi_builds_ok(
     result = build_deck(deck_path, tmp_out, kvi_template_path, kvi_tokens_path)
     assert result["slides_rendered"] == 3
     assert tmp_out.exists()
+    # Verify funnel shapes
+    prs = Presentation(str(tmp_out))
+    slide = list(prs.slides)[1]
+    has_funnel_shapes = False
+    has_fallback_shapes = False
+    for shp in slide.shapes:
+        name = getattr(shp, "name", "") or ""
+        if name.startswith("pattern:"):
+            if "funnel-diagram" in name:
+                has_funnel_shapes = True
+            if "numbered-process-steps" in name:
+                has_fallback_shapes = True
+    assert has_funnel_shapes, (
+        f"Expected funnel-diagram shapes but got fallback. "
+        f"Warnings: {result.get('selection_warnings', [])}"
+    )
+    assert not has_fallback_shapes, "Deck fell back to numbered-process-steps"
     report = validate(tmp_out, kvi_tokens_path)
     assert report.ok, f"KVI validation violations: {report.violations}"

@@ -1,8 +1,16 @@
 """Native PPTX funnel diagram injector.
 
 Recreates funnel / conversion-path / customer-journey patterns as native PPTX
-shapes — stacked trapezoidal segments with labels — matching the
+shapes — stacked segments with labels — matching the
 ``funnel-diagram`` canonical category.
+
+Shape naming convention:
+  pattern:funnel-diagram/default-vertical:seg:{idx:02d}:bar
+  pattern:funnel-diagram/default-vertical:seg:{idx:02d}:label
+  pattern:funnel-diagram/default-vertical:seg:{idx:02d}:value
+  pattern:funnel-diagram/conversion-pipeline:stage:{idx:02d}:bar
+  pattern:funnel-diagram/conversion-pipeline:stage:{idx:02d}:label
+  pattern:funnel-diagram/conversion-pipeline:stage:{idx:02d}:value
 """
 
 from __future__ import annotations
@@ -19,6 +27,15 @@ from shared.pptx.style import (
     style_shape_solid_fill,
     style_text_frame,
 )
+
+
+PATTERN_DEFAULT_VERTICAL = "funnel-diagram/default-vertical"
+PATTERN_CONVERSION = "funnel-diagram/conversion-pipeline"
+
+
+def _set_shape_name(shape: Any, role: str, pattern_id: str = PATTERN_DEFAULT_VERTICAL) -> None:
+    """Set the deterministic pattern shape name."""
+    shape.name = f"pattern:{pattern_id}:{role}"
 
 
 @register("funnel-diagram")
@@ -70,6 +87,7 @@ def inject_funnel_diagram(
             style_shape_solid_fill(rrect, tokens, color)
             no_line(rrect)
             rrect.adjustments[0] = 0.15
+            _set_shape_name(rrect, f"seg:{idx:02d}:bar")
             created.append(rrect)
         else:
             rect = slide.shapes.add_shape(
@@ -79,6 +97,7 @@ def inject_funnel_diagram(
             )
             style_shape_solid_fill(rect, tokens, color)
             no_line(rect)
+            _set_shape_name(rect, f"seg:{idx:02d}:bar")
             created.append(rect)
 
         # Label
@@ -91,10 +110,11 @@ def inject_funnel_diagram(
             style_text_frame(lbox.text_frame, tokens, pt=12, color="white", bold=True, align="CENTER")
             lbox.text_frame.word_wrap = True
             lbox.text_frame.paragraphs[0].runs[0].text = label_text
+            _set_shape_name(lbox, f"seg:{idx:02d}:label")
             created.append(lbox)
 
         # Value
-        value_text = seg.get("value", "")
+        value_text = str(seg.get("value", "")) if seg.get("value") is not None else ""
         if value_text:
             vbox = slide.shapes.add_textbox(
                 inches(seg_x + 0.15), inches(seg_y + seg_h * 0.45),
@@ -102,6 +122,7 @@ def inject_funnel_diagram(
             )
             style_text_frame(vbox.text_frame, tokens, pt=16, color="white", bold=True, align="CENTER")
             vbox.text_frame.paragraphs[0].runs[0].text = value_text
+            _set_shape_name(vbox, f"seg:{idx:02d}:value")
             created.append(vbox)
 
     return created
@@ -156,6 +177,7 @@ def inject_funnel_conversion(
         style_shape_solid_fill(bar, tokens, color)
         no_line(bar)
         bar.adjustments[0] = 0.15
+        _set_shape_name(bar, f"stage:{idx:02d}:bar", PATTERN_CONVERSION)
         created.append(bar)
 
         # Label
@@ -168,10 +190,11 @@ def inject_funnel_conversion(
             style_text_frame(lbox.text_frame, tokens, pt=11, color="white", bold=True, align="LEFT")
             lbox.text_frame.word_wrap = True
             lbox.text_frame.paragraphs[0].runs[0].text = label_text
+            _set_shape_name(lbox, f"stage:{idx:02d}:label", PATTERN_CONVERSION)
             created.append(lbox)
 
         # Value
-        value_text = stage.get("value", "")
+        value_text = str(stage.get("value", "")) if stage.get("value") is not None else ""
         if value_text:
             vbox = slide.shapes.add_textbox(
                 inches(stage_x + 0.15), inches(stage_y + bar_h * 0.45),
@@ -179,6 +202,7 @@ def inject_funnel_conversion(
             )
             style_text_frame(vbox.text_frame, tokens, pt=10, color="white", bold=False, align="LEFT")
             vbox.text_frame.paragraphs[0].runs[0].text = value_text
+            _set_shape_name(vbox, f"stage:{idx:02d}:value", PATTERN_CONVERSION)
             created.append(vbox)
 
     return created

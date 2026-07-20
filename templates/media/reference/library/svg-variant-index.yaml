@@ -1325,7 +1325,7 @@ groups:
       selectable: false
       keep: Y
   customer-journey-map-infographic_027d8a:
-    canonical_category: funnel-diagram
+    canonical_category: customer-journey-map
     style_axis: none
     selectable_for_random: false
     all_rendered: true

@@ -14,7 +14,21 @@ Runs, in order:
   9. Graphical validator
   10. OPC audit
   11. Package audit
-  12. Slidev generate/review/build smoke test
+  12. Deck build sanity (reuse of BAMI schema) — NOT a Slidev smoke test;
+      see CI job `slidev-smoke` in .github/workflows/runtime-remediation.yml
+      for the real Slidev `npx slidev build slides-demo.md` step.
+
+Known gaps (non-blocking in current local environment):
+  - Step 4: RESOLVED — was a code defect (missing comma in `package.json` after
+    the `scripts` block, committed in 6e872ee). The malformed JSON broke
+    Puppeteer's config loader before any browser launch. After restoring the
+    comma, strict JSON parsing and `npx mmdc` work, and the full test suite
+    passes (479 passed, 0 failed, 5 xfailed).
+  - Step 11: Pillow 12.2.0 CVEs on this machine (project pins >=12.3);
+    pypdf/setuptools are environment artifacts, not repo dependencies.
+
+On a fresh CI runner Step 4 is expected to pass (code fix);
+Step 11 is expected to pass once `pip install` resolves Pillow>=12.3.
 
 Usage:
   python scripts/release_gate.py
@@ -117,8 +131,8 @@ def main() -> int:
     step(11, "Package audit",
          [sys.executable, "scripts/package_audit.py"])
 
-    # 12. Slidev generate/review/build smoke test
-    step(12, "Slidev generate (branch A intermediate)",
+    # 12. Deck build sanity (reuse BAMI schema) — NOT a Slidev smoke test
+    step(12, "Deck build sanity (reuse of BAMI schema)",
          [sys.executable, "-m", "tools.pptx_gen", "--schema", "clients/_sample/deck.json",
           "--out", ".pi/temp/release-slidev.pptx", "--brand", "bami"])
 

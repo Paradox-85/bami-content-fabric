@@ -231,7 +231,7 @@
       "evidence_level": "reproduced",
       "status": "fixed_pending_validation",
       "reproduction_command": "python -m pytest -q && python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/pass1-sample.pptx --brand bami && python -m tools.pptx_validate .pi/temp/pass1-sample.pptx --brand bami",
-      "observed_result": "Baseline captured at HEAD 4ab6803; 479 passed, 0 failed, 5 xfailed",
+      "observed_result": "[Historical baseline at HEAD 4ab6803] 479 passed, 0 failed, 5 xfailed",
       "remediation_pass": "1",
       "owner_notes": "Baseline complete."
     },

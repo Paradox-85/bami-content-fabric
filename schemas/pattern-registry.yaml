@@ -39,6 +39,7 @@ entries:
       max_items:
         bami: 6
         kvi: 5
+    default_graphical_variant: folded-arrow-horizontal  # deterministic default
     contracts:
       - schemas/contracts/numbered-process-steps.v1.json
     graphical_variants:
@@ -132,6 +133,7 @@ entries:
       max_items:
         bami: 6
         kvi: 5
+    default_graphical_variant: circle-steps  # deterministic default (enabled variant)
     contracts:
       - schemas/contracts/circular-process-loop.v1.json
     graphical_variants:
@@ -230,6 +232,7 @@ entries:
     version: 1.0.0
     status: enabled
     selection_version: 1.0.0
+    default_graphical_variant: default-grid  # deterministic default (enabled variant)
     contracts:
       - schemas/contracts/quadrant-matrix.v1.json
     graphical_variants:
@@ -290,6 +293,7 @@ entries:
     version: 1.0.0
     status: enabled
     selection_version: 1.0.0
+    default_graphical_variant: default-vertical  # deterministic default (enabled variant)
     contracts:
       - schemas/contracts/funnel-diagram.v1.json
     graphical_variants:

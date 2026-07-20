@@ -9,16 +9,16 @@ from __future__ import annotations
 from pathlib import Path
 
 from pptx import Presentation
-
 from shared.pptx.blocks import render_block
 from shared.pptx.chrome import apply_slots
 from shared.pptx.clone import clone_slide, delete_slide_at
 from shared.pptx.schema import load_deck
 from shared.pptx.layouts import expand_layout
 from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
-from shared.pptx.contract_validation import validate_content
+from shared.pptx.contract_validation import validate_content, ContractValidationError
 from shared.pptx.tokens import Tokens, load_tokens
 from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
+from shared.pptx.routing import plan_route
 
 
 
@@ -310,116 +310,95 @@ def build_deck(
             _clear_body_zone(new_slide, tokens)
         # Fill chrome slots (title for content; hero fields for cover/closing).
         apply_slots(new_slide, tmpl.get("slots", {}), slide_spec.get("fields", {}))
-        # Compose the free body zone (content slides only). Expand semantic layouts
-        # into raw blocks first, then render layout blocks followed by any explicit blocks.
         blocks = list(slide_spec.get("blocks", []))
-        layout_name = slide_spec.get("layout")
-        if tname == "content" and layout_name:
-            blocks = expand_layout(
-                layout_name,
-                tokens,
-                slide_spec.get("variant"),
-                slide_spec.get("content"),
-                tname,
-                str(deck_path.parent),
-            ) + blocks
-        # Fallback: if content is present but layout and blocks are absent, resolve deterministically
         slide_warnings: list[str] = []
-        if tname == "content" and not layout_name and not slide_spec.get("blocks") and slide_spec.get("content"):
-            try:
-                sel = resolve_pattern(
-                    slide_spec["content"], tokens,
-                    narrative_intent=slide_spec.get("variant", {}).get("narrative_intent"),
-                    graphical_variant=slide_spec.get("graphical_variant"),
+        slide_errors: list[str] = []
+        # Compose the free body zone (content slides only).
+        # Use the unified route planner for all content slides.
+        if tname == "content":
+            route = plan_route(
+                slide_spec, tokens,
+                deck_parent_path=str(deck_path.parent),
+            )
+            slide_warnings.extend(route.warnings)
+            slide_errors.extend(route.errors)
+
+            if route.errors:
+                raise BuildError("; ".join(route.errors))
+
+            layout_name = route.layout or slide_spec.get("layout")
+
+            # Produce blocks from the route plan
+            # Strategy:
+            #   - Explicit layout: always use expand_layout (which handles content→block conversion)
+            #   - Content-only auto with injector_id: use injector path
+            #   - Content-only auto with layout but no injector: use expand_layout
+            #   - Terminal family (layout=None): use _terminal_block_materialize
+            if route.selection_provenance in ("auto", "hint_category") and route.native_injector_id and layout_name:
+                # Injector path for auto-resolved routes (not explicit layouts)
+                from shared.pptx.content_normalization import normalize_content_for_injector
+                normalized = normalize_content_for_injector(
+                    slide_spec.get("content", {}),
+                    route.native_injector_id,
                 )
-                layout_name = sel.layout
-                combined_variant = {**(slide_spec.get("variant") or {}), **sel.variant}
-                slide_spec = {**slide_spec, "variant": combined_variant}
-                slide_warnings = sel.warnings
-                # Registry-backed native injector: materialize inject-pattern block
-                # Pass 3: route any family with renderer_binding.native.injector_id
-                injector_id = None
-                if sel.renderer_binding and sel.pattern_template_id:
-                    inj = sel.renderer_binding.get("native", {})
-                    # Route if a native injector_id is declared in the registry binding
-                    if inj.get("injector_id"):
-                        injector_id = inj["injector_id"]
-                # Validate resolved content against contract_ref
-                # Pass 3: fail-fast for enabled variants, warn-only for planned/disabled/legacy
-                content = slide_spec.get("content", {})
-                fail_fast = False
-                if sel.contract_ref and sel.pattern_template_id and sel.family:
-                    try:
-                        registry = load_registry()
-                        fam_entry = get_family_entry(registry, sel.family)
-                        if fam_entry is not None:
-                            variant_entry = resolve_variant(fam_entry, sel.graphical_variant)
-                            if variant_entry is not None and variant_entry.get("status") == "enabled":
-                                fail_fast = True
-                    except Exception:
-                        pass  # registry unavailable; fall back to warn-only
-                cw = validate_content(content, sel.contract_ref, fail_fast=fail_fast)
-                slide_warnings.extend(cw)
-                if layout_name and injector_id:
-                    # Transform content into injector-specific params
-                    injector_params = _content_to_injector_params(content, injector_id)
-                    bz_top, bz_bottom = tokens.body_zone
-                    injector_block = {
-                        "kind": "inject-pattern",
-                        "canonical_id": injector_id,
-                        "x": round(tokens.margin_x, 3),
-                        "y": bz_top,
-                        "w": round(tokens.content_width, 3),
-                        "h": round(bz_bottom - bz_top, 3),
-                        **injector_params,
-                        "pattern_template_id": sel.pattern_template_id,
-                        "pattern_version": sel.family_version,
-                        "graphical_variant": sel.graphical_variant,
-                        "features": sel.features or {},
-                    }
-                    # Pass 3: evaluate graphical complexity gate before rendering
-                    try:
-                        from shared.pptx.graphical_complexity import complexity_gate
-                        n_steps = len(injector_params.get("steps", injector_params.get("nodes", [])))
-                        if n_steps > 0 and sel.features:
-                            gate_verdict = complexity_gate(
-                                sel.features, content, n_items=n_steps, fail_fast=True,
+                injector_params = _content_to_injector_params(
+                    normalized, route.native_injector_id,
+                )
+                bz_top, bz_bottom = tokens.body_zone
+                injector_block = {
+                    "kind": "inject-pattern",
+                    "canonical_id": route.native_injector_id,
+                    "x": round(tokens.margin_x, 3),
+                    "y": bz_top,
+                    "w": round(tokens.content_width, 3),
+                    "h": round(bz_bottom - bz_top, 3),
+                    **injector_params,
+                    "pattern_template_id": route.pattern_template_id,
+                    "pattern_version": route.selection_result.family_version if route.selection_result else None,
+                    "graphical_variant": route.graphical_variant,
+                    "features": route.selection_result.features if route.selection_result else {},
+                }
+                # Complexity gate
+                try:
+                    from shared.pptx.graphical_complexity import complexity_gate
+                    n_steps = len(injector_params.get("steps", injector_params.get("nodes", [])))
+                    if n_steps > 0 and route.selection_result and route.selection_result.features:
+                        gate_verdict = complexity_gate(
+                            route.selection_result.features, slide_spec.get("content", {}),
+                            n_items=n_steps, fail_fast=True,
+                        )
+                        if gate_verdict.level in ("warn",):
+                            slide_warnings.append(
+                                f"Complexity warning for {route.pattern_template_id}: "
+                                f"{gate_verdict.message}"
                             )
-                            if gate_verdict.level in ("warn",):
-                                slide_warnings.append(
-                                    f"Complexity warning for {sel.pattern_template_id}: "
-                                    f"{gate_verdict.message}"
-                                )
-                    except ImportError:
-                        pass  # graphical_complexity module not available
-                    except ValueError as e:
-                        raise BuildError(
-                            f"Complexity gate rejected {sel.pattern_template_id}: {e}"
-                        ) from e
-                    blocks = [injector_block] + blocks
-                elif layout_name:
-                    blocks = expand_layout(
-                        layout_name,
-                        tokens,
-                        slide_spec.get("variant"),
-                        slide_spec.get("content"),
-                        tname,
-                        str(deck_path.parent),
-                    ) + blocks
-                elif sel.block_kind:
-                    # Terminal family with no layout (e.g. data-table, bullets,
-                    # before-after-split, impact-table): materialize a primitive
-                    # block directly from the resolved block_kind + content.
-                    bz_top, bz_bottom = tokens.body_zone
-                    content = slide_spec.get("content", {})
-                    blocks = _terminal_block_materialize(
-                        sel.block_kind, tokens, content,
-                        round(tokens.margin_x, 3), bz_top,
-                        round(tokens.content_width, 3),
-                        round(bz_bottom - bz_top, 3),
-                    )
-            except PatternSelectionError as e:
-                raise BuildError(str(e)) from e
+                except ImportError:
+                    pass
+                except ValueError as e:
+                    raise BuildError(
+                        f"Complexity gate rejected {route.pattern_template_id}: {e}"
+                    ) from e
+                blocks = [injector_block] + blocks
+            elif layout_name:
+                # Layout path: use expand_layout (handles explicit AND auto-resolved layouts)
+                blocks = expand_layout(
+                    layout_name,
+                    tokens,
+                    slide_spec.get("variant"),
+                    slide_spec.get("content"),
+                    tname,
+                    str(deck_path.parent),
+                ) + blocks
+            elif route.selection_result and route.selection_result.block_kind:
+                # Terminal family path
+                bz_top, bz_bottom = tokens.body_zone
+                content = slide_spec.get("content", {})
+                blocks = _terminal_block_materialize(
+                    route.selection_result.block_kind, tokens, content,
+                    round(tokens.margin_x, 3), bz_top,
+                    round(tokens.content_width, 3),
+                    round(bz_bottom - bz_top, 3),
+                )
         if tname == "content":
             blocks = _center_sole_block(blocks, tokens)
         selection_warnings.extend(slide_warnings)

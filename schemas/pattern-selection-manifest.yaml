@@ -763,6 +763,68 @@ manifest:
       disallowed_when: []
       rank: 60
 
+    # -- Maturity model / Case study ---
+
+    - family: maturity-model-ladder
+      aliases: [maturity, maturity-model, ladder]
+      layout: maturity-model-ladder
+      block_kind: inject-pattern
+      render_method: native
+      scenario_signal: maturity-levels
+      narrative_intent: [maturity, maturity-model, capability-levels]
+      structural:
+        required_any: [[rungs], [items], [levels]]
+        required_all: []
+        count_key: rungs
+      capacity:
+        min: 2
+        max:
+          bami: 6
+          kvi: 5
+        count_path: rungs
+        overflow:
+          at: 7
+          switch_family: data-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 2.0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid, positive, warning]
+      fallback_chain: [numbered-process-steps, data-table]
+      disallowed_when: []
+      rank: 65
+
+    - family: case-study-card
+      aliases: [case-study, customer-case, success-story]
+      layout: case-study-card
+      block_kind: inject-pattern
+      render_method: native
+      scenario_signal: customer-case-study
+      narrative_intent: [case-study, success-story, customer-story]
+      structural:
+        required_any: [[sections], [items]]
+        required_all: []
+        count_key: sections
+      capacity:
+        min: 1
+        max:
+          bami: 1
+          kvi: 1
+        count_path: sections
+        overflow:
+          at: 2
+          switch_family: comparison-table
+      spatial:
+        orientation: vertical
+        min_col_width_in: 2.0
+      color:
+        auto_status: false
+        palette: [primary, accent_1, accent_2]
+      fallback_chain: [comparison-table, bullets]
+      disallowed_when: []
+      rank: 65
+
     - family: impact-table
       aliases: [impact, risk-impact]
       layout: null

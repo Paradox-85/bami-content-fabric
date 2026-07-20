@@ -39,6 +39,11 @@
             "description": "Version of the selection manifest entry this registry entry syncs with",
             "pattern": "^\\d+\\.\\d+\\.\\d+$"
           },
+          "default_graphical_variant": {
+            "type": "string",
+            "description": "Deterministic default variant for multi-variant families",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
           "family_metadata": {
             "type": "object",
             "properties": {

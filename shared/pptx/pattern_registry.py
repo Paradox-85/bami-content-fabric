@@ -142,15 +142,24 @@ def resolve_variant(
     family_entry: dict[str, Any],
     graphical_variant: str | None = None,
 ) -> dict[str, Any] | None:
-    """Resolve a specific graphical variant, or the first enabled default.
+    """Resolve a specific graphical variant, or the default variant.
 
-    If *graphical_variant* is given, look for a matching variant (any status).
-    If not given or not found, return the first enabled variant, or ``None``.
+    Resolution order:
+    1. Explicitly requested *graphical_variant* (any status).
+    2. Family-level ``default_graphical_variant`` if set and enabled.
+    3. First enabled variant in YAML declaration order.
+    4. ``None`` if no enabled variant exists.
     """
     variants = family_entry.get("graphical_variants", [])
     if graphical_variant:
         for v in variants:
             if v.get("graphical_variant") == graphical_variant:
+                return v
+    # Fall back to family-level default_graphical_variant
+    default_gv = family_entry.get("default_graphical_variant")
+    if default_gv:
+        for v in variants:
+            if v.get("graphical_variant") == default_gv and v.get("status") == "enabled":
                 return v
     # Fall back to first enabled
     enabled = get_enabled_variants(family_entry)

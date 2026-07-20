@@ -343,14 +343,34 @@ def resolve_pattern(
     if content is None:
         content = {}
 
-    # Phase 0: explicit hint override
+    # Phase 0: explicit hint override — now structurally validated
+    hint_entry: dict | None = None
+    hints_warning: list[str] = []
     if hint_category:
         manifest = load_manifest()
-        for entry in manifest.get("entries", []):
+        entries = manifest.get("entries", [])
+        # Find the hint-matched entry
+        for entry in entries:
             aliases = _expand_aliases(entry)
             if hint_category in aliases:
-                return _build_result(entry, [], [], content, tokens, graphical_variant=graphical_variant, narrative_intent_original=narrative_intent)
-
+                hint_entry = entry
+                break
+        if hint_entry is not None:
+            # Apply normalization for structural matching
+            normalized_content = dict(content)
+            try:
+                from shared.pptx.content_normalization import normalize_content_for_family
+                normalized_content = normalize_content_for_family(content, hint_entry.get("family", hint_category))
+            except Exception:
+                pass
+            # Structural check: does content match required keys?
+            if not _entry_structurally_matches(hint_entry, normalized_content):
+                hints_warning = [
+                    f"hint_category '{hint_category}' does not match content keys "
+                    f"{sorted(content.keys())}; falling back to structural matching"
+                ]
+                # Reset hint so normal pipeline takes over
+                hint_entry = None
     manifest = load_manifest()
     entries = manifest.get("entries", [])
 
@@ -399,13 +419,40 @@ def resolve_pattern(
         candidates.append((idx, entry, specificity))
 
     # Phase 2: pick best structural match
+    # If hint_entry was set and passed structural checks, promote it
+    hint_entry_index = None
+    if hint_entry is not None:
+        for idx, entry in enumerate(entries):
+            if entry is hint_entry:
+                hint_entry_index = idx
+                break
     if candidates:
-        ranked = sorted(
-            candidates,
-            key=lambda x: (x[2], x[1].get("rank", 0), -x[0]),
-            reverse=True,
-        )
-        best_idx, best_entry, _ = ranked[0]
+        if hint_entry_index is not None:
+            # Check if the hint-matched entry is among the candidates
+            hint_is_candidate = any(c[0] == hint_entry_index for c in candidates)
+            if hint_is_candidate:
+                best_entry = hint_entry
+                best_idx = hint_entry_index
+            else:
+                # Hint entry didn't match structurally; normal selection
+                if not hints_warning:
+                    hints_warning = [
+                        f"hint_category '{hint_category}' did not match content keys "
+                        f"{sorted(content.keys())}; using structural match"
+                    ]
+                ranked = sorted(
+                    candidates,
+                    key=lambda x: (x[2], x[1].get("rank", 0), -x[0]),
+                    reverse=True,
+                )
+                best_idx, best_entry, _ = ranked[0]
+        else:
+            ranked = sorted(
+                candidates,
+                key=lambda x: (x[2], x[1].get("rank", 0), -x[0]),
+                reverse=True,
+            )
+            best_idx, best_entry, _ = ranked[0]
     else:
         # No structural match at all
         if narrative_intent:
@@ -416,7 +463,7 @@ def resolve_pattern(
                 if any(ni in entry_intents for ni in narrative_intent):
                     return _build_result(
                         entry, [], rejected, content, tokens,
-                        warnings=["matched via narrative_intent only"],
+                        warnings=hints_warning + ["matched via narrative_intent only"],
                         graphical_variant=graphical_variant,
                         narrative_intent_original=narrative_intent,
                     )
@@ -427,8 +474,8 @@ def resolve_pattern(
                 if entry.get("family") == "bullets":
                     return _build_result(
                         entry, [], rejected, content, tokens,
-                        warnings=[
-                            "structural match failed; "
+                        warnings=hints_warning + [
+                            "structural match failed; ",
                             "fell back to terminal 'bullets'"
                         ],
                         narrative_intent_original=narrative_intent,
@@ -436,17 +483,25 @@ def resolve_pattern(
 
         raise PatternSelectionError(
             f"No pattern matched content keys {sorted(content.keys())} "
-            f"and no fallback succeeded. "
-            f"Rejected {len(rejected)} candidate(s)."
+            f"and no fallback succeeded. Rejected {len(rejected)} candidate(s)."
         )
 
-    # Phase 3: check capacity and handle overflow/fallback
+    # Phase 3: normalize content for capacity counting when hint_entry is active
+    capacity_content = content
+    if hint_entry is not None and hint_entry is best_entry:
+        try:
+            from shared.pptx.content_normalization import normalize_content_for_family
+            norm = normalize_content_for_family(content, best_entry.get("family", ""))
+            if norm:
+                capacity_content = norm
+        except Exception:
+            pass
     best_capacity = best_entry.get("capacity", {})
 
     count_path_best = best_capacity.get(
         "count_path", best_entry.get("structural", {}).get("count_key", "")
     )
-    item_count_best = _count_items(content, count_path_best)
+    item_count_best = _count_items(capacity_content, count_path_best)
     cap_min = _get_capacity_value(best_capacity, brand, "min", 1)
     cap_max = _get_capacity_value(best_capacity, brand, "max", 999)
 
@@ -470,7 +525,7 @@ def resolve_pattern(
                 rejected,
                 content,
                 tokens,
-                warnings=[overflow_warning],
+                warnings=hints_warning + [overflow_warning],
                 graphical_variant=graphical_variant,
                 narrative_intent_original=narrative_intent,
             )
@@ -501,7 +556,7 @@ def resolve_pattern(
                     rejected,
                     content,
                     tokens,
-                    warnings=[
+                    warnings=hints_warning + [
                         f"capacity exceeded for "
                         f"{best_entry.get('family')}; fallback to {fb_family}"
                     ],
@@ -522,7 +577,7 @@ def resolve_pattern(
                 rejected,
                 content,
                 tokens,
-                warnings=[
+                warnings=hints_warning + [
                     f"capacity exceeded; forced fallback to {fb_family}"
                 ],
                 graphical_variant=graphical_variant,
@@ -541,7 +596,7 @@ def resolve_pattern(
             rejected,
             content,
             tokens,
-            warnings=[f"{issue_msg}; no fallback found in {fallback_chain}"],
+            warnings=hints_warning + [f"{issue_msg}; no fallback found in {fallback_chain}"],
             graphical_variant=graphical_variant,
             narrative_intent_original=narrative_intent,
         )
@@ -553,7 +608,7 @@ def resolve_pattern(
         rejected,
         content,
         tokens,
-        warnings=[],
+        warnings=hints_warning,
         graphical_variant=graphical_variant,
         narrative_intent_original=narrative_intent,
     )

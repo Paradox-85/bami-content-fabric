@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Runtime Claim Status Schema",
+  "description": "Schema for the machine-readable audit ledger of runtime claims. Each claim records a finding about the bami-content-fabric runtime, its evidence level, current status, and remediation ownership.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "SemVer for this schema, bumped when fields are added or retired."
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "area",
+          "claim_text",
+          "evidence_level",
+          "status"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "description": "Unique identifier, e.g. 'C001'."
+          },
+          "area": {
+            "type": "string",
+            "description": "Functional area: baseline-capture | routing | hint-validation | variant-policy | funnel-contradictions | circle-radial-arrow | manifest-runtime-conflicts | svg-classification | contracts | dependency-install | opc-audit | graphical-validator | ci | docs | release-gate."
+          },
+          "source_file": {
+            "type": "string",
+            "description": "File path where the claim originates, relative to repository root."
+          },
+          "source_pointer": {
+            "type": "string",
+            "description": "Line number, function name, or section identifier within source_file."
+          },
+          "claim_text": {
+            "type": "string",
+            "description": "Short description of the claim (what was expected vs what actually happens)."
+          },
+          "evidence_level": {
+            "type": "string",
+            "description": "How strongly the claim is supported: scout-report | reproduced | static-analysis | test-output | product-decision."
+          },
+          "status": {
+            "type": "string",
+            "description": "Current remediation status.",
+            "enum": [
+              "confirmed_strong",
+              "confirmed_reproduced",
+              "needs_reproduction",
+              "contradicted_by_current_head",
+              "needs_product_decision",
+              "deferred_not_runtime_blocking",
+              "fixed_pending_validation"
+            ]
+          },
+          "reproduction_command": {
+            "type": "string",
+            "description": "Command or script used to reproduce the claim."
+          },
+          "observed_result": {
+            "type": "string",
+            "description": "What was actually observed when reproducing."
+          },
+          "remediation_pass": {
+            "type": "string",
+            "description": "Which pass (1-4) is expected to fix this claim.",
+            "enum": ["1", "2", "3", "4", "deferred"]
+          },
+          "owner_notes": {
+            "type": "string",
+            "description": "Free-text notes for implementation agent."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["schema_version", "claims"],
+  "additionalProperties": false
+}

@@ -569,6 +569,57 @@ def _gantt_block(content: dict, variant: dict | None = None, tokens: Tokens | No
     }
 
 
+def _layout_maturity_model_ladder(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Layout: maturity-model-ladder → native inject-pattern block.
+
+    Emits an ``inject-pattern`` block with ``canonical_id='maturity-model-ladder'``
+    and passes ``rungs`` (or aliases) through as injector params.
+    """
+    c = content or {}
+    bz_top, bz_bottom = tokens.body_zone
+    block: dict[str, Any] = {
+        "kind": "inject-pattern",
+        "canonical_id": "maturity-model-ladder",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }
+    rungs = c.get("rungs", c.get("items", c.get("levels", [])))
+    if rungs:
+        block["rungs"] = rungs
+    return [block]
+
+
+def _layout_case_study_card(
+    tokens, variant, content, tname=None, deck_dir=None,
+) -> list[dict]:
+    """Layout: case-study-card → native inject-pattern block.
+
+    Emits an ``inject-pattern`` block with ``canonical_id='case-study-card'``
+    and passes ``sections`` (or aliases) through as injector params.
+    """
+    c = content or {}
+    bz_top, bz_bottom = tokens.body_zone
+    block: dict[str, Any] = {
+        "kind": "inject-pattern",
+        "canonical_id": "case-study-card",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }
+    if c.get("title"):
+        block["title"] = c["title"]
+    if c.get("subtitle"):
+        block["subtitle"] = c["subtitle"]
+    sections = c.get("sections", c.get("items", []))
+    if sections:
+        block["sections"] = sections
+    return [block]
+
 
 # ===================================================================
 # Registry
@@ -591,6 +642,8 @@ LAYOUTS: dict[str, LayoutBuilder] = {
     "pros-cons-list": _layout_pros_cons_list,
     "checklist-status": _layout_checklist_status,
     "quote-testimonial-card": _layout_quote_testimonial_card,
+    "maturity-model-ladder": _layout_maturity_model_ladder,
+    "case-study-card": _layout_case_study_card,
     "swimlane-diagram": _layout_swimlane_diagram,
     "competitive-matrix": _layout_competitive_matrix,
     "mind-map-radial": _layout_mind_map_radial,

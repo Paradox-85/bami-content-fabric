@@ -58,7 +58,9 @@ BRAND_DIRS = {
               help="Override template.pptx (default: brand dir).")
 @click.option("--tokens", "tokens_path", default=None, type=click.Path(dir_okay=False),
               help="Override design_tokens.yaml (default: brand dir).")
-def main(schema_path, out_path, brand, template_path, tokens_path):
+@click.option("--strict-selection", is_flag=True, default=False,
+              help="Convert selection/fallback warnings to non-zero exit code.")
+def main(schema_path, out_path, brand, template_path, tokens_path, strict_selection):
     """Generate a branded presentation from a deck.json content model."""
     brand_def = BRAND_DIRS[brand]
     template_path = template_path or brand_def["template"]
@@ -69,6 +71,14 @@ def main(schema_path, out_path, brand, template_path, tokens_path):
         click.echo(f"error: {exc}", err=True); sys.exit(_exit_for(str(exc)))
     except Exception as exc:  # noqa: BLE001
         click.echo(f"error: {exc}", err=True); sys.exit(1)
+    # Surface selection_warnings to stderr
+    warnings = result.get("selection_warnings", [])
+    if warnings:
+        for w in warnings:
+            click.echo(f"warning: {w}", err=True)
+        if strict_selection:
+            click.echo("strict-selection: warnings treated as errors", err=True)
+            sys.exit(1)
     click.echo(
         f"built {result['slides_rendered']} slide(s) -> {result['out']} "
         f"(brand={brand}, pruned {result['pruned']} reference slide(s))"

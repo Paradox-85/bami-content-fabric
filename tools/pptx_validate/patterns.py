@@ -29,7 +29,6 @@ from pathlib import Path
 import jsonschema
 import yaml
 
-
 ROOT = Path(__file__).resolve().parents[2]
 LIBRARY_DIR = ROOT / "templates" / "media" / "reference" / "library"
 REGISTRY_PATH = ROOT / "schemas" / "pattern-registry.yaml"
@@ -161,7 +160,10 @@ def check_orphan_svgs(rep: Report, assets: dict) -> None:
             unreferenced_cats.add(cat)
 
     for cat in sorted(unreferenced_cats):
-        rep.add(f"Category '{cat}' has SVGs but no pattern-assets.yaml entries (informational: SVGs are reference/provenance only)")
+        rep.add(
+            f"Category '{cat}' has SVGs but no pattern-assets.yaml entries"
+            " (informational: SVGs are reference/provenance only)",
+        )
 
 
 def check_no_pngs(rep: Report) -> None:

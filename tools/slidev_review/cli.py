@@ -9,13 +9,12 @@ Usage:
 
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
 import click
 
-from tools.slidev_review.review import review_from_path, review_markdown, review_intermediate
+from tools.slidev_review.review import review_from_path, review_markdown
 
 
 @click.command()

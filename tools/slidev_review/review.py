@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import json
 import re
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -98,7 +97,10 @@ __all__ = ["ReviewReport", "ReviewResult", "review_intermediate",
 class ReviewResult:
     """One check result item."""
 
-    def __init__(self, check: str, passed: bool, message: str = "", details: list[str] | None = None):
+    def __init__(
+        self, check: str, passed: bool,
+        message: str = "", details: list[str] | None = None,
+    ):
         self.check = check
         self.passed = passed
         self.message = message
@@ -169,7 +171,9 @@ class ReviewReport:
 
     def _load_registry(self) -> dict:
         if self._registry is None:
-            self._registry = json.loads((_REGISTRY_DIR / "registry.json").read_text(encoding="utf-8"))
+            self._registry = json.loads(
+                (_REGISTRY_DIR / "registry.json").read_text(encoding="utf-8")
+            )
         return self._registry
 
     def _get_contract(self, component_name: str) -> dict | None:
@@ -220,10 +224,20 @@ def check_component_registry(instance: dict, report: ReviewReport) -> None:
                 errors.append(f"  slide[{si}]: '{name}' exists but marked 'implemented: false'")
 
     if errors:
-        report.add(ReviewResult("Component Registry", False,
-                                 f"{len(errors)} component issue(s) found", errors))
+        report.add(
+            ReviewResult(
+                "Component Registry", False,
+                f"{len(errors)} component issue(s) found", errors,
+            )
+        )
+
     else:
-        report.add(ReviewResult("Component Registry", True, "all components registered and implemented"))
+        report.add(
+            ReviewResult(
+                "Component Registry", True,
+                "all components registered and implemented",
+            )
+        )
 
 
 def check_required_props(instance: dict, report: ReviewReport) -> None:
@@ -273,10 +287,20 @@ def check_required_props(instance: dict, report: ReviewReport) -> None:
                         )
 
     if errors:
-        report.add(ReviewResult("Prop Types", False,
-                                 f"{len(errors)} prop issue(s) found", errors))
+        report.add(
+            ReviewResult(
+                "Prop Types", False,
+                f"{len(errors)} prop issue(s) found", errors,
+            )
+        )
+
     else:
-        report.add(ReviewResult("Prop Types", True, "all required props present with correct types"))
+        report.add(
+            ReviewResult(
+                "Prop Types", True,
+                "all required props present with correct types",
+            )
+        )
 
 
 def check_slide_order(instance: dict, report: ReviewReport) -> None:

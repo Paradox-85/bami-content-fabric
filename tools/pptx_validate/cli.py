@@ -33,8 +33,14 @@ try:
 except ImportError:
     # Fallback BRAND_DIRS (mirrors pptx_gen/cli.py)
     BRAND_DIRS = {
-        "bami": {"template": "templates/bami/template.pptx",       "tokens": "templates/bami/design_tokens.yaml"},
-        "kvi":  {"template": "templates/kvi/template.pptx",       "tokens": "templates/kvi/design_tokens.yaml"},
+        "bami": {
+            "template": "templates/bami/template.pptx",
+            "tokens": "templates/bami/design_tokens.yaml",
+        },
+        "kvi": {
+            "template": "templates/kvi/template.pptx",
+            "tokens": "templates/kvi/design_tokens.yaml",
+        },
     }
 
 
@@ -61,7 +67,8 @@ class Report:
         return not self.violations
 
 
-def validate(pptx_path: str | Path, tokens_path: str | Path, chrome_mode: str | None = None) -> Report:
+def validate(pptx_path: str | Path, tokens_path: str | Path,
+           chrome_mode: str | None = None) -> Report:
     tokens = load_tokens(tokens_path)
     brand_hexes = tokens.brand_hexes()
     allowed_fonts = {tokens.fonts["primary"].lower()}
@@ -152,14 +159,22 @@ def validate(pptx_path: str | Path, tokens_path: str | Path, chrome_mode: str | 
                         title_bar_ok = True
                     # --- brand colors only (shape fills) ---
                     if rgb not in brand_hexes:
-                        rep.add(i, f"shape '{shp.name}' fill color {rgb} is outside the brand palette")
+                        rep.add(
+                            i,
+                            f"shape '{shp.name}' fill color {rgb}"
+                            " is outside the brand palette",
+                        )
             except Exception:
                 pass
 
             # --- canvas bounds ---
             if L is not None and T is not None and W is not None and H is not None:
                 if L < -0.001 or T < -0.001 or L + W > cw + 0.01 or T + H > ch + 0.01:
-                    rep.add(i, f"shape '{shp.name}' out of canvas bounds (L{L:.2f} T{T:.2f} W{W:.2f} H{H:.2f})")
+                    rep.add(
+                        i,
+                        f"shape '{shp.name}' out of canvas bounds"
+                        f"(L{L:.2f} T{T:.2f} W{W:.2f} H{H:.2f})",
+                    )
 
             # --- text runs: font + color; chrome title/footer detection ---
             if shp.has_text_frame:
@@ -168,19 +183,26 @@ def validate(pptx_path: str | Path, tokens_path: str | Path, chrome_mode: str | 
                         fn = (r.font.name or "").lower()
                         if fn and fn not in allowed_fonts:
                             brand_name = tokens.fonts["primary"]
-                            rep.add(i, f"run '{r.text[:24]!r}' font {r.font.name!r} is not {brand_name}")
+                            rep.add(
+                                i,
+                                f"run '{r.text[:24]!r}' font {r.font.name!r}"
+                                f" is not {brand_name}",
+                            )
                         try:
                             if r.font.color and r.font.color.rgb is not None:
                                 rc = "#" + str(r.font.color.rgb).upper()
                                 if rc not in brand_hexes:
-                                    rep.add(i, f"run '{r.text[:24]!r}' color {rc} is outside the brand palette")
+                                    rep.add(
+                                        i,
+                                        f"run '{r.text[:24]!r}' color {rc}"
+                                        " is outside the brand palette",
+                                    )
                         except Exception:
                             pass
                 txt = shp.text_frame.text.strip()
                 # Title text detection — check both BAMI position (T=0) and token-specified position
                 title_shape_name = (title_text_spec or {}).get("shape_name", "")
                 title_pos_T = title_text_spec.get("top_in", 0.0) if title_text_spec else 0.0
-                title_pos_L = title_text_spec.get("left_in", 0.0) if title_text_spec else 0.0
                 title_match_pos = (_near(T, 0.0) or _near(T, title_pos_T))
                 title_match_name = (title_shape_name and shp.name == title_shape_name)
                 if (title_match_pos or title_match_name) and W and txt and p.runs:
@@ -219,8 +241,12 @@ def validate(pptx_path: str | Path, tokens_path: str | Path, chrome_mode: str | 
         is_cover   = _is_cover_like(slide, tokens)
 
         # logo only where the brand template defines one for this slide type
-        slide_has_logo_spec = ((is_content or False) and "content" in logo_positions) or \
-                              ((is_cover or False) and ("cover" in logo_positions or "closing" in logo_positions))
+        slide_has_logo_spec = (
+            (is_content or False) and "content" in logo_positions
+        ) or (
+            (is_cover or False)
+            and ("cover" in logo_positions or "closing" in logo_positions)
+        )
         if slide_has_logo_spec and not logo_ok:
             rep.add(i, "brand logo not at the token EMU position")
 
@@ -233,8 +259,10 @@ def validate(pptx_path: str | Path, tokens_path: str | Path, chrome_mode: str | 
                 footer_missing = True
             if footer_missing:
                 parts = []
-                if footer_l_text and not footer_l_ok: parts.append(f"left={footer_l_text!r}")
-                if footer_r_text and not footer_r_ok: parts.append(f"right={footer_r_text!r}")
+                if footer_l_text and not footer_l_ok:
+                    parts.append(f"left={footer_l_text!r}")
+                if footer_r_text and not footer_r_ok:
+                    parts.append(f"right={footer_r_text!r}")
                 rep.add(i, "footer (" + ", ".join(parts) + ") missing")
         if (is_content or False) and title_bar_enabled and not title_bar_ok:
             rep.add(i, "content title bar missing (per tokens.content.title_bar)")
@@ -350,15 +378,19 @@ def _is_cover_like(slide, tokens) -> bool | None:
 
 
 @click.command()
-@click.argument("pptx_path", required=False, default=None, type=click.Path(exists=True, dir_okay=False))
+@click.argument("pptx_path", required=False, default=None,
+          type=click.Path(exists=True, dir_okay=False),)
 @click.option("--brand", default="bami", type=click.Choice(["bami", "kvi"]),
               help="Brand template set (default: bami). Sets --tokens default.")
 @click.option("--tokens", "tokens_path", default=None, type=click.Path(exists=True, dir_okay=False),
               help="Override design_tokens.yaml (default: brand dir).")
-@click.option("--chrome", "chrome_mode", type=click.Choice(["full", "partial"]), default=None,
-              help="Override chrome mode (default: read bami:chrome=* from deck core-properties).")
+@click.option("--chrome", "chrome_mode",
+          type=click.Choice(["full", "partial"]), default=None,
+              help="Override chrome mode "
+                    "(default: read bami:chrome=* from deck core-properties).")
 @click.option("--patterns", is_flag=True, default=False,
-              help="Run pattern library validation (SVGs, registry, assets) instead of PPTX validation.")
+              help="Run pattern library validation"
+                    " (SVGs, registry, assets) instead of PPTX validation.")
 @click.option("--graphical", is_flag=True, default=False,
               help="Run graphical/topology validation (pattern-aware shape checks).")
 @click.option("--opc", "run_opc", is_flag=True, default=False,
@@ -388,7 +420,11 @@ def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_op
             click.echo(f"  - {v}", err=True)
         sys.exit(1)
     if pptx_path is None:
-        click.echo("Error: PPTX_PATH is required (or use --patterns for pattern validation)", err=True)
+        click.echo(
+            "Error: PPTX_PATH is required "
+            "(or use --patterns for pattern validation)",
+            err=True,
+        )
         sys.exit(1)
     if tokens_path is None:
         tokens_path = BRAND_DIRS[brand]["tokens"]
@@ -413,7 +449,11 @@ def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_op
         if gref.ok:
             click.echo("OK: Graphical validation passed.")
         else:
-            click.echo(f"FAIL: {len(gref.violations)} violation(s) in graphical validation:", err=True)
+            click.echo(
+                f"FAIL: {len(gref.violations)} violation(s)"
+                " in graphical validation:",
+                err=True,
+            )
             for v in gref.violations:
                 click.echo(f"  - {v}", err=True)
             any_failures = True
@@ -425,7 +465,11 @@ def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_op
         if oref.ok:
             click.echo("OK: OPC audit passed.")
         else:
-            click.echo(f"FAIL: {len(oref.violations)} violation(s) in OPC audit:", err=True)
+            click.echo(
+                f"FAIL: {len(oref.violations)} violation(s)"
+                " in OPC audit:",
+                err=True,
+            )
             for v in oref.violations:
                 click.echo(f"  - {v}", err=True)
             any_failures = True

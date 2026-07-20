@@ -67,7 +67,7 @@ def inject_checklist_status(
     status_colors = {
         "done": "positive",
         "progress": "warning",
-        "pending": "neutral_light",
+        "pending": "neutral",
     }
     status_labels = {
         "done": "\u2713",       # check mark
@@ -85,7 +85,7 @@ def inject_checklist_status(
             break  # clip to available height
 
         # Status icon circle
-        colour = status_colors.get(status, "neutral_light")
+        colour = status_colors.get(status, "neutral")
         status_icon = slide.shapes.add_shape(
             MSO_SHAPE.OVAL,
             inches(x), inches(sy),

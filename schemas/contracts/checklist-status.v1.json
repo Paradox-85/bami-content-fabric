@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Checklist Status v1",
+  "description": "Contract for checklist-status native injector.",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "title": {"type": "string"},
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {"type": "string"},
+          "status": {"type": "string", "enum": ["done", "progress", "pending"]},
+          "note": {"type": "string"}
+        },
+        "required": ["label"]
+      }
+    },
+    "icon_size": {"type": "number"}
+  },
+  "additionalProperties": false
+}

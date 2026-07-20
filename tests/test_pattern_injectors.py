@@ -218,19 +218,24 @@ def test_checklist_status_requires_items():
         injector(None, None, x=0, y=0, w=9, h=4.5)
 
 
-def test_checklist_status_with_items():
-    """checklist-status should not raise when items are provided."""
+def test_checklist_status_with_items(monkeypatch, tokens_path):
+    """checklist-status should not raise when items are provided; uses real tokens."""
     from unittest.mock import MagicMock
+    from pathlib import Path
+    import yaml
     from shared.pptx.tokens import Tokens
+    token_path = Path(tokens_path)
+    with open(token_path, encoding="utf-8") as f:
+        raw = yaml.safe_load(f)
+    tokens = Tokens(raw.get("bami", raw))
     injector = get_injector("checklist-status")
     slide = MagicMock()
-    tokens = MagicMock(spec=Tokens)
-    tokens.resolve_color.return_value = "80C342"
-    # Should not raise
+    # Should not raise; real resolve_color is called under the hood
     result = injector(slide, tokens, x=0, y=0, w=9, h=4.5,
-                       items=[{"label": "Task 1", "status": "done"}])
+                       items=[{"label": "Task 1", "status": "done"},
+                               {"label": "Task 2", "status": "progress"},
+                               {"label": "Task 3", "status": "pending"}])
     assert isinstance(result, list)
-    # add_shape should have been called (for the status icon circle)
     assert slide.shapes.add_shape.call_count > 0
 
 def test_quote_testimonial_requires_quote():
@@ -240,16 +245,97 @@ def test_quote_testimonial_requires_quote():
         injector(None, None, x=0, y=0, w=9, h=4.5)
 
 
-def test_quote_testimonial_with_quote():
-    """quote-testimonial-card should not raise when quote is provided."""
+def test_quote_testimonial_with_quote(monkeypatch, tokens_path):
+    """quote-testimonial-card should not raise when quote is provided; uses real tokens."""
     from unittest.mock import MagicMock
+    from pathlib import Path
+    import yaml
     from shared.pptx.tokens import Tokens
+    token_path = Path(tokens_path)
+    with open(token_path, encoding="utf-8") as f:
+        raw = yaml.safe_load(f)
+    tokens = Tokens(raw.get("bami", raw))
     injector = get_injector("quote-testimonial-card")
     slide = MagicMock()
-    tokens = MagicMock(spec=Tokens)
-    tokens.resolve_color.return_value = "0054A8"
-    # Should not raise
+    # Should not raise; real resolve_color is called under the hood
     result = injector(slide, tokens, x=0, y=0, w=9, h=5.0,
                        quote="This is a testimonial.")
     assert isinstance(result, list)
     assert slide.shapes.add_shape.call_count > 0
+
+
+# ---------------------------------------------------------------------------
+# Integration: build_deck e2e with real tokens for checklist-status
+# ---------------------------------------------------------------------------
+
+
+def test_build_checklist_status_deck(tmp_path, tokens_path, template_path):
+    """A deck with explicit layout: checklist-status builds and validates."""
+    import json
+    from shared.pptx.build import build_deck
+    from tools.pptx_validate.cli import validate
+
+    deck = {
+        "title": "Checklist Status Build Test",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Status Tracker"},
+                "layout": "checklist-status",
+                "content": {
+                    "title": "Project Checklist",
+                    "items": [
+                        {"label": "Requirements gathered", "status": "done"},
+                        {"label": "Design approved", "status": "progress"},
+                        {"label": "Implementation complete", "status": "pending"},
+                        {"label": "Testing passed", "status": "done"},
+                    ],
+                },
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = tmp_path / "_checklist_status_test.json"
+    deck_path.write_text(json.dumps(deck, indent=2), encoding="utf-8")
+    out_path = tmp_path / "out.pptx"
+    result = build_deck(deck_path, out_path, template_path, tokens_path)
+    assert result["slides_rendered"] == 3, f"Expected 3 slides, got {result['slides_rendered']}"
+    assert out_path.exists()
+    rep = validate(out_path, tokens_path)
+    assert rep.ok, f"Validation violations: {rep.violations}"
+
+
+def test_build_quote_testimonial_deck(tmp_path, tokens_path, template_path):
+    """A deck with explicit layout: quote-testimonial-card builds and validates."""
+    import json
+    from shared.pptx.build import build_deck
+    from tools.pptx_validate.cli import validate
+
+    deck = {
+        "title": "Quote Testimonial Build Test",
+        "slides": [
+            {"template": "cover", "fields": {"hero": "Test"}},
+            {
+                "template": "content",
+                "fields": {"title": "Testimonial"},
+                "layout": "quote-testimonial-card",
+                "content": {
+                    "quote": "This product transformed our workflow.",
+                    "attribution": "Jane Doe",
+                    "role": "CTO, Acme Corp",
+                    "accent_color": "primary",
+                    "show_accent_line": True,
+                },
+            },
+            {"template": "closing", "fields": {}},
+        ],
+    }
+    deck_path = tmp_path / "_quote_testimonial_test.json"
+    deck_path.write_text(json.dumps(deck, indent=2), encoding="utf-8")
+    out_path = tmp_path / "out.pptx"
+    result = build_deck(deck_path, out_path, template_path, tokens_path)
+    assert result["slides_rendered"] == 3, f"Expected 3 slides, got {result['slides_rendered']}"
+    assert out_path.exists()
+    rep = validate(out_path, tokens_path)
+    assert rep.ok, f"Validation violations: {rep.violations}"

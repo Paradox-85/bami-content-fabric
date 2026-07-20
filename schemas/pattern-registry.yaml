@@ -495,3 +495,86 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Case_Study_ce7a8d
+
+  # --------------------------------------------------------------------------
+  # Checklist / status tracker — Pass 4
+  # --------------------------------------------------------------------------
+  - family: checklist-status
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Checklist with status icons per item
+      min_items: 1
+      max_items:
+        bami: 20
+        kvi: 16
+    contracts:
+      - schemas/contracts/checklist-status.v1.json
+    graphical_variants:
+      - graphical_variant: default-checkmark
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: checklist-status/default-checkmark@1.0.0
+        renderer_binding:
+          native:
+            injector_id: checklist-status
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 20
+          shape_budget: 80
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+          provenance_id: Checklist_Status_Checkmark_d83e2f
+        graphical_variant_description: >-
+          Vertical checklist with labelled items and colour-coded status
+          icons (checkmark, progress circle, empty circle) for done,
+          in-progress, and pending states.
+
+  # --------------------------------------------------------------------------
+  # Quote / testimonial card — Pass 4
+  # --------------------------------------------------------------------------
+  - family: quote-testimonial-card
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Pull-quote / testimonial card with accent mark and attribution
+      min_items: 1
+      max_items:
+        bami: 1
+        kvi: 1
+    contracts:
+      - schemas/contracts/quote-testimonial-card.v1.json
+    graphical_variants:
+      - graphical_variant: default-quote
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: quote-testimonial-card/default-quote@1.0.0
+        renderer_binding:
+          native:
+            injector_id: quote-testimonial-card
+            injector_version: 1.0.0
+          slidev: null
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 1
+          shape_budget: 10
+          connector_budget: 0
+          text_density: medium
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: false
+          provenance_id: Quote_Testimonial_Card_Default_9a1c77
+        graphical_variant_description: >-
+          Quote/testimonial card with large opening mark, quoted text,
+          left accent line (configurable), attribution, and role line.

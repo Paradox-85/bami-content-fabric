@@ -2283,3 +2283,27 @@ groups:
       rendered: true
       selectable: false
       keep: Y
+  Checklist_Status_Checkmark_d83e2f:
+    canonical_category: checklist-status
+    style_axis: none
+    selectable_for_random: false
+    all_rendered: false
+    rendered_count: 0
+    members:
+      - filename: _native_only_placeholder.svg
+        rendered: false
+        selectable: false
+        keep: N
+        reason: Native-only injector; no SVG reference asset
+  Quote_Testimonial_Card_Default_9a1c77:
+    canonical_category: quote-testimonial-card
+    style_axis: none
+    selectable_for_random: false
+    all_rendered: false
+    rendered_count: 0
+    members:
+      - filename: _native_only_placeholder.svg
+        rendered: false
+        selectable: false
+        keep: N
+        reason: Native-only injector; no SVG reference asset

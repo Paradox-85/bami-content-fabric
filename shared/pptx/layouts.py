@@ -24,7 +24,8 @@ Registered layouts:
     - ``architecture-diagram"      : Mermaid flowchart architecture.
     - ``quadrant-matrix"           : Mermaid quadrant chart.
     - ``chart-donut-pie"           : Mermaid pie chart.
-    - ``checklist-status"          : Mermaid kanban board.
+    - ``checklist-status"          : Native PPTX inject-pattern (status icons per item).
+    - ``quote-testimonial-card"    : Native PPTX inject-pattern (opening mark, quote, attribution).
     --- Primitive stubs (no Mermaid; fallback blocks) ---
     - ``numbered-process-steps"    : ``steps`` block.
     - ``circular-process-loop"     : ``steps`` block.
@@ -39,11 +40,8 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from shared.pptx.tokens import Tokens
-from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_flowchart_architecture
-from typing import Any
+from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_flowchart_architecture
 
-from shared.pptx.tokens import Tokens
-from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_gantt, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_kanban, _mmd_flowchart_architecture
 
 
 # ---------------------------------------------------------------------------

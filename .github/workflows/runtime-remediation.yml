@@ -1,0 +1,149 @@
+name: Runtime Remediation — CI matrix
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install ".[dev]"
+      - run: ruff check .
+
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest -q
+
+  sample-deck:
+    name: Sample deck build + validate (BAMI)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Build BAMI sample deck
+        run: python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/ci-bami.pptx --brand bami
+      - name: Validate BAMI sample deck
+        run: python -m tools.pptx_validate .pi/temp/ci-bami.pptx --brand bami
+
+  sample-deck-kvi:
+    name: Sample deck build + validate (KVI)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Build KVI sample deck
+        run: python -m tools.pptx_gen --schema clients/_sample/deck.kvi.json --out .pi/temp/ci-kvi.pptx --brand kvi
+      - name: Validate KVI sample deck
+        run: python -m tools.pptx_validate .pi/temp/ci-kvi.pptx --brand kvi
+
+  remediation-deck:
+    name: Remediation showcase deck + graphical + OPC
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Build remediation showcase deck
+        run: python -m tools.pptx_gen --schema clients/_sample/deck.runtime-remediation.json --out .pi/temp/ci-remediation.pptx --brand bami
+      - name: Design validation
+        run: python -m tools.pptx_validate .pi/temp/ci-remediation.pptx --brand bami
+      - name: Graphical validation
+        run: python -m tools.pptx_validate .pi/temp/ci-remediation.pptx --brand bami --graphical
+      - name: OPC audit
+        run: python -m tools.pptx_validate .pi/temp/ci-remediation.pptx --brand bami --opc
+
+  package-audit:
+    name: Package audits
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev,audit]"
+      - run: npm ci
+      - name: Python audit
+        run: python -m pip_audit
+      - name: Root npm audit
+        run: npm audit --audit-level=high
+      - name: Slidev npm audit
+        working-directory: tools/slidev
+        run: npm audit --audit-level=high
+
+  slidev-smoke:
+    name: Slidev generate/review smoke
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Install Slidev deps
+        working-directory: tools/slidev
+        run: npm ci
+      - name: Generate intermediate JSON
+        run: python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/ci-slidev.pptx --brand bami --intermediate .pi/temp/ci-intermediate.json
+      - name: Run slidev generate
+        working-directory: tools/slidev
+        run: npx slidev build slides-demo.md --out ../../.pi/temp/slidev-dist --base /slidev

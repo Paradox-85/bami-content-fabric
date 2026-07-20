@@ -10,8 +10,7 @@ client-facing deliverables.
 ## Current scope
 
 The current implementation is a presentation generator built around the locked
-corporate `templates/template.pptx` and the `deck.json` content model.
-
+    corporate `templates/bami/template.pptx` and the `deck.json` content model.
 - **Three locked templates** — Cover, Content, Closing — carry the fixed chrome
   (branded background, black title bar, BAMI logo, footer).
 - **Slide-clone** inherits chrome bit-for-bit, so branding is never recreated in code.
@@ -24,18 +23,42 @@ decision and `docs/guidelines/presentation-style-book.md` for the brand rules.
 
 ## Quickstart
 
+### Prerequisites
+
+**Python 3.10+** and **Node.js LTS** are required.
+
 ```bash
 # from the repository root
-python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/out.pptx
-python -m tools.pptx_validate .pi/temp/out.pptx
+
+# 1. Install Python dependencies (runtime + dev)
+python -m pip install -e ".[dev]"
+
+# 2. Install Node dependencies for Mermaid rendering
+npm ci
+npx playwright install chromium
+
+# 3. Build and validate a sample deck
+python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/out.pptx --brand bami
+python -m tools.pptx_validate .pi/temp/out.pptx --brand bami
 ```
 
 Open `.pi/temp/out.pptx` in PowerPoint — every slide should carry the BAMi chrome.
 
+### Optional — Slidev (Web/PDF renderer)
+
+```bash
+cd tools/slidev
+npm ci
+cd ../..
+python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/out.pptx --brand bami --intermediate .pi/temp/intermediate.json
+cd tools/slidev
+npx slidev build slides-demo.md
+```
+
 ## Repository layout
 
 ```text
-templates/      locked template assets: template.pptx, design_tokens.yaml
+templates/      locked template assets: bami/template.pptx, design_tokens.yaml
 shared/pptx/    presentation generator library
 tools/          pptx_gen (generator CLI), pptx_validate (validator CLI)
 schemas/        content-schema.json (the deck.json contract)
@@ -75,6 +98,5 @@ Near-term roadmap:
 
 The corporate template references **Montserrat by name** but does **not embed** it.
 For guaranteed fidelity on any machine, embed Montserrat in
-`templates/template.pptx` once via PowerPoint.
-
+`templates/bami/template.pptx` once via PowerPoint.
 See `docs/runbooks/generate-deck.md`.

@@ -11,11 +11,10 @@ runtime expectation is the same: the working directory must contain
 
 ## Prerequisites
 
-- Python 3.10+ with `python-pptx==1.0.2`, `pyyaml`, `jsonschema`, `click`
-  (either `pip install -e .` from the repository root, or install the deps
-  manually: `pip install python-pptx==1.0.2 pyyaml jsonschema click`).
-- `templates/bami/template.pptx` present (locked brand asset).
-- (Recommended) Montserrat installed locally for accurate rendering.
+- Python 3.10+
+- **Runtime + dev dependencies**: `pip install -e ".[dev]"` from the repository root
+- (For Mermaid rendering) Node.js LTS, root `npm ci`, and `npx playwright install chromium`
+- (For Slidev branch A renderer) `cd tools/slidev && npm ci`
 - `templates/bami/template.pptx` present (locked brand asset).
 - (Recommended) Montserrat installed locally for accurate rendering.
 

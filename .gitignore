@@ -19,7 +19,7 @@ venv/
 
 # Generated decks (per-engagement outputs are not committed by default)
 *.pptx
-!templates/template.pptx
+!templates/bami/template.pptx
 !templates/kvi/template.pptx
 # Node dependencies (installed via npm, regenerable)
 node_modules/

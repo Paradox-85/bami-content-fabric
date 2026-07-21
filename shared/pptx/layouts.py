@@ -39,10 +39,17 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
+from shared.pptx._mermaid_helpers import (
+    _mmd_flowchart_architecture,
+    _mmd_flowchart_lr_swimlane,
+    _mmd_flowchart_td,
+    _mmd_mindmap,
+    _mmd_pie,
+    _mmd_quadrant,
+    _mmd_sankey,
+    _mmd_timeline,
+)
 from shared.pptx.tokens import Tokens
-from shared.pptx._mermaid_helpers import _mmd_timeline, _mmd_flowchart_td, _mmd_flowchart_lr_swimlane, _mmd_mindmap, _mmd_quadrant, _mmd_pie, _mmd_sankey, _mmd_flowchart_architecture
-
-
 
 # ---------------------------------------------------------------------------
 # Type alias for a layout builder
@@ -309,7 +316,6 @@ def _layout_historical_timeline(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
     """Rich layout: events on axis → Mermaid timeline diagram."""
-    from shared.pptx._mermaid_helpers import _mmd_timeline
     title = (variant or {}).get("title", "Historical Timeline")
     definition = _mmd_timeline(content, title=title)
     return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
@@ -378,7 +384,6 @@ def _layout_swimlane_diagram(
 ) -> list[dict]:
     """Rich layout: swimlane → Mermaid flowchart with subgraphs."""
     title = (variant or {}).get("title", "Process")
-    from shared.pptx._mermaid_helpers import _mmd_flowchart_lr_swimlane
     definition = _mmd_flowchart_lr_swimlane(content, title=title)
     return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
@@ -479,7 +484,6 @@ def _layout_mind_map_radial(
 ) -> list[dict]:
     """Rich layout: radial mind-map → Mermaid mindmap diagram."""
     title = (variant or {}).get("title", (content or {}).get("title", "Map"))
-    from shared.pptx._mermaid_helpers import _mmd_mindmap
     definition = _mmd_mindmap(content, title=title)
     return [{"kind": "mermaid", "x": tokens.margin_x, "y": 1.5, "w": tokens.content_width, "h": min(8.0, tokens.body_zone[1] - 1.5 - 0.3),
              "text": definition}]
@@ -551,7 +555,6 @@ def _gantt_block(content: dict, variant: dict | None = None, tokens: Tokens | No
         periods = [{"key": k, "label": k} for k in sorted(all_keys)] if all_keys else [{"key": "q1", "label": "Q1"}]
     n_periods = len(periods) or 4
     label_w = 2.8 if variant is None else variant.get("label_w", 2.8)
-    slide_w = float(tokens.canvas["width_in"]) if tokens else 20.0
     margin = tokens.margin_x if tokens else 0.6
     content_w = tokens.content_width if tokens else 18.8
     # Safe width: leave margin right, start at margin
@@ -687,7 +690,7 @@ def resolve_layout_from_content(
 
     Raises ``ValueError`` only if the resolver itself fails.
     """
-    from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
+    from shared.pptx.pattern_selection import PatternSelectionError, resolve_pattern
     try:
         sel = resolve_pattern(content, tokens, narrative_intent=narrative_intent)
         return sel.layout

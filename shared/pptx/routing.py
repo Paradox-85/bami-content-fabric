@@ -20,7 +20,6 @@ A ``RoutePlan`` is produced for every content slide and includes:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any
 
 from shared.pptx.contract_validation import (
@@ -29,7 +28,6 @@ from shared.pptx.contract_validation import (
 )
 from shared.pptx.pattern_registry import (
     get_family_entry,
-    get_enabled_variants,
     load_registry,
     resolve_variant,
 )

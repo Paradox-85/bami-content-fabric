@@ -13,7 +13,8 @@ import json
 from pathlib import Path
 
 from pptx import Presentation
-from shared.pptx.pattern_injectors.registry import get_injector, list_injectors, inject_pattern
+
+from shared.pptx.pattern_injectors.registry import get_injector, inject_pattern, list_injectors
 from shared.pptx.pattern_selection import resolve_pattern
 from tools.pptx_validate.cli import validate
 
@@ -162,7 +163,6 @@ def test_funnel_conversion_pipeline_injects_real_shapes():
 
 
 def _write_deck(tmp_path, deck):
-    import json
     path = tmp_path / "_funnel.json"
     path.write_text(json.dumps(deck, indent=2), encoding="utf-8")
     return path
@@ -216,7 +216,7 @@ def test_funnel_default_vertical_builds_ok(tmp_path, tmp_out, tokens_path, templ
                 has_funnel_shapes = True
             if "numbered-process-steps" in name:
                 has_fallback_shapes = True
-    assert pattern_count > 0, f"No pattern shapes found on content slide"
+    assert pattern_count > 0, "No pattern shapes found on content slide"
     assert has_funnel_shapes, (
         f"Expected funnel-diagram pattern shapes but got only "
         f"numbered-process-steps (fallback). Warnings: {result.get('selection_warnings', [])}"

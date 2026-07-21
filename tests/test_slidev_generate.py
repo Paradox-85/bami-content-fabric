@@ -10,11 +10,9 @@ Validates that:
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
-from tools.slidev_generate.generate import generate_slides_md
 from tests.conftest import ROOT
-
+from tools.slidev_generate.generate import generate_slides_md
 
 EXAMPLES = ROOT / "schemas" / "examples"
 

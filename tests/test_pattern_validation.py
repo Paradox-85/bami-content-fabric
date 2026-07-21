@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 @pytest.fixture(scope="module")
 def report() -> dict:
     """Run the pattern validation CLI and capture violations."""
-    from tools.pptx_validate.patterns import main, Report
+    from tools.pptx_validate.patterns import main
 
     class _ReportCapture:
         def __init__(self) -> None:
@@ -81,6 +81,7 @@ class TestPatternValidationDirect:
     def test_assets_reference_valid_injectors(self):
         """Every injector_id referenced in pattern-assets should be registered."""
         import yaml
+
         from shared.pptx.pattern_injectors.registry import get_injector
 
         assets_path = ROOT / "templates" / "media" / "reference" / "library" / "pattern-assets.yaml"
@@ -166,8 +167,9 @@ class TestPatternValidationDirect:
     def test_schema_validation_of_pattern_assets(self):
         """pattern-assets.yaml validates against pattern-assets.schema.json."""
         import json
-        import yaml
+
         import jsonschema
+        import yaml
 
         assets_path = ROOT / "templates" / "media" / "reference" / "library" / "pattern-assets.yaml"
         schema_path = ROOT / "schemas" / "pattern-assets.schema.json"
@@ -183,8 +185,9 @@ class TestPatternValidationDirect:
     def test_schema_validation_of_svg_variant_index(self):
         """svg-variant-index.yaml validates against svg-variant-index.schema.json."""
         import json
-        import yaml
+
         import jsonschema
+        import yaml
 
         index_path = ROOT / "templates" / "media" / "reference" / "library" / "svg-variant-index.yaml"
         schema_path = ROOT / "schemas" / "svg-variant-index.schema.json"
@@ -221,7 +224,8 @@ class TestPngInvariant:
         """
         import tempfile
         from pathlib import Path
-        from tools.pptx_validate.patterns import check_no_pngs, Report
+
+        from tools.pptx_validate.patterns import Report, check_no_pngs
 
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp = Path(tmpdir)

@@ -6,22 +6,12 @@ Covers registry discovery, contract validation, and injector dispatch.
 from __future__ import annotations
 
 import pytest
+
+# Import injector modules to trigger @register decorators
 from shared.pptx.pattern_injectors.registry import (
     get_injector,
-    list_injectors,
     inject_pattern,
-)
-# Import injector modules to trigger @register decorators
-from shared.pptx.pattern_injectors import (
-    kpi_dashboard,
-    quadrant_matrix,
-    funnel,
-    steps,
-    maturity_ladder,
-    comparison,
-    case_study,
-    checklist_status,
-    quote_testimonial,
+    list_injectors,
 )
 
 
@@ -158,8 +148,9 @@ def test_inject_pattern_block_kind_in_builders():
 
 def test_inject_pattern_raises_without_canonical_id():
     """inject-pattern block raises ValueError when canonical_id is missing."""
-    from shared.pptx.blocks import add_inject_pattern
     from unittest.mock import MagicMock
+
+    from shared.pptx.blocks import add_inject_pattern
     slide = MagicMock()
     tokens = MagicMock()
     with pytest.raises(ValueError, match="'canonical_id'"):
@@ -168,7 +159,8 @@ def test_inject_pattern_raises_without_canonical_id():
 
 def test_inject_pattern_delegates_to_registry():
     """inject-pattern block dispatches to correct registered injector via render_block."""
-    from unittest.mock import MagicMock, patch
+    from unittest.mock import MagicMock
+
     from shared.pptx.blocks import BUILDERS, render_block
     from shared.pptx.tokens import Tokens
     print(f"DEBUG: inject-pattern in BUILDERS: {'inject-pattern' in BUILDERS}")
@@ -220,9 +212,11 @@ def test_checklist_status_requires_items():
 
 def test_checklist_status_with_items(monkeypatch, tokens_path):
     """checklist-status should not raise when items are provided; uses real tokens."""
-    from unittest.mock import MagicMock
     from pathlib import Path
+    from unittest.mock import MagicMock
+
     import yaml
+
     from shared.pptx.tokens import Tokens
     token_path = Path(tokens_path)
     with open(token_path, encoding="utf-8") as f:
@@ -247,9 +241,11 @@ def test_quote_testimonial_requires_quote():
 
 def test_quote_testimonial_with_quote(monkeypatch, tokens_path):
     """quote-testimonial-card should not raise when quote is provided; uses real tokens."""
-    from unittest.mock import MagicMock
     from pathlib import Path
+    from unittest.mock import MagicMock
+
     import yaml
+
     from shared.pptx.tokens import Tokens
     token_path = Path(tokens_path)
     with open(token_path, encoding="utf-8") as f:
@@ -272,6 +268,7 @@ def test_quote_testimonial_with_quote(monkeypatch, tokens_path):
 def test_build_checklist_status_deck(tmp_path, tokens_path, template_path):
     """A deck with explicit layout: checklist-status builds and validates."""
     import json
+
     from shared.pptx.build import build_deck
     from tools.pptx_validate.cli import validate
 
@@ -309,6 +306,7 @@ def test_build_checklist_status_deck(tmp_path, tokens_path, template_path):
 def test_build_quote_testimonial_deck(tmp_path, tokens_path, template_path):
     """A deck with explicit layout: quote-testimonial-card builds and validates."""
     import json
+
     from shared.pptx.build import build_deck
     from tools.pptx_validate.cli import validate
 

@@ -9,13 +9,11 @@ Tie-breaking rule documented in ``resolve_pattern`` docstring.
 
 from __future__ import annotations
 
-import copy
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import yaml
-
 
 # ---------------------------------------------------------------------------
 # Data types
@@ -333,7 +331,7 @@ def resolve_pattern(
         narrative_intent: Explicit intent signal.
         graphical_variant: Explicit graphical variant ID to select.
             If None, the default (first enabled) variant is used.
-    
+
     Returns:
         ``SelectionResult``.
 
@@ -703,7 +701,11 @@ def _build_result(
     )
     if needs_registry:
         try:
-            from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
+            from shared.pptx.pattern_registry import (
+                get_family_entry,
+                load_registry,
+                resolve_variant,
+            )
             registry = load_registry()
             fam_entry = get_family_entry(registry, family)
             if fam_entry is not None:

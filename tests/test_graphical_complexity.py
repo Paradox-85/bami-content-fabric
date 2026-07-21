@@ -16,9 +16,8 @@ import pytest
 import yaml
 
 from shared.pptx.graphical_complexity import (
-    ComplexityVerdict,
-    evaluate_complexity,
     complexity_gate,
+    evaluate_complexity,
 )
 
 ROOT = Path(__file__).resolve().parent.parent

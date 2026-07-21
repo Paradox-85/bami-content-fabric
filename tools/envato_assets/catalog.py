@@ -19,16 +19,15 @@ from __future__ import annotations
 import csv
 import json
 import logging
-from pathlib import Path
 from typing import Any
 
 from tools.envato_assets.config import (
-    ENVATO_STATE_PATH,
-    ENVATO_CROP_INDEX_PATH,
     ENVATO_CATALOG_CSV_PATH,
     ENVATO_CATALOG_JSON_PATH,
+    ENVATO_CROP_INDEX_PATH,
     ENVATO_EXCLUDED_PATH,
     ENVATO_REPORT_PATH,
+    ENVATO_STATE_PATH,
     ensure_dir,
 )
 
@@ -271,7 +270,7 @@ def build_processing_report(
         "## Stop-condition Checks",
         "",
         f"- Review rate: {review_rate * 100:.1f}%",
-        f"- Threshold: 15%",
+        "- Threshold: 15%",
         f"- {'HALT' if review_rate > 0.15 else 'OK'}",
         "",
     ])

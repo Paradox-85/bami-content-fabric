@@ -21,7 +21,6 @@ from pathlib import Path
 
 import yaml
 
-
 ROOT = Path(__file__).resolve().parent.parent
 QA_DIR = ROOT / "templates" / "media" / "reference" / "library" / "_qa"
 OUTPUT = ROOT / "templates" / "media" / "reference" / "library" / "svg-variant-index.yaml"
@@ -36,11 +35,11 @@ def main():
     # Load QA artifacts
     csv_rows = load_csv(QA_DIR / "input-classification.csv")
     with (QA_DIR / "input-taxonomy-map.json").open(encoding="utf-8") as f:
-        taxonomy_map = json.load(f)
+        _ = json.load(f)  # consumed via csv file_lookup
     with (QA_DIR / "input-variant-groups.json").open(encoding="utf-8") as f:
         variant_groups = json.load(f)
     with (QA_DIR / "duplicates.json").open(encoding="utf-8") as f:
-        duplicates = json.load(f)
+        _ = json.load(f)  # consumed via csv keep column
 
     # Build per-file lookup
     file_lookup: dict[str, dict] = {}

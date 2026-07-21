@@ -27,7 +27,6 @@ from shared.pptx.style import (
     style_text_frame,
 )
 
-
 PATTERN_ID = "circular-process-loop/circle-steps"
 
 

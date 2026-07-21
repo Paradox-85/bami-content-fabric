@@ -2,19 +2,20 @@
 from __future__ import annotations
 
 import json
-import math
 import re
 import shutil
 from collections import defaultdict
 from datetime import datetime
-from pathlib import Path
 from io import BytesIO
+from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
 import click
 import numpy as np
 from PIL import Image
+
+from tools.envato_assets.config import LIBRARY_CATEGORIES as CATEGORIES
 
 try:
     import cv2  # type: ignore
@@ -92,7 +93,6 @@ PHASH_DUP_THRESHOLD = 5
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
 # Categories dynamically loaded from canonical taxonomy
 # (templates/media/reference/library/categories.yaml — single source of truth)
-from tools.envato_assets.config import LIBRARY_CATEGORIES as CATEGORIES
 
 KEYWORD_RULES: list[tuple[re.Pattern[str], str, float]] = [
     (re.compile(r"\bagenda\b|toc|table of contents", re.I), "agenda", 1.0),
@@ -615,7 +615,7 @@ def classify() -> None:
     save_manifest(manifest)
 
     review_lines = [
-        f"# Classification Review\n",
+        "# Classification Review\n",
         f"Generated: {now_iso()}\n",
         "\n## Manual Review Required\n",
     ]
@@ -994,9 +994,9 @@ def migrate_input() -> None:
     # Load taxonomy map (used for cross-reference but not consumed per-file)
     map_path = QA_DIR / "input-taxonomy-map.json"
     if map_path.exists():
-        taxonomy_map = json.loads(map_path.read_text(encoding="utf-8"))
+        _ = json.loads(map_path.read_text(encoding="utf-8"))
     else:
-        taxonomy_map = {}
+        _ = {}
 
     # Load variant groups for metadata
     vg_path = QA_DIR / "input-variant-groups.json"

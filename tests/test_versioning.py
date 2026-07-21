@@ -5,12 +5,11 @@ from __future__ import annotations
 import pytest
 
 from shared.pptx.versioning import (
-    SemVer,
-    parse_version,
     DEFAULT_VERSION,
     DEFAULT_VERSION_STRING,
+    SemVer,
+    parse_version,
 )
-
 
 # ---------------------------------------------------------------------------
 # SemVer construction

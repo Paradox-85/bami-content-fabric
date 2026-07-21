@@ -68,9 +68,11 @@ def main(schema_path, out_path, brand, template_path, tokens_path, strict_select
     try:
         result = build_deck(schema_path, out_path, template_path, tokens_path)
     except BuildError as exc:
-        click.echo(f"error: {exc}", err=True); sys.exit(_exit_for(str(exc)))
+        click.echo(f"error: {exc}", err=True)
+        sys.exit(_exit_for(str(exc)))
     except Exception as exc:  # noqa: BLE001
-        click.echo(f"error: {exc}", err=True); sys.exit(1)
+        click.echo(f"error: {exc}", err=True)
+        sys.exit(1)
     # Surface selection_warnings to stderr
     warnings = result.get("selection_warnings", [])
     if warnings:

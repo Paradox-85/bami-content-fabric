@@ -15,7 +15,6 @@ Usage (from the repository root):
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE

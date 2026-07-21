@@ -2,23 +2,21 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pytest
 
+from tests.conftest import ROOT
 from tools.slidev_review.review import (
     ReviewReport,
-    check_schema_compliance,
-    check_component_registry,
-    check_required_props,
-    check_slide_order,
-    check_markdown_syntax,
     check_brand_colors,
+    check_markdown_syntax,
+    check_required_props,
+    check_schema_compliance,
+    check_slide_order,
+    review_from_path,
     review_intermediate,
     review_markdown,
-    review_from_path,
 )
-from tests.conftest import ROOT
 
 EXAMPLES_DIR = ROOT / "schemas" / "examples"
 SLIDES_MD = ROOT / "tools" / "slidev" / "slides.md"

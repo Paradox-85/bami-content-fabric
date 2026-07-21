@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import yaml
+
 # ---------------------------------------------------------------------------
 # Media root — matches scripts.media_library.ROOT
 # ---------------------------------------------------------------------------
@@ -61,7 +63,7 @@ DISCOVERY_SEED_CATEGORIES: list[str] = [
 
 # Existing media-library categories (authoritative output taxonomy)
 # Dynamically loaded from categories.yaml (single source of truth, ADR-0002)
-import yaml
+
 _CATEGORIES_PATH = LIBRARY_DIR / "categories.yaml"
 _taxonomy = yaml.safe_load(_CATEGORIES_PATH.read_text(encoding="utf-8"))
 LIBRARY_CATEGORIES: list[str] = [

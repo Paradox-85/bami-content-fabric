@@ -14,7 +14,6 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
 
 import click
 
@@ -31,7 +30,7 @@ _SCHEMA_PATH = _REPO / "schemas" / "intermediate-slide-schema.json"
 def _card_blocks(props: dict, start_y: float) -> list[dict]:
     """Convert TierPricingCards props → card blocks."""
     tiers = props.get("tiers", [])
-    highlight = props.get("highlight")
+    # highlight = props.get("highlight")  # kept for future card accent logic
     currency = props.get("currency", "€")
     count = len(tiers)
     if count == 0:
@@ -45,7 +44,7 @@ def _card_blocks(props: dict, start_y: float) -> list[dict]:
         x = 0.6 + i * (card_w + gap)
         features = "\n".join(f"• {f}" for f in tier.get("features", []))
         price_str = f"{currency}{tier['price']}"
-        is_hl = tier["name"] == highlight
+        # is_hl = tier["name"] == highlight  # kept for future card accent logic
         blocks.append({
             "kind": "card",
             "x": round(x, 2), "y": round(start_y, 2),

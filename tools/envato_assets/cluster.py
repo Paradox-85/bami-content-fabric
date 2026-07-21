@@ -16,7 +16,6 @@ Strategy B (connected-components):
 from __future__ import annotations
 
 import logging
-import math
 from pathlib import Path
 from typing import Any
 
@@ -26,9 +25,8 @@ import numpy as np
 from PIL import Image
 
 from tools.envato_assets.config import (
-    MIN_CROP_LONGEST_SIDE,
     LOW_RES_DETECTION_ZOOM,
-    TEXT_BLOCK_MIN_SIZE,
+    MIN_CROP_LONGEST_SIDE,
     ensure_dir,
 )
 

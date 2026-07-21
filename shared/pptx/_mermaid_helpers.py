@@ -39,7 +39,8 @@ def _mmd_gantt(content: dict | None, title: str = "") -> str:
     tasks = c.get("tasks", [])
     # Normalize dates: append "-01" to "YYYY-MM" format dates
     import re as _re
-    _date_fix = lambda d: d + "-01" if _re.match(r"^\d{4}-\d{2}$", str(d)) else str(d)
+    def _date_fix(d: str) -> str:
+        return d + "-01" if _re.match(r"^\d{4}-\d{2}$", str(d)) else str(d)
     if sections:
         for sec in sections:
             sec_title = sec.get("title", "Phase")
@@ -255,7 +256,7 @@ def _mmd_flowchart_architecture(content: dict | None, title: str = "") -> str:
     connections = c.get("connections", c.get("links", []))
     lines = ["flowchart TB"]
     if title:
-        lines.insert(0, f"%%{{init: {{'theme':'base','themeVariables': {{'fontFamily':'Arial'}}}}}}%%")
+        lines.insert(0, "%%{init: {'theme':'base','themeVariables': {'fontFamily':'Arial'}}}%%")
         lines.append(f"    title[{title}]")
     # Render groups as subgraphs with their services inside
     group_services = {}

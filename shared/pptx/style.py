@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Pt
-from pptx.dml.color import RGBColor
 
 from shared.pptx.tokens import Tokens
 

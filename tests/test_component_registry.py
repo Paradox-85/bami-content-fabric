@@ -8,13 +8,11 @@ tools/pptx_* modifications required.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pytest
 import yaml
 
 from tests.conftest import ROOT
-
 
 REGISTRY_DIR = ROOT / "schemas" / "components"
 SLIDEV_COMPONENTS_DIR = ROOT / "tools" / "slidev" / "components"

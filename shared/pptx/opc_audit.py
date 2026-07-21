@@ -16,12 +16,10 @@ from __future__ import annotations
 import tempfile
 import zipfile
 from pathlib import Path
-from typing import Any
 
 from pptx import Presentation
 
 from shared.pptx.graphical_validation import Report
-
 
 # ---------------------------------------------------------------------------
 # Required OPC parts
@@ -128,7 +126,7 @@ def check_slide_relationships(pptx_path: Path, rep: Report) -> None:
         slide_parts = sorted([n for n in names if n.startswith("ppt/slides/slide") and n.endswith(".xml")])
 
         # Get slide relationship files
-        slide_rels = sorted([n for n in names if n.startswith("ppt/slides/_rels/slide") and n.endswith(".xml.rels")])
+        # slide_rels built implicitly via rel_name check below
 
         # Every slide should have a rels file
         for sp in slide_parts:

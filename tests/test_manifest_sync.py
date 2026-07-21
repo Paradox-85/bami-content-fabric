@@ -11,10 +11,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from shared.pptx.layouts import LAYOUTS
 from shared.pptx.blocks import BUILDERS
+from shared.pptx.layouts import LAYOUTS
 from shared.pptx.pattern_selection import load_manifest
-
 
 MANIFEST_PATH = "schemas/pattern-selection-manifest.yaml"
 

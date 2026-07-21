@@ -13,9 +13,8 @@ import pytest
 
 from shared.pptx.build import build_deck
 from shared.pptx.pattern_selection import resolve_pattern
-from tools.pptx_validate.cli import validate
 from tests.conftest import ROOT
-
+from tools.pptx_validate.cli import validate
 
 FAKE_TOKENS_BAMI = ROOT / "templates" / "bami" / "design_tokens.yaml"
 

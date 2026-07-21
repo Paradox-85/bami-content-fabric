@@ -23,8 +23,7 @@ from typing import Any
 
 import yaml
 
-from shared.pptx.versioning import parse_version, SemVer, DEFAULT_VERSION
-
+from shared.pptx.versioning import SemVer, parse_version
 
 # ---------------------------------------------------------------------------
 # Schema cache

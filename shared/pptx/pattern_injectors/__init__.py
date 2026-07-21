@@ -14,20 +14,20 @@ Coordinates are in inches (grid space), consistent with the ``blocks.py``
 convention.
 """
 
-# Import injector modules to trigger @register decorators
-from shared.pptx.pattern_injectors import (
-    kpi_dashboard,
-    quadrant_matrix,
-    quadrant_swot,
-    circle_steps,
-    funnel,
-    steps,
-    folded_arrow,
-    block_arrow,
-    simple_arrow,
-    maturity_ladder,
-    comparison,
-    case_study,
-    checklist_status,
-    quote_testimonial,
-)
+# Import injector modules to trigger @register decorators  # noqa: F401
+from shared.pptx.pattern_injectors import (  # noqa: F401
+    block_arrow,  # noqa: F401
+    case_study,  # noqa: F401
+    checklist_status,  # noqa: F401
+    circle_steps,  # noqa: F401
+    comparison,  # noqa: F401
+    folded_arrow,  # noqa: F401
+    funnel,  # noqa: F401
+    kpi_dashboard,  # noqa: F401
+    maturity_ladder,  # noqa: F401
+    quadrant_matrix,  # noqa: F401
+    quadrant_swot,  # noqa: F401
+    quote_testimonial,  # noqa: F401
+    simple_arrow,  # noqa: F401
+    steps,  # noqa: F401
+)  # noqa: F401

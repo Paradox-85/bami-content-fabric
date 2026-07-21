@@ -9,17 +9,14 @@ from __future__ import annotations
 from pathlib import Path
 
 from pptx import Presentation
+
 from shared.pptx.blocks import render_block
 from shared.pptx.chrome import apply_slots
 from shared.pptx.clone import clone_slide, delete_slide_at
-from shared.pptx.schema import load_deck
 from shared.pptx.layouts import expand_layout
-from shared.pptx.pattern_selection import resolve_pattern, PatternSelectionError
-from shared.pptx.contract_validation import validate_content, ContractValidationError
-from shared.pptx.tokens import Tokens, load_tokens
-from shared.pptx.pattern_registry import load_registry, get_family_entry, resolve_variant
 from shared.pptx.routing import plan_route
-
+from shared.pptx.schema import load_deck
+from shared.pptx.tokens import Tokens, load_tokens
 
 
 def _clear_body_zone(slide, tokens) -> int:

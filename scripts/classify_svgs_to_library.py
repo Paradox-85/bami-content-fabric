@@ -16,9 +16,7 @@ from __future__ import annotations
 import argparse
 import csv
 import shutil
-import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_DIR = ROOT / "templates" / "media" / "reference" / "input"
@@ -57,8 +55,7 @@ def main():
         fname = row["input_filename"]
         category = row["canonical_category"]
         keep = row.get("keep", "Y")
-        is_dup = row.get("is_cs_duplicate", "False")
-        is_raster = row.get("is_raster_wrapper", "False")
+        is_raster = row.get("is_raster_wrapper", "False")  # is_dup consumed via keep column
 
         if keep != "Y":
             skipped_duplicate += 1
@@ -93,7 +90,7 @@ def main():
         categories_used.add(category)
         kept += 1
 
-    print(f"\nSummary:")
+    print("\nSummary:")
     print(f"  Copied: {kept}")
     print(f"  Skipped (deprecated category '{', '.join(sorted(DEPRECATED_CATEGORIES))}'): {skipped_deprecated}")
     print(f"  Skipped (cs-duplicate, keep=N): {skipped_duplicate}")

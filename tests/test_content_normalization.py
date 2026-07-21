@@ -5,8 +5,6 @@ Covers all enabled registry families that have alias mappings.
 
 from __future__ import annotations
 
-import pytest
-
 from shared.pptx.content_normalization import (
     normalize_content_for_family,
     normalize_content_for_injector,

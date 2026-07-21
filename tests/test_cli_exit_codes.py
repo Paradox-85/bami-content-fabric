@@ -5,14 +5,13 @@ Uses click.testing.CliRunner to invoke CLIs without subprocess.
 
 from __future__ import annotations
 
-from pathlib import Path
 import json
+from pathlib import Path
 
 import pytest
 from click.testing import CliRunner
 
 from tools.pptx_validate.__main__ import main as validate_main
-from tools.pptx_gen.__main__ import main as gen_main
 
 
 @pytest.fixture

@@ -14,16 +14,15 @@ import pytest
 import yaml
 
 from shared.pptx.pattern_registry import (
-    load_registry,
-    get_family_entry,
     get_enabled_variants,
-    get_planned_variants,
-    resolve_variant,
-    get_injector_id,
+    get_family_entry,
     get_features,
+    get_injector_id,
+    get_planned_variants,
+    load_registry,
     registry_version,
+    resolve_variant,
 )
-
 
 REGISTRY_PATH = "schemas/pattern-registry.yaml"
 
@@ -71,12 +70,12 @@ def test_every_variant_has_required_fields(registry):
     """Every graphical variant has required fields."""
     for entry in registry["entries"]:
         for variant in entry.get("graphical_variants", []):
-            assert variant.get("graphical_variant"), f"variant missing 'graphical_variant'"
-            assert variant.get("version"), f"variant missing 'version'"
-            assert variant.get("status"), f"variant missing 'status'"
-            assert variant.get("pattern_template_id"), f"variant missing 'pattern_template_id'"
-            assert "renderer_binding" in variant, f"variant missing 'renderer_binding'"
-            assert "features" in variant, f"variant missing 'features'"
+            assert variant.get("graphical_variant"), "variant missing 'graphical_variant'"
+            assert variant.get("version"), "variant missing 'version'"
+            assert variant.get("status"), "variant missing 'status'"
+            assert variant.get("pattern_template_id"), "variant missing 'pattern_template_id'"
+            assert "renderer_binding" in variant, "variant missing 'renderer_binding'"
+            assert "features" in variant, "variant missing 'features'"
 
 
 # ---------------------------------------------------------------------------
@@ -191,9 +190,10 @@ def test_features_folded_arrow_capacity(registry):
 def test_registry_validates_against_schema(registry):
     """Registry validates cleanly against the JSON Schema (if jsonschema available)."""
     try:
-        import jsonschema
         import json
         from pathlib import Path
+
+        import jsonschema
     except ImportError:
         pytest.skip("jsonschema not available")
     schema_path = Path(__file__).resolve().parent.parent / "schemas" / "pattern-registry.schema.json"

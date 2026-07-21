@@ -9,9 +9,6 @@ needed later, replace this with a packaged library.
 
 from __future__ import annotations
 
-from typing import Any
-
-
 # ---------------------------------------------------------------------------
 # Types
 # ---------------------------------------------------------------------------

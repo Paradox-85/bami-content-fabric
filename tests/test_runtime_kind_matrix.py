@@ -402,7 +402,7 @@ def test_chart_waterfall_emits_bar_and_line_waterfall_bridge(monkeypatch, tmp_pa
     #    (they may legitimately appear in the %% deltas comment)
     #    Bar series: bar "Flow" [100.0, 80.0, 110.0, 220.0] — no "-20"
     #    Line series: line "Flow (cumulative)" [100.0, 80.0, 110.0, 220.0] — no "-20"
-    line_idx = definition.find('line "')
+    # line_idx = definition.find('line "')  # kept as doc for the check below
     # Extract the portion AFTER the line series label starts, so we only check the line series values
     # But simpler: check that neither bar nor line series value lists contain -20
     # The "[" after "line" should not contain -20
@@ -566,7 +566,6 @@ def test_image_cover_sets_crop_properties(tmp_path, tmp_out, tokens_path, templa
     embedded picture shape, constraining the visible result to the target box."""
     from PIL import Image
     from pptx import Presentation
-    from pptx.util import Inches, Emu
     # Create a wide image (200x100) placed in a square box (5x5in).
     # The cover algorithm will crop left/right equally so the visible area is square.
     img_path = tmp_path / "cover-test.png"

@@ -130,7 +130,7 @@ class TestPatternAssetsContent:
         """Library SVGs should be the canonical reference, not input/ SVGs directly."""
         for a in assets.get("assets", []):
             lib = a.get("library_svg", "")
-            src = a.get("source_svg", "")
+            src = a.get("source_svg", "")  # noqa: F841 - kept for symmetry with other test
             if lib:
                 # Ensure library_svg is under a category directory
                 parts = Path(lib).parts

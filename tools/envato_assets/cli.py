@@ -12,62 +12,51 @@ Commands:
 
 from __future__ import annotations
 
-import json
 import logging
-import os
 import shutil
 import sys
 import zipfile
-from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 import click
 
-from tools.envato_assets.config import (
-    ENVATO_ZIP_DIR,
-    ENVATO_WORK_DIR,
-    ENVATO_REVIEW_DIR,
-    ENVATO_INGEST_DIR,
-    ENVATO_CROP_INDEX_PATH,
-    MEDIA_DIR,
-    ensure_dir,
-    slugify,
-    rel_to_media,
+from tools.envato_assets.catalog import (
+    build_excluded_report,
+    build_processing_report,
+    load_crop_index,
+    load_state,
+    save_crop_index,
+    save_state,
+    write_envato_catalog,
 )
-from tools.envato_assets.extract import (
-    load_discovery_index,
-    discovery_for_zip,
-    iter_packs,
-    clean_members,
-    dedupe_version_subfolders,
-    detect_layout,
-    select_vector_files,
-    has_processable_vector,
-    extract_pack,
-    pack_slug,
-)
+from tools.envato_assets.classify import classify_crop
 from tools.envato_assets.cluster import (
+    crop_review_flags,
     open_source,
     plan_crops,
     render_crop,
-    crop_review_flags,
 )
-from tools.envato_assets.classify import classify_crop
-from tools.envato_assets.catalog import (
-    load_state,
-    save_state,
-    update_state,
-    load_crop_index,
-    save_crop_index,
-    write_envato_catalog,
-    build_excluded_report,
-    build_processing_report,
+from tools.envato_assets.config import (
+    ENVATO_INGEST_DIR,
+    ENVATO_WORK_DIR,
+    ENVATO_ZIP_DIR,
+    MEDIA_DIR,
+    ensure_dir,
+)
+from tools.envato_assets.extract import (
+    clean_members,
+    dedupe_version_subfolders,
+    detect_layout,
+    discovery_for_zip,
+    extract_pack,
+    has_processable_vector,
+    iter_packs,
+    load_discovery_index,
+    pack_slug,
+    select_vector_files,
 )
 from tools.envato_assets.qa import (
     build_contact_sheet,
-    review_counts,
-    unrelated_pattern_detected,
     review_rate_exceeds_threshold,
 )
 
@@ -184,7 +173,7 @@ def extract(pack_filter: str | None, skip_review_gate: bool) -> None:
     Writes rendered PNGs to ``_extract_cache/<pack_slug>/`` and publish-ready
     copies to ``_envato_ingest/``.
     """
-    from tools.envato_assets.cluster import render_crop, plan_crops, open_source
+    from tools.envato_assets.cluster import open_source, plan_crops, render_crop
 
     state = load_state()
     discovery_index = load_discovery_index()
@@ -343,7 +332,6 @@ def calibrate(sample_size: int, skip_extract: bool) -> None:
     Halt if >15% of calibration crops need manual clustering review.
     """
     click.echo("Running calibration on sample packs...")
-    state = load_state()
     packs = iter_packs()
 
     # Match calibration slugs to actual packs
@@ -397,7 +385,7 @@ def calibrate(sample_size: int, skip_extract: bool) -> None:
 
             vfiles = extract_pack(pack)
             if not vfiles:
-                click.echo(f"    No vector files.")
+                click.echo("    No vector files.")
                 continue
 
             pack_crops = 0
@@ -461,7 +449,7 @@ def calibrate(sample_size: int, skip_extract: bool) -> None:
                             }
 
                             click.echo(f"    Crop {crop_id}: {plan['strategy']} "
-                                      f"({plan['pixel_width']}\u00d7{plan['pixel_height']})" 
+                                      f"({plan['pixel_width']}\u00d7{plan['pixel_height']})"
                                       + (f" REVIEW: {rn}" if rf else ""))
                 finally:
                     doc.close()
@@ -488,7 +476,7 @@ def calibrate(sample_size: int, skip_extract: bool) -> None:
     click.echo("")
     click.echo(f"Calibration results for {total} crops:")
     click.echo(f"  Review-flagged: {flagged}/{total} ({rate * 100:.1f}%)")
-    click.echo(f"  Threshold: 15%")
+    click.echo("  Threshold: 15%")
     click.echo(f"  Verdict: {'HALT' if exceeds else 'OK — proceed to full batch'}")
 
     if exceeds:
@@ -531,7 +519,7 @@ def classify(pack_filter: str | None) -> None:
     classified = 0
     for crop_id, crop in to_classify.items():
         # Build context
-        pack_slug_val = crop.get("pack_slug", "")
+        _pack_slug = crop.get("pack_slug", "")  # noqa: F841 - available for context building
         source_zip = crop.get("source_zip", "")
         meta = discovery_for_zip(source_zip, discovery_index) or {"category": crop.get("seed_category", "")}
         text_blocks: list[str] = []  # Could be enhanced with actual text extraction

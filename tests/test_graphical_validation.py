@@ -13,13 +13,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.util import Inches
 
 from shared.pptx import graphical_validation as gv
-
 
 ROOT = Path(__file__).resolve().parent.parent
 

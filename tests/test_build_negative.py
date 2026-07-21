@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from shared.pptx.schema import load_deck, validate_deck
 from shared.pptx.build import build_deck
+from shared.pptx.schema import load_deck, validate_deck
 
 
 def _write_deck(tmp_path: Path, deck: dict) -> Path:
@@ -594,7 +594,7 @@ def test_complexity_gate_rejects_overflow_in_build(tmp_path, tmp_out, tokens_pat
         ],
     }
     deck_path = _write_deck(tmp_path, deck)
-    from shared.pptx.build import build_deck, BuildError
+    from shared.pptx.build import BuildError, build_deck
     with pytest.raises((ValueError, BuildError)) as exc:
         build_deck(deck_path, tmp_out, template_path, tokens_path)
     msg = str(exc.value).lower()
@@ -603,7 +603,7 @@ def test_complexity_gate_rejects_overflow_in_build(tmp_path, tmp_out, tokens_pat
 
 def test_complexity_gate_does_not_reject_within_budget(tmp_path, tmp_out, tokens_path, template_path):
     """Simple-arrow with 5 items (19 shapes <= budget 20) builds successfully."""
-    from shared.pptx.build import build_deck, BuildError
+    from shared.pptx.build import build_deck
     deck = {
         "title": "Within Budget Test",
         "slides": [

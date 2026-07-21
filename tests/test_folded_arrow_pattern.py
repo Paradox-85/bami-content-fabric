@@ -11,17 +11,13 @@ Verifies:
 from __future__ import annotations
 
 import json
-from pathlib import Path
-
-import pytest
 
 from pptx import Presentation
+
 from shared.pptx.build import _legacy_content_to_steps
-from shared.pptx.pattern_injectors.folded_arrow import inject_folded_arrow_horizontal
 from shared.pptx.pattern_injectors.registry import get_injector, list_injectors
 from shared.pptx.pattern_selection import resolve_pattern
 from tools.pptx_validate.cli import validate
-
 
 # ---------------------------------------------------------------------------
 # Unit: injector registration

@@ -6,10 +6,7 @@ explicit inject-pattern, and terminal materialization.
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
-
-import pytest
 
 from shared.pptx.routing import RoutePlan, plan_route
 

@@ -15,11 +15,10 @@ injector version to ``"1.0.0"``.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Callable
 
 from pptx.shapes.base import BaseShape
-
 
 # ---------------------------------------------------------------------------
 # Injector type: (slide, tokens, x, y, w, h, **params) -> list[BaseShape]

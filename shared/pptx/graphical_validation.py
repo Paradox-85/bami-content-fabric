@@ -23,7 +23,6 @@ import yaml
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
-
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "schemas" / "pattern-registry.yaml"
 
@@ -163,12 +162,12 @@ def check_funnel_monotonic_width(slide: Any, slide_idx: int, rep: Report) -> Non
     for s in shapes_by_y:
         w = _in(s.width) or 0
         h = _in(s.height) or 0
-        l = _in(s.left) or 0
-        center_x = l + w / 2
+        left_val = _in(s.left) or 0
+        center_x = left_val + w / 2
         # Funnel segments: centered (center_x near 10in +/- 3in),
         # width >= 3in, height 0.3-2in, positioned in upper content zone
         if (w >= 3.0 and w < 16.0 and h > 0.3 and h < 2.0
-                and l >= 0
+                and left_val >= 0
                 and 4.0 < center_x < 14.0):
             funnel_candidates.append(s)
 
@@ -284,8 +283,6 @@ def validate(pptx_path: str | Path) -> Report:
 
     prs = Presentation(str(pptx_path))
     for slide_idx, slide in enumerate(prs.slides):
-        shapes = list(slide.shapes)
-
         # Off-canvas check
         check_no_off_canvas(slide, slide_idx, rep)
 

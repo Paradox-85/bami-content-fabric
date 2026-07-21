@@ -18,16 +18,14 @@ from __future__ import annotations
 from typing import Any
 
 from pptx.enum.shapes import MSO_SHAPE
-from pptx.util import Inches, Pt
+
 from shared.pptx.pattern_injectors.registry import register
 from shared.pptx.style import (
-    hex_to_rgb,
     inches,
     no_line,
     style_shape_solid_fill,
     style_text_frame,
 )
-
 
 PATTERN_DEFAULT_VERTICAL = "funnel-diagram/default-vertical"
 PATTERN_CONVERSION = "funnel-diagram/conversion-pipeline"

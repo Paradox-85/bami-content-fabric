@@ -17,7 +17,6 @@ from pathlib import Path
 
 import yaml
 
-
 ROOT = Path(__file__).resolve().parent.parent
 LIBRARY_DIR = ROOT / "templates" / "media" / "reference" / "library"
 REGISTRY_PATH = ROOT / "schemas" / "pattern-registry.yaml"

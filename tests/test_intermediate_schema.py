@@ -8,13 +8,11 @@ No modification to shared/pptx/ or tools/pptx_* is required.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import jsonschema
 import pytest
 
 from tests.conftest import ROOT
-
 
 SCHEMA_PATH = ROOT / "schemas" / "intermediate-slide-schema.json"
 EXAMPLES_DIR = ROOT / "schemas" / "examples"

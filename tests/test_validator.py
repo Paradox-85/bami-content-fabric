@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from pptx import Presentation
-from pptx.util import Inches
 from pptx.dml.color import RGBColor
+from pptx.util import Inches
 
 from shared.pptx.build import build_deck
 from tools.pptx_validate.cli import validate

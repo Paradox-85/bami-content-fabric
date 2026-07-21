@@ -20,13 +20,10 @@ import math
 from pathlib import Path
 from typing import Any
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 from tools.envato_assets.config import (
     ENVATO_QA_CONTACT_SHEET,
-    ENVATO_CROP_INDEX_PATH,
-    ENVATO_WORK_DIR,
-    ENVATO_REVIEW_DIR,
     ensure_dir,
 )
 
@@ -60,7 +57,6 @@ def build_contact_sheet(
     The sample is deterministic because we sort by crop_id and take every
     Nth item (= 1 / sample_fraction).
     """
-    from datetime import datetime
 
     if crop_index is None:
         from tools.envato_assets.catalog import load_crop_index
@@ -202,7 +198,6 @@ def unrelated_pattern_detected(crop_index: dict[str, dict[str, Any]]) -> bool:
     This helps catch cases where a full-canvas Infographics pack contains
     multiple unrelated slides that should have been split differently.
     """
-    from collections import Counter
 
     pack_cats: dict[str, set[str]] = {}
     for crop in crop_index.values():

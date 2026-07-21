@@ -19,9 +19,8 @@ import numpy as np
 from PIL import Image
 
 from tools.envato_assets.config import (
-    SEED_TO_LIBRARY_MAP,
     LIBRARY_CATEGORIES,
-    TEXT_BLOCK_MIN_SIZE,
+    SEED_TO_LIBRARY_MAP,
 )
 
 logger = logging.getLogger(__name__)

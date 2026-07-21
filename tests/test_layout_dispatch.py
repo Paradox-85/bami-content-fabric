@@ -5,13 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from shared.pptx.build import build_deck
 from shared.pptx.layouts import expand_layout
 from shared.pptx.tokens import load_tokens
 from tools.pptx_validate.cli import validate
-from tests.conftest import ROOT
 
 
 def _write_deck(tmp_path: Path, deck: dict) -> Path:

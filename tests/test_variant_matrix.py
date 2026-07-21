@@ -225,7 +225,7 @@ class TestMultiVariantFamilies:
 class TestMultiVariantSelection:
     def test_resolve_specific_variant(self, registry):
         """Resolving by specific graphical_variant returns that variant."""
-        from shared.pptx.pattern_registry import get_family_entry, resolve_variant
+        from shared.pptx.pattern_registry import resolve_variant
 
         for entry in registry.get("entries", []):
             for variant in entry.get("graphical_variants", []):
@@ -238,7 +238,7 @@ class TestMultiVariantSelection:
 
     def test_resolve_default_variant_returns_first_enabled(self, registry):
         """Resolving without a variant returns the first enabled variant."""
-        from shared.pptx.pattern_registry import get_family_entry, resolve_variant
+        from shared.pptx.pattern_registry import resolve_variant
 
         for entry in registry.get("entries", []):
             variants = entry.get("graphical_variants", [])

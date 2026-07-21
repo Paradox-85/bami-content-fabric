@@ -13,13 +13,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pathlib import Path
-
 from pptx import Presentation
-from shared.pptx.pattern_injectors.registry import get_injector, list_injectors, inject_pattern
+
+from shared.pptx.pattern_injectors.registry import get_injector, inject_pattern, list_injectors
 from shared.pptx.pattern_selection import resolve_pattern
 from tools.pptx_validate.cli import validate
-
 
 # ---------------------------------------------------------------------------
 # Unit: injector registration
@@ -48,7 +46,6 @@ def test_simple_arrow_no_invalid_color_token():
     real_tokens = load_tokens(ROOT / "templates" / "bami" / "design_tokens.yaml")
     # Create a minimal slide stub suitable for inject_pattern
     from pptx import Presentation
-    from pptx.util import Inches
     prs = Presentation()
     slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank
 

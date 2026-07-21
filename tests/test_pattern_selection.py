@@ -11,11 +11,9 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-import yaml
 
 from shared.pptx.pattern_selection import (
     PatternSelectionError,
-    SelectionResult,
     load_manifest,
     resolve_pattern,
 )

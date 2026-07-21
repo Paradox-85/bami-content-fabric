@@ -13,10 +13,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from shared.pptx import opc_audit
-
 
 ROOT = Path(__file__).resolve().parent.parent
 

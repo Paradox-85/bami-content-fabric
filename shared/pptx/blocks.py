@@ -12,12 +12,14 @@ Supported kinds (see schemas/content-schema.json):
 
 from __future__ import annotations
 
-from pptx.chart.data import CategoryChartData, XyChartData, BubbleChartData
+from pptx.chart.data import BubbleChartData, CategoryChartData, XyChartData
 from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.util import Inches, Pt
 from pptx.oxml.ns import qn
+from pptx.util import Inches, Pt
+
+from shared.pptx.pattern_injectors.registry import inject_pattern
 from shared.pptx.style import (
     hex_to_rgb,
     inches,
@@ -26,7 +28,8 @@ from shared.pptx.style import (
     style_text_frame,
 )
 from shared.pptx.tokens import Tokens
-from shared.pptx.pattern_injectors.registry import inject_pattern
+
+
 # Body zone guards (kept in sync with design_tokens.grid.body_zone).
 def _check_zone(kind, tokens, x, y, w, h):
     body_top, body_bottom = tokens.body_zone
@@ -263,7 +266,6 @@ def add_gantt(slide, tokens: Tokens, b: dict):
     row_h = float(b.get("row_h", 0.45))
     section_h = float(b.get("section_h", 0.38))
     bar_h = float(b.get("bar_h", 0.24))
-    milestone_h = float(b.get("milestone_h", 0.18))
     row_gap = float(b.get("row_gap", 0.08))
     section_gap = float(b.get("section_gap", 0.12))
     label_header = b.get("label_header")

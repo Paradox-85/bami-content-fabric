@@ -13,37 +13,30 @@ Covers:
 from __future__ import annotations
 
 import json
-import shutil
-import zipfile
 from pathlib import Path
 from typing import Any
-
-import pytest
 
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
-
-from tools.envato_assets import config as ea_config
-from tools.envato_assets.extract import (
-    pack_slug,
-    clean_members,
-    dedupe_version_subfolders,
-    detect_layout,
-    select_vector_files,
-    has_processable_vector,
-)
-from tools.envato_assets.classify import (
-    seed_library_category,
-    keyword_refine_library_category,
-)
 from tools.envato_assets.catalog import (
     load_crop_index,
     save_crop_index,
     write_envato_catalog,
 )
+from tools.envato_assets.classify import (
+    keyword_refine_library_category,
+    seed_library_category,
+)
+from tools.envato_assets.extract import (
+    clean_members,
+    dedupe_version_subfolders,
+    detect_layout,
+    has_processable_vector,
+    pack_slug,
+    select_vector_files,
+)
 from tools.envato_assets.qa import review_rate_exceeds_threshold
-
 
 # ---------------------------------------------------------------------------
 # Test: pack_slug
@@ -395,8 +388,9 @@ class TestCCBackProjection:
         PDF page, a cluster at (100, 50, 200, 150) pixels should map to
         (200, 100, 400, 300) pdf-points.
         """
-        from tools.envato_assets.cluster import detect_clusters_cv
         import numpy as np
+
+        from tools.envato_assets.cluster import detect_clusters_cv
 
         # Simulate a simple page with two distinct content regions
         arr = np.zeros((400, 600, 4), dtype=np.uint8)
@@ -695,15 +689,16 @@ class TestCalibrateSkipExtract:
         """Pre-populate a crop index, run calibrate --skip-extract, and
         verify the existing calibration crops survive the round-trip."""
         from unittest.mock import patch
-        from tools.envato_assets.cli import calibrate
+
         import tools.envato_assets.catalog as ea_catalog
+        from tools.envato_assets.cli import calibrate
 
         # 1. Pre-populate a crop index at a custom path
         crop_index_path = tmp_path / "_crop_index.json"
         orig_path = ea_catalog.ENVATO_CROP_INDEX_PATH
         ea_catalog.ENVATO_CROP_INDEX_PATH = crop_index_path
 
-        index = self._prepopulate_crop_index(tmp_path)
+        _ = self._prepopulate_crop_index(tmp_path)
 
         # 2. Check the pre-populated index has 3 entries
         ea_catalog.ENVATO_CROP_INDEX_PATH = crop_index_path
@@ -770,8 +765,9 @@ class TestCalibrateSkipExtract:
         be purged before re-extraction. This confirms the purge logic still
         works in the normal (non-skip) path."""
         from unittest.mock import patch
-        from tools.envato_assets.cli import calibrate
+
         import tools.envato_assets.catalog as ea_catalog
+        from tools.envato_assets.cli import calibrate
 
         crop_index_path = tmp_path / "_crop_index.json"
         orig_path = ea_catalog.ENVATO_CROP_INDEX_PATH
@@ -823,7 +819,7 @@ class TestCalibrateSkipExtract:
                 runner = CliRunner()
                 # This will fail because there are no real vector files,
                 # but we just need to check the purge side effect
-                result = runner.invoke(calibrate, [])
+                _ = runner.invoke(calibrate, [])
 
                 # The command should fail (exit code 1 or 2) because there's
                 # nothing to extract, but we only care about purge behavior

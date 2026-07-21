@@ -10,7 +10,6 @@ from PIL import Image
 
 from shared.pptx.mermaid_render import (
     MermaidRenderError,
-    _mmdc_argv,
     mmdc_available,
     render_mermaid_png,
 )
@@ -119,8 +118,8 @@ class TestIntegration:
     ):
         """Build a 3-slide deck whose content block is a Mermaid image and
         validate it."""
-        from shared.pptx.schema import validate_deck, load_deck
         from shared.pptx.build import build_deck
+        from shared.pptx.schema import validate_deck
 
         deck = {
             "schema_version": 2,

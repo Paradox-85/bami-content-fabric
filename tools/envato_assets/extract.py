@@ -21,10 +21,10 @@ from pathlib import Path
 from typing import Any
 
 from tools.envato_assets.config import (
-    ENVATO_ZIP_DIR,
     ENVATO_WORK_DIR,
-    SUPPORTED_VECTOR_EXTENSIONS,
+    ENVATO_ZIP_DIR,
     MAX_NESTED_ZIP_DEPTH,
+    SUPPORTED_VECTOR_EXTENSIONS,
     ensure_dir,
     slugify,
 )

@@ -36,8 +36,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev,media]"
+      - run: npm ci
       - run: python -m pytest -q
 
   sample-deck:
@@ -119,31 +123,4 @@ jobs:
         run: python -m pip_audit
       - name: Root npm audit
         run: npm audit --audit-level=high
-      - name: Slidev npm audit
-        working-directory: tools/slidev
-        run: npm audit --audit-level=high
 
-  slidev-smoke:
-    name: Slidev generate/review smoke
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-      - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e ".[dev]"
-      - name: Install Slidev deps
-        working-directory: tools/slidev
-        run: npm ci
-      - name: Generate intermediate JSON
-        run: python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/ci-slidev.pptx --brand bami --intermediate .pi/temp/ci-intermediate.json
-      - name: Run slidev generate
-        working-directory: tools/slidev
-        run: npx slidev build slides-demo.md --out ../../.pi/temp/slidev-dist --base /slidev

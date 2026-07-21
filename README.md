@@ -44,16 +44,6 @@ python -m tools.pptx_validate .pi/temp/out.pptx --brand bami
 
 Open `.pi/temp/out.pptx` in PowerPoint — every slide should carry the BAMi chrome.
 
-### Optional — Slidev (Web/PDF renderer)
-
-```bash
-cd tools/slidev
-npm ci
-cd ../..
-python -m tools.pptx_gen --schema clients/_sample/deck.json --out .pi/temp/out.pptx --brand bami --intermediate .pi/temp/intermediate.json
-cd tools/slidev
-npx slidev build slides-demo.md
-```
 
 ## Repository layout
 

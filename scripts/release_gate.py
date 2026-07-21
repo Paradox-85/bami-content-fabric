@@ -14,9 +14,7 @@ Runs, in order:
   9. Graphical validator
   10. OPC audit
   11. Package audit
-  12. Deck build sanity (reuse of BAMI schema) — NOT a Slidev smoke test;
-      see CI job `slidev-smoke` in .github/workflows/runtime-remediation.yml
-      for the real Slidev `npx slidev build slides-demo.md` step.
+  12. Deck build sanity (reuse of BAMI schema)
 
 Known gaps (non-blocking in current local environment):
   - Step 4: RESOLVED — was a code defect (missing comma in `package.json` after
@@ -131,10 +129,10 @@ def main() -> int:
     step(11, "Package audit",
          [sys.executable, "scripts/package_audit.py"])
 
-    # 12. Deck build sanity (reuse BAMI schema) — NOT a Slidev smoke test
+    # 12. Deck build sanity (reuse BAMI schema)
     step(12, "Deck build sanity (reuse of BAMI schema)",
          [sys.executable, "-m", "tools.pptx_gen", "--schema", "clients/_sample/deck.json",
-          "--out", ".pi/temp/release-slidev.pptx", "--brand", "bami"])
+          "--out", ".pi/temp/release-smoke.pptx", "--brand", "bami"])
 
     # ── Summary ──
     print()

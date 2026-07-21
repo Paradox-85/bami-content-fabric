@@ -14,7 +14,6 @@ runtime expectation is the same: the working directory must contain
 - Python 3.10+
 - **Runtime + dev dependencies**: `pip install -e ".[dev]"` from the repository root
 - (For Mermaid rendering) Node.js LTS, root `npm ci`, and `npx playwright install chromium`
-- (For Slidev branch A renderer) `cd tools/slidev && npm ci`
 - `templates/bami/template.pptx` present (locked brand asset).
 - (Recommended) Montserrat installed locally for accurate rendering.
 

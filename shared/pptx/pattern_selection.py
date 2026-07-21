@@ -40,7 +40,7 @@ class SelectionResult:
         family_version: SemVer string for the resolved family, or None.
         graphical_variant: Selected graphical template variant ID, or None.
         features: dict of feature flags from graphical-feature-vocabulary.yaml.
-        renderer_binding: dict with native/slidev renderer binding, or None.
+        renderer_binding: dict with native renderer binding metadata, or None.
         contract_ref: path to JSON Schema contract, or None.
         selection_version: SemVer of the selection algorithm used.
         pattern_template_id: Stable key "{family}/{graphical_variant}@{version}", or None.

@@ -118,13 +118,6 @@ def main() -> int:
     else:
         print("[audit][npm/root] package.json not found — skipping.")
 
-    # ── Slidev npm audit ────────────────────────────────────────────
-    print("\n── Slidev npm audit ──")
-    slidev_pkg = REPO_ROOT / "tools" / "slidev" / "package.json"
-    if slidev_pkg.exists():
-        exit_code |= audit_npm(slidev_pkg.parent, "slidev")
-    else:
-        print("[audit][npm/slidev] package.json not found — skipping.")
 
     # ── Summary ─────────────────────────────────────────────────────
     print()

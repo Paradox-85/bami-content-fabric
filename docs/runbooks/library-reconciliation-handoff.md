@@ -204,8 +204,6 @@ The following C2 tasks were completed in this session:
   1 remains in `infographic/`.
 - **Widget selection guide:** `docs/guidelines/widget-selection.md` created with D1
   decision process, D2 mapping table, primitive fallbacks, and worked examples.
-- **Slide generation guide:** `docs/guidelines/slide-generation.md` created with
-  structure rules, colour tokens, font sizes, field contracts, and self-check.
 - **Technical description updated:** `docs/architecture/technical-description.md`
   with widget palette library section.
 - **`test_taxonomy_sync.py`: added (3 tests) — enforces ADR-0002 compliance.

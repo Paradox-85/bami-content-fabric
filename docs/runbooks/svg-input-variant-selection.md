@@ -45,7 +45,7 @@ source SVG in `input/`.
 
 ## Selector contract (future implementation)
 
-A random/choice selector (e.g. Branch B `python-pptx` or Branch A Slidev) must:
+A random/choice selector (e.g. the `python-pptx` runtime) must:
 
 1. **Load** `input-variant-groups.json` and `_svg_input_meta.json`.
 2. **Filter** for `selectable_for_random == true`.

@@ -125,7 +125,7 @@
                       "additionalProperties": false
                     },
                     "slidev": {
-                      "description": "Slidev-side renderer binding; null if not implemented",
+                      "description": "Legacy web-renderer binding metadata retained for backward compatibility",
                       "oneOf": [
                         {"type": "null"},
                         {

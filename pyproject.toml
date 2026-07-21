@@ -41,6 +41,7 @@ exclude = ["clients*", "schemas*", "templates*", "node_modules*", "tests*", "doc
 
 [tool.ruff]
 line-length = 100
+exclude = ["build/"]
 target-version = "py310"
 
 [tool.ruff.lint]

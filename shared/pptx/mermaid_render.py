@@ -18,6 +18,7 @@ MermaidRenderError
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -105,6 +106,7 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
 
     tmp_mmd_name: str | None = None
     tmp_out_name: str | None = None
+    tmp_puppeteer_name: str | None = None
     try:
         # Write the definition to a temp input file.
         try:
@@ -125,6 +127,21 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
                 "@mermaid-js/mermaid-cli), or set it on PATH."
             )
 
+        puppeteer_args: list[str] = []
+        if sys.platform.startswith("linux") and os.environ.get("GITHUB_ACTIONS") == "true":
+            try:
+                tmp_puppeteer = tempfile.NamedTemporaryFile(
+                    suffix=".json", mode="w", encoding="utf-8", delete=False
+                )
+                tmp_puppeteer_name = tmp_puppeteer.name
+                json.dump({"args": ["--no-sandbox"]}, tmp_puppeteer)
+                tmp_puppeteer.close()
+                puppeteer_args = ["-p", tmp_puppeteer_name]
+            except OSError as exc:
+                raise MermaidRenderError(
+                    f"Failed to write temporary Puppeteer config: {exc}"
+                ) from exc
+
         # Render to a sibling temp path, then atomically replace into the cache
         # so concurrent cache-misses for the same diagram cannot collide/corrupt.
         tmp_out_name = str(cache_path.with_name(f"{cache_path.stem}.tmp{cache_path.suffix}"))
@@ -133,6 +150,7 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
             "-o", tmp_out_name,
             "-b", "white",
             "--scale", str(scale),
+            *puppeteer_args,
         ]
 
         try:
@@ -164,5 +182,7 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
             Path(tmp_mmd_name).unlink(missing_ok=True)
         if tmp_out_name is not None:
             Path(tmp_out_name).unlink(missing_ok=True)
+        if tmp_puppeteer_name is not None:
+            Path(tmp_puppeteer_name).unlink(missing_ok=True)
 
     return cache_path.resolve()

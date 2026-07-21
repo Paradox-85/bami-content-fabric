@@ -23,7 +23,6 @@ venv/
 !templates/kvi/template.pptx
 # Node dependencies (installed via npm, regenerable)
 node_modules/
-package-lock.json
 
 # External downloaded Envato asset packs (multi-GB, regenerable) — not committed
 templates/media/from_envato/

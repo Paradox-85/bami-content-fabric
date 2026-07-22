@@ -1,0 +1,38 @@
+{
+  "title": "Circular Process Loop — Build Parity",
+  "description": "Explicit inject-pattern block routed through circle-steps native injector (provenance=explicit_inject_pattern, block_kind=inject-pattern)",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Circular Process Loop"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Continuous Improvement Cycle"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "circle-steps",
+          "x": 0.5,
+          "y": 0.8,
+          "w": 9.0,
+          "h": 5.5,
+          "nodes": [
+            {"label": "Plan", "number": "1"},
+            {"label": "Do", "number": "2"},
+            {"label": "Check", "number": "3"},
+            {"label": "Act", "number": "4"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

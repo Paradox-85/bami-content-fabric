@@ -1,0 +1,39 @@
+{
+  "title": "Comparison Table — Build Parity",
+  "description": "Explicit inject-pattern block routed through comparison-table native injector (canonical_id=comparison-table, provenance=explicit_inject_pattern)",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Comparison Table"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Feature Comparison"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "comparison-table",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "headers": ["Feature", "Basic", "Pro", "Enterprise"],
+          "rows": [
+            ["Users", "1", "5", "Unlimited"],
+            ["Storage", "5GB", "50GB", "500GB"],
+            ["Support", "Email", "Priority", "Dedicated"],
+            ["Price", "$9/mo", "$29/mo", "$99/mo"]
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

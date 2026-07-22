@@ -1,15 +1,15 @@
 input_filename,set_slug,hex_hash,variant_id,scout_label,canonical_category,confidence,rationale,is_cs_duplicate,is_raster_wrapper,keep
-infographic_Bento_Box_Infographic_Template_c43cda_Blue_-_1920x1080px_001.svg,Bento_Box_Infographic_Template,c43cda,Blue_-_1920x1080px_001,BENTO_GRID,infographic,0.9,,False,False,Y
-infographic_Bento_Box_Infographic_Template_c43cda_Green_-_1920x1080px_002.svg,Bento_Box_Infographic_Template,c43cda,Green_-_1920x1080px_002,BENTO_GRID,infographic,0.9,,False,False,Y
-infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,3_Circular_Pie_Chart_Diag_001,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
-infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_4_Circular_Pie_Chart_Diag_002.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,4_Circular_Pie_Chart_Diag_002,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
-infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_5_Circular_Pie_Chart_Diag_003.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,5_Circular_Pie_Chart_Diag_003,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
-infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_6_Circular_Pie_Chart_Diag_004.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,6_Circular_Pie_Chart_Diag_004,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
-infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_7_Circular_Pie_Chart_Diag_005.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,7_Circular_Pie_Chart_Diag_005,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
+infographic_Bento_Box_Infographic_Template_c43cda_Blue_-_1920x1080px_001.svg,Bento_Box_Infographic_Template,c43cda,Blue_-_1920x1080px_001,BENTO_GRID,options-layout,0.9,,False,False,Y
+infographic_Bento_Box_Infographic_Template_c43cda_Green_-_1920x1080px_002.svg,Bento_Box_Infographic_Template,c43cda,Green_-_1920x1080px_002,BENTO_GRID,options-layout,0.9,,False,False,Y
+infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,3_Circular_Pie_Chart_Diag_001,CIRCLE_STEP,chart-donut-pie,0.9,,False,False,Y
+infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_4_Circular_Pie_Chart_Diag_002.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,4_Circular_Pie_Chart_Diag_002,CIRCLE_STEP,chart-donut-pie,0.9,,False,False,Y
+infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_5_Circular_Pie_Chart_Diag_003.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,5_Circular_Pie_Chart_Diag_003,CIRCLE_STEP,chart-donut-pie,0.9,,False,False,Y
+infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_6_Circular_Pie_Chart_Diag_004.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,6_Circular_Pie_Chart_Diag_004,CIRCLE_STEP,chart-donut-pie,0.9,,False,False,Y
+infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_7_Circular_Pie_Chart_Diag_005.svg,Bundle_3-7_Circular_Pie_Chart_Di,30d6be,7_Circular_Pie_Chart_Diag_005,CIRCLE_STEP,chart-donut-pie,0.9,,False,False,Y
 infographic_Case_Study_ce7a8d_Case_Study_005.svg,Case_Study,ce7a8d,Case_Study_005,CASE_STUDY,case-study-card,0.9,,False,False,Y
 infographic_Case_Study_ce7a8d_Case_Study_Artboard_1_Art_004.svg,Case_Study,ce7a8d,Case_Study_Artboard_1_Art_004,CASE_STUDY,case-study-card,0.9,,False,False,Y
 infographic_Case_Study_ce7a8d_Case_Study_Artboard_1_cop_003.svg,Case_Study,ce7a8d,Case_Study_Artboard_1_cop_003,CASE_STUDY,case-study-card,0.9,,False,False,Y
-infographic_Case_Study_ce7a8d_Case_Study__1_001.svg,Case_Study,ce7a8d,Case_Study__1_001,CASE_STUDY,case-study-card,0.9,cs-duplicate candidate,True,False,N
+infographic_Case_Study_ce7a8d_Case_Study__1_001.svg,Case_Study,ce7a8d,Case_Study__1_001,CASE_STUDY,case-study-card,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_Case_Study_ce7a8d_Case_Study__2_002.svg,Case_Study,ce7a8d,Case_Study__2_002,CASE_STUDY,case-study-card,0.9,,False,False,Y
 infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_001.svg,Comparison_Table_Infographic,cb70fc,Comparison_Table_Infograp_001,COMPARISON_TABLE,comparison-table,0.9,,False,False,Y
 infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_002.svg,Comparison_Table_Infographic,cb70fc,Comparison_Table_Infograp_002,COMPARISON_TABLE,comparison-table,0.9,,False,False,Y
@@ -18,44 +18,44 @@ infographic_Comparison_Table_Infographic_cb70fc_Comparison_Table_Infograp_004.sv
 infographic_Comparison_Table_–_Infographics_eea0b5_comparison_CC_001.svg,Comparison_Table_–_Infographics,eea0b5,comparison_CC_001,COMPARISON_TABLE,comparison-table,0.9,,False,False,Y
 infographic_Comparison_Table_–_Infographics_eea0b5_comparison_CS6_002.svg,Comparison_Table_–_Infographics,eea0b5,comparison_CS6_002,COMPARISON_TABLE,comparison-table,0.9,,False,False,Y
 infographic_Comparison_Table_–_Infographics_eea0b5_comparison_EPS10_003.svg,Comparison_Table_–_Infographics,eea0b5,comparison_EPS10_003,COMPARISON_TABLE,comparison-table,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_03_opt_001.svg,Cycle_Vector_Infographic_Diagram,598423,03_opt_001,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_04_opt_002.svg,Cycle_Vector_Infographic_Diagram,598423,04_opt_002,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_05_opt_003.svg,Cycle_Vector_Infographic_Diagram,598423,05_opt_003,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_06_opt_004.svg,Cycle_Vector_Infographic_Diagram,598423,06_opt_004,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_07_opt_005.svg,Cycle_Vector_Infographic_Diagram,598423,07_opt_005,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Cycle_Vector_Infographic_Diagram_598423_08_opt_006.svg,Cycle_Vector_Infographic_Diagram,598423,08_opt_006,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_f77ae0_001.svg,Diagram_Infographics,f77ae0,001,DIAGRAM_INF,infographic,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_03_opt_001.svg,Cycle_Vector_Infographic_Diagram,598423,03_opt_001,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_04_opt_002.svg,Cycle_Vector_Infographic_Diagram,598423,04_opt_002,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_05_opt_003.svg,Cycle_Vector_Infographic_Diagram,598423,05_opt_003,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_06_opt_004.svg,Cycle_Vector_Infographic_Diagram,598423,06_opt_004,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_07_opt_005.svg,Cycle_Vector_Infographic_Diagram,598423,07_opt_005,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Cycle_Vector_Infographic_Diagram_598423_08_opt_006.svg,Cycle_Vector_Infographic_Diagram,598423,08_opt_006,VECTOR_TEMPLATE,circular-node-layout,0.9,,False,False,Y
+infographic_Diagram_Infographics_f77ae0_001.svg,Diagram_Infographics,f77ae0,001,DIAGRAM_INF,infographic,0.9,Render timeout >30s / damaged file — confirmed by user 2026-07-22.,True,False,N
 infographic_Diagram_Infographics_f77ae0_002.svg,Diagram_Infographics,f77ae0,002,DIAGRAM_INF,infographic,0.9,,False,False,Y
 infographic_Diagram_Infographics_f77ae0_003.svg,Diagram_Infographics,f77ae0,003,DIAGRAM_INF,infographic,0.9,,False,False,Y
 infographic_Diagram_Infographics_f77ae0_004.svg,Diagram_Infographics,f77ae0,004,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_10_002.svg,Diagram_Infographics,fbb780,Diagram_10_002,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_11_003.svg,Diagram_Infographics,fbb780,Diagram_11_003,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_12_004.svg,Diagram_Infographics,fbb780,Diagram_12_004,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_13_005.svg,Diagram_Infographics,fbb780,Diagram_13_005,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_14_006.svg,Diagram_Infographics,fbb780,Diagram_14_006,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_15_007.svg,Diagram_Infographics,fbb780,Diagram_15_007,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_16_008.svg,Diagram_Infographics,fbb780,Diagram_16_008,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_17_009.svg,Diagram_Infographics,fbb780,Diagram_17_009,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_18_010.svg,Diagram_Infographics,fbb780,Diagram_18_010,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_19_011.svg,Diagram_Infographics,fbb780,Diagram_19_011,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_1_001.svg,Diagram_Infographics,fbb780,Diagram_1_001,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_20_013.svg,Diagram_Infographics,fbb780,Diagram_20_013,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_2_012.svg,Diagram_Infographics,fbb780,Diagram_2_012,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_3_014.svg,Diagram_Infographics,fbb780,Diagram_3_014,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_4_015.svg,Diagram_Infographics,fbb780,Diagram_4_015,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_5_016.svg,Diagram_Infographics,fbb780,Diagram_5_016,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_6_017.svg,Diagram_Infographics,fbb780,Diagram_6_017,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_7_018.svg,Diagram_Infographics,fbb780,Diagram_7_018,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_8_019.svg,Diagram_Infographics,fbb780,Diagram_8_019,DIAGRAM_INF,infographic,0.9,,False,False,Y
-infographic_Diagram_Infographics_fbb780_Diagram_9_020.svg,Diagram_Infographics,fbb780,Diagram_9_020,DIAGRAM_INF,infographic,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_10_002.svg,Diagram_Infographics,fbb780,Diagram_10_002,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_11_003.svg,Diagram_Infographics,fbb780,Diagram_11_003,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_12_004.svg,Diagram_Infographics,fbb780,Diagram_12_004,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_13_005.svg,Diagram_Infographics,fbb780,Diagram_13_005,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_14_006.svg,Diagram_Infographics,fbb780,Diagram_14_006,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_15_007.svg,Diagram_Infographics,fbb780,Diagram_15_007,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_16_008.svg,Diagram_Infographics,fbb780,Diagram_16_008,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_17_009.svg,Diagram_Infographics,fbb780,Diagram_17_009,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_18_010.svg,Diagram_Infographics,fbb780,Diagram_18_010,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_19_011.svg,Diagram_Infographics,fbb780,Diagram_19_011,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_1_001.svg,Diagram_Infographics,fbb780,Diagram_1_001,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_20_013.svg,Diagram_Infographics,fbb780,Diagram_20_013,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_2_012.svg,Diagram_Infographics,fbb780,Diagram_2_012,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_3_014.svg,Diagram_Infographics,fbb780,Diagram_3_014,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_4_015.svg,Diagram_Infographics,fbb780,Diagram_4_015,DIAGRAM_INF,chart-line-area,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_5_016.svg,Diagram_Infographics,fbb780,Diagram_5_016,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_6_017.svg,Diagram_Infographics,fbb780,Diagram_6_017,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_7_018.svg,Diagram_Infographics,fbb780,Diagram_7_018,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_8_019.svg,Diagram_Infographics,fbb780,Diagram_8_019,DIAGRAM_INF,chart-bar-column,0.9,,False,False,Y
+infographic_Diagram_Infographics_fbb780_Diagram_9_020.svg,Diagram_Infographics,fbb780,Diagram_9_020,DIAGRAM_INF,chart-donut-pie,0.9,,False,False,Y
 infographic_ESG_Sustainability_Report_Infogr_c3dc22_ESG_Sustainability_Report.svg,ESG_Sustainability_Report_Infogr,c3dc22,ESG_Sustainability_Report,ESG_REPORT,case-study-card,0.9,,False,False,Y
-infographic_Empathy_Map_Infographic_2dc5cb_Empathy_Map.svg,Empathy_Map_Infographic,2dc5cb,Empathy_Map,EMPATHY_MAP,case-study-card,0.9,,False,False,Y
+infographic_Empathy_Map_Infographic_2dc5cb_Empathy_Map.svg,Empathy_Map_Infographic,2dc5cb,Empathy_Map,EMPATHY_MAP,empathy-map,0.9,,False,False,Y
 infographic_Funnel_Diagram_Infographic_8c475a_Funnel_Diagram_Illustrato_002.svg,Funnel_Diagram_Infographic,8c475a,Funnel_Diagram_Illustrato_002,FUNNEL_CHART,funnel-diagram,0.9,,False,False,Y
-infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_001.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_001,GRADIENT_CSAT,chart-bar-column,0.9,,False,False,Y
-infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_002.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_002,GRADIENT_CSAT,chart-bar-column,0.9,,False,False,Y
-infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_003.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_003,GRADIENT_CSAT,chart-bar-column,0.9,,False,False,Y
-infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_004.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_004,GRADIENT_CSAT,chart-bar-column,0.9,cs-duplicate candidate,True,False,N
-infographic_Green_Aesthetic_Self_Care_Checkl_85d5bc_Self_Care_Summer.svg,Green_Aesthetic_Self_Care_Checkl,85d5bc,Self_Care_Summer,BUNDLE_MEGA,infographic,0.9,,False,False,Y
+infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_001.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_001,GRADIENT_CSAT,quadrant-matrix,0.9,,False,False,Y
+infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_002.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_002,GRADIENT_CSAT,radial-segment-diagram,0.9,,False,False,Y
+infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_003.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_003,GRADIENT_CSAT,quadrant-matrix,0.9,,False,False,Y
+infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_004.svg,Gradient_Matrix_Infographics,66318c,Gradient_Matrix_Infograph_004,GRADIENT_CSAT,radial-segment-diagram,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_Green_Aesthetic_Self_Care_Checkl_85d5bc_Self_Care_Summer.svg,Green_Aesthetic_Self_Care_Checkl,85d5bc,Self_Care_Summer,BUNDLE_MEGA,checklist-status,0.9,,False,False,Y
 infographic_Infographics_Bundle_15bd12_Infographics_Bundle.svg,Infographics_Bundle,15bd12,Infographics_Bundle,BUNDLE_MEGA,infographic,0.9,,False,False,Y
 infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_001.svg,Information_Table_Infographic,355c8b,Information_Table_Infogra_001,INFORMATION_TABLE,data-table,0.9,,False,False,Y
 infographic_Information_Table_Infographic_355c8b_Information_Table_Infogra_002.svg,Information_Table_Infographic,355c8b,Information_Table_Infogra_002,INFORMATION_TABLE,data-table,0.9,,False,False,Y
@@ -69,9 +69,9 @@ infographic_Modern_Gantt_Chart_Infographic_0_4a93ff_Gantt_Chart_Infographic.svg,
 infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_001.svg,Modern_KPI_Dashboard_Infographic,445c3c,Modern_KPI_Dashboard_Info_001,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_002.svg,Modern_KPI_Dashboard_Infographic,445c3c,Modern_KPI_Dashboard_Info_002,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_003.svg,Modern_KPI_Dashboard_Infographic,445c3c,Modern_KPI_Dashboard_Info_003,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
-infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_004.svg,Modern_KPI_Dashboard_Infographic,445c3c,Modern_KPI_Dashboard_Info_004,KPI_DASHBOARD,kpi-dashboard-grid,0.9,cs-duplicate candidate,True,False,N
+infographic_Modern_KPI_Dashboard_Infographic_445c3c_Modern_KPI_Dashboard_Info_004.svg,Modern_KPI_Dashboard_Infographic,445c3c,Modern_KPI_Dashboard_Info_004,KPI_DASHBOARD,kpi-dashboard-grid,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_Pie_Chart_Infographic_4dd94c_Pie_Chart.svg,Pie_Chart_Infographic,4dd94c,Pie_Chart,PIE_CHART,chart-donut-pie,0.9,,False,False,Y
-infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg,Prize_Table_Infographic_Asset,d66c15,Prize_Table,PRIZE_TABLE,tier-pricing-cards,0.9,,False,False,Y
+infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg,Prize_Table_Infographic_Asset,d66c15,Prize_Table,PRIZE_TABLE,numbered-ranking-list,0.9,,False,False,Y
 infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_001.svg,Quadrant_Chart_Diagram_Infograph,cc85a7,Quadrant_Chart_Diagram_In_001,QUADRANT_CHART_DIAGRAM,quadrant-matrix,0.9,,False,False,Y
 infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_002.svg,Quadrant_Chart_Diagram_Infograph,cc85a7,Quadrant_Chart_Diagram_In_002,QUADRANT_CHART_DIAGRAM,quadrant-matrix,0.9,,False,False,Y
 infographic_Quadrant_Chart_Diagram_Infograph_cc85a7_Quadrant_Chart_Diagram_In_003.svg,Quadrant_Chart_Diagram_Infograph,cc85a7,Quadrant_Chart_Diagram_In_003,QUADRANT_CHART_DIAGRAM,quadrant-matrix,0.9,,False,False,Y
@@ -94,7 +94,7 @@ infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_008.svg,
 infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_009.svg,Quadrant_Chart_Infographic,b3e4b1,Quadrant_Chart_Infographi_009,QUADRANT_CHART,quadrant-matrix,0.9,,False,False,Y
 infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_010.svg,Quadrant_Chart_Infographic,b3e4b1,Quadrant_Chart_Infographi_010,QUADRANT_CHART,quadrant-matrix,0.9,,False,False,Y
 infographic_Quadrant_Chart_Infographic_b3e4b1_Quadrant_Chart_Infographi_011.svg,Quadrant_Chart_Infographic,b3e4b1,Quadrant_Chart_Infographi_011,QUADRANT_CHART,quadrant-matrix,0.9,,False,False,Y
-infographic_Timeline_Infographics_9f4fea_Timeline_Infographics.svg,Timeline_Infographics,9f4fea,Timeline_Infographics,BUSINESS_TIMELINE,historical-timeline,0.9,,False,False,Y
+infographic_Timeline_Infographics_9f4fea_Timeline_Infographics.svg,Timeline_Infographics,9f4fea,Timeline_Infographics,BUSINESS_TIMELINE,chart-donut-pie,0.9,,False,False,Y
 infographic_Timeline_Roadmap_Infographic_1c9830_Page_10_003.svg,Timeline_Roadmap_Infographic,1c9830,Page_10_003,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_Timeline_Roadmap_Infographic_1c9830_Page_11_004.svg,Timeline_Roadmap_Infographic,1c9830,Page_11_004,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_Timeline_Roadmap_Infographic_1c9830_Page_12_005.svg,Timeline_Roadmap_Infographic,1c9830,Page_12_005,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
@@ -112,37 +112,37 @@ infographic_Timeline_Roadmap_Infographic_1c9830_Page_8_015.svg,Timeline_Roadmap_
 infographic_Timeline_Roadmap_Infographic_1c9830_Page_9_016.svg,Timeline_Roadmap_Infographic,1c9830,Page_9_016,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_Timeline_Roadmap_Infographic_1c9830_Timeline_017.svg,Timeline_Roadmap_Infographic,1c9830,Timeline_017,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_Timeline_Roadmap_Infographic_1c9830_Timeline_Infographic__Tim_001.svg,Timeline_Roadmap_Infographic,1c9830,Timeline_Infographic__Tim_001,TIMELINE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
-infographic_Tree_–_Infographics_Design_ba6f36_TREES_CC20_001.svg,Tree_–_Infographics_Design,ba6f36,TREES_CC20_001,TREE_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Tree_–_Infographics_Design_ba6f36_TREES_CS6_002.svg,Tree_–_Infographics_Design,ba6f36,TREES_CS6_002,TREE_DIAGRAM,mind-map-radial,0.9,,False,False,Y
+infographic_Tree_–_Infographics_Design_ba6f36_TREES_CC20_001.svg,Tree_–_Infographics_Design,ba6f36,TREES_CC20_001,TREE_DIAGRAM,maturity-model-ladder,0.9,,False,False,Y
+infographic_Tree_–_Infographics_Design_ba6f36_TREES_CS6_002.svg,Tree_–_Infographics_Design,ba6f36,TREES_CS6_002,TREE_DIAGRAM,maturity-model-ladder,0.9,,False,False,Y
 infographic_Vector_Infographics_Template_1b14dd_001.svg,Vector_Infographics_Template,1b14dd,001,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
 infographic_Vector_Infographics_Template_1b14dd_002.svg,Vector_Infographics_Template,1b14dd,002,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
 infographic_Vector_Infographics_Template_1b14dd_003.svg,Vector_Infographics_Template,1b14dd,003,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
 infographic_Vector_Infographics_Template_1b14dd_004.svg,Vector_Infographics_Template,1b14dd,004,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Vector_Infographics_Template_1b14dd_005.svg,Vector_Infographics_Template,1b14dd,005,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
+infographic_Vector_Infographics_Template_1b14dd_005.svg,Vector_Infographics_Template,1b14dd,005,VECTOR_TEMPLATE,infographic,0.9,Render timeout >30s / damaged file — confirmed by user 2026-07-22.,True,False,N
 infographic_Vector_Infographics_Template_1b14dd_006.svg,Vector_Infographics_Template,1b14dd,006,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Vector_Infographics_Template_1b14dd_007.svg,Vector_Infographics_Template,1b14dd,007,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
+infographic_Vector_Infographics_Template_1b14dd_007.svg,Vector_Infographics_Template,1b14dd,007,VECTOR_TEMPLATE,infographic,0.9,Render timeout >30s / damaged file — confirmed by user 2026-07-22.,True,False,N
 infographic_Vector_Infographics_Template_1b14dd_008.svg,Vector_Infographics_Template,1b14dd,008,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_001.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_001,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_002.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_002,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_003.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_003,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_004.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_004,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_005.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_005,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_006.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_006,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_007.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_007,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_008.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_008,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_009.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_009,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_010.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_010,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_011.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_011,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_012.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_012,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_013.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_013,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_014.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_014,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_015.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_015,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_016.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_016,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_017.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_017,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_018.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_018,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_019.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_019,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_020.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_020,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
-infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic_021.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic_021,VENN_DIAGRAM,mind-map-radial,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_001.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_001,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_002.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_002,VENN_DIAGRAM,mechanism-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_003.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_003,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_004.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_004,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_005.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_005,VENN_DIAGRAM,mechanism-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_006.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_006,VENN_DIAGRAM,goal-path,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_007.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_007,VENN_DIAGRAM,pyramid-hierarchy,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_008.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_008,VENN_DIAGRAM,mechanism-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_009.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_009,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_010.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_010,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_011.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_011,VENN_DIAGRAM,circular-node-layout,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_012.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_012,VENN_DIAGRAM,goal-path,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_013.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_013,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_014.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_014,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_015.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_015,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_016.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_016,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_017.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_017,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_018.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_018,VENN_DIAGRAM,goal-path,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_019.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_019,VENN_DIAGRAM,radial-segment-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_020.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic-_020,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
+infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic_021.svg,Venn_Diagram_Infographic,03eec1,Venn_Diagram_Infographic_021,VENN_DIAGRAM,venn-diagram,0.9,,False,False,Y
 infographic_White_Cyan_Modern_KPI_Dashboard_30a08e_KPI_Dashboard_Infographic.svg,White_Cyan_Modern_KPI_Dashboard,30a08e,KPI_Dashboard_Infographic,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_abstract-3d-business-infographic_197c72_001.svg,abstract-3d-business-infographic,197c72,001,ABSTRACT_3D,infographic-3d-cube,0.9,,False,False,Y
 infographic_abstract-3d-business-infographic_197c72_002.svg,abstract-3d-business-infographic,197c72,002,ABSTRACT_3D,infographic-3d-cube,0.9,,False,False,Y
@@ -153,49 +153,49 @@ infographic_abstract-3d-business-infographic_197c72_006.svg,abstract-3d-business
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3-02_010.svg,amethyst-v3-infographic,298f38,Amethyst_V3-02_010,MODERN_INF_PACK,infographic,0.9,,False,False,Y
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3-03_011.svg,amethyst-v3-infographic,298f38,Amethyst_V3-03_011,MODERN_INF_PACK,infographic,0.9,,False,False,Y
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3-04_012.svg,amethyst-v3-infographic,298f38,Amethyst_V3-04_012,MODERN_INF_PACK,infographic,0.9,,False,False,Y
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-02_001.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-02_001,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-03_002.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-03_002,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-04_003.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-04_003,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-02_001.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-02_001,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-03_002.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-03_002,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_10-04_003.svg,amethyst-v3-infographic,298f38,Amethyst_V3_10-04_003,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-02_004.svg,amethyst-v3-infographic,298f38,Amethyst_V3_CS4-02_004,MODERN_INF_PACK,infographic,0.9,,False,False,Y
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-03_005.svg,amethyst-v3-infographic,298f38,Amethyst_V3_CS4-03_005,MODERN_INF_PACK,infographic,0.9,,False,False,Y
 infographic_amethyst-v3-infographic_298f38_Amethyst_V3_CS4-04_006.svg,amethyst-v3-infographic,298f38,Amethyst_V3_CS4-04_006,MODERN_INF_PACK,infographic,0.9,,False,False,Y
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_007.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_007,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_008.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_008,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
-infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_009.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_009,MODERN_INF_PACK,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_007.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_007,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_008.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_008,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_amethyst-v3-infographic_298f38_Amethyst_V3_infographic-0_009.svg,amethyst-v3-infographic,298f38,Amethyst_V3_infographic-0_009,MODERN_INF_PACK,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_arrow-process-infographics_f8e31e_Arrow_Process_Infographic.svg,arrow-process-infographics,f8e31e,Arrow_Process_Infographic,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_001.svg,arrows-infographic-templates,f8571b,001,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_002.svg,arrows-infographic-templates,f8571b,002,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_003.svg,arrows-infographic-templates,f8571b,003,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_004.svg,arrows-infographic-templates,f8571b,004,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_004.svg,arrows-infographic-templates,f8571b,004,ARROW_PROCESS,circular-node-layout,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_005.svg,arrows-infographic-templates,f8571b,005,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_006.svg,arrows-infographic-templates,f8571b,006,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_007.svg,arrows-infographic-templates,f8571b,007,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_007.svg,arrows-infographic-templates,f8571b,007,ARROW_PROCESS,goal-path,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_008.svg,arrows-infographic-templates,f8571b,008,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_009.svg,arrows-infographic-templates,f8571b,009,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_010.svg,arrows-infographic-templates,f8571b,010,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_011.svg,arrows-infographic-templates,f8571b,011,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_012.svg,arrows-infographic-templates,f8571b,012,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_013.svg,arrows-infographic-templates,f8571b,013,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_010.svg,arrows-infographic-templates,f8571b,010,ARROW_PROCESS,roadmap-with-milestones,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_011.svg,arrows-infographic-templates,f8571b,011,ARROW_PROCESS,radial-segment-diagram,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_012.svg,arrows-infographic-templates,f8571b,012,ARROW_PROCESS,circular-node-layout,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_013.svg,arrows-infographic-templates,f8571b,013,ARROW_PROCESS,radial-segment-diagram,0.9,,False,False,Y
 infographic_arrows-infographic-templates_f8571b_014.svg,arrows-infographic-templates,f8571b,014,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_015.svg,arrows-infographic-templates,f8571b,015,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_016.svg,arrows-infographic-templates,f8571b,016,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_017.svg,arrows-infographic-templates,f8571b,017,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_018.svg,arrows-infographic-templates,f8571b,018,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_019.svg,arrows-infographic-templates,f8571b,019,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_arrows-infographic-templates_f8571b_020.svg,arrows-infographic-templates,f8571b,020,ARROW_PROCESS,numbered-process-steps,0.9,,False,False,Y
-infographic_artificial-intelligence-workflow_c744f6_M045T0101_Modern_artifici.svg,artificial-intelligence-workflow,c744f6,M045T0101_Modern_artifici,AI_WORKFLOW,infographic,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_015.svg,arrows-infographic-templates,f8571b,015,ARROW_PROCESS,radial-segment-diagram,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_016.svg,arrows-infographic-templates,f8571b,016,ARROW_PROCESS,circular-process-loop,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_017.svg,arrows-infographic-templates,f8571b,017,ARROW_PROCESS,radial-segment-diagram,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_018.svg,arrows-infographic-templates,f8571b,018,ARROW_PROCESS,circular-process-loop,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_019.svg,arrows-infographic-templates,f8571b,019,ARROW_PROCESS,radial-segment-diagram,0.9,,False,False,Y
+infographic_arrows-infographic-templates_f8571b_020.svg,arrows-infographic-templates,f8571b,020,ARROW_PROCESS,circular-process-loop,0.9,,False,False,Y
+infographic_artificial-intelligence-workflow_c744f6_M045T0101_Modern_artifici.svg,artificial-intelligence-workflow,c744f6,M045T0101_Modern_artifici,AI_WORKFLOW,mechanism-diagram,0.9,,False,False,Y
 infographic_bar-charts-infographics_dfc740_Bar_Charts_Infographics.svg,bar-charts-infographics,dfc740,Bar_Charts_Infographics,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
 infographic_black-colorful-modern-gantt-char_72dbf7_Gantt_Chart_Infographic.svg,black-colorful-modern-gantt-char,72dbf7,Gantt_Chart_Infographic,GANTT_CHART,gantt-matrix,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_01_BranchFlow_001.svg,branchflow-infographics,051ca1,01_BranchFlow_001,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_02_BranchFlow_002.svg,branchflow-infographics,051ca1,02_BranchFlow_002,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_03_BranchFlow_003.svg,branchflow-infographics,051ca1,03_BranchFlow_003,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_04_BranchFlow_004.svg,branchflow-infographics,051ca1,04_BranchFlow_004,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_05_BranchFlow_005.svg,branchflow-infographics,051ca1,05_BranchFlow_005,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_branchflow-infographics_051ca1_06_BranchFlow_006.svg,branchflow-infographics,051ca1,06_BranchFlow_006,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_bundle-arrow-step-infographic_303a08_Arrow_3_Step_Infographic_001.svg,bundle-arrow-step-infographic,303a08,Arrow_3_Step_Infographic_001,BUNDLE_ARROW_STEP,numbered-process-steps,0.9,,False,False,Y
-infographic_bundle-arrow-step-infographic_303a08_Arrow_4_Step_Infographic_002.svg,bundle-arrow-step-infographic,303a08,Arrow_4_Step_Infographic_002,BUNDLE_ARROW_STEP,numbered-process-steps,0.9,,False,False,Y
-infographic_bundle-arrow-step-infographic_303a08_Arrow_5_Step_Infographic_003.svg,bundle-arrow-step-infographic,303a08,Arrow_5_Step_Infographic_003,BUNDLE_ARROW_STEP,numbered-process-steps,0.9,,False,False,Y
-infographic_bundle-arrow-step-infographic_303a08_Arrow_6_Step_Infographic_004.svg,bundle-arrow-step-infographic,303a08,Arrow_6_Step_Infographic_004,BUNDLE_ARROW_STEP,numbered-process-steps,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_01_BranchFlow_001.svg,branchflow-infographics,051ca1,01_BranchFlow_001,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_02_BranchFlow_002.svg,branchflow-infographics,051ca1,02_BranchFlow_002,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_03_BranchFlow_003.svg,branchflow-infographics,051ca1,03_BranchFlow_003,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_04_BranchFlow_004.svg,branchflow-infographics,051ca1,04_BranchFlow_004,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_05_BranchFlow_005.svg,branchflow-infographics,051ca1,05_BranchFlow_005,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_branchflow-infographics_051ca1_06_BranchFlow_006.svg,branchflow-infographics,051ca1,06_BranchFlow_006,BRANCHFLOW,growth-driver-map,0.9,,False,False,Y
+infographic_bundle-arrow-step-infographic_303a08_Arrow_3_Step_Infographic_001.svg,bundle-arrow-step-infographic,303a08,Arrow_3_Step_Infographic_001,BUNDLE_ARROW_STEP,circular-process-loop,0.9,,False,False,Y
+infographic_bundle-arrow-step-infographic_303a08_Arrow_4_Step_Infographic_002.svg,bundle-arrow-step-infographic,303a08,Arrow_4_Step_Infographic_002,BUNDLE_ARROW_STEP,quadrant-matrix,0.9,,False,False,Y
+infographic_bundle-arrow-step-infographic_303a08_Arrow_5_Step_Infographic_003.svg,bundle-arrow-step-infographic,303a08,Arrow_5_Step_Infographic_003,BUNDLE_ARROW_STEP,radial-segment-diagram,0.9,,False,False,Y
+infographic_bundle-arrow-step-infographic_303a08_Arrow_6_Step_Infographic_004.svg,bundle-arrow-step-infographic,303a08,Arrow_6_Step_Infographic_004,BUNDLE_ARROW_STEP,radial-segment-diagram,0.9,,False,False,Y
 infographic_business-infographic-elements_dc3469_01_Infographic_001.svg,business-infographic-elements,dc3469,01_Infographic_001,BUSINESS_INF,infographic,0.9,,False,False,Y
 infographic_business-infographic-elements_dc3469_03_Infographic_003.svg,business-infographic-elements,dc3469,03_Infographic_003,BUSINESS_INF,infographic,0.9,,False,False,Y
 infographic_business-infographic-elements_dc3469_04_Infographic_004.svg,business-infographic-elements,dc3469,04_Infographic_004,BUSINESS_INF,infographic,0.9,,False,False,Y
@@ -207,19 +207,19 @@ infographic_business-stair-success-infograph_749488_001.svg,business-stair-succe
 infographic_business-stair-success-infograph_749488_002.svg,business-stair-success-infograph,749488,002,BUSINESS_STAIR,maturity-model-ladder,0.9,,False,False,Y
 infographic_business-stair-success-infograph_749488_003.svg,business-stair-success-infograph,749488,003,BUSINESS_STAIR,maturity-model-ladder,0.9,,False,False,Y
 infographic_business-stair-success-infograph_749488_004.svg,business-stair-success-infograph,749488,004,BUSINESS_STAIR,maturity-model-ladder,0.9,,False,False,Y
-infographic_business-timeline-infographic_f35117_Business_Icon_Set_001.svg,business-timeline-infographic,f35117,Business_Icon_Set_001,BUSINESS_TIMELINE,historical-timeline,0.9,,False,False,Y
+infographic_business-timeline-infographic_f35117_Business_Icon_Set_001.svg,business-timeline-infographic,f35117,Business_Icon_Set_001,BUSINESS_TIMELINE,icon-text-feature-list,0.9,,False,False,Y
 infographic_business-timeline-infographics_41de08_Business_Timeline_Infogra.svg,business-timeline-infographics,41de08,Business_Timeline_Infogra,BUSINESS_TIMELINE,historical-timeline,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-01_001.svg,chart-template-chart,27ccfb,Gear_Infographic-01_001,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-02_002.svg,chart-template-chart,27ccfb,Gear_Infographic-02_002,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-03_003.svg,chart-template-chart,27ccfb,Gear_Infographic-03_003,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-04_004.svg,chart-template-chart,27ccfb,Gear_Infographic-04_004,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-05_005.svg,chart-template-chart,27ccfb,Gear_Infographic-05_005,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-06_006.svg,chart-template-chart,27ccfb,Gear_Infographic-06_006,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-07_007.svg,chart-template-chart,27ccfb,Gear_Infographic-07_007,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-08_008.svg,chart-template-chart,27ccfb,Gear_Infographic-08_008,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-09_009.svg,chart-template-chart,27ccfb,Gear_Infographic-09_009,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic-10_010.svg,chart-template-chart,27ccfb,Gear_Infographic-10_010,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
-infographic_chart-template-chart_27ccfb_Gear_Infographic_011.svg,chart-template-chart,27ccfb,Gear_Infographic_011,BAR_CHARTS,chart-bar-column,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-01_001.svg,chart-template-chart,27ccfb,Gear_Infographic-01_001,BAR_CHARTS,gear-process-sequence,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-02_002.svg,chart-template-chart,27ccfb,Gear_Infographic-02_002,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-03_003.svg,chart-template-chart,27ccfb,Gear_Infographic-03_003,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-04_004.svg,chart-template-chart,27ccfb,Gear_Infographic-04_004,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-05_005.svg,chart-template-chart,27ccfb,Gear_Infographic-05_005,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-06_006.svg,chart-template-chart,27ccfb,Gear_Infographic-06_006,BAR_CHARTS,gear-process-sequence,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-07_007.svg,chart-template-chart,27ccfb,Gear_Infographic-07_007,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-08_008.svg,chart-template-chart,27ccfb,Gear_Infographic-08_008,BAR_CHARTS,quadrant-matrix,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-09_009.svg,chart-template-chart,27ccfb,Gear_Infographic-09_009,BAR_CHARTS,gear-process-sequence,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic-10_010.svg,chart-template-chart,27ccfb,Gear_Infographic-10_010,BAR_CHARTS,mechanism-diagram,0.9,,False,False,Y
+infographic_chart-template-chart_27ccfb_Gear_Infographic_011.svg,chart-template-chart,27ccfb,Gear_Infographic_011,BAR_CHARTS,gear-process-sequence,0.9,,False,False,Y
 infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg,circle-step-infographic,a05527,Circle_4_step_Infographic_001,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
 infographic_circle-step-infographic_a05527_Circle_5_step_Infographic_002.svg,circle-step-infographic,a05527,Circle_5_step_Infographic_002,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
 infographic_circle-step-infographic_a05527_Circle_6_step_Infographic_003.svg,circle-step-infographic,a05527,Circle_6_step_Infographic_003,CIRCLE_STEP,circular-process-loop,0.9,,False,False,Y
@@ -233,22 +233,22 @@ infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_00
 infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_003.svg,colorful-minimalist-timeline-gan,66c348,Colorful_Minimalist_Timel_003,HORIZONTAL_TIMELINE,historical-timeline,0.9,,False,False,Y
 infographic_colorful-minimalist-timeline-gan_66c348_Colorful_Minimalist_Timel_004.svg,colorful-minimalist-timeline-gan,66c348,Colorful_Minimalist_Timel_004,HORIZONTAL_TIMELINE,historical-timeline,0.9,,False,False,Y
 infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg,conversion-path-infographics,5f45bf,01_Conversion_Path_001,CONVERSION_PATH,funnel-diagram,0.9,,False,False,Y
-infographic_conversion-path-infographics_5f45bf_02_Conversion_Path_002.svg,conversion-path-infographics,5f45bf,02_Conversion_Path_002,CONVERSION_PATH,funnel-diagram,0.9,,False,False,Y
+infographic_conversion-path-infographics_5f45bf_02_Conversion_Path_002.svg,conversion-path-infographics,5f45bf,02_Conversion_Path_002,CONVERSION_PATH,numbered-process-steps,0.9,,False,False,Y
 infographic_conversion-path-infographics_5f45bf_03_Conversion_Path_003.svg,conversion-path-infographics,5f45bf,03_Conversion_Path_003,CONVERSION_PATH,funnel-diagram,0.9,,False,False,Y
-infographic_conversion-path-infographics_5f45bf_04_Conversion_Path_004.svg,conversion-path-infographics,5f45bf,04_Conversion_Path_004,CONVERSION_PATH,funnel-diagram,0.9,,False,False,Y
-infographic_conversion-path-infographics_5f45bf_05_Conversion_Path_005.svg,conversion-path-infographics,5f45bf,05_Conversion_Path_005,CONVERSION_PATH,funnel-diagram,0.9,,False,False,Y
+infographic_conversion-path-infographics_5f45bf_04_Conversion_Path_004.svg,conversion-path-infographics,5f45bf,04_Conversion_Path_004,CONVERSION_PATH,goal-path,0.9,,False,False,Y
+infographic_conversion-path-infographics_5f45bf_05_Conversion_Path_005.svg,conversion-path-infographics,5f45bf,05_Conversion_Path_005,CONVERSION_PATH,roadmap-with-milestones,0.9,,False,False,Y
 infographic_cream-colorful-modern-onboarding_c6caac_Employee_Onboarding_Roadm.svg,cream-colorful-modern-onboarding,c6caac,Employee_Onboarding_Roadm,ONBOARDING_ROADMAP,phased-rollout-timeline,0.9,,False,False,Y
-infographic_customer-journey-map-infographic_027d8a_Customer_Journey_Map_Info.svg,customer-journey-map-infographic,027d8a,Customer_Journey_Map_Info,CUSTOMER_JOURNEY MAP,funnel-diagram,0.9,,False,False,Y
-infographic_e-commerce-infographic_388d05_Sourcefile_-_Ai_001.svg,e-commerce-infographic,388d05,Sourcefile_-_Ai_001,ECOMMERCE,infographic,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_customer-journey-map-infographic_027d8a_Customer_Journey_Map_Info.svg,customer-journey-map-infographic,027d8a,Customer_Journey_Map_Info,CUSTOMER_JOURNEY MAP,customer-journey-map,0.9,,False,False,Y
+infographic_e-commerce-infographic_388d05_Sourcefile_-_Ai_001.svg,e-commerce-infographic,388d05,Sourcefile_-_Ai_001,ECOMMERCE,infographic,0.9,,False,False,Y
 infographic_e-commerce-infographic_388d05_Sourcefile_-_EPS_002.svg,e-commerce-infographic,388d05,Sourcefile_-_EPS_002,ECOMMERCE,infographic,0.9,,False,False,Y
-infographic_e-commerce-infographic_a0d4db_Sourcefile_-_Ai_001.svg,e-commerce-infographic,a0d4db,Sourcefile_-_Ai_001,ECOMMERCE,infographic,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_e-commerce-infographic_a0d4db_Sourcefile_-_Ai_001.svg,e-commerce-infographic,a0d4db,Sourcefile_-_Ai_001,ECOMMERCE,infographic,0.9,,False,False,Y
 infographic_e-commerce-infographic_a0d4db_Sourcefile_-_EPS_002.svg,e-commerce-infographic,a0d4db,Sourcefile_-_EPS_002,ECOMMERCE,infographic,0.9,,False,False,Y
 infographic_factory-infographic_c2b096_Factory_Infographic-02_005.svg,factory-infographic,c2b096,Factory_Infographic-02_005,FACTORY,infographic,0.9,,False,False,Y
-infographic_factory-infographic_c2b096_Factory_Infographic-02_CS_004.svg,factory-infographic,c2b096,Factory_Infographic-02_CS_004,FACTORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_factory-infographic_c2b096_Factory_Infographic-02_CS_004.svg,factory-infographic,c2b096,Factory_Infographic-02_CS_004,FACTORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_factory-infographic_c2b096_Factory_Infographic-03_007.svg,factory-infographic,c2b096,Factory_Infographic-03_007,FACTORY,infographic,0.9,,False,False,Y
-infographic_factory-infographic_c2b096_Factory_Infographic-03_CS_006.svg,factory-infographic,c2b096,Factory_Infographic-03_CS_006,FACTORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_factory-infographic_c2b096_Factory_Infographic-03_CS_006.svg,factory-infographic,c2b096,Factory_Infographic-03_CS_006,FACTORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_factory-infographic_c2b096_Factory_Infographic-04_009.svg,factory-infographic,c2b096,Factory_Infographic-04_009,FACTORY,infographic,0.9,,False,False,Y
-infographic_factory-infographic_c2b096_Factory_Infographic-04_CS_008.svg,factory-infographic,c2b096,Factory_Infographic-04_CS_008,FACTORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_factory-infographic_c2b096_Factory_Infographic-04_CS_008.svg,factory-infographic,c2b096,Factory_Infographic-04_CS_008,FACTORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_factory-infographic_c2b096_Factory_Infographic_10-02_001.svg,factory-infographic,c2b096,Factory_Infographic_10-02_001,FACTORY,infographic,0.9,,False,False,Y
 infographic_factory-infographic_c2b096_Factory_Infographic_10-03_002.svg,factory-infographic,c2b096,Factory_Infographic_10-03_002,FACTORY,infographic,0.9,,False,False,Y
 infographic_factory-infographic_c2b096_Factory_Infographic_10-04_003.svg,factory-infographic,c2b096,Factory_Infographic_10-04_003,FACTORY,infographic,0.9,,False,False,Y
@@ -258,23 +258,23 @@ infographic_flowchart-map-infographics-desig_da41a2_Flowchart_Map_CS6_002.svg,fl
 infographic_flowchart-process-infographics-d_5fa1fa_flowchart_CC_001.svg,flowchart-process-infographics-d,5fa1fa,flowchart_CC_001,FLOWCHART_PROCESS,decision-tree-flowchart,0.9,,False,False,Y
 infographic_flowchart-process-infographics-d_5fa1fa_flowchart_CS6_002.svg,flowchart-process-infographics-d,5fa1fa,flowchart_CS6_002,FLOWCHART_PROCESS,decision-tree-flowchart,0.9,,False,False,Y
 infographic_flowchart-process-infographics-d_5fa1fa_flowchart_EPS10_003.svg,flowchart-process-infographics-d,5fa1fa,flowchart_EPS10_003,FLOWCHART_PROCESS,decision-tree-flowchart,0.9,,False,False,Y
-infographic_framework-infographic_609e13_Framework_Infographic_ai_002.svg,framework-infographic,609e13,Framework_Infographic_ai_002,FRAMEWORK_INF,infographic,0.9,,False,False,Y
+infographic_framework-infographic_609e13_Framework_Infographic_ai_002.svg,framework-infographic,609e13,Framework_Infographic_ai_002,FRAMEWORK_INF,decision-tree-flowchart,0.9,,False,False,Y
 infographic_gray-modern-gantt-chart-infograp_46057b_Gantt_Chart_Infographic.svg,gray-modern-gantt-chart-infograp,46057b,Gantt_Chart_Infographic,GANTT_CHART,gantt-matrix,0.9,,False,False,Y
 infographic_grey-blue-manufacturing-kpi-insi_a0c19d_01__Main_File_001.svg,grey-blue-manufacturing-kpi-insi,a0c19d,01__Main_File_001,KPI_INSIGHTS,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_grey-blue-manufacturing-kpi-insi_a0c19d_02__Main_File_002.svg,grey-blue-manufacturing-kpi-insi,a0c19d,02__Main_File_002,KPI_INSIGHTS,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_grey-blue-manufacturing-kpi-insi_a0c19d_03__Main_File_003.svg,grey-blue-manufacturing-kpi-insi,a0c19d,03__Main_File_003,KPI_INSIGHTS,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_grey-blue-manufacturing-kpi-insi_a0c19d_04__Main_File_004.svg,grey-blue-manufacturing-kpi-insi,a0c19d,04__Main_File_004,KPI_INSIGHTS,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_horizontal-timeline-infographics_55d735_Horizontal_Timeline_Infog.svg,horizontal-timeline-infographics,55d735,Horizontal_Timeline_Infog,HORIZONTAL_TIMELINE,historical-timeline,0.9,,False,False,Y
-infographic_infographic-chart-elements_faae50_Sourcefile_-_Ai_001.svg,infographic-chart-elements,faae50,Sourcefile_-_Ai_001,INFO_CHART_ELEMENTS,chart-bar-column,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_infographic-chart-elements_faae50_Sourcefile_-_Ai_001.svg,infographic-chart-elements,faae50,Sourcefile_-_Ai_001,INFO_CHART_ELEMENTS,chart-bar-column,0.9,,False,False,Y
 infographic_infographic-chart-elements_faae50_Sourcefile_-_EPS_002.svg,infographic-chart-elements,faae50,Sourcefile_-_EPS_002,INFO_CHART_ELEMENTS,chart-bar-column,0.9,,False,False,Y
 infographic_infographics-bundle_27059d_Infographics_Bundle.svg,infographics-bundle,27059d,Infographics_Bundle,BUNDLE_MEGA,infographic,0.9,,False,False,Y
 infographic_kpi-dashboard-infographic_770fe3_KPI_Dashboard_Style_3.svg,kpi-dashboard-infographic,770fe3,KPI_Dashboard_Style_3,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_004.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_004,LABORATORY,infographic,0.9,,False,False,Y
-infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_005.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_005,LABORATORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_005.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_005,LABORATORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_006.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_006,LABORATORY,infographic,0.9,,False,False,Y
-infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_007.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_007,LABORATORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_007.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_007,LABORATORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_008.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_008,LABORATORY,infographic,0.9,,False,False,Y
-infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_009.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_009,LABORATORY,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory-_009.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory-_009,LABORATORY,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_001.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory_001,LABORATORY,infographic,0.9,,False,False,Y
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_002.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory_002,LABORATORY,infographic,0.9,,False,False,Y
 infographic_laboratory-infographic_5e0fbe_Infographic_-_Laboratory_003.svg,laboratory-infographic,5e0fbe,Infographic_-_Laboratory_003,LABORATORY,infographic,0.9,,False,False,Y
@@ -283,19 +283,19 @@ infographic_mind-map_b276ee_01_Mind_Map-02_002.svg,mind-map,b276ee,01_Mind_Map-0
 infographic_mind-map_b276ee_01_Mind_Map-03_003.svg,mind-map,b276ee,01_Mind_Map-03_003,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
 infographic_mind-map_b276ee_01_Mind_Map_004.svg,mind-map,b276ee,01_Mind_Map_004,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
 infographic_mind-maps-infographic-asset-illu_dfef02_Mind_Map_Inf.svg,mind-maps-infographic-asset-illu,dfef02,Mind_Map_Inf,BRANCHFLOW,mind-map-radial,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_001.svg,minimal-infographics-set-01,5b1b5d,001,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_002.svg,minimal-infographics-set-01,5b1b5d,002,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_003.svg,minimal-infographics-set-01,5b1b5d,003,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_004.svg,minimal-infographics-set-01,5b1b5d,004,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_005.svg,minimal-infographics-set-01,5b1b5d,005,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_006.svg,minimal-infographics-set-01,5b1b5d,006,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_007.svg,minimal-infographics-set-01,5b1b5d,007,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_008.svg,minimal-infographics-set-01,5b1b5d,008,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_009.svg,minimal-infographics-set-01,5b1b5d,009,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_minimal-infographics-set-01_5b1b5d_010.svg,minimal-infographics-set-01,5b1b5d,010,MINIMAL_CHARTSET,chart-bar-column,0.9,,False,False,Y
-infographic_modern-clean-infographic_171f59_Sourcefile_-_Ai_001.svg,modern-clean-infographic,171f59,Sourcefile_-_Ai_001,MODERN_CLEAN_INF,infographic,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_minimal-infographics-set-01_5b1b5d_001.svg,minimal-infographics-set-01,5b1b5d,001,MINIMAL_CHARTSET,options-layout,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_002.svg,minimal-infographics-set-01,5b1b5d,002,MINIMAL_CHARTSET,numbered-process-steps,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_003.svg,minimal-infographics-set-01,5b1b5d,003,MINIMAL_CHARTSET,numbered-process-steps,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_004.svg,minimal-infographics-set-01,5b1b5d,004,MINIMAL_CHARTSET,numbered-process-steps,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_005.svg,minimal-infographics-set-01,5b1b5d,005,MINIMAL_CHARTSET,circular-process-loop,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_006.svg,minimal-infographics-set-01,5b1b5d,006,MINIMAL_CHARTSET,options-layout,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_007.svg,minimal-infographics-set-01,5b1b5d,007,MINIMAL_CHARTSET,circular-process-loop,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_008.svg,minimal-infographics-set-01,5b1b5d,008,MINIMAL_CHARTSET,options-layout,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_009.svg,minimal-infographics-set-01,5b1b5d,009,MINIMAL_CHARTSET,numbered-process-steps,0.9,,False,False,Y
+infographic_minimal-infographics-set-01_5b1b5d_010.svg,minimal-infographics-set-01,5b1b5d,010,MINIMAL_CHARTSET,options-layout,0.9,,False,False,Y
+infographic_modern-clean-infographic_171f59_Sourcefile_-_Ai_001.svg,modern-clean-infographic,171f59,Sourcefile_-_Ai_001,MODERN_CLEAN_INF,infographic,0.9,,False,False,Y
 infographic_modern-clean-infographic_171f59_Sourcefile_-_EPS_002.svg,modern-clean-infographic,171f59,Sourcefile_-_EPS_002,MODERN_CLEAN_INF,infographic,0.9,,False,False,Y
-infographic_modern-corporate-infographic_b1c411_Sourcefile_-_Ai_001.svg,modern-corporate-infographic,b1c411,Sourcefile_-_Ai_001,MODERN_CLEAN_INF,infographic,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_modern-corporate-infographic_b1c411_Sourcefile_-_Ai_001.svg,modern-corporate-infographic,b1c411,Sourcefile_-_Ai_001,MODERN_CLEAN_INF,infographic,0.9,,False,False,Y
 infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_10_002.svg,modern-gantt-chart-infographic-s,ae7ead,Gantt_Chat_Infographic_10_002,MODERN_GANTT,gantt-matrix,0.9,,False,False,Y
 infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_1_001.svg,modern-gantt-chart-infographic-s,ae7ead,Gantt_Chat_Infographic_1_001,MODERN_GANTT,gantt-matrix,0.9,,False,False,Y
 infographic_modern-gantt-chart-infographic-s_ae7ead_Gantt_Chat_Infographic_2_003.svg,modern-gantt-chart-infographic-s,ae7ead,Gantt_Chat_Infographic_2_003,MODERN_GANTT,gantt-matrix,0.9,,False,False,Y
@@ -324,19 +324,19 @@ infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_001.svg,o
 infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_002.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_002,SPACESHIP,infographic,0.9,,False,False,Y
 infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_003.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_003,SPACESHIP,infographic,0.9,,False,False,Y
 infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_004.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_004,SPACESHIP,infographic,0.9,,False,False,Y
-infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_005.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_005,SPACESHIP,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_005.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_005,SPACESHIP,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_006.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_006,SPACESHIP,infographic,0.9,,False,False,Y
-infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_007.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_007,SPACESHIP,infographic,0.9,cs-duplicate candidate,True,False,N
+infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_007.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_007,SPACESHIP,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
 infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_008.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_008,SPACESHIP,infographic,0.9,,False,False,Y
-infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_009.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_009,SPACESHIP,infographic,0.9,cs-duplicate candidate,True,False,N
-infographic_orange-yellow-pink-modern-agile_f489f5_Safe_Agile_Frameworks.svg,orange-yellow-pink-modern-agile,f489f5,Safe_Agile_Frameworks,AGILE_FRAMEWORK,numbered-process-steps,0.9,,False,False,Y
+infographic_odissey-space-infographic_ac4664_Odissey_Space_Infographic_009.svg,odissey-space-infographic,ac4664,Odissey_Space_Infographic_009,SPACESHIP,infographic,0.9,keep=N (cs-duplicate or exluded),True,False,N
+infographic_orange-yellow-pink-modern-agile_f489f5_Safe_Agile_Frameworks.svg,orange-yellow-pink-modern-agile,f489f5,Safe_Agile_Frameworks,AGILE_FRAMEWORK,circular-process-loop,0.9,,False,False,Y
 infographic_price-table_391f12_Price-Table-48.svg,price-table,391f12,Price-Table-48,PRICING_TABLE,tier-pricing-cards,0.9,,False,False,Y
 infographic_pricing-table-infographic_c4b8e2_01-Pricing_Table_Infograp_002.svg,pricing-table-infographic,c4b8e2,01-Pricing_Table_Infograp_002,PRICING_TABLE,tier-pricing-cards,0.9,,False,False,Y
-infographic_process-gradient-infographics_41c50c_Process_Gradient.svg,process-gradient-infographics,41c50c,Process_Gradient,PROCESS_GRADIENT,infographic,0.9,,False,False,Y
+infographic_process-gradient-infographics_41c50c_Process_Gradient.svg,process-gradient-infographics,41c50c,Process_Gradient,PROCESS_GRADIENT,numbered-process-steps,0.9,,False,False,Y
 infographic_purple-modern-roadmap-infographi_aeb6f8_Purple_Modern_Roadmap_Inf.svg,purple-modern-roadmap-infographi,aeb6f8,Purple_Modern_Roadmap_Inf,PURPLE_ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
-infographic_pyramid-infographics-design_51e627_PYRAMID_CC20_001.svg,pyramid-infographics-design,51e627,PYRAMID_CC20_001,PYRAMID,mind-map-radial,0.9,,False,False,Y
-infographic_pyramid-infographics-design_51e627_PYRAMID_CS6_002.svg,pyramid-infographics-design,51e627,PYRAMID_CS6_002,PYRAMID,mind-map-radial,0.9,,False,False,Y
-infographic_pyramid-infographics-design_51e627_PYRAMID_EPS10_003.svg,pyramid-infographics-design,51e627,PYRAMID_EPS10_003,PYRAMID,mind-map-radial,0.9,,False,False,Y
+infographic_pyramid-infographics-design_51e627_PYRAMID_CC20_001.svg,pyramid-infographics-design,51e627,PYRAMID_CC20_001,PYRAMID,pyramid-hierarchy,0.9,,False,False,Y
+infographic_pyramid-infographics-design_51e627_PYRAMID_CS6_002.svg,pyramid-infographics-design,51e627,PYRAMID_CS6_002,PYRAMID,pyramid-hierarchy,0.9,,False,False,Y
+infographic_pyramid-infographics-design_51e627_PYRAMID_EPS10_003.svg,pyramid-infographics-design,51e627,PYRAMID_EPS10_003,PYRAMID,pyramid-hierarchy,0.9,,False,False,Y
 infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_001.svg,roadmap-infographic-template,204c7e,Roadmap_Infographic_Templ_001,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_002.svg,roadmap-infographic-template,204c7e,Roadmap_Infographic_Templ_002,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_003.svg,roadmap-infographic-template,204c7e,Roadmap_Infographic_Templ_003,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
@@ -344,25 +344,25 @@ infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_004.sv
 infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_005.svg,roadmap-infographic-template,204c7e,Roadmap_Infographic_Templ_005,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_roadmap-infographic-template_204c7e_Roadmap_Infographic_Templ_006.svg,roadmap-infographic-template,204c7e,Roadmap_Infographic_Templ_006,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
 infographic_roadmap-infographics_81faa8_General_object_roadmap_pr.svg,roadmap-infographics,81faa8,General_object_roadmap_pr,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y
-infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg,sales-growth-infographic,9fe6f5,01_-_Sales_Growth_-_AE_Re_001,SALES_GROWTH,funnel-diagram,0.9,,False,False,Y
-infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_002.svg,sales-growth-infographic,9fe6f5,01_-_Sales_Growth_002,SALES_GROWTH,funnel-diagram,0.9,,False,False,Y
+infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg,sales-growth-infographic,9fe6f5,01_-_Sales_Growth_-_AE_Re_001,SALES_GROWTH,growth-driver-map,0.9,,False,False,Y
+infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_002.svg,sales-growth-infographic,9fe6f5,01_-_Sales_Growth_002,SALES_GROWTH,growth-driver-map,0.9,,False,False,Y
 infographic_stair-infographic_ee1d96_Stair_Infographic.svg,stair-infographic,ee1d96,Stair_Infographic,LADDER,maturity-model-ladder,0.9,,False,False,Y
-infographic_step-by-step-infographic_e6a516_Sourcefile_-_Ai_001.svg,step-by-step-infographic,e6a516,Sourcefile_-_Ai_001,STEP_BY_STEP,numbered-process-steps,0.9,raster-only wrapper thumbnail,False,True,Y
+infographic_step-by-step-infographic_e6a516_Sourcefile_-_Ai_001.svg,step-by-step-infographic,e6a516,Sourcefile_-_Ai_001,STEP_BY_STEP,numbered-process-steps,0.9,,False,False,Y
 infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002.svg,step-by-step-infographic,e6a516,Sourcefile_-_EPS_002,STEP_BY_STEP,numbered-process-steps,0.9,,False,False,Y
 infographic_step-up-to-growth_5251b2_Step_up_to_Growth.svg,step-up-to-growth,5251b2,Step_up_to_Growth,STEP_UP_TO_GROWTH,maturity-model-ladder,0.9,,False,False,Y
-infographic_strategic-core-value-infographic_3f1fc0_Strategic_Core_Value_Info.svg,strategic-core-value-infographic,3f1fc0,Strategic_Core_Value_Info,STRATEGIC_CORE_VALUE,quadrant-matrix,0.9,,False,False,Y
+infographic_strategic-core-value-infographic_3f1fc0_Strategic_Core_Value_Info.svg,strategic-core-value-infographic,3f1fc0,Strategic_Core_Value_Info,STRATEGIC_CORE_VALUE,icon-text-feature-list,0.9,,False,False,Y
 infographic_swot-diagram-slide-for-pitch-pla_b25260_Startup_Pitch_SWOT_Infogr.svg,swot-diagram-slide-for-pitch-pla,b25260,Startup_Pitch_SWOT_Infogr,SWOT,quadrant-matrix,0.9,,False,False,Y
 infographic_swot-infographic-asset-illustrat_ad168c_SWOT_-_INF.svg,swot-infographic-asset-illustrat,ad168c,SWOT_-_INF,SWOT,quadrant-matrix,0.9,,False,False,Y
 infographic_swot-infographic_9b81b0_Swot_INf.svg,swot-infographic,9b81b0,Swot_INf,SWOT,quadrant-matrix,0.9,,False,False,Y
 infographic_timeline-infographic_445588_Timeline_Inf.svg,timeline-infographic,445588,Timeline_Inf,BUSINESS_TIMELINE,historical-timeline,0.9,,False,False,Y
 infographic_timeline-step-infographics-desig_773283_timeline_CC20_001.svg,timeline-step-infographics-desig,773283,timeline_CC20_001,HISTORICAL_TIMELINE,historical-timeline,0.9,,False,False,Y
 infographic_timeline-step-infographics-desig_773283_timeline_CS6_002.svg,timeline-step-infographics-desig,773283,timeline_CS6_002,HISTORICAL_TIMELINE,historical-timeline,0.9,,False,False,Y
-infographic_timeline-table-infographics-desi_2db266_timeline_3_CS6_002.svg,timeline-table-infographics-desi,2db266,timeline_3_CS6_002,TABLE_INF,data-table,0.9,,False,False,Y
-infographic_vector_set_of_infographics_for_d_c0f825_001.svg,vector_set_of_infographics_for_d,c0f825,001,VECTOR_TEMPLATE,infographic,0.9,,False,False,Y
+infographic_timeline-table-infographics-desi_2db266_timeline_3_CS6_002.svg,timeline-table-infographics-desi,2db266,timeline_3_CS6_002,TABLE_INF,historical-timeline,0.9,,False,False,Y
+infographic_vector_set_of_infographics_for_d_c0f825_001.svg,vector_set_of_infographics_for_d,c0f825,001,VECTOR_SET_INF,infographic,0.9,,False,False,Y
 infographic_white-blue-pink-modern-kpi-dashb_52c531_KPI_Dashboard.svg,white-blue-pink-modern-kpi-dashb,52c531,KPI_Dashboard,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_white-clean-colorful-modern-kpi_bfe6a5_KPI_Dashboard.svg,white-clean-colorful-modern-kpi,bfe6a5,KPI_Dashboard,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
 infographic_white-colorful-kpi-dashboard-inf_0a88e1_White_Colorful_KPI_Dashbo.svg,white-colorful-kpi-dashboard-inf,0a88e1,White_Colorful_KPI_Dashbo,KPI_DASHBOARD,kpi-dashboard-grid,0.9,,False,False,Y
-infographic_white-colorful-modern-5s-methodo_334caa_5S_Methodology_Infographi.svg,white-colorful-modern-5s-methodo,334caa,5S_Methodology_Infographi,5S_METHODOLOGY,numbered-process-steps,0.9,,False,False,Y
+infographic_white-colorful-modern-5s-methodo_334caa_5S_Methodology_Infographi.svg,white-colorful-modern-5s-methodo,334caa,5S_Methodology_Infographi,5S_METHODOLOGY,circular-process-loop,0.9,,False,False,Y
 infographic_white-colorful-modern-timeline-i_662016_Timeline_Infographic.svg,white-colorful-modern-timeline-i,662016,Timeline_Infographic,HORIZONTAL_TIMELINE,historical-timeline,0.9,,False,False,Y
 infographic_white-colorful-onboarding-roadma_87daf8_Employee_Onboarding_Roadm.svg,white-colorful-onboarding-roadma,87daf8,Employee_Onboarding_Roadm,ONBOARDING_ROADMAP,phased-rollout-timeline,0.9,,False,False,Y
 infographic_white-colorful-roadmap-infograph_a54c90_Road_Map_Infographic.svg,white-colorful-roadmap-infograph,a54c90,Road_Map_Infographic,ROADMAP,roadmap-with-milestones,0.9,,False,False,Y

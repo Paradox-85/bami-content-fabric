@@ -1,0 +1,37 @@
+{
+  "title": "Tier Pricing Cards — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through tier-pricing-cards native injector (provenance=explicit_inject_pattern, block_kind=inject-pattern)",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Tier Pricing Cards"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Our Plans"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "tier-pricing-cards",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "tiers": [
+            {"name": "Starter", "price": "$9", "features": ["1 user", "Basic support"]},
+            {"name": "Professional", "price": "$29", "features": ["5 users", "Priority support", "Analytics"]},
+            {"name": "Enterprise", "price": "$99", "features": ["Unlimited users", "Dedicated support", "Custom integrations"]}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

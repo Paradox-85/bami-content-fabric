@@ -146,8 +146,11 @@ def resolve_variant(
     Resolution order:
     1. Explicitly requested *graphical_variant* (any status).
     2. Family-level ``default_graphical_variant`` if set and enabled.
-    3. First enabled variant in YAML declaration order.
+    3. First enabled variant in YAML declaration order (used only as fallback).
     4. ``None`` if no enabled variant exists.
+
+    This guarantees that YAML declaration order is NOT the primary selection
+    mechanism — ``default_graphical_variant`` is authoritative when set.
     """
     variants = family_entry.get("graphical_variants", [])
     if graphical_variant:
@@ -160,11 +163,64 @@ def resolve_variant(
         for v in variants:
             if v.get("graphical_variant") == default_gv and v.get("status") == "enabled":
                 return v
-    # Fall back to first enabled
+    # Fall back to first enabled (only if no default or default not enabled)
     enabled = get_enabled_variants(family_entry)
     if enabled:
         return enabled[0]
     return None
+
+
+def score_variants(
+    family_entry: dict[str, Any],
+    graphical_variant: str | None = None,
+) -> list[dict[str, Any]]:
+    """Score all variants for a family and return a list of scored entries.
+
+    Each entry includes:
+    - ``variant``: the graphical variant ID
+    - ``status``: enabled/planned/disabled
+    - ``score``: an integer score based on status + default match
+    - ``is_default``: whether this is the family's default variant
+    - ``reason``: human-readable explanation
+    """
+    variants = family_entry.get("graphical_variants", [])
+    default_gv = family_entry.get("default_graphical_variant")
+    scored = []
+    for v in variants:
+        gv = v.get("graphical_variant", "?")
+        status = v.get("status", "unknown")
+        is_default = (gv == default_gv)
+        score = 0
+        reason_parts = []
+
+        if status == "enabled":
+            score += 10
+            reason_parts.append("enabled")
+        elif status == "planned":
+            score += 3
+            reason_parts.append("planned (not enabled)")
+        else:
+            reason_parts.append(f"status={status}")
+
+        if is_default:
+            score += 5
+            reason_parts.append("is default")
+
+        # Bonus for matching explicit request
+        if graphical_variant and gv == graphical_variant:
+            score += 3
+            reason_parts.append("explicitly requested")
+
+        reason = ", ".join(reason_parts)
+        scored.append({
+            "variant": gv,
+            "status": status,
+            "score": score,
+            "is_default": is_default,
+            "reason": reason,
+        })
+
+    return sorted(scored, key=lambda x: x["score"], reverse=True)
 
 
 def get_injector_id(variant: dict[str, Any]) -> str | None:

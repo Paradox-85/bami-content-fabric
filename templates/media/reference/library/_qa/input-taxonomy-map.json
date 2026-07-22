@@ -1,23 +1,207 @@
 {
+  "5S_METHODOLOGY": {
+    "canonical_category": "circular-process-loop",
+    "notes": "5S methodology steps"
+  },
+  "ABSTRACT_3D": {
+    "canonical_category": "infographic-3d-cube",
+    "notes": "3D cube infographic"
+  },
+  "AGILE_FRAMEWORK": {
+    "canonical_category": "circular-process-loop",
+    "notes": "Agile / safe framework steps"
+  },
+  "AI_WORKFLOW": {
+    "canonical_category": "mechanism-diagram",
+    "notes": "AI workflow infographic"
+  },
+  "ARROW_PROCESS": {
+    "canonical_category": "numbered-process-steps",
+    "notes": "Arrow process steps"
+  },
+  "BAR_CHARTS": {
+    "canonical_category": "chart-bar-column",
+    "notes": "Bar charts infographics"
+  },
+  "BENTO_GRID": {
+    "canonical_category": "options-layout",
+    "notes": "Bento box grid infographic"
+  },
+  "BRANCHFLOW": {
+    "canonical_category": "growth-driver-map",
+    "notes": "Branch-flow radial"
+  },
+  "BUNDLE_ARROW_STEP": {
+    "canonical_category": "circular-process-loop",
+    "notes": ""
+  },
+  "BUNDLE_MEGA": {
+    "canonical_category": "checklist-status",
+    "notes": "Mega infographic bundle"
+  },
+  "BUSINESS_INF": {
+    "canonical_category": "infographic",
+    "notes": "Business infographic elements/pack"
+  },
+  "BUSINESS_STAIR": {
+    "canonical_category": "maturity-model-ladder",
+    "notes": "Business stair success"
+  },
+  "BUSINESS_TIMELINE": {
+    "canonical_category": "chart-donut-pie",
+    "notes": "Business timeline"
+  },
+  "CASE_STUDY": {
+    "canonical_category": "case-study-card",
+    "notes": "Case study card"
+  },
+  "CIRCLE_STEP": {
+    "canonical_category": "chart-donut-pie",
+    "notes": "Circle step / process"
+  },
+  "COMPARISON_TABLE": {
+    "canonical_category": "comparison-table",
+    "notes": "Feature comparison table"
+  },
+  "CONVERSION_PATH": {
+    "canonical_category": "funnel-diagram",
+    "notes": "Conversion path"
+  },
+  "CUSTOMER_JOURNEY MAP": {
+    "canonical_category": "customer-journey-map",
+    "notes": "Customer journey map"
+  },
+  "DIAGRAM_INF": {
+    "canonical_category": "infographic",
+    "notes": "Diagram infographics"
+  },
+  "ECOMMERCE": {
+    "canonical_category": "infographic",
+    "notes": "E-commerce infographic"
+  },
+  "EMPATHY_MAP": {
+    "canonical_category": "empathy-map",
+    "notes": "Empathy map"
+  },
+  "ESG_REPORT": {
+    "canonical_category": "case-study-card",
+    "notes": "ESG sustainability report"
+  },
+  "FACTORY": {
+    "canonical_category": "infographic",
+    "notes": "Factory infographic"
+  },
+  "FLOWCHART_LINE": {
+    "canonical_category": "decision-tree-flowchart",
+    "notes": "Flowchart line style"
+  },
+  "FLOWCHART_MAP": {
+    "canonical_category": "decision-tree-flowchart",
+    "notes": "Flowchart map"
+  },
+  "FLOWCHART_PROCESS": {
+    "canonical_category": "decision-tree-flowchart",
+    "notes": "Flowchart process style"
+  },
+  "FRAMEWORK_INF": {
+    "canonical_category": "decision-tree-flowchart",
+    "notes": "Framework infographic"
+  },
+  "FUNNEL_CHART": {
+    "canonical_category": "funnel-diagram",
+    "notes": "Funnel chart"
+  },
+  "GANTT_CHART": {
+    "canonical_category": "gantt-matrix",
+    "notes": "Gantt chart"
+  },
+  "GRADIENT_CSAT": {
+    "canonical_category": "quadrant-matrix",
+    "notes": "Gradient csat chart"
+  },
+  "HISTORICAL_TIMELINE": {
+    "canonical_category": "historical-timeline",
+    "notes": "Events on chronological axis"
+  },
+  "HORIZONTAL_TIMELINE": {
+    "canonical_category": "historical-timeline",
+    "notes": "Horizontal timeline"
+  },
+  "INFORMATION_TABLE": {
+    "canonical_category": "data-table",
+    "notes": "Information table"
+  },
+  "INFO_CHART_ELEMENTS": {
+    "canonical_category": "chart-bar-column",
+    "notes": "Info chart elements"
+  },
   "KPI_DASHBOARD": {
     "canonical_category": "kpi-dashboard-grid",
     "notes": "KPI dashboard — single or multi-metric"
-  },
-  "KPI_DASHBOARD_SINGLE": {
-    "canonical_category": "kpi-dashboard-grid",
-    "notes": "Single-metric KPI card"
-  },
-  "KPI_DASHBOARD_MODERN": {
-    "canonical_category": "kpi-dashboard-grid",
-    "notes": "Modern KPI dashboard grid"
   },
   "KPI_INSIGHTS": {
     "canonical_category": "kpi-dashboard-grid",
     "notes": "Manufacturing / industry KPI"
   },
-  "SALES_KPI": {
-    "canonical_category": "kpi-dashboard-grid",
-    "notes": "Sales KPI dashboard"
+  "LABORATORY": {
+    "canonical_category": "infographic",
+    "notes": "Laboratory infographic"
+  },
+  "LADDER": {
+    "canonical_category": "maturity-model-ladder",
+    "notes": "Ladder / maturity model"
+  },
+  "MATRIX": {
+    "canonical_category": "quadrant-matrix",
+    "notes": "Generic matrix infographic"
+  },
+  "MINIMAL_CHARTSET": {
+    "canonical_category": "options-layout",
+    "notes": ""
+  },
+  "MODERN_CLEAN_INF": {
+    "canonical_category": "infographic",
+    "notes": "Modern clean infographic"
+  },
+  "MODERN_GANTT": {
+    "canonical_category": "gantt-matrix",
+    "notes": "Modern-styled gantt chart"
+  },
+  "MODERN_INF_PACK": {
+    "canonical_category": "infographic",
+    "notes": "Modern infographic pack"
+  },
+  "MODERN_RETRO_INF": {
+    "canonical_category": "infographic",
+    "notes": "Modern retro style infographics"
+  },
+  "ONBOARDING_ROADMAP": {
+    "canonical_category": "phased-rollout-timeline",
+    "notes": "Onboarding / phased rollout"
+  },
+  "PIE_CHART": {
+    "canonical_category": "chart-donut-pie",
+    "notes": "Pie / donut chart"
+  },
+  "PRICING_TABLE": {
+    "canonical_category": "tier-pricing-cards",
+    "notes": "Pricing table with tiers"
+  },
+  "PRIZE_TABLE": {
+    "canonical_category": "numbered-ranking-list",
+    "notes": "Prize/price table infographic"
+  },
+  "PROCESS_GRADIENT": {
+    "canonical_category": "numbered-process-steps",
+    "notes": "Process gradient infographics"
+  },
+  "PURPLE_ROADMAP": {
+    "canonical_category": "roadmap-with-milestones",
+    "notes": "Purple-themed roadmap"
+  },
+  "PYRAMID": {
+    "canonical_category": "pyramid-hierarchy",
+    "notes": "Pyramid diagram"
   },
   "QUADRANT_CHART": {
     "canonical_category": "quadrant-matrix",
@@ -27,356 +211,56 @@
     "canonical_category": "quadrant-matrix",
     "notes": "Quadrant with labelled axes"
   },
-  "SWOT": {
-    "canonical_category": "quadrant-matrix",
-    "notes": "SWOT analysis block"
-  },
-  "SWOT_DIAGRAM": {
-    "canonical_category": "quadrant-matrix",
-    "notes": "SWOT diagram with labelled quadrants"
-  },
-  "STRATEGIC_CORE_VALUE": {
-    "canonical_category": "quadrant-matrix",
-    "notes": "Core value / strategic matrix"
-  },
-  "MATRIX": {
-    "canonical_category": "quadrant-matrix",
-    "notes": "Generic matrix infographic"
-  },
-  "GANTT_CHART": {
-    "canonical_category": "gantt-matrix",
-    "notes": "Gantt chart"
-  },
-  "MODERN_GANTT": {
-    "canonical_category": "gantt-matrix",
-    "notes": "Modern-styled gantt chart"
-  },
-  "BLACK_COLORFUL_GANTT": {
-    "canonical_category": "gantt-matrix",
-    "notes": "Dark-themed gantt chart"
-  },
-  "TIMELINE_ROADMAP": {
-    "canonical_category": "roadmap-with-milestones",
-    "notes": "Timeline with milestone markers"
-  },
   "ROADMAP": {
     "canonical_category": "roadmap-with-milestones",
     "notes": "Roadmap infographic"
   },
-  "ONBOARDING_ROADMAP": {
-    "canonical_category": "phased-rollout-timeline",
-    "notes": "Onboarding / phased rollout"
-  },
-  "HISTORICAL_TIMELINE": {
-    "canonical_category": "historical-timeline",
-    "notes": "Events on chronological axis"
-  },
-  "BUSINESS_TIMELINE": {
-    "canonical_category": "historical-timeline",
-    "notes": "Business timeline"
-  },
-  "HORIZONTAL_TIMELINE": {
-    "canonical_category": "historical-timeline",
-    "notes": "Horizontal timeline"
-  },
-  "COLORFUL_TIMELINE": {
-    "canonical_category": "historical-timeline",
-    "notes": "Colorful timeline infographic"
-  },
-  "PURPLE_ROADMAP": {
-    "canonical_category": "roadmap-with-milestones",
-    "notes": "Purple-themed roadmap"
-  },
-  "CREAM_ONBOARDING": {
-    "canonical_category": "phased-rollout-timeline",
-    "notes": "Cream-colorful onboarding roadmap"
-  },
-  "COMPARISON_TABLE": {
-    "canonical_category": "comparison-table",
-    "notes": "Feature comparison table"
-  },
-  "COMPARISON_TABLE_FMT2": {
-    "canonical_category": "comparison-table",
-    "notes": "Side-by-side comparison variant"
-  },
-  "PRICING_TABLE": {
-    "canonical_category": "tier-pricing-cards",
-    "notes": "Pricing table with tiers"
-  },
-  "PRICE_TABLE": {
-    "canonical_category": "tier-pricing-cards",
-    "notes": "Price table"
-  },
-  "PRIZE_TABLE": {
-    "canonical_category": "tier-pricing-cards",
-    "notes": "Prize/price table infographic"
-  },
-  "INFORMATION_TABLE": {
-    "canonical_category": "data-table",
-    "notes": "Information table"
-  },
-  "TABLE_INF": {
-    "canonical_category": "data-table",
-    "notes": "Table infographic element"
-  },
-  "FUNNEL_CHART": {
-    "canonical_category": "funnel-diagram",
-    "notes": "Funnel chart"
-  },
-  "CONVERSION_PATH": {
-    "canonical_category": "funnel-diagram",
-    "notes": "Conversion path"
-  },
-  "CUSTOMER_JOURNEY MAP": {
-    "canonical_category": "funnel-diagram",
-    "notes": "Customer journey map"
-  },
   "SALES_GROWTH": {
-    "canonical_category": "funnel-diagram",
+    "canonical_category": "growth-driver-map",
     "notes": "Sales growth infographic"
-  },
-  "CYCLE_DIAGRAM": {
-    "canonical_category": "circular-process-loop",
-    "notes": "Cycle diagram infographic"
-  },
-  "CIRCLE_STEP": {
-    "canonical_category": "circular-process-loop",
-    "notes": "Circle step / process"
-  },
-  "CIRCULAR_PIE": {
-    "canonical_category": "circular-process-loop",
-    "notes": "Circular pie-style process"
-  },
-  "ARROW_PROCESS": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "Arrow process steps"
-  },
-  "BUNDLE_ARROW_STEP": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "Bundle arrow step infographic"
-  },
-  "STEP_BY_STEP": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "Step-by-step infographic"
-  },
-  "STEPS": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "Generic process steps"
-  },
-  "AGILE_FRAMEWORK": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "Agile / safe framework steps"
-  },
-  "5S_METHODOLOGY": {
-    "canonical_category": "numbered-process-steps",
-    "notes": "5S methodology steps"
-  },
-  "FLOWCHART_LINE": {
-    "canonical_category": "decision-tree-flowchart",
-    "notes": "Flowchart line style"
-  },
-  "FLOWCHART_PROCESS": {
-    "canonical_category": "decision-tree-flowchart",
-    "notes": "Flowchart process style"
-  },
-  "FLOWCHART_MAP": {
-    "canonical_category": "decision-tree-flowchart",
-    "notes": "Flowchart map"
-  },
-  "DECISION_TREE": {
-    "canonical_category": "decision-tree-flowchart",
-    "notes": "Decision tree"
-  },
-  "SWIMLANE": {
-    "canonical_category": "swimlane-diagram",
-    "notes": "Swimlane diagram"
-  },
-  "MIND_MAP": {
-    "canonical_category": "mind-map-radial",
-    "notes": "Mind map radial"
-  },
-  "BRANCHFLOW": {
-    "canonical_category": "mind-map-radial",
-    "notes": "Branch-flow radial"
-  },
-  "TREE_DIAGRAM": {
-    "canonical_category": "mind-map-radial",
-    "notes": "Tree diagram"
-  },
-  "PYRAMID": {
-    "canonical_category": "mind-map-radial",
-    "notes": "Pyramid diagram"
-  },
-  "ORG_CHART": {
-    "canonical_category": "org-chart",
-    "notes": "Org chart hierarchy"
-  },
-  "VENN_DIAGRAM": {
-    "canonical_category": "mind-map-radial",
-    "notes": "Venn diagram (overlap / radial)"
-  },
-  "PIE_CHART": {
-    "canonical_category": "chart-donut-pie",
-    "notes": "Pie / donut chart"
-  },
-  "BAR_CHART": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Bar chart"
-  },
-  "LINE_CHART": {
-    "canonical_category": "chart-line-area",
-    "notes": "Line / area chart"
-  },
-  "CHART_TEMPLATE": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Chart template general"
-  },
-  "MINIMAL_CHARTSET": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Minimal infographics chart set"
-  },
-  "GRADIENT_CSAT": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Gradient csat chart"
-  },
-  "BAR_CHARTS": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Bar charts infographics"
-  },
-  "INFO_CHART_ELEMENTS": {
-    "canonical_category": "chart-bar-column",
-    "notes": "Info chart elements"
-  },
-  "CASE_STUDY": {
-    "canonical_category": "case-study-card",
-    "notes": "Case study card"
-  },
-  "EMPATHY_MAP": {
-    "canonical_category": "case-study-card",
-    "notes": "Empathy map"
-  },
-  "ESG_REPORT": {
-    "canonical_category": "case-study-card",
-    "notes": "ESG sustainability report"
-  },
-  "CHECKLIST": {
-    "canonical_category": "checklist-status",
-    "notes": "Checklist / status list"
-  },
-  "ABSTRACT_3D": {
-    "canonical_category": "infographic-3d-cube",
-    "notes": "3D cube infographic"
-  },
-  "BENTO_GRID": {
-    "canonical_category": "infographic",
-    "notes": "Bento box grid infographic"
-  },
-  "BUNDLE_MEGA": {
-    "canonical_category": "infographic",
-    "notes": "Mega infographic bundle"
-  },
-  "VECTOR_TEMPLATE": {
-    "canonical_category": "infographic",
-    "notes": "Vector infographics template"
-  },
-  "DIAGRAM_INF": {
-    "canonical_category": "infographic",
-    "notes": "Diagram infographics"
-  },
-  "BUSINESS_INF": {
-    "canonical_category": "infographic",
-    "notes": "Business infographic elements/pack"
-  },
-  "CORPORATE_INF": {
-    "canonical_category": "infographic",
-    "notes": "Corporate infographic"
-  },
-  "MODERN_CLEAN_INF": {
-    "canonical_category": "infographic",
-    "notes": "Modern clean infographic"
-  },
-  "MODERN_RETRO_INF": {
-    "canonical_category": "infographic",
-    "notes": "Modern retro style infographics"
-  },
-  "MODERN_INF_PACK": {
-    "canonical_category": "infographic",
-    "notes": "Modern infographic pack"
-  },
-  "PROCESS_GRADIENT": {
-    "canonical_category": "infographic",
-    "notes": "Process gradient infographics"
-  },
-  "FRAMEWORK_INF": {
-    "canonical_category": "infographic",
-    "notes": "Framework infographic"
-  },
-  "VECTOR_SET_INF": {
-    "canonical_category": "infographic",
-    "notes": "Vector set of infographics"
-  },
-  "FACTORY": {
-    "canonical_category": "infographic",
-    "notes": "Factory infographic"
-  },
-  "LABORATORY": {
-    "canonical_category": "infographic",
-    "notes": "Laboratory infographic"
   },
   "SPACESHIP": {
     "canonical_category": "infographic",
     "notes": "Spaceship / odissey infographic"
   },
-  "AI_WORKFLOW": {
-    "canonical_category": "infographic",
-    "notes": "AI workflow infographic"
-  },
-  "ECOMMERCE": {
-    "canonical_category": "infographic",
-    "notes": "E-commerce infographic"
-  },
-  "LADDER": {
-    "canonical_category": "maturity-model-ladder",
-    "notes": "Ladder / maturity model"
-  },
-  "STAIR": {
-    "canonical_category": "maturity-model-ladder",
-    "notes": "Stair infographic"
-  },
-  "BUSINESS_STAIR": {
-    "canonical_category": "maturity-model-ladder",
-    "notes": "Business stair success"
+  "STEP_BY_STEP": {
+    "canonical_category": "numbered-process-steps",
+    "notes": "Step-by-step infographic"
   },
   "STEP_UP_TO_GROWTH": {
     "canonical_category": "maturity-model-ladder",
     "notes": "Step up to growth"
   },
-  "CALLOUT": {
-    "canonical_category": "callout-highlight-box",
-    "notes": "Callout/highlight box"
+  "STRATEGIC_CORE_VALUE": {
+    "canonical_category": "icon-text-feature-list",
+    "notes": "Core value / strategic matrix"
   },
-  "QUOTE": {
-    "canonical_category": "quote-testimonial-card",
-    "notes": "Quote/testimonial card"
+  "SWOT": {
+    "canonical_category": "quadrant-matrix",
+    "notes": "SWOT analysis block"
   },
-  "SECTION_DIVIDER": {
-    "canonical_category": "section-divider",
-    "notes": "Section divider"
+  "TABLE_INF": {
+    "canonical_category": "historical-timeline",
+    "notes": "Table infographic element"
   },
-  "AGENDA": {
-    "canonical_category": "agenda-toc-list",
-    "notes": "Agenda / TOC list"
+  "TIMELINE_ROADMAP": {
+    "canonical_category": "roadmap-with-milestones",
+    "notes": "Timeline with milestone markers"
   },
-  "COMPETITIVE_MATRIX": {
-    "canonical_category": "competitive-matrix",
-    "notes": "Competitive matrix"
+  "TREE_DIAGRAM": {
+    "canonical_category": "maturity-model-ladder",
+    "notes": "Tree diagram"
   },
-  "IMPACT_TABLE": {
-    "canonical_category": "impact-table",
-    "notes": "Impact analysis table"
+  "VECTOR_SET_INF": {
+    "canonical_category": "infographic",
+    "notes": ""
   },
-  "PROS_CONS": {
-    "canonical_category": "pros-cons-list",
-    "notes": "Pros/cons list"
+  "VECTOR_TEMPLATE": {
+    "canonical_category": "circular-node-layout",
+    "notes": "Vector infographics template"
+  },
+  "VENN_DIAGRAM": {
+    "canonical_category": "venn-diagram",
+    "notes": "Venn diagram (overlap / radial)"
   }
 }

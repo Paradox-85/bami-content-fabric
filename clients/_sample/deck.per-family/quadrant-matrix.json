@@ -1,0 +1,38 @@
+{
+  "title": "Quadrant Matrix — Build Parity",
+  "description": "Explicit inject-pattern block routed through quadrant-matrix native injector (canonical_id=quadrant-matrix, provenance=explicit_inject_pattern)",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Quadrant Matrix"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Strategic Priorities"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "quadrant-matrix",
+          "x": 0.5,
+          "y": 0.8,
+          "w": 9.0,
+          "h": 5.5,
+          "quadrants": [
+            {"title": "High Impact, Easy", "body": "Quick wins"},
+            {"title": "High Impact, Hard", "body": "Major projects"},
+            {"title": "Low Impact, Easy", "body": "Fill-ins"},
+            {"title": "Low Impact, Hard", "body": "Avoid"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

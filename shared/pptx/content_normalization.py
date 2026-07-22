@@ -47,6 +47,13 @@ _INJECTOR_TO_FAMILY: dict[str, str] = {
     "circle-steps": "circular-process-loop",
     "circular-process-loop": "circular-process-loop",
     "quadrant-swot": "quadrant-matrix",
+    "kpi-dashboard-grid": "kpi-dashboard-grid",
+    "comparison-table": "comparison-table",
+    "tier-pricing-cards": "tier-pricing-cards",
+    "maturity-model-ladder": "maturity-model-ladder",
+    "case-study-card": "case-study-card",
+    "checklist-status": "checklist-status",
+    "quote-testimonial-card": "quote-testimonial-card",
 }
 
 

@@ -3,6 +3,7 @@
 ``release_gate`` — end-to-end release gate for bami-content-fabric.
 
 Runs, in order:
+  0. Pattern library validation (blocking — must pass first)
   1. Dependency import smoke check
   2. Schema validation
   3. Registry/manifest/asset synchronization tests
@@ -78,6 +79,12 @@ def main() -> int:
     print("Release Gate — bami-content-fabric")
     print("=" * 60)
 
+    # 0. Pattern library validation (blocking gate) — must pass first
+    if not step(0, "Pattern library validation",
+              [sys.executable, "-m", "tools.pptx_validate", "--patterns"],
+              timeout=60):
+        print("\n  Pattern library validation FAILED — aborting release gate.")
+        return 1
     # 1. Dependency import smoke check
     step(1, "Dependency import smoke check",
          [sys.executable, "-c",

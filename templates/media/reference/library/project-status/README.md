@@ -1,3 +1,0 @@
-# project-status
-
-Empty category.

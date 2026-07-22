@@ -1183,6 +1183,9 @@ def add_inject_pattern(slide, tokens: Tokens, b: dict):
     Optional (forwarded as **params to the injector):
         cards, steps, nodes, quadrants, segments, rungs, headers, tiers,...
 
+    Non-reserved params are normalized through ``normalize_content_for_injector``
+    before dispatch, so alias keys like ``items``, ``steps``, ``stages``,
+    ``levels``, and ``tiers`` are mapped to canonical keys automatically.
     Coordinates (x, y, w, h) are passed through as-is.
     """
     canonical_id = b.get("canonical_id")
@@ -1194,6 +1197,14 @@ def add_inject_pattern(slide, tokens: Tokens, b: dict):
         "pattern_template_id", "pattern_version", "graphical_variant", "features",
     }
     params = {k: v for k, v in b.items() if k not in reserved}
+    # Normalize params through injector alias mapping
+    try:
+        from shared.pptx.content_normalization import normalize_content_for_injector
+        normalized = normalize_content_for_injector(params, canonical_id)
+        # Merge normalized keys back, preserving explicit params
+        params = {**normalized, **params}
+    except Exception:
+        pass
     created = inject_pattern(
         slide, tokens, canonical_id,
         x=b["x"], y=b["y"], w=b["w"], h=b.get("h", 4.5),

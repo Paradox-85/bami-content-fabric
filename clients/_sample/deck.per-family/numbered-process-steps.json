@@ -1,0 +1,38 @@
+{
+  "title": "Numbered Process Steps — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through folded-arrow-horizontal native injector (provenance=explicit_inject_pattern, block_kind=inject-pattern)",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Numbered Process Steps"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Our Process — 4 Steps"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "folded-arrow-horizontal",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 3.0,
+          "steps": [
+            {"number": "01", "title": "Discover & Assess"},
+            {"number": "02", "title": "Design & Prototype"},
+            {"number": "03", "title": "Develop & Iterate"},
+            {"number": "04", "title": "Deploy & Optimize"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

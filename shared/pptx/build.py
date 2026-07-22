@@ -326,58 +326,63 @@ def build_deck(
             layout_name = route.layout or slide_spec.get("layout")
 
             # Produce blocks from the route plan
-            # Strategy:
-            #   - Explicit layout: always use expand_layout (which handles content→block conversion)
-            #   - Content-only auto with injector_id: use injector path
-            #   - Content-only auto with layout but no injector: use expand_layout
-            #   - Terminal family (layout=None): use _terminal_block_materialize
-            if route.selection_provenance in ("auto", "hint_category") and route.native_injector_id and layout_name:
-                # Injector path for auto-resolved routes (not explicit layouts)
-                from shared.pptx.content_normalization import normalize_content_for_injector
-                normalized = normalize_content_for_injector(
-                    slide_spec.get("content", {}),
-                    route.native_injector_id,
-                )
-                injector_params = _content_to_injector_params(
-                    normalized, route.native_injector_id,
-                )
-                bz_top, bz_bottom = tokens.body_zone
-                injector_block = {
-                    "kind": "inject-pattern",
-                    "canonical_id": route.native_injector_id,
-                    "x": round(tokens.margin_x, 3),
-                    "y": bz_top,
-                    "w": round(tokens.content_width, 3),
-                    "h": round(bz_bottom - bz_top, 3),
-                    **injector_params,
-                    "pattern_template_id": route.pattern_template_id,
-                    "pattern_version": route.selection_result.family_version if route.selection_result else None,
-                    "graphical_variant": route.graphical_variant,
-                    "features": route.selection_result.features if route.selection_result else {},
-                }
-                # Complexity gate
-                try:
-                    from shared.pptx.graphical_complexity import complexity_gate
-                    n_steps = len(injector_params.get("steps", injector_params.get("nodes", [])))
-                    if n_steps > 0 and route.selection_result and route.selection_result.features:
-                        gate_verdict = complexity_gate(
-                            route.selection_result.features, slide_spec.get("content", {}),
-                            n_items=n_steps, fail_fast=True,
-                        )
-                        if gate_verdict.level in ("warn",):
-                            slide_warnings.append(
-                                f"Complexity warning for {route.pattern_template_id}: "
-                                f"{gate_verdict.message}"
+            # Unified strategy (Pass 2): use native_injector_id as the routing authority,
+            # NOT selection_provenance. The native injector path is used whenever:
+            #   1. route.native_injector_id is present
+            #   2. The route has a layout_name (not terminal)
+            #   3. Auto/hint routes always use injector when available (resolver chose it)
+            #   4. Explicit layout routes use injector only when block_kind is inject-pattern
+            #      (otherwise the layout builder is the intended renderer)
+            if route.native_injector_id and layout_name:
+                is_auto_route = route.selection_provenance in ("auto", "hint_category")
+                is_inject_pattern = route.block_kind == "inject-pattern"
+                if is_auto_route or is_inject_pattern:
+                    # Native injector path (unified — works for all provenances)
+                    from shared.pptx.content_normalization import normalize_content_for_injector
+                    normalized = normalize_content_for_injector(
+                        slide_spec.get("content", {}),
+                        route.native_injector_id,
+                    )
+                    injector_params = _content_to_injector_params(
+                        normalized, route.native_injector_id,
+                    )
+                    bz_top, bz_bottom = tokens.body_zone
+                    injector_block = {
+                        "kind": "inject-pattern",
+                        "canonical_id": route.native_injector_id,
+                        "x": round(tokens.margin_x, 3),
+                        "y": bz_top,
+                        "w": round(tokens.content_width, 3),
+                        "h": round(bz_bottom - bz_top, 3),
+                        **injector_params,
+                        "pattern_template_id": route.pattern_template_id,
+                        "pattern_version": route.selection_result.family_version if route.selection_result else None,
+                        "graphical_variant": route.graphical_variant,
+                        "features": route.selection_result.features if route.selection_result else {},
+                    }
+                    # Complexity gate
+                    try:
+                        from shared.pptx.graphical_complexity import complexity_gate
+                        n_steps = len(injector_params.get("steps", injector_params.get("nodes", [])))
+                        if n_steps > 0 and route.selection_result and route.selection_result.features:
+                            gate_verdict = complexity_gate(
+                                route.selection_result.features, slide_spec.get("content", {}),
+                                n_items=n_steps, fail_fast=True,
                             )
-                except ImportError:
-                    pass
-                except ValueError as e:
-                    raise BuildError(
-                        f"Complexity gate rejected {route.pattern_template_id}: {e}"
-                    ) from e
-                blocks = [injector_block] + blocks
+                            if gate_verdict.level in ("warn",):
+                                slide_warnings.append(
+                                    f"Complexity warning for {route.pattern_template_id}: "
+                                    f"{gate_verdict.message}"
+                                )
+                    except ImportError:
+                        pass
+                    except ValueError as e:
+                        raise BuildError(
+                            f"Complexity gate rejected {route.pattern_template_id}: {e}"
+                        ) from e
+                    blocks = [injector_block] + blocks
             elif layout_name:
-                # Layout path: use expand_layout (handles explicit AND auto-resolved layouts)
+                # Layout path (no native injector): use expand_layout
                 blocks = expand_layout(
                     layout_name,
                     tokens,

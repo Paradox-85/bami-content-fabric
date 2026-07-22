@@ -301,12 +301,18 @@ def resolve_pattern(
     hint_category: str | None = None,
     narrative_intent: str | list[str] | None = None,
     graphical_variant: str | None = None,
+    hint_mode: str | None = "prefer",
 ) -> SelectionResult:
     """Deterministic pattern selection from content signals.
 
     Algorithm (fully documented & deterministic):
 
-    1. Phase 0 — hint override: if hint_category given, match by alias.
+    1. Phase 0 — hint override (controlled by *hint_mode*):
+       - ``hint_mode="require"``: the hint must pass structural match;
+         if it fails, ``PatternSelectionError`` is raised immediately.
+         Capacity bounds are NOT checked in Phase 0 — only structural fit.
+       - ``hint_mode="prefer"`` (default): the hint is tried; if it fails
+         structural match, normal pipeline takes over without error.
     2. Phase 1 — structural matching: evaluate each entry for
        structural fit (required_any/required_all) and disallowed_when.
        Capacity is NOT checked here.
@@ -331,6 +337,8 @@ def resolve_pattern(
         narrative_intent: Explicit intent signal.
         graphical_variant: Explicit graphical variant ID to select.
             If None, the default (first enabled) variant is used.
+        hint_mode: ``"prefer"`` — try hint, fall back on structural mismatch.
+            ``"require"`` — hint must pass or raise; does not bypass contracts.
 
     Returns:
         ``SelectionResult``.
@@ -341,7 +349,7 @@ def resolve_pattern(
     if content is None:
         content = {}
 
-    # Phase 0: explicit hint override — now structurally validated
+    # Phase 0: hint override (controlled by hint_mode)
     hint_entry: dict | None = None
     hints_warning: list[str] = []
     if hint_category:
@@ -363,12 +371,18 @@ def resolve_pattern(
                 pass
             # Structural check: does content match required keys?
             if not _entry_structurally_matches(hint_entry, normalized_content):
+                if hint_mode == "require":
+                    raise PatternSelectionError(
+                        f"hint_category '{hint_category}' does not match content keys "
+                        f"{sorted(content.keys())} and hint_mode='require' forbids fallback"
+                    )
                 hints_warning = [
                     f"hint_category '{hint_category}' does not match content keys "
                     f"{sorted(content.keys())}; falling back to structural matching"
                 ]
                 # Reset hint so normal pipeline takes over
                 hint_entry = None
+
     manifest = load_manifest()
     entries = manifest.get("entries", [])
 

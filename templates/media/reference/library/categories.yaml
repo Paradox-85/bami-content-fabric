@@ -33,7 +33,11 @@ groups:
         title: Funnel diagram
         description: Top-down narrowing funnel of stages.
         runtime_kind: null
-
+      - id: goal-path
+        title: Goal path / target strategy map
+        description: Diagrams showing a target or goal with supporting actions, routes, or strategic steps, without funnel narrowing or closed-loop process semantics.
+        lifecycle: reference-populated
+        runtime_kind: null
   - id: timelines
     title: Timelines
     categories:
@@ -102,7 +106,21 @@ groups:
         title: Circular process loop
         description: Continuous cycle diagram.
         runtime_kind: null
-
+      - id: gear-process-sequence
+        title: Gear process sequence
+        description: Multiple gears connected in a left-to-right flow or step sequence, representing a process driven by interconnected mechanism elements.
+        lifecycle: reference-populated
+        runtime_kind: null
+      - id: mechanism-diagram
+        title: Mechanism / system-interaction diagram
+        description: Central or clustered gears/mechanisms with surrounding strategy or metric callouts, representing system interaction or strategic mechanics.
+        lifecycle: reference-populated
+        runtime_kind: null
+      - id: circular-node-layout
+        title: Circular node layout / radial step sequence
+        description: Circular segment/node layouts around a center, without proven last-to-first recurrence. Includes radial step sequences and segment-count variants.
+        lifecycle: reference-populated
+        runtime_kind: null
   - id: data-and-metrics
     title: Data & metrics
     categories:
@@ -174,9 +192,34 @@ groups:
         title: Mind-map / radial diagram
         description: Central node with radiating topics (incl. octopus style).
         runtime_kind: null
+      - id: growth-driver-map
+        title: Growth driver map / hub-and-spokes
+        description: Central growth concept node with surrounding driver spokes, representing strategic growth drivers around a hub.
+        lifecycle: reference-populated
+        runtime_kind: null
+      - id: radial-segment-diagram
+        title: Radial segment diagram / circular feature wheel
+        description: Circular 5-segment infographic around a center, not a matrix grid. Each segment is a peer category radiating from center.
+        lifecycle: reference-populated
+        runtime_kind: null
       - id: infographic-3d-cube
         title: Infographic — 3D cube
         description: 3D cube diagram with three directional faces.
+        runtime_kind: null
+      - id: venn-diagram
+        title: Venn / overlap diagram
+        description: Overlapping sets whose intersections express shared membership or common attributes.
+        lifecycle: reference-populated
+        runtime_kind: null
+      - id: pyramid-hierarchy
+        title: Pyramid / hierarchical levels
+        description: Stacked triangular or trapezoidal levels expressing hierarchy, priority, progression, or decreasing quantity.
+        lifecycle: reference-populated
+        runtime_kind: null
+      - id: options-layout
+        title: Options layout / peer choice cards
+        description: Peer option cards, containers, or labeled choices without ordered process, table, or comparison semantics.
+        lifecycle: reference-populated
         runtime_kind: null
       - id: project-overview-card
         title: Project overview / charter card
@@ -217,6 +260,11 @@ groups:
       - id: case-study-card
         title: Case study card
         description: Image + text side-by-side.
+        runtime_kind: null
+      - id: empathy-map
+        title: Empathy map
+        description: UX research map organized around what a user says, thinks, does, feels, sees, or hears.
+        lifecycle: reference-populated
         runtime_kind: null
       - id: executive-summary-panel
         title: Executive summary panel

@@ -32,17 +32,21 @@ assets:
 - pattern_template_id: circular-process-loop/radial-cycle@1.0.0
   status: planned
   reference_asset_required: true
-  notes: SVG provenance available in circular-process-loop/ category (2 variant groups,
-    10 files).
+  notes: |
+    PROVENANCE BROKEN — referenced asset was reclassified to chart-donut-pie (not a
+    circular-process-loop). Bundle_3-7_Circular_Pie_Chart_Di_30d6be is a pie/donut chart,
+    not a radial process cycle. This template requires a genuine circular-process-loop
+    reference asset for calibration.
+    Runtime use is blocked (status=planned, asset is in wrong family).
   provenance_id: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
   variant_group_key: Bundle_3-7_Circular_Pie_Chart_Di_30d6be
   source_svg: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
-  library_svg: circular-process-loop/infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
+  library_svg: chart-donut-pie/infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
 - pattern_template_id: circular-process-loop/circle-steps@1.0.0
   status: enabled
   reference_asset_required: true
-  notes: SVG provenance available in circular-process-loop/ category (2 variant groups,
-    10 files).
+  notes: SVG provenance available in circular-process-loop/ category (1 variant group,
+    5 files).
   provenance_id: circle-step-infographic_a05527
   variant_group_key: circle-step-infographic_a05527
   source_svg: infographic_circle-step-infographic_a05527_Circle_4_step_Infographic_001.svg
@@ -86,8 +90,8 @@ assets:
 - pattern_template_id: funnel-diagram/conversion-pipeline@1.0.0
   status: enabled
   reference_asset_required: true
-  notes: SVG provenance available in funnel-diagram/ category (4 variant groups, 9
-    files).
+  notes: SVG provenance available in funnel-diagram/ category (2 variant groups,
+    3 files).
   provenance_id: conversion-path-infographics_5f45bf
   variant_group_key: conversion-path-infographics_5f45bf
   source_svg: infographic_conversion-path-infographics_5f45bf_01_Conversion_Path_001.svg
@@ -95,12 +99,12 @@ assets:
 - pattern_template_id: funnel-diagram/sales-growth@1.0.0
   status: enabled
   reference_asset_required: true
-  notes: SVG provenance available in funnel-diagram/ category (4 variant groups, 9
-    files).
+  notes: SVG provenance available in growth-driver-map/ category (1 variant group,
+    2 files).
   provenance_id: sales-growth-infographic_9fe6f5
   variant_group_key: sales-growth-infographic_9fe6f5
   source_svg: infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg
-  library_svg: funnel-diagram/infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg
+  library_svg: growth-driver-map/infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_-_AE_Re_001.svg
 - pattern_template_id: comparison-table/default-side-by-side@1.0.0
   status: enabled
   reference_asset_required: true
@@ -113,12 +117,12 @@ assets:
 - pattern_template_id: tier-pricing-cards/default-horizontal@1.0.0
   status: enabled
   reference_asset_required: true
-  notes: SVG provenance available in tier-pricing-cards/ category (3 variant groups,
-    3 files).
-  provenance_id: Prize_Table_Infographic_Asset_d66c15
-  variant_group_key: Prize_Table_Infographic_Asset_d66c15
-  source_svg: infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg
-  library_svg: tier-pricing-cards/infographic_Prize_Table_Infographic_Asset_d66c15_Prize_Table.svg
+  notes: SVG provenance available in tier-pricing-cards/ category (2 variant groups,
+    2 files). Prize_Table_Infographic_Asset_d66c15 was reclassified to numbered-ranking-list after visual audit.
+  provenance_id: price-table_391f12
+  variant_group_key: price-table_391f12
+  source_svg: infographic_price-table_391f12_Price-Table-48.svg
+  library_svg: tier-pricing-cards/infographic_price-table_391f12_Price-Table-48.svg
 - pattern_template_id: maturity-model-ladder/default-vertical@1.0.0
   status: enabled
   reference_asset_required: true

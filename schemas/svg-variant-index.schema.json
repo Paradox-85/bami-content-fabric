@@ -67,6 +67,14 @@
                   "type": "string",
                   "enum": ["Y", "N"],
                   "description": "Whether to keep this file in the library"
+                },
+                "review_status": {
+                  "type": "string",
+                  "description": "Human review status (e.g. quarantined)"
+                },
+                "review_reason": {
+                  "type": "string",
+                  "description": "Explanation for review status decision"
                 }
               },
               "additionalProperties": false

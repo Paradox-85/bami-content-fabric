@@ -397,7 +397,7 @@ def build_deck(
                     raise BuildError(
                         f"Complexity gate rejected {route.pattern_template_id}: {e}",
                     ) from e
-                blocks = [injector_block] + blocks
+                blocks = [injector_block, *blocks]
             elif layout_name:
                 # Layout path (no native injector): use expand_layout
                 blocks = expand_layout(

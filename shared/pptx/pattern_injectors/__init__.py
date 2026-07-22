@@ -31,3 +31,4 @@ from shared.pptx.pattern_injectors import (  # noqa: F401
     simple_arrow,  # noqa: F401
     steps,  # noqa: F401
 )  # noqa: F401
+

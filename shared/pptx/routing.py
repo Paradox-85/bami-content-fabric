@@ -18,8 +18,10 @@ A ``RoutePlan`` is produced for every content slide and includes:
 - fallback diagnostics (which renderer was used, why)
 - hint validation mode (``prefer`` / ``require``)
 
-``selection_provenance`` is for diagnostics only — it does NOT determine
-the renderer routing. The native injector path is used whenever:
+``selection_provenance`` is for diagnostics in the routing layer, but
+``build.py`` gates the native-injector branch on ``native_injector_id`` +
+matching ``layout_name`` (see the ``selection_provenance == \"explicit_layout\"``
+branch). The native injector path is used whenever:
 1. A ``native_injector_id`` is present in the resolved variant
 2. The variant status is ``enabled``
 3. Content passes contract validation (or no contract exists)
@@ -55,8 +57,10 @@ from shared.pptx.pattern_selection import (
 class RoutePlan:
     """Structured route plan for a single content slide.
 
-    ``selection_provenance`` is for diagnostics only — the decision path
-    in ``build.py`` uses ``native_injector_id`` directly, not provenance.
+    ``selection_provenance`` is for diagnostics in the routing layer;
+    ``build.py`` gates the native-injector path on matching layout_name
+    AND uses ``selection_provenance == "explicit_layout"`` to select
+    the explicit-layout branch.
     """
 
     family: str

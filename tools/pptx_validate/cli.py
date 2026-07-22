@@ -26,7 +26,7 @@ from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from shared.pptx.tokens import load_tokens  # noqa: E402
+from shared.pptx.tokens import load_tokens
 
 try:
     from tools.pptx_gen.cli import BRAND_DIRS

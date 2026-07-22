@@ -14,8 +14,8 @@ from pptx.slide import Slide
 
 # Relationship namespace + the shape element tags we copy.
 _R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-_EMBED = "{%s}embed" % _R_NS
-_LINK = "{%s}link" % _R_NS
+_EMBED = f"{{{_R_NS}}}embed"
+_LINK = f"{{{_R_NS}}}link"
 _SHAPE_TAGS = {qn(t) for t in ("p:sp", "p:pic", "p:graphicFrame", "p:grpSp", "p:cxnSp")}
 
 

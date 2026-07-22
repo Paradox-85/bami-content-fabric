@@ -42,11 +42,9 @@ All 11 fixtures build successfully via `pptx_gen`:
 - 5 new families: `kpi-dashboard-grid`, `maturity-model-ladder`, `case-study-card`,
   `checklist-status`, `quote-testimonial-card`
 
-**Build coverage in automated tests:** Only the 6 original families are built as part
+**Build coverage in automated tests:** All 11 families are now built as part
 of `TestTargetFamilyPptxBuildParity` (parametrized build + shape/text assertions).
-The 5 new families are NOT build-tested in the automated suite — only their JSON
-existence and RoutePlan resolution are verified. This is a known coverage gap.
-
+Build-coverage gap closed.
 ## Routing authority note
 
 The native injector is NOT the "sole routing authority" for all explicit layouts.

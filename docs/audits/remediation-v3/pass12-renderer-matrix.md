@@ -1,7 +1,7 @@
 # PASS 12 — Renderer Scope and Generation Matrix
 
 **Date:** 2026-07-22  
-**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r2); remote CI run required before SAFE.
+**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r3); remote CI run required before SAFE.
 
 ## Changes
 
@@ -37,23 +37,24 @@
 
 ## Generation matrix
 
-| Enabled family | Per-fixture exists | plan_route resolves | Native injector |
-|---|---|---|---|
-| numbered-process-steps | ✅ | ✅ | folded-arrow-horizontal |
-| circular-process-loop | ✅ | ✅ | circle-steps |
-| kpi-dashboard-grid | ✅ | ✅ | kpi-dashboard-grid |
-| quadrant-matrix | ✅ | ✅ | quadrant-matrix |
-| funnel-diagram | ✅ | ✅ | funnel-diagram |
-| comparison-table | ✅ | ✅ | comparison-table |
-| tier-pricing-cards | ✅ | ✅ | tier-pricing-cards |
-| maturity-model-ladder | ✅ | ✅ | maturity-model-ladder |
-| case-study-card | ✅ | ✅ | case-study-card |
-| checklist-status | ✅ | ✅ | checklist-status |
-| quote-testimonial-card | ✅ | ✅ | quote-testimonial-card |
+## Generation matrix
+
+| Enabled family | Per-fixture exists | plan_route resolves | PPTX build + shape assertions | Native injector |
+|---|---|---|---|---|
+| numbered-process-steps | ✅ | ✅ | ✅ | folded-arrow-horizontal |
+| circular-process-loop | ✅ | ✅ | ✅ | circle-steps |
+| kpi-dashboard-grid | ✅ | ✅ | ✅ | kpi-dashboard-grid |
+| quadrant-matrix | ✅ | ✅ | ✅ | quadrant-matrix |
+| funnel-diagram | ✅ | ✅ | ✅ | funnel-diagram |
+| comparison-table | ✅ | ✅ | ✅ | comparison-table |
+| tier-pricing-cards | ✅ | ✅ | ✅ | tier-pricing-cards |
+| maturity-model-ladder | ✅ | ✅ | ✅ | maturity-model-ladder |
+| case-study-card | ✅ | ✅ | ✅ | case-study-card |
+| checklist-status | ✅ | ✅ | ✅ | checklist-status |
+| quote-testimonial-card | ✅ | ✅ | ✅ | quote-testimonial-card |
 
 ## Remaining
 
-- Full PPTX build + design/graphical/OPC validation per variant is NOT yet integrated (too expensive for every test run — use targeted validation)
+- Full design/graphical/OPC validation per variant is NOT yet integrated into automated tests (too expensive for every test run — use targeted CI validation)
 - Off-canvas/overlap/fallback diagnostics for overflow/invalid content cases is a remaining gap
 - Full content case matrix (min/normal/max/overflow/invalid) per variant would be very expensive — only minimal content tested
-- Mermaid smoke step not added; `npm ci` removed from CI test job (reverts plan intent)

@@ -25,6 +25,7 @@ def audit_python() -> int:
     try:
         import pip_audit  # noqa: F401
     except ImportError:
+
         print("[audit][python] pip-audit not installed — audit BLOCKING (non-zero).")
         return 1
 

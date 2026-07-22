@@ -39,7 +39,7 @@ def test_clone_background_and_logo_resolve(template_path):
         for blip in blips:
             rid = blip.get("{%s}embed") or blip.get("{%s}link" % "")  # noqa
             # Try embed then link explicitly (the r:link attr name):
-            rid = blip.get("{%s}embed" % R) or blip.get("{%s}link" % R)
+            rid = blip.get(f"{{{R}}}embed") or blip.get(f"{{{R}}}link")
             if rid is None:
                 continue  # effect/decorative blip with no resource reference
             assert rid in rel_ids, f"cloned picture rId {rid} has no matching relationship"

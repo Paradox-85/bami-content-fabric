@@ -519,7 +519,7 @@ def classify(pack_filter: str | None) -> None:
     classified = 0
     for crop_id, crop in to_classify.items():
         # Build context
-        _pack_slug = crop.get("pack_slug", "")  # noqa: F841 - available for context building
+        _pack_slug = crop.get("pack_slug", "")
         source_zip = crop.get("source_zip", "")
         meta = discovery_for_zip(source_zip, discovery_index) or {"category": crop.get("seed_category", "")}
         text_blocks: list[str] = []  # Could be enhanced with actual text extraction

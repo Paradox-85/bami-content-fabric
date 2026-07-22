@@ -20,7 +20,7 @@ import click
 # Allow running ``python -m tools.pptx_gen`` from the module root without install.
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from shared.pptx.build import BuildError, build_deck  # noqa: E402
+from shared.pptx.build import BuildError, build_deck
 
 # Map BuildError messages to exit codes by keyword.
 _EXIT_BY_HINT = {
@@ -70,7 +70,7 @@ def main(schema_path, out_path, brand, template_path, tokens_path, strict_select
     except BuildError as exc:
         click.echo(f"error: {exc}", err=True)
         sys.exit(_exit_for(str(exc)))
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         click.echo(f"error: {exc}", err=True)
         sys.exit(1)
     # Surface selection_warnings to stderr

@@ -201,7 +201,7 @@ class TestSeedLibraryCategory:
         assert conf == 0.3
 
     def test_multi_category_uses_first(self) -> None:
-        cat, conf = seed_library_category({"category": "Timelines; Comparison"})
+        cat, _conf = seed_library_category({"category": "Timelines; Comparison"})
         assert cat == "historical-timeline"
 
 

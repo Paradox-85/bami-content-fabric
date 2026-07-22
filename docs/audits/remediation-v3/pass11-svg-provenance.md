@@ -1,7 +1,7 @@
 # PASS 11 — SVG Classification/Provenance Evidence
 
 **Date:** 2026-07-22  
-**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r2); remote CI run required before SAFE.
+**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r3); remote CI run required before SAFE.
 
 ## Changes
 

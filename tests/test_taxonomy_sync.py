@@ -97,7 +97,7 @@ def test_svg_input_map_targets_are_canonical():
     csv_path = LIBRARY_DIR / "_qa" / "input-classification.csv"
     if not csv_path.exists():
         pytest.skip("input-classification.csv not found — SVG migration data not generated")
-    with open(csv_path, "r", encoding="utf-8") as f:
+    with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             cc = row["canonical_category"]

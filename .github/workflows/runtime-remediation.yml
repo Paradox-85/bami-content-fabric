@@ -132,6 +132,25 @@ jobs:
       - run: npm ci
       - name: Python audit
         run: python -m pip_audit
-      - name: Root npm audit
+      - name: Npm audit
         run: npm audit --audit-level=high
 
+  mermaid-smoke:
+    name: Mermaid smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Install npm deps (includes @mermaid-js/mermaid-cli)
+        run: npm ci
+      - name: Verify mmdc available
+        run: npx mmdc --version
+      - name: Run mermaid tests with mmdc
+        run: python -m pytest tests/test_mermaid_render.py -q --tb=short

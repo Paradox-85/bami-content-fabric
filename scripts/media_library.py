@@ -226,7 +226,7 @@ def _inject_svg_input_meta(entry: dict[str, Any]) -> dict[str, Any]:
     if not SVG_INPUT_META_PATH.exists():
         return entry
     try:
-        with open(SVG_INPUT_META_PATH, "r", encoding="utf-8") as f:
+        with open(SVG_INPUT_META_PATH, encoding="utf-8") as f:
             idx = json.load(f)
     except (json.JSONDecodeError, OSError):
         return entry
@@ -506,8 +506,8 @@ def render_svg_to_png(src: Path, dst: Path) -> tuple[int, int]:
         longest = max(width, height)
         if longest > SVG_LONGEST_SIDE:
             scale = SVG_LONGEST_SIDE / longest
-            width = max(1, int(round(width * scale)))
-            height = max(1, int(round(height * scale)))
+            width = max(1, round(width * scale))
+            height = max(1, round(height * scale))
             img = img.resize((width, height), Image.LANCZOS)
         img.save(dst, format="PNG")
     return width, height
@@ -994,7 +994,7 @@ def migrate_input() -> None:
         raise click.ClickException("input-classification.csv missing; run the generator first")
 
     rows = []
-    with open(csv_path, "r", encoding="utf-8") as f:
+    with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             rows.append(row)

@@ -214,7 +214,7 @@ def test_chart_line_area_applies_area_fill_alpha(tmp_path, tmp_out, tokens_path,
 
     prs = Presentation(str(tmp_out))
     slide = prs.slides[1]
-    chart = [s for s in slide.shapes if getattr(s, "has_chart", False)][0].chart
+    chart = next(s for s in slide.shapes if getattr(s, "has_chart", False)).chart
     series = chart.series[0]
     spPr = series._element.find(qn("c:spPr"))
     srgbClr = spPr.find(qn("a:solidFill")).find(qn("a:srgbClr"))
@@ -279,7 +279,7 @@ def test_chart_donut_pie_variant_pie(tmp_path, tmp_out, tokens_path, template_pa
     build_deck(deck_path, tmp_out, template_path, tokens_path)
 
     prs = Presentation(str(tmp_out))
-    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0].chart
+    chart = next(s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)).chart
     assert chart.chart_type == XL_CHART_TYPE.PIE
     # pie variant must NOT carry a <c:holeSize> element
     plot_el = chart.plots[0]._element
@@ -306,7 +306,7 @@ def test_chart_donut_pie_writes_hole_size(tmp_path, tmp_out, tokens_path, templa
     build_deck(deck_path, tmp_out, template_path, tokens_path)
 
     prs = Presentation(str(tmp_out))
-    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0].chart
+    chart = next(s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)).chart
     plot_el = chart.plots[0]._element
     hole = plot_el.find(qn("c:holeSize"))
     assert hole is not None, "Expected <c:holeSize> element for donut variant"
@@ -500,7 +500,7 @@ def test_sole_chart_centered_to_body_zone(tmp_path, tmp_out, tokens_path, templa
     build_deck(deck_path, tmp_out, template_path, tokens_path)
 
     prs = Presentation(str(tmp_out))
-    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0]
+    chart = next(s for s in prs.slides[1].shapes if getattr(s, "has_chart", False))
     EMU = 914400
     assert round(chart.left / EMU, 2) == 0.6, "sole chart should start at margin_x"
     assert round(chart.top / EMU, 2) == 1.2, "sole chart should start at body_zone top"
@@ -530,7 +530,7 @@ def test_multi_block_chart_not_centered(tmp_path, tmp_out, tokens_path, template
     build_deck(deck_path, tmp_out, template_path, tokens_path)
 
     prs = Presentation(str(tmp_out))
-    chart = [s for s in prs.slides[1].shapes if getattr(s, "has_chart", False)][0]
+    chart = next(s for s in prs.slides[1].shapes if getattr(s, "has_chart", False))
     EMU = 914400
     assert round(chart.width / EMU, 2) == 9.0, "multi-block chart must keep explicit width"
 

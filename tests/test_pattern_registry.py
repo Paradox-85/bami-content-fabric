@@ -51,7 +51,7 @@ def test_registry_version_format(registry):
     ver = registry_version(registry)
     parts = ver.split(".")
     assert len(parts) == 3
-    major, minor, patch = (int(p) for p in parts)
+    major, _minor, _patch = (int(p) for p in parts)
     assert major >= 1
 
 

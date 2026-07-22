@@ -15,8 +15,9 @@ injector version to ``"1.0.0"``.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 from pptx.shapes.base import BaseShape
 

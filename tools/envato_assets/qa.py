@@ -71,7 +71,7 @@ def build_contact_sheet(
 
     # Deterministic sample: sort keys, take every Nth
     sorted_ids = sorted(crop_index.keys())
-    step = max(1, int(round(1.0 / sample_fraction)))
+    step = max(1, round(1.0 / sample_fraction))
     sampled_ids = sorted_ids[::step]
 
     if not sampled_ids:

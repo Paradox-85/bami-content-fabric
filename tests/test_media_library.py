@@ -246,7 +246,7 @@ def test_svg_input_full_pipeline_with_canonical_category(tmp_path):
     # Override the CSV row to use gantt-matrix (the prior blocker category)
     csv_path = ml.SVG_CLASSIFICATION_CSV_PATH
     rows = []
-    with open(csv_path, "r", newline="", encoding="utf-8") as f:
+    with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["input_filename"].endswith("Gantt_Chart_a1b2c3_Modern_001.svg"):

@@ -159,7 +159,7 @@ def detect_clusters_cv(
     closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
 
     # Connected components
-    num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(closed, connectivity=8)
+    num_labels, _labels, stats, _ = cv2.connectedComponentsWithStats(closed, connectivity=8)
 
     boxes: list[fitz.Rect] = []
     min_area_px = 200  # minimum component area in px to consider
@@ -390,9 +390,9 @@ def _target_dimensions(rect: fitz.Rect) -> tuple[int, int]:
     h = abs(rect.y1 - rect.y0) or 1
     longest = max(w, h)
     if longest >= MIN_CROP_LONGEST_SIDE:
-        return int(round(w)), int(round(h))
+        return round(w), round(h)
     scale = MIN_CROP_LONGEST_SIDE / longest
-    return max(1, int(round(w * scale))), max(1, int(round(h * scale)))
+    return max(1, round(w * scale)), max(1, round(h * scale))
 
 
 # ---------------------------------------------------------------------------

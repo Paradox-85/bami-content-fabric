@@ -74,4 +74,4 @@ def no_line(shape):
 
 def inches(value: Any) -> int:
     """EMU from inches (accepts int/float). 914400 EMU = 1 inch."""
-    return int(round(float(value) * 914400))
+    return round(float(value) * 914400)

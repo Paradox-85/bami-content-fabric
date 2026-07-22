@@ -103,7 +103,7 @@ class TestGenerationMatrix:
                 content = {"title": "Case", "sections": [{"heading": "H"}]}
                 layout = family
             elif injector == "checklist-status":
-                content = {"items": [{"label": "Item", "done": True}]}
+                content = {"items": [{"label": "Item", "status": "done"}]}
                 layout = family
             elif injector == "quote-testimonial-card":
                 content = {"quote": "Q", "attribution": "A"}

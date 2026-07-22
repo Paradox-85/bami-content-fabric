@@ -105,7 +105,7 @@ def load_manifest(path: str | Path | None = None) -> dict[str, Any]:
     Returns the parsed manifest dict. Results are cached in memory for the
     lifetime of the process.
     """
-    global _manifest_cache, _manifest_path  # noqa: PLW0603
+    global _manifest_cache, _manifest_path
 
     resolved = str(Path(path or _default_manifest_path()).resolve())
 
@@ -464,7 +464,7 @@ def resolve_pattern(
                 key=lambda x: (x[2], x[1].get("rank", 0), -x[0]),
                 reverse=True,
             )
-            best_idx, best_entry, _ = ranked[0]
+            _best_idx, best_entry, _ = ranked[0]
     else:
         # No structural match at all
         if narrative_intent:
@@ -475,7 +475,7 @@ def resolve_pattern(
                 if any(ni in entry_intents for ni in narrative_intent):
                     return _build_result(
                         entry, [], rejected, content, tokens,
-                        warnings=hints_warning + ["matched via narrative_intent only"],
+                        warnings=[*hints_warning, "matched via narrative_intent only"],
                         graphical_variant=graphical_variant,
                         narrative_intent_original=narrative_intent,
                     )
@@ -486,10 +486,7 @@ def resolve_pattern(
                 if entry.get("family") == "bullets":
                     return _build_result(
                         entry, [], rejected, content, tokens,
-                        warnings=hints_warning + [
-                            "structural match failed; ",
-                            "fell back to terminal 'bullets'"
-                        ],
+                        warnings=[*hints_warning, "structural match failed; ", "fell back to terminal 'bullets'"],
                         narrative_intent_original=narrative_intent,
                     )
 
@@ -537,7 +534,7 @@ def resolve_pattern(
                 rejected,
                 content,
                 tokens,
-                warnings=hints_warning + [overflow_warning],
+                warnings=[*hints_warning, overflow_warning],
                 graphical_variant=graphical_variant,
                 narrative_intent_original=narrative_intent,
             )
@@ -568,10 +565,7 @@ def resolve_pattern(
                     rejected,
                     content,
                     tokens,
-                    warnings=hints_warning + [
-                        f"capacity exceeded for "
-                        f"{best_entry.get('family')}; fallback to {fb_family}"
-                    ],
+                    warnings=[*hints_warning, f"capacity exceeded for " f"{best_entry.get('family')}; fallback to {fb_family}"],
                     graphical_variant=graphical_variant,
                     narrative_intent_original=narrative_intent,
                 )
@@ -589,9 +583,7 @@ def resolve_pattern(
                 rejected,
                 content,
                 tokens,
-                warnings=hints_warning + [
-                    f"capacity exceeded; forced fallback to {fb_family}"
-                ],
+                warnings=[*hints_warning, f"capacity exceeded; forced fallback to {fb_family}"],
                 graphical_variant=graphical_variant,
                 narrative_intent_original=narrative_intent,
             )
@@ -608,7 +600,7 @@ def resolve_pattern(
             rejected,
             content,
             tokens,
-            warnings=hints_warning + [f"{issue_msg}; no fallback found in {fallback_chain}"],
+            warnings=[*hints_warning, f"{issue_msg}; no fallback found in {fallback_chain}"],
             graphical_variant=graphical_variant,
             narrative_intent_original=narrative_intent,
         )

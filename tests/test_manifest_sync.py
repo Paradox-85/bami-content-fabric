@@ -69,7 +69,7 @@ def test_aliases_unique():
     for entry in entries:
         family = entry.get("family", "?")
         # Collect family name and all aliases
-        names = [family] + list(entry.get("aliases", []))
+        names = [family, *list(entry.get("aliases", []))]
         for name in names:
             alias_to_families.setdefault(name.replace("-", "_").lower(), []).append(family)
             alias_to_families.setdefault(name.lower(), []).append(family)

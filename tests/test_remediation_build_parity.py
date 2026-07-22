@@ -2,7 +2,7 @@
 
 Addresses review BLOCKER 1 (build-level parity) -- these tests verify
 injector resolution at the RoutePlan dispatch level, and now include
-actual PPTX build parity for the 6 target families with explicit
+actual PPTX build parity for 11 target families with explicit
 inject-pattern routing and content-level assertions.
 
 Key families tested at RoutePlan level:
@@ -191,29 +191,32 @@ class TestBuildLevelInjectorParity:
 
 
 class TestTargetFamilyPptxBuildParity:
-    """Actual PPTX build parity for the 6 target families (only).
+    """Actual PPTX build parity for all 11 target families.
 
     Builds a minimal deck for each family using ``pptx_gen`` and verifies
     that the native injector is actually dispatched at build time.
 
-    NOTE: Only 6 families are build-tested here. The 5 newer families
-    (kpi-dashboard-grid, maturity-model-ladder, case-study-card,
-    checklist-status, quote-testimonial-card) are verified at fixture-existence
-    and RoutePlan level only -- they are NOT built as part of this suite.
-    This is a known coverage gap.
+    NOTE: All 11 families (6 original + 5 newer) are now built as PPTX
+    and verified with content-level assertions (shape count, text markers)
+    to prevent false-positive-green scenarios. Full design/graphical/OPC
+    validation per family remains a gap -- this suite only verifies build
+    success + content existence.
 
     This addresses Blocker A (build-level parity) from the final review.
-    It is NOT yet full design/graphical/OPC validation per family --
-    that remains a gap. But the per-family content assertions (shape count,
-    text markers) prevent false-positive-green scenarios.
-    The 6 target families from the plan:
+    The 11 families from the plan:
     - numbered-process-steps (inj: folded-arrow-horizontal)
     - circular-process-loop (inj: circle-steps)
     - funnel-diagram (inj: funnel-diagram)
     - quadrant-matrix (inj: quadrant-matrix)
     - tier-pricing-cards (inj: tier-pricing-cards)
     - comparison-table (inj: comparison-table)
+    - kpi-dashboard-grid (inj: kpi-dashboard-grid)
+    - maturity-model-ladder (inj: maturity-model-ladder)
+    - case-study-card (inj: case-study-card)
+    - checklist-status (inj: checklist-status)
+    - quote-testimonial-card (inj: quote-testimonial-card)
     """
+
 
     PER_FAMILY_DIR = REPO_ROOT / "clients" / "_sample" / "deck.per-family"
 
@@ -228,7 +231,13 @@ class TestTargetFamilyPptxBuildParity:
         "quadrant-matrix": 12,
         "tier-pricing-cards": 15,
         "comparison-table": 20,
+        "kpi-dashboard-grid": 23,
+        "maturity-model-ladder": 17,
+        "case-study-card": 16,
+        "checklist-status": 20,
+        "quote-testimonial-card": 12,
     }
+
 
     # Key text strings that MUST appear in the content slide for each family.
     _CONTENT_MARKERS: dict[str, set[str]] = {
@@ -238,18 +247,26 @@ class TestTargetFamilyPptxBuildParity:
         "quadrant-matrix": {"High Impact, Easy", "Low Impact, Easy"},
         "tier-pricing-cards": {"Starter", "Professional", "Enterprise"},
         "comparison-table": {"Feature", "Users", "Storage", "Support"},
+        "kpi-dashboard-grid": {"Revenue", "Key Metrics", "Users"},
+        "maturity-model-ladder": {"Level 1", "Level 5", "Capability Maturity"},
+        "case-study-card": {"ACME Corp Transformation", "Challenge", "Solution"},
+        "checklist-status": {"Release Readiness", "Code review", "Tests passed"},
+        "quote-testimonial-card": {"Jane Smith", "What Our Clients Say", "CTO, ACME Corp"},
     }
+
 
     @pytest.fixture(scope="class")
     @classmethod
     def _build_all_decks(cls) -> dict[str, Path]:
-        """Build all 6 family decks once per class."""
+        """Build all 11 family decks once per class."""
         out_dir = REPO_ROOT / ".pi" / "temp"
         out_dir.mkdir(parents=True, exist_ok=True)
         results: dict[str, Path] = {}
         for fam in [
             "numbered-process-steps", "circular-process-loop", "funnel-diagram",
             "quadrant-matrix", "tier-pricing-cards", "comparison-table",
+            "kpi-dashboard-grid", "maturity-model-ladder", "case-study-card",
+            "checklist-status", "quote-testimonial-card",
         ]:
             schema_path = cls.PER_FAMILY_DIR / f"{fam}.json"
             if not schema_path.exists():
@@ -271,9 +288,9 @@ class TestTargetFamilyPptxBuildParity:
         return results
 
     def test_all_families_build_successfully(self, _build_all_decks: dict[str, Path]) -> None:
-        """All 6 target families build successfully."""
-        assert len(_build_all_decks) == 6, (
-            f"Expected 6 family decks, got {len(_build_all_decks)}: "
+        """All 11 target families build successfully."""
+        assert len(_build_all_decks) == 11, (
+            f"Expected 11 family decks, got {len(_build_all_decks)}: "
             f"{list(_build_all_decks.keys())}"
         )
 
@@ -299,6 +316,8 @@ class TestTargetFamilyPptxBuildParity:
     @pytest.mark.parametrize("family", [
         "numbered-process-steps", "circular-process-loop", "funnel-diagram",
         "quadrant-matrix", "tier-pricing-cards", "comparison-table",
+        "kpi-dashboard-grid", "maturity-model-ladder", "case-study-card",
+        "checklist-status", "quote-testimonial-card",
     ])
     def test_family_routes_through_native_injector(
         self, family: str, _build_all_decks: dict[str, Path],
@@ -342,6 +361,8 @@ class TestTargetFamilyPptxBuildParity:
     @pytest.mark.parametrize("family", [
         "numbered-process-steps", "circular-process-loop", "funnel-diagram",
         "quadrant-matrix", "tier-pricing-cards", "comparison-table",
+        "kpi-dashboard-grid", "maturity-model-ladder", "case-study-card",
+        "checklist-status", "quote-testimonial-card",
     ])
     def test_family_content_slide_has_expected_shapes(
         self, family: str, _build_all_decks: dict[str, Path],
@@ -376,6 +397,8 @@ class TestTargetFamilyPptxBuildParity:
     @pytest.mark.parametrize("family", [
         "numbered-process-steps", "circular-process-loop", "funnel-diagram",
         "quadrant-matrix", "tier-pricing-cards", "comparison-table",
+        "kpi-dashboard-grid", "maturity-model-ladder", "case-study-card",
+        "checklist-status", "quote-testimonial-card",
     ])
     def test_family_content_slide_contains_expected_text(
         self, family: str, _build_all_decks: dict[str, Path],

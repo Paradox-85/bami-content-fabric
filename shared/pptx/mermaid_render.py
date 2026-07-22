@@ -93,7 +93,7 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
         produced.
     """
     key = hashlib.sha256(
-        f"{definition}\n--scale={scale}\n".encode("utf-8")
+        f"{definition}\n--scale={scale}\n".encode()
     ).hexdigest()[:16]
     cache_path = (CACHE_DIR / key).with_suffix(".png")
 
@@ -145,13 +145,7 @@ def render_mermaid_png(definition: str, *, scale: int = 3) -> Path:
         # Render to a sibling temp path, then atomically replace into the cache
         # so concurrent cache-misses for the same diagram cannot collide/corrupt.
         tmp_out_name = str(cache_path.with_name(f"{cache_path.stem}.tmp{cache_path.suffix}"))
-        cmd = argv + [
-            "-i", tmp_mmd_name,
-            "-o", tmp_out_name,
-            "-b", "white",
-            "--scale", str(scale),
-            *puppeteer_args,
-        ]
+        cmd = [*argv, "-i", tmp_mmd_name, "-o", tmp_out_name, "-b", "white", "--scale", str(scale), *puppeteer_args]
 
         try:
             proc = subprocess.run(

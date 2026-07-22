@@ -125,7 +125,7 @@ SCHEMA: dict[str, Any] = {
                                 "w": {"type": "number", "minimum": 0.1},
                                 "h": {"type": "number", "minimum": 0},
                                 "text": {"type": "string"},
-                                "items": {"type": "array", "items": {"type": "string"}},
+                                "items": {"type": "array", "items": {}},
                                 "header": {"type": "array", "items": {"type": "string"}},
                                 "rows": {"type": "array", "items": {"type": "array"}},
                                 "numbers": {"type": "array", "items": {}},

@@ -23,10 +23,10 @@
           "h": 4.0,
           "title": "Release Readiness",
           "items": [
-            {"label": "Code review", "done": true},
-            {"label": "Tests passed", "done": true},
-            {"label": "Docs updated", "done": false},
-            {"label": "Deployment approved", "done": false}
+            {"label": "Code review", "status": "done"},
+            {"label": "Tests passed", "status": "done"},
+            {"label": "Docs updated", "status": "pending"},
+            {"label": "Deployment approved", "status": "pending"}
           ]
         }
       ]

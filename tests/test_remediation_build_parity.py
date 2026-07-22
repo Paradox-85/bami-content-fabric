@@ -19,8 +19,11 @@ Content-level assertions (shape count, text markers) prevent
 false-positive-green scenarios for all families.
 
 The documented exception for explicit_layout has been removed in PASS 10.
-Native injector is now the sole routing authority when both
-``route.native_injector_id`` and ``layout_name`` are present.
+Native injector is now the routing authority for matching explicit layouts
+(where ``layout_name`` matches the injector family). Non-matching explicit
+layouts (e.g. ``comparison_panel``) still route through ``expand_layout``
+for backward compatibility — see the ``selection_provenance == "explicit_layout"``
+branch in ``build.py``.
 
 NOTE: Full design/graphical/OPC validation of built PPTX output
 per family is NOT yet implemented -- only build success + content
@@ -130,11 +133,13 @@ class TestBuildLevelInjectorParity:
         assert plan.selection_provenance == "explicit_inject_pattern"
 
     def test_build_explicit_layout_injector_or_expand(self) -> None:
-        """Explicit layout for native-bound family: dispatcher uses native injector.
+        """Explicit layout for a matching native-bound family: dispatcher uses native injector.
 
-        The build dispatcher in build.py now uses the native injector whenever
-        ``route.native_injector_id`` and ``layout_name`` are both present,
-        regardless of ``selection_provenance`` or ``block_kind``.
+        The build dispatcher in build.py uses the native injector when
+        ``route.native_injector_id`` and ``layout_name`` are both present
+        AND the layout_name matches the injector family. Non-matching explicit
+        layouts (e.g. ``comparison_panel``) still go through ``expand_layout``
+        for backward compatibility.
         """
         from shared.pptx.routing import plan_route
 
@@ -167,8 +172,9 @@ class TestBuildLevelInjectorParity:
         assert plan.block_kind != "inject-pattern", \
             "Explicit layout without inject-pattern block should not have inject-pattern block_kind"
 
-        # PASS 10: build dispatcher now uses native injector regardless of
-        # selection_provenance. The gating on explicit_layout was removed.
+        # PASS 10: build dispatcher uses native injector for matching explicit
+        # layouts (layout_name matches injector family). Non-matching explicit
+        # layouts still go through expand_layout for backward compatibility.
 
     def test_remediation_deck_builds_successfully(self) -> None:
         """The remediation deck JSON builds without error.
@@ -184,21 +190,22 @@ class TestBuildLevelInjectorParity:
             f"Remediation schema not found: {schema_path}"
 
 
-
 class TestTargetFamilyPptxBuildParity:
-    """Actual PPTX build parity for the 6 target families.
+    """Actual PPTX build parity for the 6 target families (only).
 
     Builds a minimal deck for each family using ``pptx_gen`` and verifies
     that the native injector is actually dispatched at build time.
 
-    Each per-family deck uses an explicit ``inject-pattern`` block with
-    ``block_kind=inject-pattern``, which dispatches through the native injector.
+    NOTE: Only 6 families are build-tested here. The 5 newer families
+    (kpi-dashboard-grid, maturity-model-ladder, case-study-card,
+    checklist-status, quote-testimonial-card) are verified at fixture-existence
+    and RoutePlan level only -- they are NOT built as part of this suite.
+    This is a known coverage gap.
 
     This addresses Blocker A (build-level parity) from the final review.
     It is NOT yet full design/graphical/OPC validation per family --
     that remains a gap. But the per-family content assertions (shape count,
     text markers) prevent false-positive-green scenarios.
-
     The 6 target families from the plan:
     - numbered-process-steps (inj: folded-arrow-horizontal)
     - circular-process-loop (inj: circle-steps)

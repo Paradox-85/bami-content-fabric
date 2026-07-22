@@ -1,7 +1,7 @@
 # PASS 9 — Honest CI Baseline
 
 **Date:** 2026-07-22  
-**SHA:** `5a05988c7d1bec3a84f14aca6bfcdeca474b6013` (HEAD, corrective pass r2)  
+**SHA:** `93cd7b99e8d8e7b9af1bdd39e5894f4dcd586656` (HEAD, corrective pass r2; parent: `5a05988`)  
 **handoff_status:** `CONDITIONAL` — local checks green (corrective pass r2); remote CI run required before SAFE.
 
 ## Commands run

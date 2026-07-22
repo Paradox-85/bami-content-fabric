@@ -1,8 +1,8 @@
 # PASS 9 — Honest CI Baseline
 
 **Date:** 2026-07-22  
-**SHA:** `93cd7b99e8d8e7b9af1bdd39e5894f4dcd586656` (corrective pass r2; parent: `5a05988`)
-**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r2); remote CI run required before SAFE.
+**SHA:** `787dd9b8f3a8c6ef0d06b29176d9ae23a73ab979` (current HEAD; corrective pass r3)
+**handoff_status:** `CONDITIONAL` — local checks green (corrective pass r3); remote CI run required before SAFE.
 
 ## Commands run
 
@@ -54,9 +54,7 @@ python -m pytest tests/test_package_audit.py -q  # PASS — 4 new tests
 ## Pre-existing dirty state
 
 - `package-lock.json` — modified (not included in commit)
-- `tools/svg_pattern_analyze/` — untracked (not included in commit)
-
-These were isolated before work began. Not committed.
+- `tools/svg_pattern_analyze/` — added in corrective pass r2 (`787dd9b`), tracked: 4 files, 1133 lines total. This module is a scope expansion (see .pi/implementation/20260722-161717-remaining-scope-r3-impl.md for honest accounting).
 
 ## CI status
 

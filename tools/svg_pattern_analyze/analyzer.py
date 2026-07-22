@@ -320,7 +320,8 @@ def _extract_path_geometry(filepath: str | Path) -> dict[str, Any]:
         result["_note"] = "svgelements not installed"
         return result
     try:
-        from svgelements import SVG, Path as SvgPath
+        from svgelements import SVG
+        from svgelements import Path as SvgPath
         svg = SVG.parse(str(Path(filepath).resolve()), reify=False)
         path_elements = []
         total_length = 0.0

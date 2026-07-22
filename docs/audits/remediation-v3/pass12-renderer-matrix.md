@@ -37,7 +37,6 @@
 
 ## Generation matrix
 
-## Generation matrix
 
 | Enabled family | Per-fixture exists | plan_route resolves | PPTX build + shape assertions | Native injector |
 |---|---|---|---|---|

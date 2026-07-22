@@ -1,0 +1,39 @@
+{
+  "title": "Checklist Status — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through checklist-status native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Checklist Status"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Project Checklist"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "checklist-status",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "title": "Release Readiness",
+          "items": [
+            {"label": "Code review", "done": true},
+            {"label": "Tests passed", "done": true},
+            {"label": "Docs updated", "done": false},
+            {"label": "Deployment approved", "done": false}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

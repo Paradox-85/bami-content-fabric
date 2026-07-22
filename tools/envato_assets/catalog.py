@@ -242,11 +242,20 @@ def build_processing_report(
         cat = c.get("category", "uncategorized")
         by_category[cat] = by_category.get(cat, 0) + 1
 
-    from datetime import datetime
+    import os
+    from datetime import datetime, timezone
+    _ts = os.environ.get("BAMI_BUILD_TIMESTAMP") or os.environ.get("SOURCE_DATE_EPOCH")
+    if _ts:
+        try:
+            _gen_time = datetime.fromtimestamp(int(_ts), tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+        except (ValueError, OSError):
+            _gen_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        _gen_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     lines = [
         "# Envato Asset Processing Report",
         "",
-        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Generated: {_gen_time}",
         "",
         "## Summary",
         "",

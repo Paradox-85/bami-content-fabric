@@ -1,0 +1,57 @@
+# review-required.yaml
+
+# SVG assets/groups requiring human visual review before classification can be considered reliable.
+#
+# Each entry identifies an asset (by group_id or filename) that:
+# 1. Has no checked-in `evidence.method == "human_visual_review"` with valid `reviewer` and `review_date`, OR
+# 2. Has uncertain/ambiguous classification that cannot be determined from filename/registry alone, OR
+# 3. Has known provenance broken status (e.g., `circular-process-loop/radial-cycle`).
+
+review_required:
+  - group_id: "Bundle_3-7_Circular_Pie_Chart_Di_30d6be"
+    reason: "classified as chart-donut-pie; used as provenance for circular-process-loop/radial-cycle, which is PROVENANCE BROKEN"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null
+
+  - group_id: "branchflow-infographics_051ca1"
+    reason: "Uncertain classification — filename keyword insufficient for visual category determination"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null
+
+  - group_id: "Tree_–_Infographics_Design_ba6f36"
+    reason: "Reclassified to maturity-model-ladder after visual audit; staged growth illustration, not mind map"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null
+
+  - group_id: "ESG_Sustainability_Report_Infogr_c3dc22"
+    reason: "Uncertain classification — single file, no human review evidence checked in"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null
+
+  - group_id: "Empathy_Map_Infographic_2dc5cb"
+    reason: "Uncertain classification — single file, no human review evidence checked in"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null
+
+  - group_id: "pyramid-infographics-design_51e627"
+    reason: "Uncertain classification — filename keyword insufficient for visual category determination"
+    status: "quarantine_review_required"
+    evidence:
+      method: "quarantine_review_required"
+      reviewer: null
+      review_date: null

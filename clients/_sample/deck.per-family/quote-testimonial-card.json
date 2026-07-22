@@ -1,0 +1,36 @@
+{
+  "title": "Quote Testimonial Card — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through quote-testimonial-card native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Quote Testimonial Card"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "What Our Clients Say"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "quote-testimonial-card",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "quote": "This platform transformed our business operations completely.",
+          "attribution": "Jane Smith",
+          "role": "CTO, ACME Corp",
+          "accent_color": "blue"
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

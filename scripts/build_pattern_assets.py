@@ -42,6 +42,14 @@ def main():
             category_groups[cat] = []
         category_groups[cat].append((group_key, group_data))
 
+    # Helper to compute SHA-256 of source SVG from variant index
+    def _get_checksum_for_filename(filename: str) -> str | None:
+        import hashlib
+        input_path = ROOT / "templates" / "media" / "reference" / "input" / filename
+        if not input_path.exists():
+            return None
+        return hashlib.sha256(input_path.read_bytes()).hexdigest()
+
     # Build the asset entries from the registry
     assets = []
     for entry in registry.get("entries", []):
@@ -74,8 +82,19 @@ def main():
                 asset_entry["source_svg"] = source_svg
                 asset_entry["library_svg"] = library_svg_path
 
+                # Add checksum from source SVG
+                cs = _get_checksum_for_filename(source_svg)
+                if cs:
+                    asset_entry.setdefault("evidence", {})["checksum"] = cs
+
             assets.append(asset_entry)
 
+    # Format the output
+    output = {
+        "format_version": "1.0.0",
+        "description": "Pattern/variant-to-SVG linkage index. Maps pattern_template_ids to classified SVG provenance in library/. Generated from svg-variant-index.yaml and pattern-registry.yaml.",
+        "assets": assets,
+    }
     # Format the output
     output = {
         "format_version": "1.0.0",

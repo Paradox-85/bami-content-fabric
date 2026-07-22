@@ -78,6 +78,11 @@ Slides rendered via Mermaid carry the following metadata in the schema:
 - The python-pptx pipeline is the single production path.
 - Mermaid diagrams are explicitly marked so consumers can detect
   non-editable slides.
-- No CI or release step depends on Slidev or `mmdc`.
+- No CI or release step depends on Slidev (verified by test_renderer_scope.py —
+  Slidev absent from shared/, tools/, scripts/, .github/workflows/, package.json,
+  package-lock.json, and schema renderer bindings).
+- Mermaid smoke may be run in CI as an explicit step (npx mmdc --version), but the
+  production deck release path does not depend on Mermaid except for explicit smoke
+  and families that lack a native injector.
 - Future chart families that acquire a native injector will remove their
   Mermaid fallback.

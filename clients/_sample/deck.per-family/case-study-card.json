@@ -1,0 +1,38 @@
+{
+  "title": "Case Study Card — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through case-study-card native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Case Study Card"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Client Success Story"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "case-study-card",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "title": "ACME Corp Transformation",
+          "subtitle": "From legacy to cloud-native",
+          "sections": [
+            {"heading": "Challenge", "body": "Outdated infrastructure limiting growth"},
+            {"heading": "Solution", "body": "Full cloud migration with AI-driven ops"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

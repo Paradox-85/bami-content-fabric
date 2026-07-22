@@ -3,9 +3,8 @@
 ``package_audit`` — run Python and npm package audits for bami-content-fabric.
 
 Exit codes:
-  0 — all audits passed (or tools unavailable but that is documented)
-  1 — one or more audits reported actionable issues
-
+  0 — all audits passed
+  1 — one or more audits failed (including when tools are unavailable or timeouts occur)
 Usage:
   python scripts/package_audit.py
 """
@@ -21,13 +20,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 def audit_python() -> int:
-    """Run pip-audit on the current environment. Returns 0 on pass/skip, 1 on fail."""
+    """Run pip-audit on the current environment. Returns 0 on pass, 1 on fail or if tool unavailable."""
     # Check if pip-audit is importable first — avoid subprocess FileNotFoundError
     try:
         import pip_audit  # noqa: F401
     except ImportError:
-        print("[audit][python] pip-audit not installed — skipping Python audit.")
-        return 0
+        print("[audit][python] pip-audit not installed — audit BLOCKING (non-zero).")
+        return 1
 
     try:
         result = subprocess.run(
@@ -38,8 +37,8 @@ def audit_python() -> int:
             cwd=REPO_ROOT,
         )
     except subprocess.TimeoutExpired:
-        print("[audit][python] pip-audit timed out — treating as non-blocking.")
-        return 0
+        print("[audit][python] pip-audit timed out — audit BLOCKING (non-zero).")
+        return 1
 
     if result.returncode == 0:
         print("[audit][python] OK — no known vulnerabilities.")
@@ -55,8 +54,8 @@ def audit_npm(path: Path, label: str) -> int:
     """Run npm audit in a directory. Returns 0 on pass/skip, 1 on issues found."""
     npm_path = _which_npm()
     if not npm_path:
-        print(f"[audit][npm/{label}] npm not available — skipping.")
-        return 0
+        print(f"[audit][npm/{label}] npm not available — audit BLOCKING (non-zero).")
+        return 1
 
     try:
         result = subprocess.run(
@@ -68,8 +67,8 @@ def audit_npm(path: Path, label: str) -> int:
             cwd=path,
         )
     except subprocess.TimeoutExpired:
-        print(f"[audit][npm/{label}] npm audit timed out — treating as non-blocking.")
-        return 0
+        print(f"[audit][npm/{label}] npm audit timed out — audit BLOCKING (non-zero).")
+        return 1
 
     if result.returncode == 0:
         print(f"[audit][npm/{label}] OK — no high/critical vulnerabilities.")
@@ -116,8 +115,8 @@ def main() -> int:
     if root_pkg.exists():
         exit_code |= audit_npm(REPO_ROOT, "root")
     else:
-        print("[audit][npm/root] package.json not found — skipping.")
-
+        print("[audit][npm/root] package.json not found — audit BLOCKING (non-zero).")
+        exit_code |= 1
 
     # ── Summary ─────────────────────────────────────────────────────
     print()

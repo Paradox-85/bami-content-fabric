@@ -14,13 +14,13 @@ Key families tested at RoutePlan level:
 - tier-pricing-cards (native injector via tier-pricing-cards)
 
 PPTX build-level parity: each per-family deck uses an explicit
-``inject-pattern`` block (block_kind=inject-pattern,
-selection_provenance=explicit_inject_pattern), which guarantees
-the build dispatcher routes through the native injector path.
+``inject-pattern`` block, which dispatches through the native injector.
 Content-level assertions (shape count, text markers) prevent
-false-positive-green scenarios for all families, including
-comparison-table and quadrant-matrix which previously lost
-content on a passing test.
+false-positive-green scenarios for all families.
+
+The documented exception for explicit_layout has been removed in PASS 10.
+Native injector is now the sole routing authority when both
+``route.native_injector_id`` and ``layout_name`` are present.
 
 NOTE: Full design/graphical/OPC validation of built PPTX output
 per family is NOT yet implemented -- only build success + content
@@ -130,17 +130,11 @@ class TestBuildLevelInjectorParity:
         assert plan.selection_provenance == "explicit_inject_pattern"
 
     def test_build_explicit_layout_injector_or_expand(self) -> None:
-        """Explicit layout for native-bound family: verifies dispatcher choice.
+        """Explicit layout for native-bound family: dispatcher uses native injector.
 
-        For families with native injectors, the build dispatcher in build.py
-        only uses the native injector when ``selection_provenance`` is
-        ``auto``, ``hint_category``, or ``block_kind == inject-pattern``.
-        Explicit layout alone (without inject-pattern block kind) goes through
-        ``expand_layout`` -- this is the documented exception.
-
-        This test verifies the RoutePlan output reflects the correct decision
-        inputs. The actual build.py dispatch logic is verified by integration
-        in the remediation deck build (TestRemediationDeckFullBuild).
+        The build dispatcher in build.py now uses the native injector whenever
+        ``route.native_injector_id`` and ``layout_name`` are both present,
+        regardless of ``selection_provenance`` or ``block_kind``.
         """
         from shared.pptx.routing import plan_route
 
@@ -168,16 +162,13 @@ class TestBuildLevelInjectorParity:
 
         # RoutePlan correctly resolves the injector
         assert plan.native_injector_id is not None, \
-            "RoutePlan resolves injector even for explicit layout"
+            "RoutePlan resolves injector for explicit layout"
         assert plan.selection_provenance == "explicit_layout"
         assert plan.block_kind != "inject-pattern", \
             "Explicit layout without inject-pattern block should not have inject-pattern block_kind"
 
-        # NOTE: This test does NOT re-implement the build dispatch boolean.
-        # The actual build.py dispatch is tested via the remediation deck
-        # build in test_ci_runtime_remediation_workflow.py.
-        # Documented exception: injector is resolved at RoutePlan level
-        # but not dispatched through the native injector path at build time.
+        # PASS 10: build dispatcher now uses native injector regardless of
+        # selection_provenance. The gating on explicit_layout was removed.
 
     def test_remediation_deck_builds_successfully(self) -> None:
         """The remediation deck JSON builds without error.
@@ -193,96 +184,6 @@ class TestBuildLevelInjectorParity:
             f"Remediation schema not found: {schema_path}"
 
 
-class TestCardFamilyDocumentedException:
-    """Card families as documented exception to build-level parity.
-
-    Families: comparison-table, tier-pricing-cards, maturity-model-ladder,
-    case-study-card, checklist-status, quote-testimonial-card.
-
-    These families resolve injectors correctly at the RoutePlan level, but the
-    build dispatch in build.py uses ``expand_layout`` for explicit layout
-    routes (non-inject-pattern block kind).
-
-    This test verifies RoutePlan outputs (native_injector_id, block_kind)
-    rather than re-implementing the build dispatch boolean.
-    """
-
-    def test_comparison_table_routeplan_has_injector(self) -> None:
-        """comparison-table resolves injector at RoutePlan level."""
-        from shared.pptx.routing import plan_route
-
-        class _FakeTokens:
-            def __init__(self):
-                self._brand = "bami"
-                self.body_zone = (1.2, 6.5)
-                self.margin_x = 0.6
-                self.content_width = 8.8
-
-            @property
-            def raw(self):
-                return {"brand": self._brand}
-
-        tokens = _FakeTokens()
-
-        plan = plan_route(
-            {
-                "layout": "comparison-table",
-                "content": {
-                    "headers": ["Feature", "Basic", "Pro"],
-                    "rows": [["Price", "$10", "$20"]],
-                },
-            },
-            tokens,
-        )
-
-        # RoutePlan level: injector is resolved, selection_provenance is explicit_layout
-        # Documented exception: at build dispatch, explicit_layout + non-inject-pattern
-        # block_kind causes the build dispatcher to use expand_layout instead of native injector.
-        assert plan.native_injector_id is not None
-        assert plan.family == "comparison-table"
-        assert plan.selection_provenance == "explicit_layout"
-        assert plan.block_kind != "inject-pattern", \
-            "Explicit layout card family must not have inject-pattern block_kind"
-
-    def test_tier_pricing_cards_routeplan_has_injector(self) -> None:
-        """tier-pricing-cards resolves injector at RoutePlan level."""
-        from shared.pptx.routing import plan_route
-
-        class _FakeTokens:
-            def __init__(self):
-                self._brand = "bami"
-                self.body_zone = (1.2, 6.5)
-                self.margin_x = 0.6
-                self.content_width = 8.8
-
-            @property
-            def raw(self):
-                return {"brand": self._brand}
-
-        tokens = _FakeTokens()
-
-        plan = plan_route(
-            {
-                "layout": "tier-pricing-cards",
-                "content": {
-                    "tiers": [
-                        {"name": "Basic", "price": "$10"},
-                        {"name": "Pro", "price": "$20"},
-                    ]
-                },
-            },
-            tokens,
-        )
-
-        assert plan.native_injector_id is not None
-        assert plan.family == "tier-pricing-cards"
-        assert plan.selection_provenance == "explicit_layout"
-
-        # Documented exception: explicit_layout + non-inject-pattern block_kind
-        # routes through expand_layout at build dispatch, not native injector.
-        assert plan.block_kind != "inject-pattern", \
-            "Explicit layout card family must not have inject-pattern block_kind"
-
 
 class TestTargetFamilyPptxBuildParity:
     """Actual PPTX build parity for the 6 target families.
@@ -291,15 +192,12 @@ class TestTargetFamilyPptxBuildParity:
     that the native injector is actually dispatched at build time.
 
     Each per-family deck uses an explicit ``inject-pattern`` block with
-    ``block_kind=inject-pattern``, which guarantees the build dispatcher
-    routes through the native injector path (selection_provenance =
-    ``explicit_inject_pattern``).
+    ``block_kind=inject-pattern``, which dispatches through the native injector.
 
     This addresses Blocker A (build-level parity) from the final review.
     It is NOT yet full design/graphical/OPC validation per family --
-    that remains a gap. But the per-family content assertions (shapes,
-    text presence) prevent the false-positive green scenario where
-    content is silently lost on a passing test.
+    that remains a gap. But the per-family content assertions (shape count,
+    text markers) prevent false-positive-green scenarios.
 
     The 6 target families from the plan:
     - numbered-process-steps (inj: folded-arrow-horizontal)

@@ -50,6 +50,14 @@ def main():
     # Group by the group key from variant_groups JSON
     groups = {}
 
+    def _sha256_of_input(filename: str) -> str | None:
+        """Compute SHA-256 of an SVG file in input/ if it exists."""
+        import hashlib
+        input_path = ROOT / "templates" / "media" / "reference" / "input" / filename
+        if not input_path.exists():
+            return None
+        return hashlib.sha256(input_path.read_bytes()).hexdigest()
+
     for group_key, group_data in variant_groups.items():
         category = group_data.get("canonical_category", "infographic")
         members = []
@@ -67,6 +75,11 @@ def main():
             if member.get("reason"):
                 member_entry["reason"] = member["reason"]
 
+            # Compute SHA-256 checksum
+            checksum = _sha256_of_input(fname)
+            if checksum:
+                member_entry.setdefault("evidence", {})["checksum"] = checksum
+
             # If the row has a different canonical_category than the group,
             # record it as a per-member override
             if row and row["canonical_category"] != category:
@@ -83,7 +96,6 @@ def main():
             "members": members,
         }
         groups[group_key] = group_entry
-
     # Build the index
     index = {
         "format_version": "1.0.0",

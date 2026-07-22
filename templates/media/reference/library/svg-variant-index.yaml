@@ -13,14 +13,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "Bento Box" indicates peer card
         grid / options layout.'
     - filename: infographic_Bento_Box_Infographic_Template_c43cda_Green_-_1920x1080px_002.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "Bento Box" indicates peer card
         grid / options layout.'
   Bundle_3-7_Circular_Pie_Chart_Di_30d6be:
@@ -32,23 +32,23 @@ groups:
     members:
     - filename: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_3_Circular_Pie_Chart_Diag_001.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_4_Circular_Pie_Chart_Diag_002.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_5_Circular_Pie_Chart_Diag_003.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_6_Circular_Pie_Chart_Diag_004.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_Bundle_3-7_Circular_Pie_Chart_Di_30d6be_7_Circular_Pie_Chart_Diag_005.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
   Case_Study_ce7a8d:
     canonical_category: case-study-card
@@ -133,39 +133,39 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 3-segment node layout around central
         hole; no arrowhead recurrence; circular-node-layout.'
     - filename: infographic_Cycle_Vector_Infographic_Diagram_598423_04_opt_002.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 4-segment node layout; no process recurrence;
         circular-node-layout.'
     - filename: infographic_Cycle_Vector_Infographic_Diagram_598423_05_opt_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 5-segment node layout; circular-node-layout.'
     - filename: infographic_Cycle_Vector_Infographic_Diagram_598423_06_opt_004.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 6-segment node layout; circular-node-layout.'
     - filename: infographic_Cycle_Vector_Infographic_Diagram_598423_07_opt_005.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 7-segment node layout; circular-node-layout.'
     - filename: infographic_Cycle_Vector_Infographic_Diagram_598423_08_opt_006.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 8-segment node layout; circular-node-layout.'
   Diagram_Infographics_f77ae0:
     canonical_category: infographic
@@ -204,49 +204,49 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut/radial gauge chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_14_006.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_19_011.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_20_013.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_3_014.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_6_017.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_7_018.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_9_020.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: donut chart; circular part-to-whole.'
   Diagram_Infographics_fbb780_bar:
     canonical_category: chart-bar-column
@@ -259,37 +259,37 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bar/column chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_18_010.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bar/column chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_1_001.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bar/column chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_5_016.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bar/column chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_8_019.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bar/column chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_16_008.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: combo bar+line chart; placed in chart-bar-column
         as preferred existing category.'
   Diagram_Infographics_fbb780_line:
@@ -303,37 +303,37 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_13_005.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_15_007.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_17_009.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_2_012.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
     - filename: infographic_Diagram_Infographics_fbb780_Diagram_4_015.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: line/area chart.'
   ESG_Sustainability_Report_Infogr_c3dc22:
     canonical_category: case-study-card
@@ -379,14 +379,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: 2x2 matrix/quadrant layout with labels Business/Decision/Education/Facilitate
         and side axes; not bar chart.'
     - filename: infographic_Gradient_Matrix_Infographics_66318c_Gradient_Matrix_Infograph_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: explicit BCG Matrix with Stars/Cash Cows/Question
         Marks/Dogs; quadrant-matrix.'
   gradient-matrix-radial-segment_66318c:
@@ -400,7 +400,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: circular 5-segment infographic around center,
         not a matrix grid and not bar chart. Radial segment diagram.'
   gradient-matrix-excluded-duplicate_66318c:
@@ -428,7 +428,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "Self Care Checklist" filename
         indicates checklist-with-status layout.'
   Infographics_Bundle_15bd12:
@@ -561,7 +561,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: award/ranking cards, not pricing/tier
         table.'
   Quadrant_Chart_Diagram_Infograph_cc85a7:
@@ -677,7 +677,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: radial/donut percentage chart, not
         historical timeline.'
   Timeline_Roadmap_Infographic_1c9830:
@@ -764,16 +764,16 @@ groups:
     members:
     - filename: infographic_Tree_–_Infographics_Design_ba6f36_TREES_CC20_001.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: staged growth/progression illustration,
         not mind map.'
     - filename: infographic_Tree_–_Infographics_Design_ba6f36_TREES_CS6_002.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: staged growth/progression illustration,
         not mind map.'
   Vector_Infographics_Template_1b14dd:
@@ -832,84 +832,84 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_004.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_009.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_010.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_013.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_014.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_015.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_016.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_017.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_020.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic_021.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   Venn_Diagram_Infographic_03eec1__mechanism_diagram:
@@ -923,21 +923,21 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_005.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_008.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   Venn_Diagram_Infographic_03eec1__goal_path:
@@ -951,21 +951,21 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_012.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
     - filename: infographic_Venn_Diagram_Infographic_03eec1_Venn_Diagram_Infographic-_018.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   Venn_Diagram_Infographic_03eec1__pyramid_hierarchy:
@@ -979,7 +979,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   Venn_Diagram_Infographic_03eec1__circular_node_layout:
@@ -993,7 +993,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   Venn_Diagram_Infographic_03eec1__radial_segment_diagram:
@@ -1007,7 +1007,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: Venn bundle split; only true overlap/set
         diagrams remain in venn-diagram.'
   White_Cyan_Modern_KPI_Dashboard_30a08e:
@@ -1147,56 +1147,56 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_002.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_005.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_006.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_008.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_009.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_014.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   arrows-infographic-templates_f8571b__circular_node_layout:
@@ -1210,14 +1210,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_012.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   arrows-infographic-templates_f8571b__goal_path:
@@ -1231,7 +1231,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   arrows-infographic-templates_f8571b__roadmap_with_milestones:
@@ -1245,7 +1245,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   arrows-infographic-templates_f8571b__radial_segment_diagram:
@@ -1259,35 +1259,35 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_013.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_015.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_017.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_019.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   arrows-infographic-templates_f8571b__circular_process_loop:
@@ -1301,21 +1301,21 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_018.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
     - filename: infographic_arrows-infographic-templates_f8571b_020.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: arrows infographic bundle split; mixed
         linear, radial, loop, and roadmap topologies.'
   artificial-intelligence-workflow_c744f6:
@@ -1329,7 +1329,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "AI Workflow" indicates system-interaction
         / mechanism diagram.'
   bar-charts-infographics_dfc740:
@@ -1363,44 +1363,44 @@ groups:
     members:
     - filename: infographic_branchflow-infographics_051ca1_01_BranchFlow_001.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
     - filename: infographic_branchflow-infographics_051ca1_02_BranchFlow_002.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
     - filename: infographic_branchflow-infographics_051ca1_03_BranchFlow_003.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
     - filename: infographic_branchflow-infographics_051ca1_04_BranchFlow_004.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
     - filename: infographic_branchflow-infographics_051ca1_05_BranchFlow_005.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
     - filename: infographic_branchflow-infographics_051ca1_06_BranchFlow_006.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: branch/hub-and-spoke flow around central
         concept, not mind map.'
   bundle-arrow-step-infographic_303a08__circular_process_loop:
@@ -1414,7 +1414,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: bundle-arrow-step split; source bundle
         mixes loop, SWOT/quadrant, and radial arrow layouts.'
   bundle-arrow-step-infographic_303a08__quadrant_matrix:
@@ -1428,7 +1428,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: bundle-arrow-step split; source bundle
         mixes loop, SWOT/quadrant, and radial arrow layouts.'
   bundle-arrow-step-infographic_303a08__radial_segment_diagram:
@@ -1442,14 +1442,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: bundle-arrow-step split; source bundle
         mixes loop, SWOT/quadrant, and radial arrow layouts.'
     - filename: infographic_bundle-arrow-step-infographic_303a08_Arrow_6_Step_Infographic_004.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: bundle-arrow-step split; source bundle
         mixes loop, SWOT/quadrant, and radial arrow layouts.'
   business-infographic-elements_dc3469:
@@ -1535,7 +1535,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: standalone business icon set, not historical
         timeline.'
   business-timeline-infographics_41de08:
@@ -1560,28 +1560,28 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: connected gear process flow with multiple gears
         in left-to-right step sequence.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-06_006.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear process sequence variant; connected gears
         in step flow.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-09_009.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear process sequence variant; connected gears
         in step flow.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic_011.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear process sequence variant; connected gears
         in step flow.'
   gear-mechanism-strategy_27ccfb:
@@ -1595,38 +1595,38 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: central gear strategy map with surrounding metric/strategy
         callouts; mechanism-diagram.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-03_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear strategy map variant; mechanism-diagram.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-04_004.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear strategy map variant; mechanism-diagram.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-05_005.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear strategy map variant; mechanism-diagram.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-07_007.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear strategy map variant; mechanism-diagram.'
     - filename: infographic_chart-template-chart_27ccfb_Gear_Infographic-10_010.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: gear strategy map variant; mechanism-diagram.'
   gear-swot_27ccfb:
     canonical_category: quadrant-matrix
@@ -1639,7 +1639,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: explicit SWOT quadrants in gear-themed layout;
         quadrant-matrix variant.'
   circle-step-infographic_a05527:
@@ -1722,14 +1722,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: true vertical conversion funnel with narrowing
         stages Awareness/Interest/Desire/Action.'
     - filename: infographic_conversion-path-infographics_5f45bf_03_Conversion_Path_003.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: title says Conversion Funnel; stacked narrowing
         funnel stages.'
   conversion-path-connected-circle-steps_5f45bf:
@@ -1743,7 +1743,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: four connected circular peer nodes in diagonal
         ordered path; no funnel narrowing.'
   conversion-path-target-strategy_5f45bf:
@@ -1757,7 +1757,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: bullseye target with three supporting action
         items; not funnel, not cycle, not chart.'
   conversion-path-launch-roadmap_5f45bf:
@@ -1771,7 +1771,7 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: rocket launch roadmap with four horizontal phases
         Develop/Structure/Promote/Establish; not funnel.'
   cream-colorful-modern-onboarding_c6caac:
@@ -1934,7 +1934,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "Framework" indicates branching
         framework / decision structure.'
   gray-modern-gantt-chart-infograp_46057b:
@@ -2116,28 +2116,28 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_006.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_008.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_010.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
   minimal-infographics-set-01_5b1b5d__numbered_process_steps:
@@ -2151,28 +2151,28 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_003.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_004.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_009.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
   minimal-infographics-set-01_5b1b5d__circular_process_loop:
@@ -2186,14 +2186,14 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
     - filename: infographic_minimal-infographics-set-01_5b1b5d_007.svg
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: minimal infographic split; source bundle
         is mixed and not bar/column chart.'
   modern-clean-infographic_171f59:
@@ -2416,7 +2416,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: circular agile iteration/loop, not
         linear numbered steps.'
   price-table_391f12:
@@ -2452,7 +2452,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Theme-based reclassification: "Process" indicates ordered process
         steps.'
   purple-modern-roadmap-infographi_aeb6f8:
@@ -2475,15 +2475,15 @@ groups:
     members:
     - filename: infographic_pyramid-infographics-design_51e627_PYRAMID_CC20_001.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_pyramid-infographics-design_51e627_PYRAMID_CS6_002.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
     - filename: infographic_pyramid-infographics-design_51e627_PYRAMID_EPS10_003.svg
       rendered: true
-      selectable: true
+      selectable: false
       keep: Y
   roadmap-infographic-template_204c7e:
     canonical_category: roadmap-with-milestones
@@ -2538,14 +2538,14 @@ groups:
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: hub-and-spokes growth driver map with central
         Sales Growth node and six surrounding driver spokes; no funnel narrowing.'
     - filename: infographic_sales-growth-infographic_9fe6f5_01_-_Sales_Growth_002.svg
       rendered: true
       selectable: true
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual review: same hub-and-spokes growth driver map composition
         as _001; style variant.'
   stair-infographic_ee1d96:
@@ -2596,7 +2596,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: four peer value cards/list, not quadrant
         matrix.'
   swot-diagram-slide-for-pitch-pla_b25260:
@@ -2669,7 +2669,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: dated timeline/ribbon, not data table.'
   vector_set_of_infographics_for_d_c0f825:
     canonical_category: infographic
@@ -2726,7 +2726,7 @@ groups:
       rendered: true
       selectable: false
       keep: Y
-      review_status: human-reviewed
+      review_status: review-required
       review_reason: 'Visual audit 2026-07-22: 5S circular methodology loop, not linear
         numbered steps.'
   white-colorful-modern-timeline-i_662016:

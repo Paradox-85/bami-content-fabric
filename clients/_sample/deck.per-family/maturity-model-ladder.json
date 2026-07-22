@@ -1,0 +1,39 @@
+{
+  "title": "Maturity Model Ladder — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through maturity-model-ladder native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "Maturity Model Ladder"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Capability Maturity"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "maturity-model-ladder",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "rungs": [
+            {"label": "Level 1", "description": "Initial"},
+            {"label": "Level 2", "description": "Managed"},
+            {"label": "Level 3", "description": "Defined"},
+            {"label": "Level 4", "description": "Quantitatively Managed"},
+            {"label": "Level 5", "description": "Optimizing"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

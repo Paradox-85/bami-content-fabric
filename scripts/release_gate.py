@@ -18,19 +18,13 @@ Runs, in order:
   12. Deck build sanity (reuse of BAMI schema)
 
 Known gaps (non-blocking in current local environment):
-  - Step 4: RESOLVED — was a code defect (missing comma in `package.json` after
-    the `scripts` block, committed in 6e872ee). The malformed JSON broke
-    Puppeteer's config loader before any browser launch. After restoring the
-    comma, strict JSON parsing and `npx mmdc` work, and the full test suite
-    passes (479 passed, 0 failed, 5 xfailed).
-  - Step 11: Pillow 12.2.0 CVEs on this machine (project pins >=12.3);
-    pypdf/setuptools are environment artifacts, not repo dependencies.
-
-On a fresh CI runner Step 4 is expected to pass (code fix);
-Step 11 is expected to pass once `pip install` resolves Pillow>=12.3.
-
+  - Step 11: local environment Pillow CVEs; CI pip resolves Pillow>=12.3.
 Usage:
   python scripts/release_gate.py
+
+Exit codes:
+  0 — all local gate steps passed
+  1 — one or more local gate steps failed
 """
 
 from __future__ import annotations
@@ -73,7 +67,6 @@ def step(num: int, title: str, cmd: list[str] | str, *, timeout: int = 120,
 def main() -> int:
     global EXIT_CODE
     EXIT_CODE = 0
-
 
     print("=" * 60)
     print("Release Gate — bami-content-fabric")

@@ -247,8 +247,18 @@ def _inject_svg_input_meta(entry: dict[str, Any]) -> dict[str, Any]:
     return entry
 
 def now_iso() -> str:
+    """Return deterministic ISO timestamp if SOURCE_DATE_EPOCH or BAMI_BUILD_TIMESTAMP
+    is set, else datetime.now()."""
+    import os
+    ts = os.environ.get("BAMI_BUILD_TIMESTAMP") or os.environ.get("SOURCE_DATE_EPOCH")
+    if ts:
+        try:
+            from datetime import timezone
+            epoch = int(ts)
+            return datetime.fromtimestamp(epoch, tz=timezone.utc).isoformat(timespec="seconds")
+        except (ValueError, OSError):
+            pass
     return datetime.now().isoformat(timespec="seconds")
-
 
 def load_manifest() -> dict[str, Any]:
     with MANIFEST_PATH.open("r", encoding="utf-8") as f:
@@ -913,7 +923,7 @@ def archive(force: bool) -> None:
         dst = RAW_ARCHIVE_DIR / src.name
         if dst.exists():
             base = dst.stem
-            dst = RAW_ARCHIVE_DIR / f"{base}-{datetime.now().strftime('%Y%m%d-%H%M%S')}{dst.suffix}"
+            dst = RAW_ARCHIVE_DIR / f"{base}-{now_iso().replace(':', '-')}{dst.suffix}"
         shutil.move(str(src), str(dst))
         entry["archived"] = True
         entry["archived_path"] = rel_to_root(dst)

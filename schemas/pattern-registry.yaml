@@ -51,7 +51,6 @@ entries:
           native:
             injector_id: folded-arrow-horizontal
             injector_version: 1.0.0
-          slidev: null  # not yet implemented in Slidev
         features:
           native_editable: true
           requires_mermaid: false
@@ -77,7 +76,6 @@ entries:
           native:
             injector_id: block-arrow-horizontal
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -103,7 +101,6 @@ entries:
           native:
             injector_id: simple-arrow-horizontal
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -145,7 +142,6 @@ entries:
           native:
             injector_id: circular-process-loop
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -170,7 +166,6 @@ entries:
           native:
             injector_id: circle-steps
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -211,7 +206,6 @@ entries:
           native:
             injector_id: kpi-dashboard-grid
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -244,7 +238,6 @@ entries:
           native:
             injector_id: quadrant-matrix
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -269,7 +262,6 @@ entries:
           native:
             injector_id: quadrant-swot
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -305,7 +297,6 @@ entries:
           native:
             injector_id: funnel-diagram
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -330,7 +321,6 @@ entries:
           native:
             injector_id: funnel-conversion
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -355,7 +345,6 @@ entries:
           native:
             injector_id: funnel-diagram
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -390,7 +379,6 @@ entries:
           native:
             injector_id: comparison-table
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -422,7 +410,6 @@ entries:
           native:
             injector_id: tier-pricing-cards
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -454,7 +441,6 @@ entries:
           native:
             injector_id: maturity-model-ladder
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -486,7 +472,6 @@ entries:
           native:
             injector_id: case-study-card
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -524,7 +509,6 @@ entries:
           native:
             injector_id: checklist-status
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false
@@ -566,7 +550,6 @@ entries:
           native:
             injector_id: quote-testimonial-card
             injector_version: 1.0.0
-          slidev: null
         features:
           native_editable: true
           requires_mermaid: false

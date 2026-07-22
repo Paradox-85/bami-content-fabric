@@ -3,7 +3,10 @@
   "title": "BAMi SVG Variant Index Schema",
   "description": "JSON Schema for templates/media/reference/library/svg-variant-index.yaml. Validates the machine-readable index of classified SVGs with variant group metadata.",
   "type": "object",
-  "required": ["format_version", "groups"],
+  "required": [
+    "format_version",
+    "groups"
+  ],
   "properties": {
     "format_version": {
       "type": "string",
@@ -18,7 +21,10 @@
       "description": "Variant groups keyed by group_id (derived from set_slug_hex_hash)",
       "additionalProperties": {
         "type": "object",
-        "required": ["canonical_category", "members"],
+        "required": [
+          "canonical_category",
+          "members"
+        ],
         "properties": {
           "canonical_category": {
             "type": "string",
@@ -26,7 +32,11 @@
           },
           "style_axis": {
             "type": "string",
-            "enum": ["color", "format", "none"],
+            "enum": [
+              "color",
+              "format",
+              "none"
+            ],
             "description": "Axis of visual variation within this group"
           },
           "selectable_for_random": {
@@ -44,7 +54,9 @@
             "minItems": 1,
             "items": {
               "type": "object",
-              "required": ["filename"],
+              "required": [
+                "filename"
+              ],
               "properties": {
                 "filename": {
                   "type": "string",
@@ -65,7 +77,10 @@
                 },
                 "keep": {
                   "type": "string",
-                  "enum": ["Y", "N"],
+                  "enum": [
+                    "Y",
+                    "N"
+                  ],
                   "description": "Whether to keep this file in the library"
                 },
                 "review_status": {
@@ -75,6 +90,41 @@
                 "review_reason": {
                   "type": "string",
                   "description": "Explanation for review status decision"
+                },
+                "evidence": {
+                  "type": "object",
+                  "description": "Evidence supporting classification/review",
+                  "properties": {
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "checked_in_filename_keyword",
+                        "checked_in_registry_provenance",
+                        "human_visual_review",
+                        "quarantine_review_required"
+                      ],
+                      "description": "How this classification was determined"
+                    },
+                    "reviewer": {
+                      "type": "string",
+                      "description": "Person who performed the review"
+                    },
+                    "review_date": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "description": "Date of review (ISO 8601 date only)"
+                    },
+                    "checksum": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$",
+                      "description": "SHA-256 checksum of the source SVG file"
+                    },
+                    "provenance": {
+                      "type": "string",
+                      "description": "Provenance trail or source reference"
+                    }
+                  },
+                  "additionalProperties": false
                 }
               },
               "additionalProperties": false

@@ -1,0 +1,37 @@
+{
+  "title": "KPI Dashboard Grid — Build Parity Test",
+  "description": "Explicit inject-pattern block routed through kpi-dashboard-grid native injector",
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "hero": "KPI Dashboard Grid"
+      }
+    },
+    {
+      "template": "content",
+      "fields": {
+        "title": "Key Metrics"
+      },
+      "blocks": [
+        {
+          "kind": "inject-pattern",
+          "canonical_id": "kpi-dashboard-grid",
+          "x": 0.5,
+          "y": 1.5,
+          "w": 9.5,
+          "h": 4.0,
+          "cards": [
+            {"number": "42", "label": "Revenue", "delta": "+12%", "period": "Q3"},
+            {"number": "98%", "label": "Uptime", "delta": "+0.5%"},
+            {"number": "1.2k", "label": "Users", "delta": "+8%"}
+          ]
+        }
+      ]
+    },
+    {
+      "template": "closing",
+      "fields": {}
+    }
+  ]
+}

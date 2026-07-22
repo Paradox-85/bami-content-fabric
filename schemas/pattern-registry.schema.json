@@ -153,7 +153,53 @@
                     "min_step_width_in": {"type": "number", "minimum": 0},
                     "brand_adaptive": {"type": "boolean"},
                     "reference_asset_required": {"type": "boolean"},
-                    "provenance_id": {"type": "string"}
+                    "provenance_id": {"type": "string"},
+                    "visual_fidelity": {
+                      "type": "string",
+                      "enum": ["high-fidelity", "acceptable-simplification", "low-fidelity", "semantic-only", "placeholder"],
+                      "description": "Visual fidelity classification vs reference SVG asset"
+                    },
+                    "render_mode": {
+                      "type": "string",
+                      "enum": ["native", "svg", "hybrid", "mermaid"],
+                      "description": "How this variant is rendered in the PPTX output"
+                    },
+                    "reference_asset_id": {
+                      "type": "string",
+                      "description": "ID of the reference SVG asset for visual comparison"
+                    },
+                    "required_icon_count": {
+                      "type": "integer", "minimum": 0,
+                      "description": "Number of distinct icon/glyph shapes required"
+                    },
+                    "required_layer_count": {
+                      "type": "integer", "minimum": 1,
+                      "description": "Number of visual layers required (background, shapes, text, connectors)"
+                    },
+                    "required_colour_roles": {
+                      "type": "integer", "minimum": 1,
+                      "description": "Minimum distinct colour roles required (e.g. primary, accent, neutral, bg)"
+                    },
+                    "required_connector_style": {
+                      "type": "string",
+                      "description": "Expected connector visual style (e.g. arrow-line, chevron, arc, none)"
+                    },
+                    "required_background_regions": {
+                      "type": "integer", "minimum": 0,
+                      "description": "Number of distinct background regions/shapes"
+                    },
+                    "required_depth_effects": {
+                      "type": "string",
+                      "description": "Comma-separated depth effects used (e.g. shadow, gradient, 3d-rotation)"
+                    },
+                    "minimum_graphical_occupancy": {
+                      "type": "number", "minimum": 0.0, "maximum": 1.0,
+                      "description": "Minimum fraction of slide area that should be covered by graphical elements"
+                    },
+                    "maximum_text_to_graphics_ratio": {
+                      "type": "number", "minimum": 0.0,
+                      "description": "Maximum ratio of text area to graphical shape area"
+                    }
                   },
                   "additionalProperties": false
                 }

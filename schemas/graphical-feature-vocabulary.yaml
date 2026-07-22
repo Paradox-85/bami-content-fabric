@@ -76,3 +76,86 @@ provenance_id:
     metadata under templates/media/reference/library/pattern-assets.yaml.
   type: string
   nullable: true
+
+# --- Visual fidelity ---
+visual_fidelity:
+  description: >
+    Visual fidelity classification of this variant vs its reference SVG asset.
+    Classification must be determined by human visual comparison or automated
+    structural comparison, not assumed.
+  type: string
+  enum: [high-fidelity, acceptable-simplification, low-fidelity, semantic-only, placeholder]
+  default: placeholder
+
+render_mode:
+  description: How this variant is rendered in the PPTX output.
+    'native' = PPTX shapes only; 'svg' = embedded SVG; 'hybrid' = native + SVG;
+    'mermaid' = rendered via Mermaid CLI.
+  type: string
+  enum: [native, svg, hybrid, mermaid]
+  default: native
+
+reference_asset_id:
+  description: Stable identifier of the reference SVG asset used for visual
+    comparison. Should match a filename stem under templates/media/reference/
+    or a key in pattern-assets.yaml.
+  type: string
+  nullable: true
+
+# --- Visual complexity metadata ---
+required_icon_count:
+  description: Number of distinct icon/glyph shapes the variant layout requires.
+  type: integer
+  minimum: 0
+  default: 0
+
+required_layer_count:
+  description: Number of distinct visual layers (background, shapes, text,
+    connectors) in the variant composition.
+  type: integer
+  minimum: 1
+  default: 2
+
+required_colour_roles:
+  description: Minimum number of distinct colour roles the variant uses
+    (e.g. primary, accent, neutral, background).
+  type: integer
+  minimum: 1
+  default: 1
+
+required_connector_style:
+  description: Expected connector visual style.
+  type: string
+  enum: [arrow-line, chevron, arc, none, dashed-line, curved-arrow]
+  default: none
+
+required_background_regions:
+  description: Number of distinct background regions/shapes the variant
+    creates (e.g. cards, filled areas, bars).
+  type: integer
+  minimum: 0
+  default: 0
+
+required_depth_effects:
+  description: Comma-separated list of depth effects used
+    (e.g. shadow, gradient, 3d-rotation, bevel).
+  type: string
+  default: ""
+
+minimum_graphical_occupancy:
+  description: Minimum fraction (0.0–1.0) of the slide area that should be
+    covered by graphical elements (shapes, images, connectors) as opposed
+    to whitespace or text-only regions.
+  type: number
+  minimum: 0.0
+  maximum: 1.0
+  default: 0.15
+
+maximum_text_to_graphics_ratio:
+  description: Maximum ratio of text-shape area to graphical-shape area.
+    A high ratio indicates a text-heavy slide; a low ratio indicates
+    a graphics-heavy slide.
+  type: number
+  minimum: 0.0
+  default: 5.0
+  nullable: true

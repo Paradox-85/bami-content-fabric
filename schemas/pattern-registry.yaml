@@ -18,7 +18,7 @@
 #     yet default, "disabled" = intentionally not deployed.
 # ============================================================================
 
-registry_version: 1.0.0
+registry_version: 1.1.0
 description: >-
   Versioned graphical pattern registry for Branch B (python-pptx).
   Maps selection families → versioned graphical templates with
@@ -63,6 +63,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 4
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: arrow-line
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.25
+          maximum_text_to_graphics_ratio: 2.0
         graphical_variant_description: >-
           Numbered circles joined by right-arrow connectors (circles-and-arrows
           style, not a continuous folded ribbon). Each step is a filled circle
@@ -88,6 +99,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 4
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: arrow-line
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.25
+          maximum_text_to_graphics_ratio: 2.0
         graphical_variant_description: >-
           Horizontal block arrows with numbered rounded rectangles. Each step is a
           filled rounded-rectangle block with a white numeral; adjacent blocks joined
@@ -113,6 +135,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 3
+          required_layer_count: 1
+          required_colour_roles: 2
+          required_connector_style: arrow-line
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.15
+          maximum_text_to_graphics_ratio: 3.0
         graphical_variant_description: >-
           Minimalist horizontal process with small filled circles and thin straight
           connectors. Each step has a white numeral in a smaller circle. Designed for
@@ -178,6 +211,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: circle-step-infographic_a05527
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 5
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: arc
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.20
+          maximum_text_to_graphics_ratio: 2.5
         graphical_variant_description: >-
           Numbered circle-step diagram with connector lines between nodes.
           Each step has a numbered circle and a label. Designed for 3-6 items.
@@ -218,6 +262,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: KPI_Dashboard_Infographic_1296eb
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 1
+          required_colour_roles: 2
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.10
+          maximum_text_to_graphics_ratio: 5.0
 
   # --------------------------------------------------------------------------
   # Quadrant matrix — legacy entry with placeholder contract
@@ -250,6 +305,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Matrix_Infographic_Asset_b1c877
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 4
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.25
+          maximum_text_to_graphics_ratio: 3.0
         graphical_variant_description: >-
           Standard 2x2 quadrant matrix with four equally-sized cells,
           accent top bars, axis labels, and body text. Designed for 3-4
@@ -274,6 +340,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: swot-infographic_9b81b0
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 4
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.25
+          maximum_text_to_graphics_ratio: 4.0
         graphical_variant_description: >-
           SWOT quadrant matrix with color-coded headers (green=Strengths,
           red=Weaknesses, blue=Opportunities, amber=Threats), labelled
@@ -309,6 +386,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Funnel_Diagram_Infographic_8c475a
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 3
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.20
+          maximum_text_to_graphics_ratio: 2.0
         graphical_variant_description: >-
           Classic vertical funnel with stacked centered descending rectangular
           bars. Each segment narrows toward the bottom. Designed for 3-8 stages.
@@ -333,6 +421,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: conversion-path-infographics_5f45bf
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: arrow-line
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.15
+          maximum_text_to_graphics_ratio: 2.5
         graphical_variant_description: >-
           Horizontal conversion pipeline with labelled stages.
           Designed for 3-7 conversion stages.
@@ -357,6 +456,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: sales-growth-infographic_9fe6f5
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 3
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.20
+          maximum_text_to_graphics_ratio: 2.5
         graphical_variant_description: >-
           Sales growth funnel with labeled segments.
           Designed for 2-6 growth stages.
@@ -391,6 +501,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Comparison_Table_Infographic_cb70fc
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 1
+          required_colour_roles: 2
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.10
+          maximum_text_to_graphics_ratio: 5.0
 
   # --------------------------------------------------------------------------
   # Tier pricing cards — legacy entry with placeholder contract
@@ -422,6 +543,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Prize_Table_Infographic_Asset_d66c15
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 3
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.15
+          maximum_text_to_graphics_ratio: 4.0
 
   # --------------------------------------------------------------------------
   # Maturity model ladder — legacy entry with placeholder contract
@@ -453,6 +585,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Ladder_–_Infographics_Design_093443
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 3
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.15
+          maximum_text_to_graphics_ratio: 4.0
 
   # --------------------------------------------------------------------------
   # Case study card — legacy entry with placeholder contract
@@ -484,6 +627,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: Case_Study_ce7a8d
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.30
+          maximum_text_to_graphics_ratio: 3.0
 
   # --------------------------------------------------------------------------
   # Checklist / status tracker — Pass 4
@@ -521,6 +675,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: false
           provenance_id: Checklist_Status_Checkmark_d83e2f
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 3
+          required_layer_count: 1
+          required_colour_roles: 4
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.10
+          maximum_text_to_graphics_ratio: 5.0
         graphical_variant_description: >-
           Vertical checklist with labelled items and colour-coded status
           icons (checkmark, progress circle, empty circle) for done,
@@ -562,6 +727,17 @@ entries:
           brand_adaptive: true
           reference_asset_required: false
           provenance_id: Quote_Testimonial_Card_Default_9a1c77
+          visual_fidelity: placeholder  # TBD — requires human classification
+          render_mode: native
+          reference_asset_id: ~
+          required_icon_count: 0
+          required_layer_count: 2
+          required_colour_roles: 2
+          required_connector_style: none
+          required_background_regions: 0
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.20
+          maximum_text_to_graphics_ratio: 3.0
         graphical_variant_description: >-
           Quote/testimonial card with large opening mark, quoted text,
           left accent line (configurable), attribution, and role line.

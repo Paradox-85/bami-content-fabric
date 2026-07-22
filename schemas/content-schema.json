@@ -71,6 +71,42 @@
             "type": "string",
             "description": "Reference to a JSON Schema contract for validation"
           },
+          "visual_variant": {
+            "type": "string",
+            "description": "Visual variant identifier (e.g. icon-led-2x2, hub-and-spokes, maturity-ladder)"
+          },
+          "illustration_mode": {
+            "type": "string",
+            "description": "Illustration mode for this slide (e.g. icon-cards, hub-and-spokes, staged-arrow)"
+          },
+          "icon_set": {
+            "type": "string",
+            "description": "Icon set used for decorative/glyph elements"
+          },
+          "depth": {
+            "type": "string",
+            "description": "Visual depth treatment (e.g. flat, layered, 3d)"
+          },
+          "gradient_mode": {
+            "type": "string",
+            "description": "Gradient treatment (e.g. none, brand-linear, soft)"
+          },
+          "background_mode": {
+            "type": "string",
+            "description": "Background region treatment (e.g. solid, card, transparent)"
+          },
+          "connector_style": {
+            "type": "string",
+            "description": "Connector visual style (e.g. arrow-line, chevron, arc, none)"
+          },
+          "graphical_density": {
+            "type": "string",
+            "description": "Graphical density level (e.g. sparse, balanced, rich)"
+          },
+          "render_fidelity_required": {
+            "type": "string",
+            "description": "Minimum visual fidelity required (high-fidelity, acceptable-simplification, low-fidelity)"
+          },
           "blocks": {
             "type": "array",
             "items": {

@@ -1,0 +1,69 @@
+# Visual Contract: numbered-process-steps / default-step-sequence v1
+contract_version: 1.0.0
+family: numbered-process-steps
+variant: default-step-sequence
+
+reviewed_references:
+  - asset_id: infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002
+    sha256: 82272e30570a5f479d0417c0192dca69d80c29dfe1eb345dc6ae8169076fa83a
+    preview_path: build/fidelity/reviewed-svg-previews/numbered-process-steps-default-step-sequence-ref.png
+
+silhouette_class: linear-horizontal
+
+trajectory:
+  dominant_axis: horizontal
+  direction: left-to-right
+  shape_class: step-line  # discrete step positions connected by a path, not a continuous ribbon
+
+region_structure:
+  region_count_min: 3
+  region_count_max: 7
+  region_arrangement: side-by-side
+
+layering:
+  layer_count_min: 2
+  layer_descriptions:
+    - Background step containers/markers (circles, blocks, or shapes for each step)
+    - Foreground numerals, labels, optional connector arrows
+
+visual_rhythm:
+  pattern_type: repeating
+  alternation_axis: horizontal
+  description: Equal-spaced step positions marching left-to-right, each with a numbered marker and label
+
+must_preserve:
+  - Linear left-to-right sequential topology
+  - Discrete step markers (circles or blocks) for each step position
+  - Sequential numbering on each marker
+  - Labels associated with each step
+  - Connector paths between consecutive steps
+  - Consistent step spacing/rhythm
+
+may_simplify:
+  - Exact decorative icon content within step markers
+  - Exact connector arrow styling (may use simple arrow lines)
+  - Background decorative elements
+  - Font/typeface detail
+
+forbidden_outputs:
+  - Radial or loop topology
+  - Gantt/matrix table
+  - Flat bullet list
+  - Circular/cyclic process
+  - Equal-sized cards without step trajectory
+  - Raster image fallback
+
+required_roles:
+  - step_number
+  - step_label
+  - connector_arrow
+
+required_regions:
+  - step_marker_region
+  - step_label_region
+  - connector_channel
+
+required_connectors:
+  - type: arrow
+    description: Connector arrow between consecutive steps
+    min_count: 1

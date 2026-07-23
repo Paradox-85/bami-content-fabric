@@ -530,6 +530,19 @@ def plan_route(
                 fallback_used = fb["fallback_used"]
                 fallback_reason = fb["fallback_reason"]
                 semantic_loss = fb["semantic_loss"]
+            # -- Topology substitution diagnostic for roadmap --
+            # If roadmap is selected but native injector is not available,
+            # add a clear warning about topology substitution risk.
+            if sel.family == "roadmap-with-milestones" and injector_id is None:
+                warnings.append(
+                    "roadmap-with-milestones selected but native injector unavailable: "
+                    "fallback would substitute Gantt topology. This is now forbidden. "
+                    "Content must provide valid phases/milestones or use explicit inject-pattern."
+                )
+                errors.append(
+                    "roadmap-with-milestones requires native injector; "
+                    "Gantt fallback is explicitly blocked. Use explicit inject-pattern with phases."
+                )
 
             return RoutePlan(
                 family=sel.family,

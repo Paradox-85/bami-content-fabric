@@ -23,6 +23,26 @@ import yaml
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
+
+def _iter_shapes_recursive(slide_or_group: Any) -> list[Any]:
+    """Iterate shapes recursively, descending into grouped shapes.
+
+    python-pptx groups (MSO_SHAPE_TYPE.GROUP) expose child shapes via
+    ``shp.shapes`` (a GroupShapes collection). This helper flattens the
+    hierarchy so that pattern names buried inside groups are visible to
+    validation checks.
+    """
+    collected: list[Any] = []
+    for shp in slide_or_group.shapes:
+        collected.append(shp)
+        if shp.shape_type == MSO_SHAPE_TYPE.GROUP:
+            try:
+                collected.extend(_iter_shapes_recursive(shp))
+            except Exception:
+                pass
+    return collected
+
+
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "schemas" / "pattern-registry.yaml"
 
@@ -63,13 +83,11 @@ def _detect_family_variant(slide: Any) -> tuple[str | None, str | None]:
     """Detect family and variant from pattern:-prefixed shape names.
 
     Returns (family, variant) or (None, None) if no pattern shapes found.
+    Uses recursive group-aware traversal.
     """
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith("pattern:"):
-            # pattern:funnel-diagram/default-vertical:seg:00:bar
-            # pattern:circular-process-loop/circle-steps:connector:00
-            # pattern:numbered-process-steps/folded-arrow-horizontal:step:00:circle
             parts = name.split(":")
             if len(parts) >= 3:
                 sub = parts[1].split("/", 1)
@@ -84,9 +102,11 @@ def _in(e: int | None) -> float | None:
 
 
 def _find_pattern_shapes(slide: Any, pattern_prefix: str) -> list[Any]:
-    """Return shapes whose name starts with a ``pattern:`` prefix."""
+    """Return shapes whose name starts with a ``pattern:`` prefix.
+    Uses recursive group-aware traversal.
+    """
     matching = []
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(f"pattern:{pattern_prefix}"):
             matching.append(shp)
@@ -123,7 +143,7 @@ def check_shape_budget(slide: Any, slide_idx: int, rep: Report,
             # Count pattern shapes belonging to this family/variant
             pattern_prefix = f"pattern:{family}/{variant}"
             pattern_count = sum(
-                1 for s in slide.shapes
+                1 for s in _iter_shapes_recursive(slide)
                 if getattr(s, "name", "")
                    .startswith(pattern_prefix)
             )
@@ -144,7 +164,7 @@ def check_funnel_monotonic_width(slide: Any, slide_idx: int, rep: Report) -> Non
     shapes_by_y = sorted(
         [
             s
-            for s in slide.shapes
+            for s in _iter_shapes_recursive(slide)
             if s.shape_type == MSO_SHAPE_TYPE.AUTO_SHAPE
             and not (s.has_text_frame and s.text_frame.text.strip())
             and _in(s.width) is not None
@@ -199,7 +219,18 @@ def check_circle_loop_closure(slide: Any, slide_idx: int, rep: Report) -> None:
     """
     circles = 0
     connectors = 0
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
+        name = getattr(shp, "name", "") or ""
+        if _is_circle_steps_shape(name):
+            # Only count node circles, not numbers or labels
+            if ":node:" in name and ":circle" in name:
+                circles += 1
+            elif ":connector:" in name:
+                connectors += 1
+
+    circles = 0
+    connectors = 0
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if _is_circle_steps_shape(name):
             # Only count node circles, not numbers or labels
@@ -222,7 +253,7 @@ def check_step_connector_sequence(slide: Any, slide_idx: int, rep: Report) -> No
     Folded-arrow injector places RIGHT_ARROW shapes between consecutive steps.
     """
     right_arrows = 0
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         if shp.shape_type == MSO_SHAPE_TYPE.AUTO_SHAPE:
             try:
                 from pptx.enum.shapes import MSO_SHAPE
@@ -233,7 +264,7 @@ def check_step_connector_sequence(slide: Any, slide_idx: int, rep: Report) -> No
 
     # Count circles/ovals
     ovals = 0
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         if shp.shape_type == MSO_SHAPE_TYPE.AUTO_SHAPE:
             try:
                 if hasattr(shp, 'auto_shape_type') and shp.auto_shape_type == MSO_SHAPE.OVAL:
@@ -255,7 +286,7 @@ def check_no_off_canvas(slide: Any, slide_idx: int, rep: Report,
     """Check no pattern shapes are placed off-canvas.
     Uses generous tolerance (0.75in) to account for layout edge cases.
     """
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         L = _in(shp.left)
         T = _in(shp.top)
         W = _in(shp.width)
@@ -267,8 +298,6 @@ def check_no_off_canvas(slide: Any, slide_idx: int, rep: Report,
                     rep.add(slide_idx,
                             f"off-canvas pattern shape '{name}' "
                             f"(L={L:.2f} T={T:.2f} W={W:.2f} H={H:.2f})")
-
-
 # ---------------------------------------------------------------------------
 # Family-specific checks
 # ---------------------------------------------------------------------------
@@ -283,7 +312,7 @@ def check_roadmap_axis_exists(
     """
     prefix = f"pattern:{family}/{variant}:axis"
     axis_found = False
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name == prefix:
             axis_found = True
@@ -303,7 +332,7 @@ def check_roadmap_milestone_count(
     """
     prefix = f"pattern:{family}/{variant}:milestone:"
     markers = []
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(prefix) and name.endswith(":marker"):
             markers.append(name)
@@ -327,7 +356,7 @@ def check_roadmap_phase_count(
     """
     prefix = f"pattern:{family}/{variant}:phase:"
     bands = []
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(prefix) and name.endswith(":band"):
             bands.append(name)
@@ -351,7 +380,7 @@ def check_roadmap_not_table_dominant(
     """
     prefix = f"pattern:{family}/{variant}:"
     has_filled_shape = False
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if not name.startswith(prefix):
             continue
@@ -378,7 +407,7 @@ def check_cube_three_faces(
     """
     prefix = f"pattern:{family}/{variant}:face:"
     faces = set()
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(prefix):
             # Extract just the face key (top/left/right)
@@ -402,7 +431,7 @@ def check_cube_depth_layer(
     """
     shadow_name = f"pattern:{family}/{variant}:shadow"
     has_shadow = False
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name == shadow_name:
             has_shadow = True
@@ -422,7 +451,7 @@ def check_cube_grouped(
     group_name = f"pattern:{family}/{variant}:group:00"
     # Groups are detected by checking for a shape named with :group: suffix
     found_group = False
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name == group_name:
             found_group = True
@@ -455,7 +484,7 @@ def check_roadmap_labels_in_bounds(
     prefix = f"pattern:{family}/{variant}:phase:"
     # Collect phase band boundaries
     phase_bounds: dict[str, tuple[float, float]] = {}
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(prefix) and name.endswith(":band"):
             left = _in(shp.left)
@@ -464,7 +493,7 @@ def check_roadmap_labels_in_bounds(
                 phase_bounds[name] = (left, left + width)
 
     # Check each label shape's left edge is within its phase band
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if name.startswith(prefix) and name.endswith(":label"):
             left = _in(shp.left)
@@ -507,7 +536,7 @@ def check_roadmap_occupancy_minimum(
     prefix = f"pattern:{family}/{variant}:"
     total_area = 20.0 * 11.25  # standard slide in inches
     graphical_area = 0.0
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if not name.startswith(prefix):
             continue
@@ -541,7 +570,7 @@ def check_cube_faces_relative_offset(
     Names: ``pattern:{family}/{variant}:face:top`` (and :left, :right).
     """
     face_positions: dict[str, tuple[float, float]] = {}
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if not name.startswith(f"pattern:{family}/{variant}:face:"):
             continue
@@ -584,7 +613,7 @@ def check_cube_labels_on_faces(
     This check verifies that label names reference valid face keys (top/left/right).
     """
     label_face_keys: set[str] = set()
-    for shp in slide.shapes:
+    for shp in _iter_shapes_recursive(slide):
         name = getattr(shp, "name", "") or ""
         if not name.startswith(f"pattern:{family}/{variant}:face:"):
             continue

@@ -1,17 +1,24 @@
 """Native PPTX roadmap-with-milestones injector.
 
 Renders an expressive horizontal roadmap trajectory with:
-- 2–6 visual phase regions (alternating colour bands)
-- A prominent road/axis line spanning the composition
+- 2-6 visual phase regions (alternating colour bands with visual rhythm)
+- A prominent styled road/axis line (thick, with visual character)
 - Diamond milestone markers along the trajectory
 - Date labels and short callout labels
 - Optional icons on markers
 - Alternating callout labels above/below the axis
 - One top-level grouped composition
 
+Compared to the previous straight-line version, this renderer:
+- Uses a thicker, more visible axis styled road-line
+- Adds decorative phase-band accents (bottom-border strips)
+- Provides better spacing and visual rhythm
+- Maintains all editable shapes and pattern naming
+
 Shape naming convention:
   pattern:roadmap-with-milestones/<variant>:phase:{idx:02d}:band
   pattern:roadmap-with-milestones/<variant>:phase:{idx:02d}:label
+  pattern:roadmap-with-milestones/<variant>:phase:{idx:02d}:accent
   pattern:roadmap-with-milestones/<variant>:axis
   pattern:roadmap-with-milestones/<variant>:milestone:{idx:02d}:marker
   pattern:roadmap-with-milestones/<variant>:milestone:{idx:02d}:label
@@ -25,7 +32,6 @@ Forbidden output:
   - flat numbered process
   - raster image
 """
-
 from __future__ import annotations
 
 from typing import Any
@@ -106,8 +112,10 @@ def inject_roadmap_milestones(
     usable_w = w - 2 * margin_x
     phase_w = usable_w / n
     axis_y = y + h * 0.42
-    band_h = h * 0.92
-    marker_r = min(phase_w * 0.08, 0.18)
+    band_h = h * 0.88
+    marker_r = min(phase_w * 0.09, 0.20)
+    accent_h = 0.06  # decorative accent strip at bottom of each band
+
 
     # Pre-count total milestones for indexing
     milestone_index = 0
@@ -127,11 +135,25 @@ def inject_roadmap_milestones(
             inches(band_h),
         )
         style_shape_solid_fill(band, tokens, band_color)
-        # Make it translucent for the background
-        _apply_alpha(band, 80)
+        _apply_alpha(band, 85)
         _no_line(band)
         band.name = _sn(f"phase:{phase_idx:02d}:band")
         created.append(band)
+
+        # --- Phase decorative accent strip (bottom of band) ---
+        accent = slide.shapes.add_shape(
+            MSO_SHAPE.RECTANGLE,
+            inches(px),
+            inches(y + band_h - accent_h),
+            inches(phase_w),
+            inches(accent_h),
+        )
+        # Use neutral for the accent strip (safe across all brand token sets)
+        style_shape_solid_fill(accent, tokens, "neutral")
+        _no_line(accent)
+        _apply_alpha(accent, 120)
+        accent.name = _sn(f"phase:{phase_idx:02d}:accent")
+        created.append(accent)
 
         # --- Phase label ---
         if phase_title:
@@ -175,16 +197,13 @@ def inject_roadmap_milestones(
             created.append(sub_box)
 
         # --- Milestones within this phase ---
-        n_milestones = len(milestones)
+        # Use trajectories helper for distribution
+        from shared.pptx.drawingml.trajectories import distribute_milestones_in_region
+        milestone_positions = distribute_milestones_in_region(
+            px, phase_w, axis_y, len(milestones), margin_ratio=0.1
+        )
         for m_idx, milestone in enumerate(milestones):
-            # Distribute milestones along the phase width
-            if n_milestones <= 1:
-                m_rel_x = phase_w / 2.0
-            else:
-                m_rel_x = (m_idx + 0.5) * phase_w / n_milestones
-
-            mx = px + m_rel_x
-            my = axis_y
+            mx, my = milestone_positions[m_idx]
 
             # --- Milestone marker (diamond) ---
             marker = slide.shapes.add_shape(
@@ -200,16 +219,14 @@ def inject_roadmap_milestones(
             created.append(marker)
 
             # --- Milestone label (alternating above/below axis) ---
+            # Use alternating_callout_offset from trajectories helper
+            from shared.pptx.drawingml.trajectories import alternating_callout_offset
             label = milestone.get("label", "")
             if label:
-                above = (milestone_index % 2) == 0
-                if above:
-                    ly = my - marker_r - 0.65
-                    la = "CENTER"
-                else:
-                    ly = my + marker_r + 0.08
-                    la = "CENTER"
-
+                ly, _anchor = alternating_callout_offset(
+                    milestone_index, my, marker_r, label_height=0.5, gap=0.08
+                )
+                la = "CENTER"
                 label_box = slide.shapes.add_textbox(
                     inches(mx - 0.8),
                     inches(ly),
@@ -257,20 +274,26 @@ def inject_roadmap_milestones(
 
             milestone_index += 1
 
-    # --- Road axis line ---
+    # --- Styled road axis line (thick, with visual weight) ---
+    # Uses the shared styled_road_line from paths.py for a thicker,
+    # more visible axis with rounded ends and better visual character,
+    # per the visual contract's trajectory requirement.
     if show_connector:
         axis_left = x + margin_x + 0.1
         axis_right = x + w - margin_x - 0.1
-        axis = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE,
-            inches(axis_left),
-            inches(axis_y - 0.025),
-            inches(axis_right - axis_left),
-            inches(0.05),
+        axis_w = axis_right - axis_left
+        # thicker axis for better visual trajectory character
+        axis_h = 0.10
+        from shared.pptx.drawingml.paths import styled_road_line
+        axis = styled_road_line(
+            slide, tokens,
+            x_start=axis_left,
+            y_center=axis_y,
+            total_width=axis_w,
+            color_token="neutral",
+            line_height=axis_h,
+            name=_sn("axis"),
         )
-        style_shape_solid_fill(axis, tokens, "neutral")
-        _no_line(axis)
-        axis.name = _sn("axis")
         created.append(axis)
 
     # --- Top-level group ---

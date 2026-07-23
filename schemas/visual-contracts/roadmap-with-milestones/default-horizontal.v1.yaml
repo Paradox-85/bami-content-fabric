@@ -1,0 +1,73 @@
+# Visual Contract: roadmap-with-milestones / default-horizontal v1
+contract_version: 1.0.0
+family: roadmap-with-milestones
+variant: default-horizontal
+
+reviewed_references:
+  - asset_id: Timeline_Roadmap_Infographic_1c9830_Page_1_002
+    sha256: f6a439af7da3e46d24e33984020ca5f5397bed6af3364b1fbba5027babd7cdaf
+    reference_source: templates/media/reference/library/Envato_Timeline_Roadmap_Infographic_1c9830_Page_1_002.svg
+
+silhouette_class: horizontal-trajectory
+
+trajectory:
+  dominant_axis: horizontal
+  direction: left-to-right
+  shape_class: styled-road-line  # thick rounded-rect road-line (undulating pending trajectory primitive)
+
+region_structure:
+  region_count_min: 2
+  region_count_max: 6
+  region_arrangement: side-by-side
+
+layering:
+  layer_count_min: 3
+  layer_descriptions:
+    - Background/decorative region (phase bands with visual rhythm)
+    - Mid-ground trajectory axis and milestone markers
+    - Foreground labels, dates, callouts
+
+visual_rhythm:
+  pattern_type: alternating
+  alternation_axis: horizontal
+  description: Phase bands alternate/march horizontally; callout labels alternate above/below trajectory
+
+must_preserve:
+  - Horizontal forward trajectory (left-to-right chronological)
+  - Phase bands with alternating/appointed colour regions
+  - Trajectory axis with visual character (not a simple straight line; at minimum a thick styled road-line)
+  - Diamond or milestone markers on/connected to the trajectory
+  - Date labels associated with milestones
+  - Alternating callout labels above/below the axis
+  - Layered composition with background, mid-ground, foreground
+
+may_simplify:
+  - Exact SVG curvature of the undulating trajectory (the current thick styled road-line is an acceptable simplification)
+  - Decorative icon detail within markers
+  - Background decorative shapes that add visual depth but not semantic structure
+  - Exact font/typeface matching
+
+forbidden_outputs:
+  - Gantt table or task rows
+  - Flat numbered process steps
+  - "Plain straight-line-plus-circles (must have trajectory character: thick styled road-line, phase bands, alternating callouts)"
+  - Raster image fallback
+  - Equal-sized cards layout
+
+required_roles:
+  - phase_title
+  - milestone_label
+  - milestone_date
+  - phase_subtitle (optional but supported)
+
+required_regions:
+  - phase_background_band
+  - trajectory_axis
+  - milestone_marker
+  - callout_label_above
+  - callout_label_below
+
+required_connectors:
+  - type: trajectory-line
+    description: Main horizontal axis connecting all phases
+    min_count: 1

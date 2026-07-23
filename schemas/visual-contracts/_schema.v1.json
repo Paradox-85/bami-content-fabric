@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/visual-contracts/_schema.v1.json",
+  "title": "Visual Contract Schema v1",
+  "description": "Schema for family-specific visual contracts that capture stable grammar rather than exact coordinates.",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "family",
+    "variant",
+    "reviewed_references",
+    "silhouette_class",
+    "trajectory",
+    "layering",
+    "visual_rhythm",
+    "must_preserve",
+    "may_simplify",
+    "forbidden_outputs",
+    "required_roles",
+    "required_regions",
+    "required_connectors"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "description": "SemVer for this contract",
+      "pattern": "^1\\.[0-9]+\\.[0-9]+$"
+    },
+    "family": {
+      "type": "string",
+      "description": "Pattern family identifier"
+    },
+    "variant": {
+      "type": "string",
+      "description": "Graphical variant identifier"
+    },
+    "reviewed_references": {
+      "type": "array",
+      "description": "List of reviewed SVG references with metadata",
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "sha256"],
+        "properties": {
+          "asset_id": { "type": "string" },
+          "sha256": { "type": "string" },
+          "preview_path": { "type": "string" }
+        }
+      },
+      "minItems": 1
+    },
+    "silhouette_class": {
+      "type": "string",
+      "description": "Overall silhouette classification (horizontal-trajectory, radial, grid, vertical-ladder, etc.)"
+    },
+    "trajectory": {
+      "type": "object",
+      "required": ["dominant_axis", "direction", "shape_class"],
+      "properties": {
+        "dominant_axis": { "type": "string", "enum": ["horizontal", "vertical", "radial", "grid", "centered"] },
+        "direction": { "type": "string", "enum": ["left-to-right", "top-to-bottom", "clockwise", "center-outward", "none"] },
+        "shape_class": { "type": "string", "description": "e.g. straight-line, undulating, curved-arc, circular, interlocking" }
+      }
+    },
+    "region_structure": {
+      "type": "object",
+      "description": "How the visual space is divided into regions",
+      "properties": {
+        "region_count_min": { "type": "integer", "minimum": 1 },
+        "region_count_max": { "type": "integer", "minimum": 1 },
+        "region_arrangement": { "type": "string", "enum": ["side-by-side", "stacked", "nested", "radial-sectors", "overlapping"] }
+      }
+    },
+    "layering": {
+      "type": "object",
+      "required": ["layer_count_min", "layer_descriptions"],
+      "properties": {
+        "layer_count_min": { "type": "integer", "minimum": 1 },
+        "layer_descriptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "visual_rhythm": {
+      "type": "object",
+      "properties": {
+        "pattern_type": { "type": "string", "enum": ["alternating", "repeating", "graduated", "free-form", "none"] },
+        "alternation_axis": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "must_preserve": {
+      "type": "array",
+      "description": "Visual grammar features that MUST be preserved in native rendering",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "may_simplify": {
+      "type": "array",
+      "description": "Features that MAY be simplified or omitted",
+      "items": { "type": "string" }
+    },
+    "forbidden_outputs": {
+      "type": "array",
+      "description": "Output types/patterns that are FORBIDDEN as substitutes",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "required_roles": {
+      "type": "array",
+      "description": "Required semantic roles (e.g. title, phase, milestone, callout)",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "required_regions": {
+      "type": "array",
+      "description": "Required visual regions (e.g. phase-band, axis-zone, decorative-panel)",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "required_connectors": {
+      "type": "array",
+      "description": "Required connector/relationship structures",
+      "items": {
+        "type": "object",
+        "required": ["type", "description"],
+        "properties": {
+          "type": { "type": "string", "enum": ["trajectory-line", "arrow", "curve", "band", "none"] },
+          "description": { "type": "string" },
+          "min_count": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "minItems": 0
+    }
+  }
+}

@@ -140,7 +140,7 @@ manifest:
       color:
         auto_status: false
         palette: [primary, primary_dark, primary_mid, positive, warning]
-      fallback_chain: [phased-rollout-timeline, gantt-matrix]
+      fallback_chain: []  # No silent Gantt fallback — roadmap must fail explicitly if native injector cannot be used
       disallowed_when: [events-only-no-sections]
       rank: 90
 

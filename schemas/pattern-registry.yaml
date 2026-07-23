@@ -34,7 +34,7 @@ entries:
     status: enabled
     selection_version: 1.0.0
     family_metadata:
-      description: Linear numbered steps with optional bodies
+      description: Linear numbered steps with optional bodies — second pilot for reference-calibrated native rendering
       min_items: 3
       max_items:
         bami: 6
@@ -42,6 +42,8 @@ entries:
     default_graphical_variant: folded-arrow-horizontal  # deterministic default
     contracts:
       - schemas/contracts/numbered-process-steps.v1.json
+    visual_contracts:
+      - schemas/visual-contracts/numbered-process-steps/default-step-sequence.v1.yaml
     graphical_variants:
       - graphical_variant: folded-arrow-horizontal
         version: 1.0.0
@@ -63,9 +65,9 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
-          visual_fidelity: placeholder  # TBD — requires human classification
+          visual_fidelity: low-fidelity  # Working native renderer, not yet reference-calibrated
           render_mode: native
-          reference_asset_id: ""
+          reference_asset_id: "infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002"
           required_icon_count: 4
           required_layer_count: 2
           required_colour_roles: 2
@@ -99,9 +101,9 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
-          visual_fidelity: placeholder  # TBD — requires human classification
+          visual_fidelity: low-fidelity  # Working native renderer, not yet reference-calibrated
           render_mode: native
-          reference_asset_id: ""
+          reference_asset_id: "infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002"
           required_icon_count: 4
           required_layer_count: 2
           required_colour_roles: 2
@@ -135,9 +137,9 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: arrow-process-infographics_f8e31e
-          visual_fidelity: placeholder  # TBD — requires human classification
+          visual_fidelity: low-fidelity  # Working native renderer, not yet reference-calibrated
           render_mode: native
-          reference_asset_id: ""
+          reference_asset_id: "infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002"
           required_icon_count: 3
           required_layer_count: 1
           required_colour_roles: 2
@@ -758,6 +760,8 @@ entries:
     default_graphical_variant: default-horizontal
     contracts:
       - schemas/contracts/roadmap-with-milestones.v1.json
+    visual_contracts:
+      - schemas/visual-contracts/roadmap-with-milestones/default-horizontal.v1.yaml
     graphical_variants:
       - graphical_variant: default-horizontal
         version: 1.0.0
@@ -772,7 +776,7 @@ entries:
           requires_mermaid: false
           supports_body_text: false
           max_items: 6
-          shape_budget: 40
+          shape_budget: 60
           connector_budget: 8
           text_density: low
           min_step_width_in: 1.2
@@ -801,7 +805,7 @@ entries:
   # --------------------------------------------------------------------------
   - family: infographic-3d-cube
     version: 1.0.0
-    status: enabled
+    status: planned  # Downgraded from enabled — false binding: reference SVGs have radial/interlocking topology, not cube
     selection_version: 1.0.0
     family_metadata:
       description: Isometric cube with three visible faces, editable labels, and pseudo-depth
@@ -815,7 +819,7 @@ entries:
     graphical_variants:
       - graphical_variant: default-isometric
         version: 1.0.0
-        status: enabled
+        status: planned  # False cube binding; reference SVG topology is radial/interlocking, not isometric cube
         pattern_template_id: infographic-3d-cube/default-isometric@1.0.0
         renderer_binding:
           native:
@@ -833,7 +837,7 @@ entries:
           brand_adaptive: true
           reference_asset_required: true
           provenance_id: abstract-3d-business-infographic_197c72
-          visual_fidelity: acceptable-simplification
+          visual_fidelity: semantic-only  # Downgraded — topology mismatch confirmed
           render_mode: native
           reference_asset_id: "abstract-3d-business-infographic_197c72"
           required_icon_count: 0

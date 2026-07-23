@@ -141,3 +141,14 @@ assets:
   variant_group_key: Case_Study_ce7a8d
   source_svg: infographic_Case_Study_ce7a8d_Case_Study_005.svg
   library_svg: case-study-card/infographic_Case_Study_ce7a8d_Case_Study_005.svg
+- pattern_template_id: roadmap-with-milestones/default-horizontal@1.0.0
+  status: enabled
+  reference_asset_required: true
+  notes: >
+    SVG provenance available in roadmap-with-milestones/ category (26 curated SVGs).
+    Reference: Timeline_Roadmap_Infographic_1c9830.
+    Visual contract at schemas/visual-contracts/roadmap-with-milestones/default-horizontal.v1.yaml.
+  provenance_id: Timeline_Roadmap_Infographic_1c9830
+  variant_group_key: Timeline_Roadmap_Infographic_1c9830
+  source_svg: infographic_Timeline_Roadmap_Infographic_1c9830_Page_1_002.svg
+  library_svg: roadmap-with-milestones/infographic_Timeline_Roadmap_Infographic_1c9830_Page_1_002.svg

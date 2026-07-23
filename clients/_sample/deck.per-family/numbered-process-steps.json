@@ -1,6 +1,9 @@
 {
   "title": "Numbered Process Steps — Build Parity Test",
-  "description": "Explicit inject-pattern block routed through folded-arrow-horizontal native injector (provenance=explicit_inject_pattern, block_kind=inject-pattern)",
+  "description": "Second pilot: reference-calibrated numbered process steps based on reviewed SVG infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002.",
+  "options": {
+    "chrome": "full"
+  },
   "slides": [
     {
       "template": "cover",
@@ -26,13 +29,27 @@
             {"number": "02", "title": "Design & Prototype"},
             {"number": "03", "title": "Develop & Iterate"},
             {"number": "04", "title": "Deploy & Optimize"}
-          ]
+          ],
+          "reference_asset_id": "infographic_step-by-step-infographic_e6a516_Sourcefile_-_EPS_002",
+          "reference_sha256": "82272e30570a5f479d0417c0192dca69d80c29dfe1eb345dc6ae8169076fa83a"
         }
       ]
     },
     {
+      "template": "content",
+      "fields": {
+        "title": "Simple Steps — 3 Items"
+      },
+      "layout": "numbered-process-steps",
+      "content": {
+        "items": ["Plan", "Execute", "Review"]
+      }
+    },
+    {
       "template": "closing",
-      "fields": {}
+      "fields": {
+        "hero": "Thank You"
+      }
     }
   ]
 }

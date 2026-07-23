@@ -395,17 +395,10 @@ def _is_cover_like(slide, tokens) -> bool | None:
               help="Run graphical/topology validation (pattern-aware shape checks).")
 @click.option("--opc", "run_opc", is_flag=True, default=False,
               help="Run OPC package audit (required parts, relationships, round-trip).")
-def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_opc):
-    """Validate a generated .pptx or the pattern library.
-
-    When PPTX_PATH is given, validates the deck against the branded design
-    system. Use --patterns to validate pattern-assets.yaml, SVG file integrity,
-    registry consistency, and provenance references.
-
-    Use --graphical to run pattern-aware graphical/topology validation,
-    and --opc to run OPC package audit. These can be combined with each
-    other and with the default design validation.
-    """
+@click.option("--fidelity", is_flag=True, default=False,
+              help="Run grammar-aware fidelity comparison against visual contracts.")
+def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_opc,
+         fidelity):
     if patterns:
         from tools.pptx_validate.patterns import run_all
         rep, orphan_rep = run_all()
@@ -474,6 +467,35 @@ def main(pptx_path, brand, tokens_path, chrome_mode, patterns, graphical, run_op
                 click.echo(f"  - {v}", err=True)
             any_failures = True
 
+    # Grammar-aware fidelity comparison
+    if fidelity:
+        from pathlib import Path as PPath
+
+        from shared.pptx.fidelity_compare import run_fidelity_workflow
+        pptx_path_obj = PPath(pptx_path)
+        # Derive pilot_id from the filename (e.g. roadmap-with-milestones.bami -> roadmap-with-milestones)
+        pilot_id = pptx_path_obj.stem.replace(".bami", "").replace(".kvi", "")
+        # Try to find a matching visual contract
+        # The contracts_dir layout is <family>/<variant>.v1.yaml, where family==parent directory name.
+        contract_path = None
+        contracts_dir = PPath(__file__).resolve().parents[2] / "schemas" / "visual-contracts"
+        if contracts_dir.exists():
+            for child in contracts_dir.rglob("*.yaml"):
+                # Match by parent directory name (the family), not file stem
+                if child.parent.name == pilot_id:
+                    contract_path = child
+                    break
+        # Debug: show resolved contract
+        click.echo(f"[fidelity] pilot_id={pilot_id!r} contract_path={contract_path!r}")
+        try:
+            result = run_fidelity_workflow(pptx_path_obj, pilot_id, contract_path)
+            click.echo("OK: Fidelity artifacts generated:")
+            click.echo(f"  Metrics: {result.get('metrics', 'N/A')}")
+            click.echo(f"  Report: {result.get('report', 'N/A')}")
+            click.echo(f"  Contact sheet: {result.get('contact_sheet', 'N/A')}")
+        except Exception as e:
+            click.echo(f"FAIL: Fidelity comparison failed: {e}", err=True)
+            any_failures = True
     sys.exit(1 if any_failures else 0)
 
 

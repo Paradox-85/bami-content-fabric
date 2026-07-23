@@ -166,24 +166,27 @@ def _build_and_diagnose(
 _REFERENCE_TARGETS = {
     "roadmap-with-milestones": {
         "description": (
-            "Reference: abstract-3d-business-infographic_197c72 (SVG group). "
-            "Not a pixel-perfect match — roadmap uses horizontal trajectory."
+            "Reference: Timeline_Roadmap_Infographic_1c9830 (SVG). ",
+            "Horizontal trajectory with phase bands, milestones, alternating callouts."
         ),
-        "expected_min_shapes": 30,  # ~40 in-group + group + chrome
-        "expected_min_text_runs": 9,  # 9 milestones with date+label+phase labels
-        "expected_min_pattern_shapes": 30,  # shapes with pattern: prefix
+        "expected_status": "enabled",
+        "expected_min_shapes": 30,
+        "expected_min_text_runs": 9,
+        "expected_min_pattern_shapes": 30,
         "expected_min_groups": 1,
     },
     "infographic-3d-cube": {
         "description": (
-            "Reference: abstract-3d-business-infographic_197c72 (SVG group). "
-            "Simplified to acceptable-simplification cube metaphor per plan §5."
+            "Reference: abstract-3d-business-infographic_197c72 (SVG group). ",
+            "False cube binding — topology is radial/interlocking. Downgraded to planned."
         ),
-        "expected_min_shapes": 4,
-        "expected_min_text_runs": 3,
-        "expected_min_pattern_shapes": 4,
-        "expected_min_groups": 1,
+        "expected_status": "planned",
+        "expected_min_shapes": 0,
+        "expected_min_text_runs": 0,
+        "expected_min_pattern_shapes": 0,
+        "expected_min_groups": 0,
     },
+
 }
 
 
@@ -220,15 +223,21 @@ class TestBIMRendering:
         This test actually builds the PPTX, opens it, and measures
         real rendered metrics (shape_count, editable_text_count, etc.).
 
-        Checks:
+        For enabled families (roadmap-with-milestones):
         - Deck file exists and is valid JSON.
         - Registry has the family/variant enabled.
         - PPTX builds successfully (build_deck).
         - Real rendered shapes exist on the slide.
         - Editable text exists.
         - visual_fidelity is not placeholder.
-        - Client_ready is true.
+
+        For planned families (infographic-3d-cube):
+        - Registry confirms the variant is planned.
+        - No native render is expected (status != enabled).
         """
+        ref = _REFERENCE_TARGETS.get(family, {})
+        expected_status = ref.get("expected_status", "enabled")
+
         # 1. Deck file existence is checked inside _build_and_diagnose
 
         # 2. Registry check
@@ -236,17 +245,30 @@ class TestBIMRendering:
         assert features, (
             f"Family {family}/{variant} not found in registry"
         )
-        status = "enabled"
+        reg_status = "unknown"
         for entry in registry.get("entries", []):
             if entry.get("family") == family:
                 for v in entry.get("graphical_variants", []):
                     if v.get("graphical_variant") == variant:
-                        status = v.get("status", "unknown")
-        assert status == "enabled", (
-            f"Family {family}/{variant} status is {status!r}, expected 'enabled'"
+                        reg_status = v.get("status", "unknown")
+        assert reg_status == expected_status, (
+            f"Family {family}/{variant} registry status is {reg_status!r}, "
+            f"expected {expected_status!r}"
         )
 
-        # 3. Validate registry metadata
+        if reg_status != "enabled":
+            # Variant is not enabled — skip rendering checks
+            visual_fidelity = features.get("visual_fidelity", "")
+            assert visual_fidelity, (
+                f"Family {family}/{variant} should still have a visual_fidelity value"
+            )
+            ref_asset = features.get("reference_asset_id", "")
+            assert ref_asset, (
+                f"Family {family}/{variant} has empty reference_asset_id"
+            )
+            return  # Skip rendering checks for non-enabled variants
+
+        # 3. Validate registry metadata (enabled variant)
         visual_fidelity = features.get("visual_fidelity", "")
         assert visual_fidelity not in ("", "placeholder"), (
             f"Family {family}/{variant} has visual_fidelity={visual_fidelity!r}, "
@@ -275,7 +297,6 @@ class TestBIMRendering:
         )
 
         # 5. Compare against reference target expectations
-        ref = _REFERENCE_TARGETS.get(family, {})
         if ref:
             assert metrics["shape_count"] >= ref.get("expected_min_shapes", 0), (
                 f"Family {family}/{variant}: shape_count {metrics['shape_count']} "

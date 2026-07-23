@@ -73,6 +73,13 @@
               "description": "Path to a JSON Schema contract file (relative to repo root)"
             }
           },
+          "visual_contracts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a visual contract YAML file (relative to repo root)"
+            }
+          },
           "graphical_variants": {
             "type": "array",
             "minItems": 1,

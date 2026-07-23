@@ -333,9 +333,22 @@ def _layout_phased_rollout_timeline(
 def _layout_roadmap_with_milestones(
     tokens, variant, content, tname=None, deck_dir=None,
 ) -> list[dict]:
-    """Rich layout: roadmap with milestones → native gantt block."""
-    return [_gantt_block(content or {}, variant, tokens)]
-
+    """Rich layout: roadmap with milestones → native inject-pattern block.
+    The actual rendering is handled by the roadmap-with-milestones native injector.
+    This layout function emits an inject-pattern block that routes through
+    the inject pipeline, bypassing the Gantt-based _gantt_block()."""
+    from shared.pptx.content_normalization import normalize_content_for_family
+    c = normalize_content_for_family(content or {}, "roadmap-with-milestones")
+    bz_top, bz_bottom = tokens.body_zone
+    return [{
+        "kind": "inject-pattern",
+        "canonical_id": "roadmap-with-milestones",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+        **c,
+    }]
 
 # --- Card-based layouts (use card blocks) ---
 

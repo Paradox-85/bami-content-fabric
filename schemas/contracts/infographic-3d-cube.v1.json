@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "schemas/contracts/infographic-3d-cube.v1.json",
+  "title": "Infographic 3D Cube",
+  "description": "Content contract for infographic-3d-cube family — isometric cube with three visible faces, each carrying a label and optional body text",
+  "type": "object",
+  "properties": {
+    "faces": {
+      "description": "The three visible cube faces (top, left, right)",
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string", "minLength": 1 },
+            "body": { "type": "string" },
+            "color": { "type": "string", "description": "Brand token for face fill" }
+          },
+          "required": ["title"]
+        },
+        "left": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string", "minLength": 1 },
+            "body": { "type": "string" },
+            "color": { "type": "string" }
+          },
+          "required": ["title"]
+        },
+        "right": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string", "minLength": 1 },
+            "body": { "type": "string" },
+            "color": { "type": "string" }
+          },
+          "required": ["title"]
+        }
+      },
+      "required": ["top", "left", "right"]
+    },
+    "cube_size": {
+      "description": "Approximate width of the cube in inches (default: 5.0)",
+      "type": "number",
+      "minimum": 2.0,
+      "maximum": 8.0
+    },
+    "depth_ratio": {
+      "description": "Depth-to-width ratio for isometric perspective (default: 0.5)",
+      "type": "number",
+      "minimum": 0.3,
+      "maximum": 0.8
+    }
+  },
+  "required": ["faces"],
+  "additionalProperties": false
+}

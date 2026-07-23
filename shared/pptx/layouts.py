@@ -625,6 +625,35 @@ def _layout_case_study_card(
     return [block]
 
 
+def _layout_infographic_3d_cube(
+    tokens, variant, content, tname=None, deck_dir=None
+) -> list[dict]:
+    """Layout: infographic-3d-cube → native inject-pattern block.
+
+    Emits an ``inject-pattern`` block with ``canonical_id='infographic-3d-cube'``
+    and passes ``faces`` through as injector params.
+    """
+    c = content or {}
+    bz_top, bz_bottom = tokens.body_zone
+    block: dict[str, Any] = {
+        "kind": "inject-pattern",
+        "canonical_id": "infographic-3d-cube",
+        "x": round(tokens.margin_x, 3),
+        "y": round(bz_top, 3),
+        "w": round(tokens.content_width, 3),
+        "h": round(bz_bottom - bz_top, 3),
+    }
+    if c.get("faces"):
+        block["faces"] = c["faces"]
+    if c.get("cube_size"):
+        block["cube_size"] = c["cube_size"]
+    if c.get("depth_ratio"):
+        block["depth_ratio"] = c["depth_ratio"]
+    return [block]
+
+
+# ===================================================================
+# Registry
 # ===================================================================
 # Registry
 # ===================================================================
@@ -655,6 +684,7 @@ LAYOUTS: dict[str, LayoutBuilder] = {
     "architecture-diagram": _layout_architecture_diagram,
     "quadrant-matrix": _layout_quadrant_matrix,
     "chart-donut-pie": _layout_chart_donut_pie,
+    "infographic-3d-cube": _layout_infographic_3d_cube,
 }
 
 

@@ -65,7 +65,7 @@ entries:
           provenance_id: arrow-process-infographics_f8e31e
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 4
           required_layer_count: 2
           required_colour_roles: 2
@@ -101,7 +101,7 @@ entries:
           provenance_id: arrow-process-infographics_f8e31e
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 4
           required_layer_count: 2
           required_colour_roles: 2
@@ -137,7 +137,7 @@ entries:
           provenance_id: arrow-process-infographics_f8e31e
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 3
           required_layer_count: 1
           required_colour_roles: 2
@@ -213,7 +213,7 @@ entries:
           provenance_id: circle-step-infographic_a05527
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 5
           required_layer_count: 2
           required_colour_roles: 2
@@ -264,7 +264,7 @@ entries:
           provenance_id: KPI_Dashboard_Infographic_1296eb
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 1
           required_colour_roles: 2
@@ -307,7 +307,7 @@ entries:
           provenance_id: Matrix_Infographic_Asset_b1c877
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 4
@@ -342,7 +342,7 @@ entries:
           provenance_id: swot-infographic_9b81b0
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 4
@@ -388,7 +388,7 @@ entries:
           provenance_id: Funnel_Diagram_Infographic_8c475a
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 3
@@ -423,7 +423,7 @@ entries:
           provenance_id: conversion-path-infographics_5f45bf
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 2
@@ -458,7 +458,7 @@ entries:
           provenance_id: sales-growth-infographic_9fe6f5
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 3
@@ -503,7 +503,7 @@ entries:
           provenance_id: Comparison_Table_Infographic_cb70fc
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 1
           required_colour_roles: 2
@@ -545,7 +545,7 @@ entries:
           provenance_id: Prize_Table_Infographic_Asset_d66c15
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 3
@@ -587,7 +587,7 @@ entries:
           provenance_id: Ladder_–_Infographics_Design_093443
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 3
@@ -629,7 +629,7 @@ entries:
           provenance_id: Case_Study_ce7a8d
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 2
@@ -677,7 +677,7 @@ entries:
           provenance_id: Checklist_Status_Checkmark_d83e2f
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 3
           required_layer_count: 1
           required_colour_roles: 4
@@ -729,7 +729,7 @@ entries:
           provenance_id: Quote_Testimonial_Card_Default_9a1c77
           visual_fidelity: placeholder  # TBD — requires human classification
           render_mode: native
-          reference_asset_id: ~
+          reference_asset_id: ""
           required_icon_count: 0
           required_layer_count: 2
           required_colour_roles: 2
@@ -741,3 +741,111 @@ entries:
         graphical_variant_description: >-
           Quote/testimonial card with large opening mark, quoted text,
           left accent line (configurable), attribution, and role line.
+
+  # --------------------------------------------------------------------------
+  # Roadmap with milestones — MVP native family (Pass 1 SVG rendering)
+  # --------------------------------------------------------------------------
+  - family: roadmap-with-milestones
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Expressive horizontal roadmap with phase bands, milestone markers, and connectors
+      min_items: 2
+      max_items:
+        bami: 6
+        kvi: 5
+    default_graphical_variant: default-horizontal
+    contracts:
+      - schemas/contracts/roadmap-with-milestones.v1.json
+    graphical_variants:
+      - graphical_variant: default-horizontal
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: roadmap-with-milestones/default-horizontal@1.0.0
+        renderer_binding:
+          native:
+            injector_id: roadmap-with-milestones
+            injector_version: 1.0.0
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: false
+          max_items: 6
+          shape_budget: 40
+          connector_budget: 8
+          text_density: low
+          min_step_width_in: 1.2
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: Timeline_Roadmap_Infographic_1c9830
+          visual_fidelity: acceptable-simplification
+          render_mode: native
+          reference_asset_id: "Timeline_Roadmap_Infographic_1c9830"
+          required_icon_count: 6
+          required_layer_count: 3
+          required_colour_roles: 3
+          required_connector_style: road-line
+          required_background_regions: 2
+          required_depth_effects: ""
+          minimum_graphical_occupancy: 0.25
+          maximum_text_to_graphics_ratio: 2.5
+        graphical_variant_description: >-
+          Expressive horizontal roadmap with alternating phase bands, a prominent
+          road/axis line, diamond milestone markers, date labels, and alternating
+          callout labels above/below the axis. Designed for 2-6 phases with 1-4
+          milestones each.
+
+  # --------------------------------------------------------------------------
+  # Infographic 3D cube — MVP native family (Pass 1 SVG rendering)
+  # --------------------------------------------------------------------------
+  - family: infographic-3d-cube
+    version: 1.0.0
+    status: enabled
+    selection_version: 1.0.0
+    family_metadata:
+      description: Isometric cube with three visible faces, editable labels, and pseudo-depth
+      min_items: 3
+      max_items:
+        bami: 3
+        kvi: 3
+    default_graphical_variant: default-isometric
+    contracts:
+      - schemas/contracts/infographic-3d-cube.v1.json
+    graphical_variants:
+      - graphical_variant: default-isometric
+        version: 1.0.0
+        status: enabled
+        pattern_template_id: infographic-3d-cube/default-isometric@1.0.0
+        renderer_binding:
+          native:
+            injector_id: infographic-3d-cube
+            injector_version: 1.0.0
+        features:
+          native_editable: true
+          requires_mermaid: false
+          supports_body_text: true
+          max_items: 3
+          shape_budget: 20
+          connector_budget: 0
+          text_density: low
+          min_step_width_in: 0
+          brand_adaptive: true
+          reference_asset_required: true
+          provenance_id: abstract-3d-business-infographic_197c72
+          visual_fidelity: acceptable-simplification
+          render_mode: native
+          reference_asset_id: "abstract-3d-business-infographic_197c72"
+          required_icon_count: 0
+          required_layer_count: 3
+          required_colour_roles: 3
+          required_connector_style: none
+          required_background_regions: 1
+          required_depth_effects: shadow
+          minimum_graphical_occupancy: 0.20
+          maximum_text_to_graphics_ratio: 3.0
+        graphical_variant_description: >-
+          Isometric cube with three visible faces (top, left, right), each
+          carrying an editable title and optional body text. Pseudo-depth
+          created via layered shapes and a subtle shadow. Target fidelity:
+          acceptable-simplification (not pixel-perfect vs 46MB SVG).

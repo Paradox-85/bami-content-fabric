@@ -259,6 +259,18 @@ def _content_to_injector_params(content: dict, injector_id: str) -> dict:
         if content.get("show_accent_line") is not None:
             result["show_accent_line"] = content["show_accent_line"]
         return result
+    if injector_id == "roadmap-with-milestones":
+        phases = content.get("phases", [])
+        return {"phases": phases}
+    if injector_id == "infographic-3d-cube":
+        faces = content.get("faces", {})
+        cube_size = content.get("cube_size")
+        result: dict = {"faces": faces}
+        if cube_size is not None:
+            result["cube_size"] = cube_size
+        if content.get("depth_ratio"):
+            result["depth_ratio"] = content["depth_ratio"]
+        return result
     return dict(content)
 
 

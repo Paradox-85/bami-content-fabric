@@ -35,6 +35,9 @@ _FAMILY_ALIASES: dict[str, tuple[str, list[str]]] = {
     "case-study-card": ("sections", ["items"]),
     "comparison-table": ("panels", ["items"]),
     "tier-pricing-cards": ("tiers", ["items"]),
+    "quote-testimonial-card": ("quote", []),
+    "roadmap-with-milestones": ("phases", []),
+    "infographic-3d-cube": ("faces", []),
 }
 
 # Additional mapping for injector IDs that don't match family names
@@ -54,6 +57,8 @@ _INJECTOR_TO_FAMILY: dict[str, str] = {
     "case-study-card": "case-study-card",
     "checklist-status": "checklist-status",
     "quote-testimonial-card": "quote-testimonial-card",
+    "roadmap-with-milestones": "roadmap-with-milestones",
+    "infographic-3d-cube": "infographic-3d-cube",
 }
 
 

@@ -1,0 +1,95 @@
+{
+  "title": "Infographic 3D Cube — Sample Deck",
+  "options": {
+    "chrome": "full"
+  },
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "title": "Infographic 3D Cube — Sample Deck"
+      }
+    },
+    {
+      "template": "content",
+      "layout": "infographic-3d-cube",
+      "fields": {
+        "title": "Strategic Priorities"
+      },
+      "content": {
+        "faces": {
+          "top": {
+            "title": "Innovation",
+            "body": "Drive breakthrough products",
+            "color": "primary"
+          },
+          "left": {
+            "title": "Growth",
+            "body": "Expand market reach",
+            "color": "primary_dark"
+          },
+          "right": {
+            "title": "Excellence",
+            "body": "Deliver quality at scale",
+            "color": "primary_mid"
+          }
+        }
+      }
+    },
+    {
+      "template": "content",
+      "layout": "infographic-3d-cube",
+      "fields": {
+        "title": "BAMI Value Cube"
+      },
+      "content": {
+        "faces": {
+          "top": {
+            "title": "Vision",
+            "color": "primary"
+          },
+          "left": {
+            "title": "Strategy",
+            "color": "primary_dark"
+          },
+          "right": {
+            "title": "Execution",
+            "color": "primary_mid"
+          }
+        }
+      }
+    },
+    {
+      "template": "content",
+      "layout": "infographic-3d-cube",
+      "fields": {
+        "title": "KVI Priorities"
+      },
+      "content": {
+        "faces": {
+          "top": {
+            "title": "Technology",
+            "body": "Modern stack",
+            "color": "primary"
+          },
+          "left": {
+            "title": "People",
+            "body": "Skilled teams",
+            "color": "primary_dark"
+          },
+          "right": {
+            "title": "Process",
+            "body": "Lean operations",
+            "color": "primary_mid"
+          }
+        }
+      }
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "title": "Thank You"
+      }
+    }
+  ]
+}

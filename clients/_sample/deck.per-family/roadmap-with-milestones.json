@@ -1,0 +1,133 @@
+{
+  "title": "Roadmap With Milestones — Sample Deck",
+  "options": {
+    "chrome": "full"
+  },
+  "slides": [
+    {
+      "template": "cover",
+      "fields": {
+        "title": "Roadmap With Milestones — Sample Deck"
+      }
+    },
+    {
+      "template": "content",
+      "layout": "roadmap-with-milestones",
+      "fields": {
+        "title": "Product Roadmap 2026"
+      },
+      "content": {
+        "phases": [
+          {
+            "title": "Discovery",
+            "subtitle": "Q1 2026",
+            "milestones": [
+              { "label": "Market Research", "date": "Jan 15", "icon": "" },
+              { "label": "User Interviews", "date": "Feb 28", "icon": "" }
+            ]
+          },
+          {
+            "title": "Design",
+            "subtitle": "Q2 2026",
+            "milestones": [
+              { "label": "UX Prototype", "date": "Apr 01", "icon": "" },
+              { "label": "Visual Design", "date": "May 15", "icon": "" },
+              { "label": "Design Review", "date": "Jun 30", "icon": "" }
+            ]
+          },
+          {
+            "title": "Development",
+            "subtitle": "Q3 2026",
+            "milestones": [
+              { "label": "Sprint 1 Launch", "date": "Jul 15", "icon": "" },
+              { "label": "Beta Release", "date": "Sep 01", "icon": "" }
+            ]
+          },
+          {
+            "title": "Launch",
+            "subtitle": "Q4 2026",
+            "milestones": [
+              { "label": "GA Release", "date": "Oct 15", "icon": "" },
+              { "label": "Post-Launch Support", "date": "Dec 01", "icon": "" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "content",
+      "layout": "roadmap-with-milestones",
+      "fields": {
+        "title": "BAMI Roadmap — Minimum Items"
+      },
+      "content": {
+        "phases": [
+          {
+            "title": "Phase A",
+            "milestones": [
+              { "label": "Kickoff", "date": "Jan" }
+            ]
+          },
+          {
+            "title": "Phase B",
+            "milestones": [
+              { "label": "Midpoint", "date": "Jun" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "content",
+      "layout": "roadmap-with-milestones",
+      "fields": {
+        "title": "KVI Roadmap — Maximum Items"
+      },
+      "content": {
+        "phases": [
+          {
+            "title": "Phase 1",
+            "milestones": [
+              { "label": "M1", "date": "Jan" },
+              { "label": "M2", "date": "Feb" }
+            ]
+          },
+          {
+            "title": "Phase 2",
+            "milestones": [
+              { "label": "M3", "date": "Mar" },
+              { "label": "M4", "date": "Apr" }
+            ]
+          },
+          {
+            "title": "Phase 3",
+            "milestones": [
+              { "label": "M5", "date": "May" },
+              { "label": "M6", "date": "Jun" },
+              { "label": "M7", "date": "Jul" }
+            ]
+          },
+          {
+            "title": "Phase 4",
+            "milestones": [
+              { "label": "M8", "date": "Aug" }
+            ]
+          },
+          {
+            "title": "Phase 5",
+            "milestones": [
+              { "label": "M9", "date": "Sep" },
+              { "label": "M10", "date": "Oct" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "template": "closing",
+      "fields": {
+        "title": "Thank You"
+      }
+    }
+  ]
+}

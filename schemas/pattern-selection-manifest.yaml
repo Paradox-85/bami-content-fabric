@@ -117,7 +117,7 @@ manifest:
     - family: roadmap-with-milestones
       aliases: [roadmap, milestones]
       layout: roadmap-with-milestones
-      block_kind: gantt
+      block_kind: inject-pattern
       render_method: native
       scenario_signal: forward-milestones
       narrative_intent: [roadmap, milestones, forward-plan]
@@ -455,6 +455,33 @@ manifest:
       fallback_chain: [icon-text-feature-list, bullets]
       disallowed_when: []
       rank: 70
+
+    # -- 3D Cube ---
+    - family: infographic-3d-cube
+      aliases: [cube, 3d-cube, isometric-cube]
+      layout: infographic-3d-cube
+      block_kind: inject-pattern
+      render_method: native
+      scenario_signal: cube-faces
+      narrative_intent: [cube, isometric, 3d-cube, cube-faces]
+      structural:
+        required_any: [[faces]]
+        required_all: []
+        count_key: faces
+      capacity:
+        min: 3
+        max:
+          bami: 3
+          kvi: 3
+      spatial:
+        orientation: centered
+        min_col_width_in: 0
+      color:
+        auto_status: false
+        palette: [primary, primary_dark, primary_mid]
+      fallback_chain: [data-table, icon-text-feature-list]
+      disallowed_when: []
+      rank: 75
 
     # -- Mermaid diagram families ---
     - family: swimlane-diagram

@@ -47,6 +47,7 @@ from shared.pptx.pattern_selection import (
     load_manifest,
     resolve_pattern,
 )
+from shared.pptx.visual_fidelity import meets_fidelity_requirement
 
 # ---------------------------------------------------------------------------
 # Data types
@@ -85,6 +86,8 @@ class RoutePlan:
     semantic_loss: bool = False
     # Variant resolution metadata (diagnostics only, not a numerical score)
     variant_metadata: dict[str, Any] | None = None
+    # Fidelity requirement: if set, the route must satisfy this minimum
+    render_fidelity_required: str | None = None
     def to_dict(self) -> dict[str, Any]:
         return {
             "family": self.family,
@@ -100,6 +103,7 @@ class RoutePlan:
             "fallback_reason": self.fallback_reason,
             "semantic_loss": self.semantic_loss,
             "variant_metadata": self.variant_metadata,
+            "render_fidelity_required": self.render_fidelity_required,
             "warnings": self.warnings,
             "errors": self.errors,
         }
@@ -196,6 +200,31 @@ def _build_fallback_diagnostics(
     }
 
 
+def _check_fidelity_requirement(
+    render_fidelity_required: str | None,
+    variant_entry: dict[str, Any] | None,
+) -> str | None:
+    """Check fidelity requirement against a variant entry.
+
+    Returns an error message if the requirement is not met, or None.
+    """
+    if not render_fidelity_required:
+        return None
+    if variant_entry is None:
+        return (
+            f"No enabled family renderer satisfies requested fidelity "
+            f"'{render_fidelity_required}'."
+        )
+    features = variant_entry.get("features", {})
+    actual_fidelity = features.get("visual_fidelity", "placeholder")
+    if not meets_fidelity_requirement(actual_fidelity, render_fidelity_required):
+        return (
+            f"No enabled family renderer satisfies requested fidelity "
+            f"'{render_fidelity_required}'; variant has '{actual_fidelity}'."
+        )
+    return None
+
+
 def plan_route(
     slide_spec: dict[str, Any],
     tokens: Any,
@@ -225,8 +254,9 @@ def plan_route(
     hint_mode = slide_spec.get("hint_mode", "prefer")  # "prefer" or "require"
     if hint_mode not in ("prefer", "require"):
         hint_mode = "prefer"
-    # hint_category: explicit category hint for Phase 0 (separate from narrative_intent)
     hint_category = slide_spec.get("hint_category")
+    # render_fidelity_required: minimum fidelity requirement for this slide
+    render_fidelity_required = slide_spec.get("render_fidelity_required")
 
     # ---------- Case 1: explicit inject-pattern block ----------
     explicit_blocks = slide_spec.get("blocks", [])
@@ -266,6 +296,7 @@ def plan_route(
         injector_gv = None
         injector_pt_id = None
         injector_id_resolved = None
+        injector_variant_entry = None
         for entry in registry.get("entries", []):
             for variant in entry.get("graphical_variants", []):
                 binding = variant.get("renderer_binding", {})
@@ -275,11 +306,17 @@ def plan_route(
                     injector_gv = variant.get("graphical_variant")
                     injector_pt_id = variant.get("pattern_template_id")
                     injector_id_resolved = native.get("injector_id")
+                    injector_variant_entry = variant
                     break
             if injector_family:
                 break
 
         normalized = _normalize_content(content, injector_family or None)
+
+        # Fidelity check for explicit inject-pattern path
+        fidelity_error = _check_fidelity_requirement(render_fidelity_required, injector_variant_entry)
+        if fidelity_error:
+            errors.append(fidelity_error)
 
         return RoutePlan(
             family=injector_family,
@@ -294,6 +331,7 @@ def plan_route(
             errors=errors,
             selection_provenance="explicit_inject_pattern",
             hint_mode=hint_mode,
+            render_fidelity_required=render_fidelity_required,
         )
 
     # ---------- Case 2: explicit layout ----------
@@ -359,6 +397,11 @@ def plan_route(
                 )
                 semantic_loss = False
 
+            # Fidelity check: fail-fast when requirement not met
+            fidelity_error = _check_fidelity_requirement(render_fidelity_required, variant_entry)
+            if fidelity_error:
+                errors.append(fidelity_error)
+
             return RoutePlan(
                 family=family,
                 layout=layout_name,
@@ -376,6 +419,7 @@ def plan_route(
                 fallback_used=fallback_used,
                 fallback_reason=fallback_reason,
                 semantic_loss=semantic_loss,
+                render_fidelity_required=render_fidelity_required,
             )
         # Layout not in manifest — pass through as-is for backward compat
         warnings.append(f"Layout '{layout_name}' not found in manifest; passing through directly")
@@ -392,6 +436,7 @@ def plan_route(
             errors=errors,
             selection_provenance="explicit_layout",
             hint_mode=hint_mode,
+            render_fidelity_required=render_fidelity_required,
         )
 
     # ---------- Case 3: content-only auto resolution ----------
@@ -448,6 +493,18 @@ def plan_route(
                     "render_method": sel.render_method,
                     "pattern_template_id": sel.pattern_template_id,
                 }
+            # Fidelity check: fail-fast when requirement not met
+            variant_entry_auto = None
+            try:
+                registry = load_registry()
+                fam_entry = get_family_entry(registry, sel.family)
+                if fam_entry is not None:
+                    variant_entry_auto = resolve_variant(fam_entry, sel.graphical_variant)
+            except Exception:
+                pass
+            fidelity_error = _check_fidelity_requirement(render_fidelity_required, variant_entry_auto)
+            if fidelity_error:
+                errors.append(fidelity_error)
 
             # -- Fallback diagnostics: mermaid / no-native-injector paths --
             # _build_fallback_diagnostics() produces structured diagnostics
@@ -493,6 +550,7 @@ def plan_route(
                 fallback_used=fallback_used,
                 fallback_reason=fallback_reason,
                 semantic_loss=semantic_loss,
+                render_fidelity_required=render_fidelity_required,
             )
         except PatternSelectionError as e:
             errors.append(str(e))
@@ -509,6 +567,7 @@ def plan_route(
                 errors=errors,
                 selection_provenance="auto",
                 hint_mode=hint_mode,
+                render_fidelity_required=render_fidelity_required,
             )
 
     # ---------- Case 4: terminal materialization without content ----------
@@ -526,6 +585,7 @@ def plan_route(
             errors=errors,
             selection_provenance="terminal",
             hint_mode=hint_mode,
+            render_fidelity_required=render_fidelity_required,
         )
 
     # Fallback: return what we have
@@ -542,6 +602,7 @@ def plan_route(
         errors=errors,
         selection_provenance="auto",
         hint_mode=hint_mode,
+        render_fidelity_required=render_fidelity_required,
     )
 
 

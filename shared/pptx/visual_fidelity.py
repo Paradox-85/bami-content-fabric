@@ -63,12 +63,33 @@ FIDELITY_RANK = {s: i for i, s in enumerate(FIDELITY_STATUSES)}
 
 NON_CLIENT_READY = {"semantic-only", "placeholder"}
 
+
+def meets_fidelity_requirement(
+    actual_fidelity: str | None,
+    required_fidelity: str | None,
+) -> bool:
+    """Check if *actual_fidelity* meets or exceeds *required_fidelity*.
+
+    Returns True if:
+    - No requirement specified (None or empty).
+    - Actual fidelity rank <= required fidelity rank (lower index = higher fidelity).
+    - Actual fidelity is not None and is a known status.
+    """
+    if not required_fidelity:
+        return True
+    if not actual_fidelity:
+        return False
+    req_idx = FIDELITY_RANK.get(required_fidelity)
+    act_idx = FIDELITY_RANK.get(actual_fidelity)
+    if req_idx is None or act_idx is None:
+        return False
+    return act_idx <= req_idx
+
+
 # Runtime bypass flag — allows placeholder-enabled to pass the gate
 # while human classification is pending. Set to True during deck generation.
 FIDELITY_GATE_BYPASS = False
 
-# ---------------------------------------------------------------------------
-# Verdict
 # ---------------------------------------------------------------------------
 # Verdict
 # ---------------------------------------------------------------------------

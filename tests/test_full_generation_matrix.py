@@ -107,7 +107,15 @@ class TestGenerationMatrix:
                 layout = family
             elif injector == "quote-testimonial-card":
                 content = {"quote": "Q", "attribution": "A"}
-            else:
+            elif injector == "roadmap-with-milestones":
+                content = {"phases": [
+                    {"title": "A", "milestones": [{"label": "M1"}]},
+                    {"title": "B", "milestones": [{"label": "M2"}]},
+                ]}
+                layout = family
+            elif injector == "infographic-3d-cube":
+                content = {"faces": {"top": {"title": "T"}, "left": {"title": "L"}, "right": {"title": "R"}}}
+                layout = family
                 content = {"items": ["Item"]}
 
             slide_spec = {"content": content}

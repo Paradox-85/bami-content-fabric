@@ -23,11 +23,14 @@ from shared.pptx.pattern_injectors import (  # noqa: F401
     comparison,  # noqa: F401
     folded_arrow,  # noqa: F401
     funnel,  # noqa: F401
+    infographic_3d_cube,  # noqa: F401
     kpi_dashboard,  # noqa: F401
     maturity_ladder,  # noqa: F401
     quadrant_matrix,  # noqa: F401
     quadrant_swot,  # noqa: F401
     quote_testimonial,  # noqa: F401
+    # MVP native family renderers (Pass 1 SVG rendering)
+    roadmap_milestones,  # noqa: F401
     simple_arrow,  # noqa: F401
     steps,  # noqa: F401
 )  # noqa: F401

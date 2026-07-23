@@ -133,9 +133,9 @@ When bypass is True, both gate functions return clean (no violations).
 | Schema fields for visual_fidelity | ✅ Implemented | `pattern-registry.schema.json` — 14 new fields |
 | Schema fields for graphical richness | ✅ Implemented | `content-schema.json` — 10 new fields at slide level |
 | Fidelity status vocabulary | ✅ Implemented | `graphical-feature-vocabulary.yaml` — 5-tier enum |
-| Visual-fidelity validator | ✅ Implemented | `shared/pptx/visual_fidelity.py` — 6 measurable checks |
+| Visual-fidelity validator | ✅ Implemented | `shared/pptx/visual_fidelity.py` — 6 measurable checks (R1) + 3 new checks (R3) |
 | Stage gate enforcement | ✅ Implemented | `check_fidelity_stage_gate` + `check_registry_fidelity_gate` |
-| Tests for validator | ✅ Implemented (R1) | 22 tests in `tests/test_visual_fidelity.py` |
+| Tests for validator | ✅ Implemented (R1+R3) | 31 tests in `tests/test_visual_fidelity.py` (30 pass + 1 expected fail) |
 | Tests for real registry enforcement | ✅ Implemented (R2) | `TestRealRegistryEnforcement` — 2 tests (1 expected fail) |
 | Fidelity gate bypass flag | ✅ Implemented (R2) | `--bypass` CLI, `bypass` parameter on gate functions |
 | Registry metadata on all enabled variants | ✅ Populated (R2) | All 16 variants have 11 fields each; all tagged placeholder |
@@ -144,7 +144,9 @@ When bypass is True, both gate functions return clean (no violations).
 | Hybrid rendering policy | ❌ Not implemented | Schema fields exist; no runtime enforces the fallback chain |
 | BIM demo remap | ❌ Not implemented | Requires new injectors that don't exist |
 | SVG vs PPTX visual comparison | ❌ Not implemented | No automated pixel/structure diff tool exists |
-
+| Icon count enforcement (R3) | ✅ Implemented (R3) | `check_required_icons` — heuristic, not pixel-perfect |
+| Layer detection (R3) | ✅ Implemented (R3) | `check_required_layers` — heuristic depth estimation |
+| Unnatural short wrapping detection (R3) | ✅ Implemented (R3) | `check_unnatural_short_wrapping` — flags excessively short *explicit* final paragraphs; true soft-wrap orphan/widow detection is a remaining gap (requires font-metric rendering) |
 ---
 
 ## What remains human-required
@@ -158,7 +160,7 @@ When bypass is True, both gate functions return clean (no violations).
 | Regenerating BIM demo with corrected slide mapping | ❌ **human-required** | Deck exists at `clients/bim-demo/deck.json`; mapping plan below |
 | Pixel-level or structural diff between reference SVG and PPTX output | ❌ **not implemented** | No automated comparison tool exists; needs research/prototyping |
 | Hybrid rendering policy in runtime code | ❌ **not implemented** | Schema fields exist but no runtime enforces `native→svg→png→semantic` fallback chain |
-
+| Soft-wrap orphan/widow detection in text frames | ❌ **not implemented** | `check_unnatural_short_wrapping` operates on explicit `<a:p>` paragraphs only; true auto-wrapped orphan detection requires font-metric rendering |
 ---
 
 ## BIM demo mapping plan
@@ -181,8 +183,8 @@ The deck at `clients/bim-demo/deck.json` has 9 slides. The prompt's suggested re
 ## Verification
 
 ```
-$ ruff check .                                                     → No issues
-$ python -m pytest tests/test_visual_fidelity.py -q                → 23 passed, 1 failed (expected)
+$ ruff check .                                                     → No issues found
+$ python -m pytest tests/test_visual_fidelity.py -q                → 30 passed, 1 failed (expected)
 $ python -c "check_registry_fidelity_gate(reg)"                    → 16 violations (correct — all placeholder)
 $ python -c "check_registry_fidelity_gate(reg, bypass=True)"       → 0 violations (bypass works)
 ```
@@ -200,3 +202,57 @@ The 1 expected failure (`test_enabled_variants_not_placeholder`) documents the h
 5. **Archive the bypass flag** — once all 16 variants are classified, remove `FIDELITY_GATE_BYPASS` and the `--bypass` CLI flag.
 6. **Design and implement new injectors** for BIM demo remap (icon-led-options, staged-arrow, hub-and-spokes, business-value icon cards).
 7. **Human visual review of each slide** in the regenerated BIM demo.
+
+---
+
+## What was implemented (R3 — this pass)
+
+**Date:** 2026-07-23
+**Status:** `IMPLEMENTED (extended)` — Added 3 new validator checks (icon count, layer detection, unnatural short wrapping) with tests; 30/31 tests pass (1 expected failure). Human classification and SVG comparison remain required.
+
+### 10. New validator check — `check_required_icons`
+
+**File:** `shared/pptx/visual_fidelity.py`
+
+Added a heuristic check that counts small (<1.0in width/height) filled shapes as icon candidates.
+When the registry declares `required_icon_count > 0`, the validator verifies that at least that
+many icon-like shapes appear on the slide. This is a best-effort heuristic, not pixel-perfect.
+
+### 11. New validator check — `check_required_layers`
+
+**File:** `shared/pptx/visual_fidelity.py`
+
+Added a heuristic that detects visual depth layers by categorizing shapes:
+- Large filled shapes (area > 30% of slide) → background layer
+- Small/medium filled shapes → card/object layer
+- Text-only shapes → text layer
+When the registry declares `required_layer_count > 1`, the validator verifies that the slide
+has sufficient visual depth.
+
+### 12. New validator check — `check_unnatural_short_wrapping`
+
+**File:** `shared/pptx/visual_fidelity.py`
+
+Flags text frames where the *explicit* final ``<a:p>`` paragraph is much shorter (≤3 chars)
+than preceding paragraphs.  This operates on explicit PPTX paragraphs — not on soft-wrapped
+visual lines within a single paragraph.  True orphan/widow detection (auto-wrapped lines)
+would require rendering text with font metrics and is a **remaining gap**.
+
+### 13. Coverage update
+
+| Change | File |
+|--------|------|
+| 3 new validator checks | `shared/pptx/visual_fidelity.py` |
+| 7 new tests (TestUnnaturalShortWrapping → 2, TestRequiredIcons → 3, TestRequiredLayers → 2) | `tests/test_visual_fidelity.py` |
+| Updated verification block below | `docs/audits/remediation-v3/pass12-visual-fidelity.md` |
+
+### Verification (R3)
+
+```
+$ python -m pytest tests/test_visual_fidelity.py -q               → 30 passed, 1 failed (expected)
+$ python -c "from shared.pptx.visual_fidelity import *; print('OK')" → Import OK
+$ ruff check shared/pptx/visual_fidelity.py                       → No issues
+```
+
+The 1 remaining expected failure (`test_enabled_variants_not_placeholder`) documents the
+human-required gap — all 16 enabled variants still have `visual_fidelity: placeholder`.

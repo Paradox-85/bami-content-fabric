@@ -9,6 +9,9 @@ Verifies:
 - Color roles sufficiency
 - Text-to-graphics ratio
 - Spatial balance
+- Unnatural short wrapping detection
+- Required icons/icon count enforcement
+- Required visual layers detection
 - Full-report aggregation
 """
 from __future__ import annotations
@@ -308,8 +311,150 @@ class TestSpatialBalance:
         assert verdict.all_passed
 
 
+
+class TestUnnaturalShortWrapping:
+    """Tests for check_unnatural_short_wrapping.
+
+    Operates on synthetic Presentation objects with text frames.
+    """
+    def test_short_last_line_detected(self):
+        """Three paragraphs where the last is 'the' (3 chars) — must FAIL."""
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        txBox = slide.shapes.add_textbox(Inches(1), Inches(1), Inches(5), Inches(5))
+        tf = txBox.text_frame
+        tf.clear()
+        texts = [
+            "This is a very long first paragraph that should be well above any threshold",
+            "Another medium length second paragraph that continues the narrative flow",
+            "the",  # very short last line
+        ]
+        for i, txt in enumerate(texts):
+            if i == 0:
+                tf.text = txt
+            else:
+                p = tf.add_paragraph()
+                p.text = txt
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_unnatural_short_wrapping(slide, 0, verdict)
+        # Detection branch: short last paragraph must be flagged
+        assert not verdict.all_passed
+        assert "unnatural_short_wrapping" in [c.name for c in verdict.failures]
+
+    def test_three_long_paragraphs_passes(self):
+        """Three paragraphs all of reasonable length — must PASS."""
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        txBox = slide.shapes.add_textbox(Inches(1), Inches(1), Inches(5), Inches(5))
+        tf = txBox.text_frame
+        tf.clear()
+        texts = [
+            "First paragraph with enough content to be well above any short threshold",
+            "Second paragraph that continues the narrative with similar length",
+            "Third paragraph that is also long enough to not be flagged as short",
+        ]
+        for i, txt in enumerate(texts):
+            if i == 0:
+                tf.text = txt
+            else:
+                p = tf.add_paragraph()
+                p.text = txt
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_unnatural_short_wrapping(slide, 0, verdict)
+        assert verdict.all_passed
+
+
+class TestRequiredIcons:
+    """Tests for check_required_icons.
+
+    Verifies icon counting for small filled shapes.
+    """
+    def test_small_filled_shapes_count_as_icons(self):
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        # Add small filled shapes (icon-like)
+        for i in range(3):
+            shape = slide.shapes.add_shape(
+                MSO_SHAPE.OVAL, Inches(0.2 + i * 1.5), Inches(0.5), Inches(0.6), Inches(0.6),
+            )
+            fill = shape.fill
+            fill.solid()
+            fill.fore_color.rgb = RGBColor(0, 102, 204)
+            shape.name = f"icon:{i}"
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_required_icons(slide, 0, verdict, required_icon_count=3)
+        assert verdict.all_passed
+
+    def test_no_icons_when_required_passes(self):
+        """required_icon_count=0 should skip the check."""
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_required_icons(slide, 0, verdict, required_icon_count=0)
+        assert verdict.all_passed
+
+    def test_icon_count_below_required_fails(self):
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        # Only 1 icon but 3 required
+        shape = slide.shapes.add_shape(
+            MSO_SHAPE.RECTANGLE, Inches(0.5), Inches(0.5), Inches(0.7), Inches(0.7),
+        )
+        fill = shape.fill
+        fill.solid()
+        fill.fore_color.rgb = RGBColor(0, 102, 204)
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_required_icons(slide, 0, verdict, required_icon_count=3)
+        assert not verdict.all_passed
+
+
+class TestRequiredLayers:
+    """Tests for check_required_layers.
+
+    Verifies visual layer detection heuristic.
+    """
+    def test_single_layer_when_required_one_passes(self):
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        # No shapes = effectively 1 layer
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_required_layers(slide, 0, verdict, required_layer_count=1)
+        assert verdict.all_passed
+
+    def test_multiple_layers_detected(self):
+        prs = Presentation()
+        prs.slides.add_slide(prs.slide_layouts[6])
+        slide = prs.slides[0]
+        # Large background shape (background layer)
+        bg = slide.shapes.add_shape(
+            MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(20), Inches(11),
+        )
+        bg_fill = bg.fill
+        bg_fill.solid()
+        bg_fill.fore_color.rgb = RGBColor(240, 240, 240)
+        # Small card shape (card layer)
+        card = slide.shapes.add_shape(
+            MSO_SHAPE.RECTANGLE, Inches(2), Inches(2), Inches(5), Inches(4),
+        )
+        card_fill = card.fill
+        card_fill.solid()
+        card_fill.fore_color.rgb = RGBColor(255, 255, 255)
+        # Text box (text layer)
+        txBox = slide.shapes.add_textbox(Inches(3), Inches(3), Inches(3), Inches(1))
+        tf = txBox.text_frame
+        tf.text = "Sample text"
+        verdict = vf.VisualFidelityVerdict(0)
+        vf.check_required_layers(slide, 0, verdict, required_layer_count=2)
+        assert verdict.all_passed
+
+
 class TestRealRegistryEnforcement:
-    """Tests that validate the actual pattern-registry.yaml."""
 
     def test_all_enabled_variants_have_visual_fidelity(self):
         """Every enabled variant in the real registry must have visual_fidelity set.

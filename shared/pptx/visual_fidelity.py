@@ -431,11 +431,150 @@ def check_spatial_balance(
 
     verdict.add("spatial_balance", passed, detail)
 
+def check_unnatural_short_wrapping(
+    slide: Any, slide_idx: int, verdict: VisualFidelityVerdict,
+    max_wrap_ratio: float = 0.3,
+) -> None:
+    """Flag frames where the final explicit paragraph is much shorter than the preceding ones.
 
-# ---------------------------------------------------------------------------
-# Main validation entry point
-# ---------------------------------------------------------------------------
+    NOTE: This operates on *explicit* ``<a:p>`` paragraphs in the PPTX XML, not on
+    soft-wrapped visual lines.  Auto-wrapped orphan/widow lines within a single
+    paragraph are **not** detectable without rendering text with font metrics.
+    This is a heuristic that catches cases where a content author or producer
+    explicitly emitted a very short final paragraph (e.g. a single word).
+    Only checks frames with at least 3 explicit paragraphs.
+    """
 
+    for shp in slide.shapes:
+        if not shp.has_text_frame:
+            continue
+        try:
+            tf = shp.text_frame
+            # Get all paragraph text
+            paragraphs = []
+            for para in tf.paragraphs:
+                t = para.text.strip()
+                if t:
+                    paragraphs.append(t)
+            if len(paragraphs) < 3:
+                continue
+            # Check last paragraph
+            last = paragraphs[-1]
+            # Compute average line length from non-last paragraphs
+            others = paragraphs[:-1]
+            avg_len = sum(len(p) for p in others) / max(len(others), 1)
+            # If last line is dramatically shorter than average
+            if avg_len > 10 and len(last) <= 3 and len(last) < avg_len * max_wrap_ratio:
+                verdict.add(
+                    "unnatural_short_wrapping",
+                    False,
+                    f"last line '{last}' ({len(last)} chars) vs avg {avg_len:.0f} chars across {len(paragraphs)} lines",
+                )
+                return  # one failure per slide is sufficient
+        except Exception:
+            pass
+    # If we got here, no short wrapping found
+    verdict.add(
+        "unnatural_short_wrapping",
+        True,
+        "no unnatural short wrapping detected",
+    )
+
+
+def check_required_icons(
+    slide: Any, slide_idx: int, verdict: VisualFidelityVerdict,
+    required_icon_count: int = 0,
+) -> None:
+    """Check that a slide has at least the required number of icons.
+
+    Icons are approximated as small shapes (width < 1.0in, height < 1.0in)
+    that contain no text or very short text.
+    This is a best-effort heuristic, not pixel-perfect.
+    """
+    if required_icon_count <= 0:
+        return
+    icon_candidates = 0
+    for shp in slide.shapes:
+        w = _in(shp.width)
+        h = _in(shp.height)
+        if w is None or h is None:
+            continue
+        if w >= 1.0 or h >= 1.0:
+            continue  # too large to be an icon
+        # Has fill (graphical, not just text box)
+        try:
+            fill = shp.fill
+            if fill and fill.type is not None:
+                # Has color fill → graphical icon candidate
+                icon_candidates += 1
+        except Exception:
+            pass
+    passed = icon_candidates >= required_icon_count
+    verdict.add(
+        "required_icons_present",
+        passed,
+        f"{icon_candidates} icon candidates found (required={required_icon_count})",
+    )
+
+
+def check_required_layers(
+    slide: Any, slide_idx: int, verdict: VisualFidelityVerdict,
+    required_layer_count: int = 1,
+) -> None:
+    """Check that the slide has sufficient visual depth layers.
+
+    Layers are approximated by detecting distinct z-order groups:
+    - background fills (large shapes at the back)
+    - middle shapes (content cards, rectangles)
+    - foreground/text elements
+    This is a heuristic: count distinct shape types + filled vs unfilled.
+    """
+    if required_layer_count <= 1:
+        return  # single layer is trivially satisfied
+    # Count filled shapes (potential background/layer shapes)
+    filled_count = 0
+    text_only_count = 0
+    small_shape_count = 0
+    large_shape_count = 0
+    for shp in slide.shapes:
+        w = _in(shp.width)
+        h = _in(shp.height)
+        if w is None or h is None:
+            continue
+        area = w * h
+        has_fill = False
+        try:
+            fill = shp.fill
+            if fill and fill.type is not None:
+                has_fill = True
+        except Exception:
+            pass
+        is_text = shp.has_text_frame and shp.text_frame.text.strip()
+        if has_fill:
+            filled_count += 1
+            if area > TOTAL_AREA * 0.3:
+                large_shape_count += 1  # background layer
+            else:
+                small_shape_count += 1  # card/shape layer
+        elif is_text:
+            text_only_count += 1
+    # Heuristic layer detection:
+    # - large filled shapes (background)
+    # - small-medium filled shapes (cards/objects)
+    # - text-only shapes or fine details
+    detected_layers = 1  # baseline: at least content exists
+    if large_shape_count > 0:
+        detected_layers += 1
+    if small_shape_count > 0:
+        detected_layers += 1
+    if text_only_count > 2:
+        detected_layers += 1
+    passed = detected_layers >= required_layer_count
+    verdict.add(
+        "required_layers_present",
+        passed,
+        f"detected {detected_layers} layers (large={large_shape_count}, small={small_shape_count}, text={text_only_count}, required={required_layer_count})",
+    )
 
 def check_visual_fidelity(
     pptx_path: str | Path,
@@ -483,6 +622,15 @@ def check_visual_fidelity(
         check_text_to_graphics_ratio(slide, slide_idx, verdict, mtgr)
 
         check_spatial_balance(slide, slide_idx, verdict)
+
+        # NEW CHECKS
+        ic = features.get("required_icon_count", 0)
+        check_required_icons(slide, slide_idx, verdict, ic)
+
+        lc = features.get("required_layer_count", 1)
+        check_required_layers(slide, slide_idx, verdict, lc)
+
+        check_unnatural_short_wrapping(slide, slide_idx, verdict)
 
         report.add_verdict(verdict)
 
